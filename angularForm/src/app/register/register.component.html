@@ -1,0 +1,74 @@
+<mat-grid-list cols="1" rowHeight="550px">
+
+    <mat-grid-tile>
+        <form (ngSubmit)="onSubmit()">
+            <div class="example-container">
+                <h1>Register</h1>
+                <mat-form-field appearance="outline" class="width-50">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" name="username" id="username" placeholder="Username" [(ngModel)]="username">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="width-50 ml-2">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" name="password" id="password" placeholder="Password" [(ngModel)]="password">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" class="width-20">
+                    <mat-label>คำนำหน้า</mat-label>
+                    <mat-select  matNativeControl [(ngModel)]="selectedPrefix" name="selectedPrefix" (change)="updateData()">
+                      <mat-option *ngFor="let preFix of prefix" [value]="preFix.id">
+                        {{ preFix.prefix_tname }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <!-- <br> -->
+                <!-- <mat-form-field appearance="outline" class="width-20">
+                    <mat-label>คำนำหน้า</mat-label>
+                    <mat-select matNativeControl required>
+                        <mat-option value="volvo">นาย</mat-option>
+                        <mat-option value="saab">นาง</mat-option>
+                        <mat-option value="mercedes">นางสาว</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+                <mat-form-field appearance="outline" class="width-40 ml-2">
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="Ex. พงศกร">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="width-40 ml-2">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Ex. บุปผา">
+                </mat-form-field>
+                 <br>
+                <mat-form-field appearance="outline" class="width-100">
+                    <mat-label>ตำแหน่ง</mat-label>
+                    <mat-select matNativeControl required>
+                        <mat-option value="volvo">ผู้ควบคุม(ผู้ว่าจ้าง)</mat-option>
+                        <mat-option value="saab">ผู้ควบคุม(ผู้รับจ้าง)</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" class="width-50">
+                    <mat-label>Email address</mat-label>
+                    <input matInput type="email" name="email" id="email" placeholder="Ex. test@gmail.com" required [(ngModel)]="email">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="width-50 ml-2">
+                    <mat-label>Tel.</mat-label>
+                    <input type="tel" matInput placeholder="xxx-xxx-xxxx">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" class="width-100">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput placeholder="Ex. 110/1 ม.3 ตำบลหาดใหญ่ อำเภอหาดใหญ่ จังหวัดสงขลา"></textarea>
+                </mat-form-field>
+                <br>
+                <div class="btn">
+                    <button mat-raised-button color="primary" type="submit">Register</button>
+                </div>
+
+            </div>
+        </form>
+    </mat-grid-tile>
+    <!-- <div class="login" *ngIf='this.isLogin'>
+        <h2>You are logged in</h2>
+    </div> -->
+</mat-grid-list>

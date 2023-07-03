@@ -1,0 +1,11 @@
+.menu-spacer {
+    flex: 1 1 auto;
+}
+
+.title {
+    font-size: x-large;
+}
+
+.menu a {
+    margin-left: 20px;
+}
