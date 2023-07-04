@@ -24,8 +24,15 @@
         && !empty($req['user_fname']) && !empty($req['user_lname']) && !empty($req['pos_id'])
         && !empty($req['user_email']) && !empty($req['user_tel'])) {
 
+        $checkUser = $detail->getUserByUsername($req['username']);
+        if ($checkUser) {
+            $response = array("status" => "error", "message" => "Username already exists.");
+            echo json_encode($response);
+            exit;
+        }
+
         $detail->username = $req['username'];
-        $detail->password = $req['password'];
+        $detail->password = password_hash($req['password'], PASSWORD_DEFAULT);
         $detail->user_fname = $req['user_fname'];
         $detail->user_lname = $req['user_lname'];
         $detail->user_email = $req['user_email'];

@@ -47,9 +47,6 @@
         // Create User
         public function create($selectedPrefix, $selectedPosition) {
 
-            // $selectedPrefix = $_POST['prefix_id'];
-            // $selectedPosition = $_POST['pos_id'];
-
             $query = 'INSERT INTO ' . $this->table . '
             SET
                 username = :username,
@@ -145,6 +142,16 @@
             }
 
             return false;
+        }
+
+
+        public function getUserByUsername($username) {
+            $query = "SELECT * FROM " . $this->table . " WHERE username = :username";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row;
         }
 
 
