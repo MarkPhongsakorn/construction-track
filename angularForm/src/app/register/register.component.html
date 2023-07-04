@@ -44,7 +44,6 @@
                 <mat-form-field appearance="outline" class="width-100">
                     <mat-label>ตำแหน่ง</mat-label>
                     <mat-select matNativeControl [(ngModel)]="selectedPosition" name="selectedPosition">
-                        <!-- <mat-option value="">----- เลือกตำแหน่ง ------</mat-option> -->
                         <mat-option *ngFor="let pos of positions" [value]="pos.pos_id">
                             {{ pos.pos_name }}
                         </mat-option>
@@ -55,7 +54,7 @@
                 <!-- อีเมล -->
                 <mat-form-field appearance="outline" class="width-50">
                     <mat-label>Email address</mat-label>
-                    <input matInput type="email" name="user_email" id="user_email" placeholder="Ex. test@gmail.com" required
+                    <input matInput type="email" name="user_email" id="user_email" placeholder="Ex. test@gmail.com"
                         [(ngModel)]="user_email">
                 </mat-form-field>
                 <!-- เบอร์โทร -->
