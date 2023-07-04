@@ -6,7 +6,6 @@
 
     include_once '../../config/database.php';
     include_once '../../models/user_detail.php';
-    include_once '../../models/user_login.php';
     include_once '../../models/prefix.php';
     include_once '../../models/position.php';
 
@@ -14,37 +13,42 @@
     $db = $database->connect();
 
     $detail = new Detail($db);
-    $login = new Login($db);
     $prefix = new Prefix($db);
     $pos = new Position($db);
 
-    $data = file_get_contents("php://input");
-    $req = json_decode($data, true);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if ($req && !empty($req['username']) && !empty($req['password']) && !empty($req['prefix_name']) && !empty($req['user_fname']) && !empty($req['user_lname'])
-     && !empty($req['pos_name']) && !empty($req['user_email']) && !empty($req['user_tel']) && !empty($req['user_address'])) {
-        
-        if ($login->create()) {
-            $detail->user_login_id = $login->user_login_id;
-            if ($prefix->create()) {
-                $detail->prefix_id = $prefix->prefix_id;
-                if ($pos->create()) {
-                    $detail->pos_id = $pos->pos_id;
-                    $users->username = $req['username'];
-                    $users->email = $req['email'];
-                    $users->password = $req['password'];
+        $data = file_get_contents("php://input");
+        $req = json_decode($data, true);
 
-                    if ($users->create()) {
-                        $response = array("status" => "success", "message" => "User created.");
-                    } else {
-                        $response = array("status" => "error", "message" => "Failed to create user.");
-                    }
-                }
+        if ($req && !empty($req['username']) && !empty($req['password']) && !empty($req['prefix_id'])
+         && !empty($req['user_fname']) && !empty($req['user_lname']) && !empty($req['pos_id'])
+          && !empty($req['user_email']) && !empty($req['user_tel'])) {
+
+            $detail->username = $req['username'];
+            $detail->password = $req['password'];
+            $detail->user_fname = $req['user_fname'];
+            $detail->user_lname = $req['user_lname'];
+            $detail->user_email = $req['user_email'];
+            $detail->user_tel = $req['user_tel'];
+            $selectedPrefix = $req['prefix_id'];
+            $selectedPosition = $req['pos_id'];
+
+            if ($detail->create($selectedPrefix, $selectedPosition)) {
+                $response = array("status" => "success", "message" => "User created.");
+            } else {
+                $response = array("status" => "error", "message" => "Failed to create user.");
             }
+        } else {
+            $response = array("status" => "error", "message" => "Invalid request data.");
         }
-    } else {
-        $response = array("status" => "error", "message" => "Invalid request data.");
-    }
 
-    echo json_encode($response);
+        echo json_encode($response);
+
+    }
+?>
+
+    
+
+    
 ?>

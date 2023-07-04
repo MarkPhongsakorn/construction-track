@@ -25,14 +25,15 @@
 
             $detail_item = array(
                 'user_detail_id' => $user_detail_id,
-                'user_login_id' => $user_login_id,
+                'username' => $username,
+                'password' => $password,
+                'prefix_id' => $prefix_id,
                 'user_fname' => $user_fname,
-                'user_lname' => $user_lname,
+                'user_lname' => $user_lname,          
+                'pos_id' => $pos_id,
                 'user_email' => $user_email,
                 'user_tel' => $user_tel,
-                'user_address' => $user_address,
-                'prefix_id' => $prefix_id,
-                'pos_id' => $pos_id,
+
             );
 
             array_push($detail_arr, $detail_item);

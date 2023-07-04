@@ -16,6 +16,7 @@
     $req = json_decode($data, true);
 
     if ($req && !empty($req['prefix_tname'])) {
+        
         $prefix->prefix_tname = $req['prefix_tname'];
 
         if ($prefix->create()) {
