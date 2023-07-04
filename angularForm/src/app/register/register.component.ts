@@ -46,11 +46,16 @@ export class RegisterComponent implements OnInit {
 
   save() {
     const data = {
-      username: this.username, password: this.password, prefix_id: this.selectedPrefix,
-      user_fname: this.user_fname, user_lname: this.user_lname, pos_id: this.selectedPosition,
-      user_email: this.user_email, user_tel: this.user_tel
+      username: this.username,
+      password: this.password,
+      prefix_id: this.selectedPrefix,
+      user_fname: this.user_fname,
+      user_lname: this.user_lname,
+      pos_id: this.selectedPosition,
+      user_email: this.user_email,
+      user_tel: this.user_tel
     };
-
+  
     this.userService.createUser(data).subscribe((res: any) => {
       if (res.status === 'success') {
         console.log(res);
@@ -64,13 +69,13 @@ export class RegisterComponent implements OnInit {
         sessionStorage.setItem('pos_id', this.selectedPosition);
         sessionStorage.setItem('prefix_id', this.selectedPrefix);
         this.router.navigate(['/login']);
-
       } else {
         console.log(res.message); // Failed to create user
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
       }
     });
   }
+  
 
   onSubmit() {
     this.submitted = true;

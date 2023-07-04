@@ -16,39 +16,32 @@
     $prefix = new Prefix($db);
     $pos = new Position($db);
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $data = file_get_contents("php://input");
-        $req = json_decode($data, true);
+    $data = file_get_contents("php://input");
+    $req = json_decode($data, true);
 
-        if ($req && !empty($req['username']) && !empty($req['password']) && !empty($req['prefix_id'])
-         && !empty($req['user_fname']) && !empty($req['user_lname']) && !empty($req['pos_id'])
-          && !empty($req['user_email']) && !empty($req['user_tel'])) {
+    if ($req && !empty($req['username']) && !empty($req['password']) && !empty($req['prefix_id'])
+        && !empty($req['user_fname']) && !empty($req['user_lname']) && !empty($req['pos_id'])
+        && !empty($req['user_email']) && !empty($req['user_tel'])) {
 
-            $detail->username = $req['username'];
-            $detail->password = $req['password'];
-            $detail->user_fname = $req['user_fname'];
-            $detail->user_lname = $req['user_lname'];
-            $detail->user_email = $req['user_email'];
-            $detail->user_tel = $req['user_tel'];
-            $selectedPrefix = $req['prefix_id'];
-            $selectedPosition = $req['pos_id'];
+        $detail->username = $req['username'];
+        $detail->password = $req['password'];
+        $detail->user_fname = $req['user_fname'];
+        $detail->user_lname = $req['user_lname'];
+        $detail->user_email = $req['user_email'];
+        $detail->user_tel = $req['user_tel'];
+        $selectedPrefix = $req['prefix_id'];
+        $selectedPosition = $req['pos_id'];
 
-            if ($detail->create($selectedPrefix, $selectedPosition)) {
-                $response = array("status" => "success", "message" => "User created.");
-            } else {
-                $response = array("status" => "error", "message" => "Failed to create user.");
-            }
+        if ($detail->create($selectedPrefix, $selectedPosition)) {
+            $response = array("status" => "success", "message" => "User created.");
         } else {
-            $response = array("status" => "error", "message" => "Invalid request data.");
+            $response = array("status" => "error", "message" => "Failed to create user.");
         }
-
-        echo json_encode($response);
-
+    } else {
+        $response = array("status" => "error", "message" => "Invalid request data.");
     }
-?>
 
-    
+    echo json_encode($response);
 
-    
 ?>
