@@ -1,0 +1,54 @@
+
+mat-grid-tile {
+    background: #fafafa;
+}
+
+.width-50 {
+    width: 49%;
+}
+
+.ml-1 {
+    margin-left: 1%;
+}
+
+.ml-2 {
+    margin-left: 2%;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.width-20 {
+    width: 20%;
+}
+
+.width-40 {
+    width: 38%;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 16px;
+}
+h2 {
+    text-align: center;
+    margin-top: 5rem;
+    font-weight: bold;
+}
+
+.btn {
+    display: flex;
+}
+
+.btn button {
+    margin: auto;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6rem;
+}

@@ -29,10 +29,11 @@ export class UserService {
   }
 
   getUserList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}//backend/api/user_detail/read.php`);
+    return this.http.get(`${this.baseUrl}/backend/api/user_detail/read.php`);
   }
 
-  checkuser(): Observable<any> {
-    return this.http.get(`${this.baseUrl}//backend/api/user_detail/login.php`);
+  checkuser(user: Object): Observable<any> {
+    return this.http.post(`${this.baseUrl}/backend/api/user_detail/login.php`, user);
   }
+  
 }

@@ -23,16 +23,18 @@
         $detail->password = $req['password'];
 
         if ($detail->loginUser()) {
-            http_response_code(200);
-            echo json_encode(array("message" => "Login successful."));
+            // http_response_code(200);
+            $response = array("status" => "success", "message" => "Login Success.");
         } else {
-            http_response_code(401);
-            echo json_encode(array("message" => "Login failed."));
+            // http_response_code(401);
+            $response = array("status" => "error", "message" => "Failed to login user.");
         }
     } else {
-        http_response_code(400);
-        echo json_encode(array("message" => "Invalid login data."));
+        // http_response_code(400);
+        $response = array("status" => "error", "message" => "Invalid login data.");
     }
+
+    echo json_encode($response);
     
 
 ?>

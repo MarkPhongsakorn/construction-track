@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private prefixService: PrefixService,
-    private positionService: PositionService,
+    // private prefixService: PrefixService,
+    // private positionService: PositionService,
     private router: Router
   ) { }
 
@@ -25,11 +25,19 @@ export class LoginComponent implements OnInit {
     
   }
 
-  login():void {
+  login(): void {
     const data = { username: this.username, password: this.password };
 
     this.userService.checkuser(data).subscribe((res: any) => {
-      
+      if (res.status === 'success') {
+        console.log(res)
+        sessionStorage.setItem('username', this.username);
+        sessionStorage.setItem('password', this.password);
+        this.router.navigate(['/']);
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
     })
   }
 
