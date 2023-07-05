@@ -70,6 +70,8 @@
             $this->prefix_id = $selectedPrefix;
             $this->pos_id = $selectedPosition;
 
+            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+
             $stmt->bindParam(':username', $this->username);
             $stmt->bindParam(':password', $this->password);
             $stmt->bindParam(':user_fname', $this->user_fname);
@@ -103,6 +105,8 @@
                 user_detail_id = :user_detail_id';
 
             $stmt = $this->conn->prepare($query);
+
+            
 
             $this->username = htmlspecialchars(strip_tags($this->username));
             $this->password = htmlspecialchars(strip_tags($this->password));
@@ -146,12 +150,37 @@
 
 
         public function getUserByUsername($username) {
-            $query = "SELECT * FROM " . $this->table . " WHERE username = :username";
+
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE username = :username';
             $stmt = $this->conn->prepare($query);
+
             $stmt->bindParam(':username', $username);
             $stmt->execute();
+
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             return $row;
+        }
+
+        public function loginUser() {
+
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE username = :username';
+            $stmt = $this->conn->prepare($query);
+        
+            $stmt->bindParam(':username', $this->username);
+            // $stmt->bindParam(':password', $this->password);
+        
+            $stmt->execute();
+        
+            if ($stmt->rowCount() > 0) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $hashedPassword = $row['password'];
+                
+                if (password_verify($this->password, $hashedPassword)) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
         }
 
 

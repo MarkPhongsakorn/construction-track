@@ -32,7 +32,7 @@
         }
 
         $detail->username = $req['username'];
-        $detail->password = password_hash($req['password'], PASSWORD_DEFAULT);
+        $detail->password = $req['password'];
         $detail->user_fname = $req['user_fname'];
         $detail->user_lname = $req['user_lname'];
         $detail->user_email = $req['user_email'];

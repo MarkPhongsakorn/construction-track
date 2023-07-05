@@ -31,4 +31,8 @@ export class UserService {
   getUserList(): Observable<any> {
     return this.http.get(`${this.baseUrl}//backend/api/user_detail/read.php`);
   }
+
+  checkuser(): Observable<any> {
+    return this.http.get(`${this.baseUrl}//backend/api/user_detail/login.php`);
+  }
 }
