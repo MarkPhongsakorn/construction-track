@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/users/user.service';
-import { PrefixService } from '../services/users/prefix.service';
-import { PositionService } from '../services/users/position.service';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,8 +15,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    // private prefixService: PrefixService,
-    // private positionService: PositionService,
     private router: Router
   ) { }
 
@@ -31,9 +28,19 @@ export class LoginComponent implements OnInit {
     this.userService.checkuser(data).subscribe((res: any) => {
       if (res.status === 'success') {
         console.log(res)
+
+        const position = res.pos_id;
+
         sessionStorage.setItem('username', this.username);
         sessionStorage.setItem('password', this.password);
-        this.router.navigate(['/']);
+        sessionStorage.setItem('pos_id', position);
+
+        if (position === 1) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate(['/dashbord']);
+        }
+
       } else {
         console.log(res.message); // Failed to create user
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');

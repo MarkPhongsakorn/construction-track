@@ -8,11 +8,13 @@
 
     include_once '../../config/database.php';
     include_once '../../models/user_detail.php';
+    include_once '../../models/position.php';
 
     $database = new Database();
     $db = $database->connect();
 
     $detail = new Detail($db);
+    $pos = new Position($db);
 
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
@@ -21,16 +23,17 @@
 
         $detail->username = $req['username'];
         $detail->password = $req['password'];
+        
 
         if ($detail->loginUser()) {
-            // http_response_code(200);
             $response = array("status" => "success", "message" => "Login Success.");
+
+            $response['pos_id'] = $detail->getPos();
+            
         } else {
-            // http_response_code(401);
             $response = array("status" => "error", "message" => "Failed to login user.");
         }
     } else {
-        // http_response_code(400);
         $response = array("status" => "error", "message" => "Invalid login data.");
     }
 

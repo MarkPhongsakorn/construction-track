@@ -14,4 +14,5 @@ export class PositionService {
   getPos(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/backend/api/position/read.php`);
   }
+
 }

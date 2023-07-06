@@ -167,7 +167,7 @@
             $stmt = $this->conn->prepare($query);
         
             $stmt->bindParam(':username', $this->username);
-            // $stmt->bindParam(':password', $this->password);
+
         
             $stmt->execute();
         
@@ -176,12 +176,34 @@
                 $hashedPassword = $row['password'];
                 
                 if (password_verify($this->password, $hashedPassword)) {
+
+                    $this->position = $this->userById($this->username);
+
                     return true;
                 }
             } else {
                 return false;
             }
         }
+
+        public function getPos() {
+            return $this->position;
+        }
+
+        public function userById($username) {
+
+            $query = 'SELECT pos_id FROM ' . $this->table . ' WHERE username = :username';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $position = $row['pos_id'];
+
+            return $position;
+
+        }
+
 
 
     }
