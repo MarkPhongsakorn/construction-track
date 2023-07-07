@@ -1,10 +1,11 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row >
-    <a class="title" mat-button [routerLink]="['']" routerLinkActive="active">My App</a>
+    <a class="title" mat-button [routerLink]="['']" routerLinkActive="active">ระบบติดตามและตรวจงานสิ่งก่อสร้าง</a>
     <span class="menu-spacer"></span>
     <div class="menu">
-      <a mat-button [routerLink]="['']" routerLinkActive="active" >Home</a>
-      <a mat-button [routerLink]="['dashbord']" routerLinkActive="active" *ngIf='this.isLogin'>Dashboard</a>
+      <!-- <a mat-button [routerLink]="['']" routerLinkActive="active" *ngIf='this.isLogin'>Home</a> -->
+      <a mat-button [routerLink]="['company']" routerLinkActive="active" *ngIf='this.isLogin'>Company</a>
+      <a mat-button [routerLink]="['dashboard']" routerLinkActive="active" *ngIf='this.isLogin'>Dashboard</a>
       <a mat-button [routerLink]="['login']" routerLinkActive="active" *ngIf='!this.isLogin'>Login</a>
       <a mat-button [routerLink]="['register']" routerLinkActive="active" *ngIf='!this.isLogin'>Register</a>
       <a mat-button (click)='logout()' *ngIf='this.isLogin'>Logout</a>

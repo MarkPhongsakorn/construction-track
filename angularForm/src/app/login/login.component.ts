@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('pos_id', position);
 
         if (position === 1) {
-          this.router.navigate(['/']).then(() => {
+          this.router.navigate(['/company']).then(() => {
             window.location.reload();
           });
         } else {
-          this.router.navigate(['/dashbord']).then(() => {
+          this.router.navigate(['/dashboard']).then(() => {
             window.location.reload();
           });
         }

@@ -16,18 +16,25 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DashbordComponent } from './dashbord/dashbord.component';
+import { AuthGuardService } from './services/users/auth-guard.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CompanyComponent } from './company/company.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashbordComponent
+    DashboardComponent,
+    CompanyComponent,
+    AddProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +52,10 @@ import { DashbordComponent } from './dashbord/dashbord.component';
     MatGridListModule,
     MatDividerModule,
     FormsModule,
+    MatDialogModule,
+    MatDatepickerModule,
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

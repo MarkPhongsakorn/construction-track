@@ -1,0 +1,23 @@
+/* .example-spacer {
+    flex: 1 1 auto;
+  } */
+
+mat-toolbar-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin-top: 20px;
+}
+
+mat-toolbar-row button {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+mat-toolbar-row h1 {
+    margin-left: 20px;
+    margin-bottom: 0px;
+    font-size: xx-large;
+    font-weight: bold;
+}
