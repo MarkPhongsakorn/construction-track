@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/users/user.service';
+import { AuthService } from '../services/users/auth.service';
 
 import { Router } from '@angular/router';
 
@@ -13,13 +14,16 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
 
+  isLogin: boolean = false;
+
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit(){
-    
+    this.isUserLogin();
   }
 
   login(): void {
@@ -36,9 +40,13 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('pos_id', position);
 
         if (position === 1) {
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
         } else {
-          this.router.navigate(['/dashbord']);
+          this.router.navigate(['/dashbord']).then(() => {
+            window.location.reload();
+          });
         }
 
       } else {
@@ -46,6 +54,17 @@ export class LoginComponent implements OnInit {
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
       }
     })
+  }
+
+  isUserLogin() {
+    if (this.authService.getLogin() != null) {
+      this.isLogin = true;
+    }
+  }
+
+  logout() {
+    this.authService.clearStorage();
+    this.router.navigate(['/']);
   }
 
   onSubmit() {
