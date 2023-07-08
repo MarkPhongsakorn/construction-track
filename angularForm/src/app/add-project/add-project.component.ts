@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/users/user.service';
 import { ProjectService } from '../services/projects/project.service';
+import { format } from 'date-fns-tz';
 
 @Component({
   selector: 'app-add-project',
@@ -30,15 +31,23 @@ export class AddProjectComponent implements OnInit {
   }
 
   project() {
+    const projectStart = new Date(this.project_start);
+    projectStart.setHours(0, 0, 0, 0);
+    const projectStartThailand = format(projectStart, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
+
+    const projectEnd = new Date(this.project_end);
+    projectEnd.setHours(0, 0, 0, 0);
+    const projectEndThailand = format(projectEnd, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
+
     const data = {
       project_name: this.project_name,
-      project_start: this.project_start,
-      project_end: this.project_end,
+      project_start: projectStartThailand,
+      project_end: projectEndThailand,
       user_detail_id: this.selectUserId
     };
     this.projectService.createProject(data).subscribe((res: any) => {
       if (res.status === 'success') {
-        this.router.navigate(['/dashboard']);
+        window.location.reload();
       } else {
         console.log(res.message); // Failed to create user
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');

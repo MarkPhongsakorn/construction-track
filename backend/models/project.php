@@ -4,6 +4,8 @@
 
         private $conn;
         private $table = "tb_project";
+        private $table2 = "tb_user_detail";
+        
 
         public $project_id;
         public $project_name;
@@ -18,8 +20,11 @@
 
         public function read() {
 
-            $query = 'SELECT * FROM ' . $this->table . '';
-            $stmt->$this->conn->prepare($query);
+            $query = 'SELECT * FROM ' . $this->table . 
+            ' LEFT JOIN ' . $this->table2 . ' ON ' 
+            . $this->table . '.user_detail_id = '  . $this->table2 . '.user_detail_id';
+
+            $stmt = $this->conn->prepare($query);
             $stmt->execute();
 
             return $stmt;

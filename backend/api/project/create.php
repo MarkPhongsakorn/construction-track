@@ -11,7 +11,6 @@
     $database = new Database();
     $db = $database->connect();
 
-    $detail = new Detail($db);
     $project = new Project($db);
 
 

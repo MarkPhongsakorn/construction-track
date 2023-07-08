@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -26,6 +27,7 @@ import { AuthGuardService } from './services/users/auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CompanyComponent } from './company/company.component';
 import { AddProjectComponent } from './add-project/add-project.component';
+
 
 @NgModule({
   declarations: [
@@ -54,6 +56,10 @@ import { AddProjectComponent } from './add-project/add-project.component';
     FormsModule,
     MatDialogModule,
     MatDatepickerModule,
+    MatTableModule,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]

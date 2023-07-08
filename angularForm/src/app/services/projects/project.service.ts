@@ -17,4 +17,8 @@ export class ProjectService {
     return this.http.post(`${this.baseUrl}/backend/api/project/create.php`, user);
   }
 
+  readProject(): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/project/read.php`);
+  }
+
 }
