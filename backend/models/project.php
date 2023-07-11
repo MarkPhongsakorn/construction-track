@@ -32,9 +32,12 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE project_id = :project_id';
+            $query = 'SELECT * FROM ' . $this->table . ' 
+                        LEFT JOIN ' . $this->table2 . ' 
+                        ON ' . $this->table . '.user_detail_id = ' . $this->table2 . '.user_detail_id 
+                        WHERE ' . $this->table . '.project_id = :project_id';
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':project', $this->project_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->execute();
 
             return $stmt;

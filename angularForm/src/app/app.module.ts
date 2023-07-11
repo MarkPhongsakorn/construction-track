@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { AuthGuardService } from './services/users/auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CompanyComponent } from './company/company.component';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AddProjectComponent } from './add-project/add-project.component';
     RegisterComponent,
     DashboardComponent,
     CompanyComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    EditProjectComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +59,6 @@ import { AddProjectComponent } from './add-project/add-project.component';
     MatDialogModule,
     MatDatepickerModule,
     MatTableModule,
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]

@@ -30,3 +30,7 @@ table {
     font-size: 14px;
     width: 100%;
 }
+
+a {
+    margin: 5px 5px;
+}
