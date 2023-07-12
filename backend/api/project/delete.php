@@ -6,21 +6,23 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/users.php';
+    include_once '../../models/project.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $users = new Users($db);
+    $project = new Project($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $users->id = isset($_GET['id']) ? $_GET['id'] : die();
+    $project->project_id = isset($_GET['project_id']) ? $_GET['project_id'] : die();
 
-    if($users->delete()) {
-        echo json_encode("User deleted.");
+    if($project->delete()) {
+        $response = array("status" => "success", "message" => "User deleted.");
     } else {
-        echo json_encode("Not deleted.");
+        $response = array("status" => "error", "message" => "Failed to deleted user.");
     }
+    echo json_encode($response);
+
 
 ?>

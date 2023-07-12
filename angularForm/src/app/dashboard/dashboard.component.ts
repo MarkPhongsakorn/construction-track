@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProjectComponent } from '../add-project/add-project.component';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
+import { DeleteProjectComponent } from '../delete-project/delete-project.component';
 import { ProjectService } from '../services/projects/project.service';
 
 @Component({
@@ -40,7 +41,14 @@ export class DashboardComponent implements OnInit {
 
   openDialog2(project_id: string) {
      this.project_id = project_id;
-    const dialogRef = this.dialog.open(EditProjectComponent, {
+    const dialogRef1 = this.dialog.open(EditProjectComponent, {
+      data: {project_id: this.project_id}
+    });
+  }
+
+  openDialog3(project_id: string) {
+    this.project_id = project_id;
+    const dialogRef2 = this.dialog.open(DeleteProjectComponent, {
       data: {project_id: this.project_id}
     });
   }

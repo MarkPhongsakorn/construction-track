@@ -148,7 +148,7 @@
             return false;
         }
 
-
+        // เช็ค username ไม่ให้ซ้ำกัน
         public function getUserByUsername($username) {
 
             $query = 'SELECT * FROM ' . $this->table . ' WHERE username = :username';
@@ -161,6 +161,7 @@
             return $row;
         }
 
+        // login 
         public function loginUser() {
 
             $query = 'SELECT * FROM ' . $this->table . ' WHERE username = :username';

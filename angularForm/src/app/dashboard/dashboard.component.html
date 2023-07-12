@@ -39,7 +39,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
       <td mat-cell *matCellDef="let row">
           <a mat-raised-button color="primary" (click)="openDialog2(row.project_id)">Edit</a>
-          <a mat-raised-button color="warn">Delete</a>
+          <a mat-raised-button color="warn" (click)="openDialog3(row.project_id)">Delete</a>
       </td>
     </ng-container>
 

@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProjectService } from '../services/projects/project.service';
 import { UserService } from '../services/users/user.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { format } from 'date-fns-tz';
 
 @Component({
   selector: 'app-edit-project',
@@ -13,7 +14,9 @@ export class EditProjectComponent implements OnInit {
 
   user: any[] = [];
   users:any[]=[];
+  selected: string = '';
   selectUserId: string = '';
+  
 
   project_id: string = '';
   project_name: string = '';
@@ -25,11 +28,10 @@ export class EditProjectComponent implements OnInit {
   
 
   constructor(
-    public dialogRef: MatDialogRef<EditProjectComponent>,
+    public dialogRef1: MatDialogRef<EditProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private project: ProjectService,
     private router: Router,
-    private route: ActivatedRoute,
     private userService: UserService
   ) {}
   ngOnInit() {
@@ -38,8 +40,9 @@ export class EditProjectComponent implements OnInit {
       this.project_name = data['project_name'];
       this.project_start = data['project_start'];
       this.project_end = data['project_end'];
-      return this.user_fname = data['user_fname'],
-      this.user_lname = data['user_lname']
+      this.user_fname = data['user_fname'];
+      this.user_lname = data['user_lname'];
+      return this.selected = data['user_detail_id'];
     });
     
     this.userService.getUserList().subscribe(data => {
@@ -49,7 +52,29 @@ export class EditProjectComponent implements OnInit {
   }
   
   update() {
-   
+    const projectStart = new Date(this.project_start);
+    projectStart.setHours(0, 0, 0, 0);
+    const projectStartThailand = format(projectStart, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
+
+    const projectEnd = new Date(this.project_end);
+    projectEnd.setHours(0, 0, 0, 0);
+    const projectEndThailand = format(projectEnd, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
+
+    const data = {
+      project_id: this.data.project_id,
+      project_name: this.project_name,
+      project_start: projectStartThailand,
+      project_end: projectEndThailand,
+      user_detail_id: this.selectUserId
+    };
+    this.project.update(data).subscribe((res: any) => {
+      if (res.status === 'success') {
+        // window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    })
   }
   
   onSubmit() {

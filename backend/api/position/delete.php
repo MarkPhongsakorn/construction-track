@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $pos->pos_id = $data->pos_id;
+    $pos->pos_id = isset($_GET['pos_id']) ? $_GET['pos_id'] : die();
 
     if($pos->delete()) {
         echo json_encode("User deleted.");

@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $prefix->prefix_id = $data->prefix_id;
+    $prefix->prefix_id = isset($_GET['prefix_id']) ? $_GET['prefix_id'] : die();
 
     if($prefix->delete()) {
         echo json_encode("User deleted.");

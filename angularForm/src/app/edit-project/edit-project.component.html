@@ -26,7 +26,6 @@
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>ผู้ควบคุมงาน</mat-label>
             <mat-select matNativeControl  [(ngModel)]="selectUserId" name="selectUserId">
-                <mat-option>{{ user_fname }} {{ user_lname }}</mat-option>
                 <mat-option *ngFor="let userId of user" [value]="userId.user_detail_id">
                     {{ userId.user_fname }} {{ userId.user_lname }}
                 </mat-option>
@@ -34,7 +33,7 @@
         </mat-form-field>
         <!-- <mat-form-field> -->
             <br>
-            <!-- <mat-label>ผู้ควบคุม: นาย พงศกร บุปผา</mat-label> -->
+            <!-- <mat-label>ผู้ควบคุม:{{ user_fname }} {{ user_lname }}</mat-label> -->
         <!-- </mat-form-field> -->
     </div>
 </div>
