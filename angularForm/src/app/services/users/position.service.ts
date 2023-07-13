@@ -15,4 +15,8 @@ export class PositionService {
     return this.http.get<any[]>(`${this.baseUrl}/backend/api/position/read.php`);
   }
 
+  getOne(pos_id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/backend/api/position/read.php`,{ params: { pos_id: pos_id }});
+  }
+
 }

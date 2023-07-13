@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/users/auth.service';
 import { Router } from '@angular/router';
+import { PositionService } from './services/users/position.service';
+import { UserService } from './services/users/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +13,16 @@ export class AppComponent implements OnInit {
   title = 'angularForm';
 
   isLogin: boolean = false;
+  isPos1: boolean = false;
+  isPos2: boolean = false;
+
+  post: string = '';
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private posService: PositionService,
+    private userService: UserService,
   ) {}
 
   ngOnInit(){
@@ -24,6 +32,11 @@ export class AppComponent implements OnInit {
   isUserLogin() {
     if (this.authService.getLogin() != null) {
       this.isLogin = true;
+      if (sessionStorage.getItem('pos_id') === '1') {
+        this.isPos1 = true
+      } else {
+        this.isPos2 = true
+      }
     }
   }
 

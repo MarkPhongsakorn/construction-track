@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(){
-    this.isUserLogin();
   }
 
   login(): void {
@@ -54,12 +53,6 @@ export class LoginComponent implements OnInit {
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
       }
     })
-  }
-
-  isUserLogin() {
-    if (this.authService.getLogin() != null) {
-      this.isLogin = true;
-    }
   }
 
   logout() {
