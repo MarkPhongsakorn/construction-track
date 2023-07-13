@@ -21,6 +21,14 @@ export class AuthService {
     }
   }
 
+  getPos() {
+    if (sessionStorage.getItem('pos_id')) {
+      return sessionStorage.getItem('pos_id')
+    } else {
+      return null
+    }
+  }
+
   clearStorage() {
     sessionStorage.clear();
   }

@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
   isUserLogin() {
     if (this.authService.getLogin() != null) {
       this.isLogin = true;
-      if (sessionStorage.getItem('pos_id') === '1') {
+      if (this.authService.getPos() === '1') {
         this.isPos1 = true
       } else {
         this.isPos2 = true
