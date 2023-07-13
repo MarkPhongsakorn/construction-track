@@ -26,6 +26,7 @@
                 'project_name' => $row['project_name'],
                 'project_start' => $row['project_start'],
                 'project_end' => $row['project_end'],
+                'user_detail_id' => $row['user_detail_id'],
                 'user_fname' => $row['user_fname'],
                 'user_lname' => $row['user_lname']
             );

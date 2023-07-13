@@ -9,13 +9,17 @@ import { ProjectService } from '../services/projects/project.service';
 })
 export class DeleteProjectComponent implements OnInit {
 
+  project_name: string = '';
+
   constructor(
     public dialogRef2: MatDialogRef<DeleteProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private project: ProjectService,
   ) {}
   ngOnInit() {
-    
+    this.project.readOne(this.data.project_id).subscribe(data => {
+      this.project_name = data['project_name'];
+    })
   }
   delete() {
     this.project.delete(this.data.project_id).subscribe(res => {

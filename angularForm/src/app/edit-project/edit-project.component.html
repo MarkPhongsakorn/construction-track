@@ -25,7 +25,7 @@
         <!-- ผู้ควบคุมงาน -->
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>ผู้ควบคุมงาน</mat-label>
-            <mat-select matNativeControl  [(ngModel)]="selectUserId" name="selectUserId">
+            <mat-select matNativeControl  [(ngModel)]="selectUserId" name="selectUserId" >
                 <mat-option *ngFor="let userId of user" [value]="userId.user_detail_id">
                     {{ userId.user_fname }} {{ userId.user_lname }}
                 </mat-option>

@@ -14,7 +14,7 @@ export class EditProjectComponent implements OnInit {
 
   user: any[] = [];
   users:any[]=[];
-  selected: string = '';
+  selected: boolean = false;
   selectUserId: string = '';
   
 
@@ -34,20 +34,23 @@ export class EditProjectComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
+
   ngOnInit() {
 
     this.project.readOne(this.data.project_id).subscribe(data => {
       this.project_name = data['project_name'];
       this.project_start = data['project_start'];
       this.project_end = data['project_end'];
-      this.user_fname = data['user_fname'];
-      this.user_lname = data['user_lname'];
-      return this.selected = data['user_detail_id'];
+      if (this.user_detail_id = data['user_detail_id']) {
+        this.selectUserId = this.user_detail_id
+      }
+      
     });
     
     this.userService.getUserList().subscribe(data => {
       return this.user = data;
     });
+
     
   }
   
@@ -69,7 +72,7 @@ export class EditProjectComponent implements OnInit {
     };
     this.project.update(data).subscribe((res: any) => {
       if (res.status === 'success') {
-        // window.location.reload();
+        window.location.reload();
       } else {
         console.log(res.message); // Failed to create user
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
