@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectService } from '../services/projects/project.service';
 import { UserService } from '../services/users/user.service';
+import { CompanyService } from '../services/companies/company.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { format } from 'date-fns-tz';
 
@@ -14,8 +15,10 @@ export class EditProjectComponent implements OnInit {
 
   user: any[] = [];
   users:any[]=[];
-  selected: boolean = false;
   selectUserId: string = '';
+
+  comp: any[] = [];
+  selectCompId: string = '';
   
 
   project_id: string = '';
@@ -25,14 +28,16 @@ export class EditProjectComponent implements OnInit {
   user_detail_id: string = '';
   user_fname: string = '';
   user_lname: string = '';
+  comp_id: string = '';
   
 
   constructor(
-    public dialogRef1: MatDialogRef<EditProjectComponent>,
+    public dialogRef: MatDialogRef<EditProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private project: ProjectService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private companyService: CompanyService
   ) {}
 
   ngOnInit() {
@@ -44,12 +49,19 @@ export class EditProjectComponent implements OnInit {
       if (this.user_detail_id = data['user_detail_id']) {
         this.selectUserId = this.user_detail_id
       }
+      if (this.comp_id = data['comp_id']) {
+        this.selectCompId = this.comp_id
+      }
       
     });
     
     this.userService.getUserList().subscribe(data => {
       return this.user = data;
     });
+
+    this.companyService.getComp().subscribe(data => {
+      return this.comp = data;
+    })
 
     
   }

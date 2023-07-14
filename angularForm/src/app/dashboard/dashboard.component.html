@@ -3,28 +3,32 @@
   <button mat-raised-button color="accent" (click)="openDialog()">ADD PROJECT</button>
 </mat-toolbar-row>
 
-<div>
-  <table mat-table [dataSource]="dataSource" matSort>
+<div class="not" *ngIf="this.projectID">
+  <h1>ไม่มีข้อมูล</h1>
+</div>
 
-    <!-- ID Column -->
+<div *ngIf="!this.projectID">
+  
+  <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource.length > 0">
+
     <ng-container matColumnDef="project_id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
       <td mat-cell *matCellDef="let row"> {{row.project_id}} </td>
     </ng-container>
 
-    <!-- Progress Column -->
+
     <ng-container matColumnDef="project_name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อ </th>
-      <td mat-cell *matCellDef="let row"> <a href="http://localhost:4200/company/?project_id={{row.project_id}}"> {{row.project_name}} </a> </td>
+      <td mat-cell *matCellDef="let row"><a href="dailyreport">{{row.project_name}}</a></td>
     </ng-container>
 
-    <!-- Name Column -->
+
     <ng-container matColumnDef="project_start">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> วันที่เริ่ม </th>
       <td mat-cell *matCellDef="let row"> {{row.project_start}} </td>
     </ng-container>
 
-    <!-- Fruit Column -->
+
     <ng-container matColumnDef="project_end">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> วันที่สิ้นสุด </th>
       <td mat-cell *matCellDef="let row"> {{row.project_end}} </td>
@@ -33,6 +37,11 @@
     <ng-container matColumnDef="user_fname user_lname">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ชื่อผู้ควบคุม </th>
       <td mat-cell *matCellDef="let row"> {{row.user_fname}} {{row.user_lname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="comp_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> บริษัทที่ดูแล </th>
+      <td mat-cell *matCellDef="let row"> {{row.comp_name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
@@ -45,6 +54,5 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <!-- Row shown when there is no matching data. -->
   </table>
 </div>

@@ -29,6 +29,7 @@ import { CompanyComponent } from './company/company.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { DeleteProjectComponent } from './delete-project/delete-project.component';
+import { DailyReportComponent } from './daily-report/daily-report.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { DeleteProjectComponent } from './delete-project/delete-project.componen
     CompanyComponent,
     AddProjectComponent,
     EditProjectComponent,
-    DeleteProjectComponent
+    DeleteProjectComponent,
+    DailyReportComponent
   ],
   imports: [
     BrowserModule,

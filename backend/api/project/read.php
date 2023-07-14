@@ -30,6 +30,7 @@
                 'project_end' => $project_end,
                 'user_fname' => $user_fname,
                 'user_lname' => $user_lname,
+                'comp_name' => $comp_name
 
             );
 
@@ -37,10 +38,11 @@
         }
 
         echo json_encode($project_arr);
+        // $response = $project_arr;
 
     } else {
 
-        echo json_encode(array('message' => 'No User Found'));
+        echo json_encode(array("status" => "error", "message" => "Not Found Project"));
 
     }
 

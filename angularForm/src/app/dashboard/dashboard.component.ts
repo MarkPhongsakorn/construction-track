@@ -13,14 +13,18 @@ import { ProjectService } from '../services/projects/project.service';
 export class DashboardComponent implements OnInit {
 
   dataSource: any[] = [];
+  errorMessage: string = '';
   displayedColumns: string[] = [
     'project_id',
     'project_name',
     'project_start',
     'project_end',
     'user_fname user_lname',
+    'comp_name',
     'action'
   ];
+
+  projectID: boolean = false;
 
   project_id: string = '';
 
@@ -30,10 +34,16 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.project.readProject().subscribe(data => {
-      this.dataSource = data;
+    this.project.readProject().subscribe(res => {
+      this.dataSource = res;
+      if (res.status === 'error') {
+        return this.projectID = true;
+      } else {
+        return this.projectID;
+      }
     });
   }
+
 
   openDialog() {
     this.dialog.open(AddProjectComponent);
@@ -41,14 +51,14 @@ export class DashboardComponent implements OnInit {
 
   openDialog2(project_id: string) {
      this.project_id = project_id;
-    const dialogRef1 = this.dialog.open(EditProjectComponent, {
+    const dialogRef = this.dialog.open(EditProjectComponent, {
       data: {project_id: this.project_id}
     });
   }
 
   openDialog3(project_id: string) {
     this.project_id = project_id;
-    const dialogRef2 = this.dialog.open(DeleteProjectComponent, {
+    const dialogRef = this.dialog.open(DeleteProjectComponent, {
       data: {project_id: this.project_id}
     });
   }

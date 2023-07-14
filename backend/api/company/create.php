@@ -5,28 +5,24 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/user_detail.php';
-    include_once '../../models/project.php';
+    include_once '../../models/company.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $project = new Project($db);
+    $comp = new Company($db);
 
 
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['project_name']) && !empty($req['project_start']) && !empty($req['project_end'])
-        && !empty($req['user_detail_id']) && !empty($req['comp_id']) ) {
+    if ($req && !empty($req['comp_name']) && !empty($req['comp_email']) && !empty($req['comp_address']) ) {
+        
+        $comp->comp_name = $req['comp_name'];
+        $comp->comp_email = $req['comp_email'];
+        $comp->comp_address = $req['comp_address'];
 
-        $project->project_name = $req['project_name'];
-        $project->project_start = $req['project_start'];
-        $project->project_end = $req['project_end'];
-        $project->user_detail_id = $req['user_detail_id'];
-        $project->comp_id = $req['comp_id'];
-
-        if ($project->create()) {
+        if ($comp->create()) {
             $response = array("status" => "success", "message" => "User created.");
         } else {
             $response = array("status" => "error", "message" => "Failed to create user.");
@@ -36,5 +32,4 @@
     }
 
     echo json_encode($response);
-
 ?>

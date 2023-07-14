@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuardService } from './services/users/auth-guard.service';
 import { CompanyComponent } from './company/company.component';
+import { DailyReportComponent } from './daily-report/daily-report.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'company', component: CompanyComponent, canActivate: [AuthGuardService]},
+  {path: 'dailyreport', component: DailyReportComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

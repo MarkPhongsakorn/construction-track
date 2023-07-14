@@ -28,7 +28,9 @@
                 'project_end' => $row['project_end'],
                 'user_detail_id' => $row['user_detail_id'],
                 'user_fname' => $row['user_fname'],
-                'user_lname' => $row['user_lname']
+                'user_lname' => $row['user_lname'],
+                'comp_id' => $row['comp_id'],
+                'comp_name' => $row['comp_name']
             );
 
             http_response_code(200);

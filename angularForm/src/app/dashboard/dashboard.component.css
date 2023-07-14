@@ -8,6 +8,7 @@ mat-toolbar-row {
     align-items: center;
     background-color: white;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 mat-toolbar-row button {
@@ -33,4 +34,8 @@ table {
 
 a {
     margin: 5px 5px;
+}
+
+.not {
+    text-align: center;
 }

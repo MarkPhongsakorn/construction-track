@@ -31,10 +31,15 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field> -->
-            <br>
-            <!-- <mat-label>ผู้ควบคุม:{{ user_fname }} {{ user_lname }}</mat-label> -->
-        <!-- </mat-form-field> -->
+        <br>
+        <mat-form-field appearance="outline" class="width-100">
+            <mat-label>บริษัทที่ดูแล</mat-label>
+            <mat-select [(ngModel)]="selectCompId" name="selectCompId">
+                <mat-option *ngFor="let compId of comp" [value]="compId.comp_id">
+                    {{ compId.comp_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
 </div>
 <div mat-dialog-actions align="end">

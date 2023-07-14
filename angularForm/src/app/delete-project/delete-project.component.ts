@@ -12,7 +12,7 @@ export class DeleteProjectComponent implements OnInit {
   project_name: string = '';
 
   constructor(
-    public dialogRef2: MatDialogRef<DeleteProjectComponent>,
+    public dialogRef: MatDialogRef<DeleteProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private project: ProjectService,
   ) {}
