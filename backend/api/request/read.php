@@ -5,39 +5,37 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/project.php';
+    include_once '../../models/request.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $project = new Project($db);
+    $req = new Request($db);
 
-    $result = $project->read();
+    $result = $req->read();
 
     $num = $result->rowCount();
     
 
     if ($num > 0) {
-        $project_arr = array();
+        $req_arr = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
 
-            $project_item = array(
-                'project_id' => $project_id,
-                'project_name' => $project_name,
-                'project_start' => $project_start,
-                'project_end' => $project_end,
-                'user_fname' => $user_fname,
-                'user_lname' => $user_lname,
-                'comp_name' => $comp_name
-
+            $req_item = array(
+                'req_id' => $req_id,
+                'req_problem' => $req_problem,
+                'req_daily' => $req_daily,
+                'req_license' => $req_license,
+                'req_certificate' => $req_certificate,
+                'user_detail_id' => $user_detail_id
             );
 
-            array_push($project_arr, $project_item);
+            array_push($req_arr, $req_item);
         }
 
-        echo json_encode($project_arr);
+        echo json_encode($req_arr);
 
     } else {
 
