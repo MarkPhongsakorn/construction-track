@@ -6,23 +6,25 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/company.php';
+    include_once '../../models/daily-report.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $comp = new Company($db);
+    $dr = new Report($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $comp->comp_id = isset($_GET['comp_id']) ? $_GET['comp_id'] : die();
+    $dr->dr_id = $data->dr_id;
+    $dr->problem = $data->problem;
+    $dr->project_id = $data->project_id;
+    $dr->user_detail_id = $data->user_detail_id;
 
-    if($comp->delete()) {
-        $response = array("status" => "success", "message" => "User deleted.");
+    if ($dr->update()) {
+        $response = array("status" => "success", "message" => "Report updated.");
     } else {
-        $response = array("status" => "error", "message" => "Failed to deleted user.");
+        $response = array("status" => "error", "message" => "Failed to updated report.");
     }
+
     echo json_encode($response);
-
-
 ?>

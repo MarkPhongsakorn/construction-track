@@ -6,18 +6,18 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/company.php';
+    include_once '../../models/unit.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $comp = new Company($db);
+    $unit = new Unit($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $comp->comp_id = isset($_GET['comp_id']) ? $_GET['comp_id'] : die();
+    $unit->unit_id = isset($_GET['unit_id']) ? $_GET['unit_id'] : die();
 
-    if($comp->delete()) {
+    if($unit->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");
     } else {
         $response = array("status" => "error", "message" => "Failed to deleted user.");

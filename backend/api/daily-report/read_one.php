@@ -5,31 +5,32 @@
     header("Content-Type: application/json;");
 
     include_once '../../config/database.php';
-    include_once '../../models/company.php';
+    include_once '../../models/daily-report.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $comp = new Company($db);
+    $dr = new Report($db);
 
-    $comp->comp_id = isset($_GET['comp_id']) ? $_GET['comp_id'] : die();
+    $dr->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
-    $result = $comp->read_one();
+    $result = $dr->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
         $row = $result->fetch(PDO::FETCH_ASSOC);
 
-            $comp_arr = array(
-                'comp_id' => $row['comp_id'],
-                'comp_name' => $row['comp_name'],
-                'comp_email' => $row['comp_email'],
-                'comp_address' => $row['comp_address']
+            $dr_arr = array(
+                'dr_id' => $row['dr_id'],
+                'problem' => $row['problem'],
+                'dr_start' => $row['dr_start'],
+                'project_id' => $row['project_id'],
+                'user_detail_id' => $row['user_detail_id'],
             );
 
             http_response_code(200);
-            echo json_encode($comp_arr);
+            echo json_encode($dr_arr);
     } else {
         http_response_code(404);
         echo json_encode(array('message' => 'Not found.'));
