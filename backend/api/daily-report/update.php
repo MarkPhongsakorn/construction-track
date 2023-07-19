@@ -16,6 +16,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     $dr->dr_id = $data->dr_id;
+    $dr->dr_time = $data->dr_time;
     $dr->problem = $data->problem;
     $dr->project_id = $data->project_id;
     $dr->user_detail_id = $data->user_detail_id;

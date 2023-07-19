@@ -25,7 +25,7 @@ export class ReportService {
   create(user: Object) : Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/daily-report/create.php`, user);
   }
-  update(data: Object) : Observable<any> {
-    return this.http.put(`${this.baseUrl}/backend/api/daily-report/create.php`, data);
+  update(data: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/backend/api/daily-report/update.php`, data);
   }
 }

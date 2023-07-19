@@ -89,6 +89,7 @@
         }
 
         public function update() {
+            
             $query = 'UPDATE ' . $this->table . '
             SET
                 dr_time = :dr_time,

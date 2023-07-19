@@ -18,6 +18,7 @@ export class EditReportComponent implements OnInit {
   project: any[] = [];
   selectProjectId: string = '';
 
+  dr_id: string = '';
   dr_time: Date = new Date();
   problem: string = '';
 
@@ -63,6 +64,7 @@ export class EditReportComponent implements OnInit {
     const drTimeThai = format(drTime, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
 
     const data = {
+      dr_id: this.data.dr_id,
       dr_time: drTimeThai,
       problem: this.problem,
       project_id: this.selectProjectId,

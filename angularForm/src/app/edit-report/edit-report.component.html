@@ -5,7 +5,7 @@
     <div class="example-container">
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>วันที่</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="dr_time">
+            <input matInput [matDatepicker]="picker" name="dr_time" id="dr_time" placeholder="วันที่เขียนรายงาน" [(ngModel)]="dr_time">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -41,6 +41,6 @@
 </div>
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
-    <button mat-raised-button color=accent (click)="update()">Add Report</button>
+    <button mat-raised-button color=accent (click)="update()">Update Report</button>
 </div>
 
