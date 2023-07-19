@@ -28,7 +28,10 @@
                 'dr_time' => $dr_time,
                 'problem' => $problem,
                 'project_id' => $project_id,
-                'user_detail_id' => $user_detail_id
+                'project_name' => $project_name,
+                'user_detail_id' => $user_detail_id,
+                'user_fname' => $user_fname,
+                'user_lname' => $user_lname,
 
             );
 

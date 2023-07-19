@@ -3,6 +3,8 @@
     class Report {
         private $conn;
         private $table = "tb_daily_report";
+        private $table2 = "tb_user_detail";
+        private $table3 = "tb_project";
 
         public $dr_id;
         public $dr_time;
@@ -17,18 +19,40 @@
 
         public function read() {
 
-            $query = 'SELECT * FROM ' . $this->table . '';
+            $query = 'SELECT * FROM ' . $this->table .
+            ' LEFT JOIN ' . $this->table3 . ' ON ' . $this->table . '.project_id = ' . $this->table3 . '.project_id'
+            . ' LEFT JOIN ' . $this->table2 . ' ON ' . $this->table . '.user_detail_id = '  . $this->table2 . '.user_detail_id';
+
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             
             return $stmt;
         }
 
-        public function read_one($dr_id) {
+        public function read_one() {
+            $query = 'SELECT * FROM ' . $this->table .
+            ' LEFT JOIN ' . $this->table3 . ' ON ' . $this->table . '.project_id = ' . $this->table3 . '.project_id'
+            . ' LEFT JOIN ' . $this->table2 . ' ON ' . $this->table . '.user_detail_id = '  . $this->table2 . '.user_detail_id
+            WHERE ' . $this->table . '.dr_id = :dr_id';
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':dr_id',$this->dr_id);
+            $stmt->execute();
+
+            return $stmt;
+
+        }
+
+        public function readByProjectId() {
+
+            $query = 'SELECT * FROM ' . $this->table .
+            ' LEFT JOIN ' . $this->table3 . ' ON ' . $this->table . '.project_id = ' . $this->table3 . '.project_id'
+            . ' LEFT JOIN ' . $this->table2 . ' ON ' . $this->table . '.user_detail_id = '  . $this->table2 . '.user_detail_id
+            WHERE ' . $this->table . '.project_id = :project_id';
+
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':project_id',$this->project_id);
             $stmt->execute();
 
             return $stmt;

@@ -40,6 +40,7 @@
                         LEFT JOIN ' .$this->table3 . '
                         ON ' . $this->table . '.comp_id = ' . $this->table3 . '.comp_id
                         WHERE ' . $this->table . '.project_id = :project_id';
+                        
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':project_id', $this->project_id);
             $stmt->execute();
@@ -127,6 +128,10 @@
                 return false;
             }
 
+        }
+
+        public function readReportByProjectId() {
+            
         }
 
     }
