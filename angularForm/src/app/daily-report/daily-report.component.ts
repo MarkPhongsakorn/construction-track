@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddReportComponent } from '../add-report/add-report.component';
 import { ReportService } from '../services/reports/report.service';
 import { EditReportComponent } from '../edit-report/edit-report.component';
+import { DeleteReportComponent } from '../delete-report/delete-report.component';
 
 @Component({
   selector: 'app-daily-report',
@@ -62,6 +63,11 @@ export class DailyReportComponent implements OnInit {
     });
   }
 
-  openDialog3() {}
+  openDialog3(dr_id: string) {
+    this.dr_id = dr_id;
+    const dialogRef = this.dialog.open(DeleteReportComponent, {
+      data: {dr_id: this.dr_id}
+    });
+  }
 
 }

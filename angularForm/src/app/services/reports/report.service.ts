@@ -28,4 +28,7 @@ export class ReportService {
   update(data: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/daily-report/update.php`, data);
   }
+  delete(dr_id: string) : Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/daily-report/delete.php`,{ params: { dr_id: dr_id } });
+  }
 }
