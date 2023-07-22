@@ -9,6 +9,9 @@ import { UnitService } from '../services/reports/unit.service';
 import { ToolService } from '../services/reports/tool.service';
 import { MaterialService } from '../services/reports/material.service';
 import { StrikeService } from '../services/reports/strike.service';
+import { InspectionService } from '../services/reports/inspection.service';
+import { InspecResultService } from '../services/reports/inspec-result.service';
+
 
 @Component({
   selector: 'app-add-detail',
@@ -27,6 +30,9 @@ export class AddDetailComponent implements OnInit {
   
   unit: any[] = [];
   selectUnit: string = '';
+
+  result: any[] =[];
+  selectResult: string = '';
 
   morning: string = '1';
   afternoon: string = '2';
@@ -56,6 +62,8 @@ export class AddDetailComponent implements OnInit {
     private toolService: ToolService,
     private matService: MaterialService,
     private strikeService: StrikeService,
+    private inspecService: InspectionService,
+    private resultService: InspecResultService
   ) { 
   }
 
@@ -81,17 +89,21 @@ export class AddDetailComponent implements OnInit {
     this.unitService.read().subscribe(data => {
       this.unit = data;
     });
+    this.resultService.read().subscribe(data => {
+      this.result = data;
+    })
 
   }
 
   addDetail() {
-    // this.mor();
-    // this.after();
-    // this.labors();
-    // this.works();
-    // this.tools();
-    // this.material();
+    this.mor();
+    this.after();
+    this.labors();
+    this.works();
+    this.tools();
+    this.material();
     this.strikes();
+    this.inspec();
   }
 
   mor() {
@@ -213,6 +225,21 @@ export class AddDetailComponent implements OnInit {
       dr_id: this.data.dr_id
     }
     this.strikeService.create(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  inspec() {
+    const data = {
+      inspec_result_id: this.selectResult,
+      dr_id: this.data.dr_id
+    }
+    this.inspecService.create(data).subscribe((res: any) => {
       if (res.status === "success") {
         window.location.reload();
       } else {

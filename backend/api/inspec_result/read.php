@@ -12,7 +12,7 @@
 
     $result = new Result($db);
 
-    $results = $inspec->read();
+    $results = $result->read();
 
     $num = $results->rowCount();
     
