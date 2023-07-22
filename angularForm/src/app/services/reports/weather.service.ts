@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class WeatherService {
+
   private baseUrl = 'http://localhost/test';
 
   constructor(
@@ -19,4 +20,9 @@ export class WeatherService {
   delete(dr_id: string) : Observable<any> {
     return this.http.delete(`${this.baseUrl}/backend/api/weather/delete.php`,{ params: { dr_id: dr_id } });
   }
+
+  readOne(dr_id: string, period_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/weather/read_one.php`, { params: { dr_id: dr_id, period_id: period_id } });
+  }
+  
 }

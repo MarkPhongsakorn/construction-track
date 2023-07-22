@@ -3,6 +3,7 @@
     class Inspection {
         private $conn;
         private $table = "tb_inspection";
+        private $table2 = "tb_inspec_result";
 
         public $inspec_id;
         public $inspec_result_id;
@@ -25,9 +26,11 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE inspec_id = :inspec_id';
+            $query = 'SELECT * FROM ' . $this->table .
+            ' INNER JOIN ' .$this->table2 . ' ON ' . $this->table . '.inspec_result_id = ' . $this->table2 . '.inspec_result_id
+            WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':inspec_id', $this->inspec_id);
+            $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->execute();
 
             return $stmt;

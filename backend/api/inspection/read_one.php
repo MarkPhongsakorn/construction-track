@@ -12,7 +12,7 @@
 
     $inspec = new Inspection($db);
 
-    $inspec->inspec_id = isset($_GET['inspec_id']) ? $_GET['inspec_id'] : die();
+    $inspec->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     $result = $inspec->read_one();
 
@@ -24,6 +24,7 @@
             $inspec_arr = array(
                 'inspec_id' => $row['inspec_id'],
                 'inspec_result_id' => $row['inspec_result_id'],
+                'inspec_result' => $row['inspec_result'],
                 'dr_id' => $row['dr_id']
             );
 

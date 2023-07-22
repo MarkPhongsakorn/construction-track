@@ -26,9 +26,9 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE labor_id = :labor_id';
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':labor_id', $this->labor_id);
+            $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->execute();
 
             return $stmt;

@@ -19,4 +19,8 @@ export class LaborService {
   delete(dr_id: string) : Observable<any> {
     return this.http.delete(`${this.baseUrl}/backend/api/labor/delete.php`,{ params: { dr_id: dr_id } });
   }
+
+  readOne(dr_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/labor/read_one.php`,{ params: { dr_id: dr_id } });
+  }
 }

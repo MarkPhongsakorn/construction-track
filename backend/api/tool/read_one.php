@@ -12,24 +12,29 @@
 
     $tool = new Tool($db);
 
-    $tool->tool_id = isset($_GET['tool_id']) ? $_GET['tool_id'] : die();
+    $tool->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     $result = $tool->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $tool_arr = array();
 
-            $tool_arr = array(
-                'tool_id' => $row['tool_id'],
-                'tool_name' => $row['tool_name'],
-                'tool_num' => $row['tool_num'],
-                'unit_id' => $row['unit_id'],
-                'dr_id' => $row['dr_id']
+        while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            $tool_item = array(
+                'tool_id' => $tool_id,
+                'tool_name' => $tool_name,
+                'tool_num' => $tool_num,
+                'unit_id' => $unit_id,
+                'unit_name' => $unit_name,
+                'dr_id' => $dr_id
             );
 
-            http_response_code(200);
+            array_push($tool_arr, $tool_item);
+        }
             echo json_encode($tool_arr);
     } else {
         http_response_code(404);

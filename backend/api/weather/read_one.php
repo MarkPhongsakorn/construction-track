@@ -12,7 +12,8 @@
 
     $weather = new Weather($db);
 
-    $weather->weather_id = isset($_GET['weather_id']) ? $_GET['weather_id'] : die();
+    $weather->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
+    $weather->period_id = isset($_GET['period_id']) ? $_GET['period_id'] : die();
 
     $result = $weather->read_one();
 
@@ -24,7 +25,9 @@
             $weather_arr = array(
                 'weather_id' => $row['weather_id'],
                 'period_id' => $row['period_id'],
+                'period_name' => $row['period_name'],
                 'sta_id' => $row['sta_id'],
+                'sta_name' => $row['sta_name'],
                 'dr_id' => $row['dr_id']
             );
 

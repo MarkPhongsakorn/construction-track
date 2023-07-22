@@ -3,6 +3,7 @@
     class Tool {
         private $conn;
         private $table = "tb_tool";
+        private $table2 = "tb_unit";
 
         public $tool_id;
         public $tool_name;
@@ -27,9 +28,11 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE tool_id = :tool_id';
+            $query = 'SELECT * FROM ' . $this->table .
+            ' INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.unit_id = ' . $this->table2 . '.unit_id
+            WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':tool_id', $this->tool_id);
+            $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->execute();
 
             return $stmt;

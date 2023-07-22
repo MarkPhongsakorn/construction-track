@@ -12,7 +12,7 @@
 
     $strike = new Strike($db);
 
-    $strike->strike_id = isset($_GET['strike_id']) ? $_GET['strike_id'] : die();
+    $strike->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     $result = $strike->read_one();
 

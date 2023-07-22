@@ -12,23 +12,27 @@
 
     $work = new Work($db);
 
-    $work->work_id = isset($_GET['work_id']) ? $_GET['work_id'] : die();
+    $work->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     $result = $work->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $work_arr = array();
 
-            $work_arr = array(
-                'work_id' => $row['work_id'],
-                'work_num' => $row['work_num'],
-                'work_detail' => $row['work_detail'],
-                'dr_id' => $row['dr_id']
+        while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            $work_item = array(
+                'work_id' => $work_id,
+                'work_num' => $work_num,
+                'work_detail' => $work_detail,
+                'dr_id' => $dr_id
             );
 
-            http_response_code(200);
+            array_push($work_arr, $work_item);
+        }
             echo json_encode($work_arr);
     } else {
         http_response_code(404);

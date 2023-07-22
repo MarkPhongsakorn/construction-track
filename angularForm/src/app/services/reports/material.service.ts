@@ -19,4 +19,8 @@ export class MaterialService {
   delete(dr_id: string) : Observable<any> {
     return this.http.delete(`${this.baseUrl}/backend/api/material/delete.php`,{ params: { dr_id: dr_id } });
   }
+
+  readOne(dr_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/material/read_one.php`,{ params: { dr_id: dr_id } });
+  }
 }

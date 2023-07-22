@@ -12,24 +12,29 @@
 
     $mat = new Material($db);
 
-    $mat->mat_id = isset($_GET['mat_id']) ? $_GET['mat_id'] : die();
+    $mat->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     $result = $mat->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $mat_arr = array();
 
-            $mat_arr = array(
-                'mat_id' => $row['mat_id'],
-                'mat_name' => $row['mat_name'],
-                'mat_num' => $row['mat_num'],
-                'unit_id' => $row['unit_id'],
-                'dr_id' => $row['dr_id']
+        while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            $mat_item = array(
+                'mat_id' => $mat_id,
+                'mat_name' => $mat_name,
+                'mat_num' => $mat_num,
+                'unit_id' => $unit_id,
+                'unit_name' => $unit_name,
+                'dr_id' => $dr_id
             );
 
-            http_response_code(200);
+            array_push($mat_arr, $mat_item);
+        }
             echo json_encode($mat_arr);
     } else {
         http_response_code(404);

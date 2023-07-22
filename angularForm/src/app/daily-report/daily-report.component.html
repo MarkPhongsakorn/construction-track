@@ -54,7 +54,7 @@
                 <p> รายละเอียด </p>
             </th>
             <td mat-cell *matCellDef="let row">
-                <a mat-raised-button color="primary" (click)="openDialog5()">รายละเอียด</a>
+                <a mat-raised-button color="primary" (click)="openDialog5(row.dr_id)">รายละเอียด</a>
             </td>
         </ng-container>
 

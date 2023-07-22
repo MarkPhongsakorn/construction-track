@@ -12,23 +12,27 @@
 
     $labor = new Labor($db);
 
-    $labor->labor_id = isset($_GET['labor_id']) ? $_GET['labor_id'] : die();
+    $labor->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     $result = $labor->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $labor_arr = array();
 
-            $labor_arr = array(
-                'labor_id' => $row['labor_id'],
-                'labor_name' => $row['labor_name'],
-                'labor_num' => $row['labor_num'],
-                'dr_id' => $row['dr_id']
+        while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            extract($row);
+
+            $labor_item = array(
+                'labor_id' => $labor_id,
+                'labor_name' => $labor_name,
+                'labor_num' => $labor_num,
+                'dr_id' => $dr_id
             );
 
-            http_response_code(200);
+            array_push($labor_arr, $labor_item);
+        }
             echo json_encode($labor_arr);
     } else {
         http_response_code(404);

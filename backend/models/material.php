@@ -3,6 +3,7 @@
     class Material {
         private $conn;
         private $table = "tb_material";
+        private $table2 = "tb_unit";
 
         public $mat_id;
         public $mat_name;
@@ -27,9 +28,11 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE mat_id = :mat_id';
+            $query = 'SELECT * FROM ' . $this->table .
+            ' INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.unit_id = ' . $this->table2 . '.unit_id
+            WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':mat_id', $this->mat_id);
+            $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->execute();
 
             return $stmt;
