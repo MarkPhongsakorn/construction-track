@@ -17,7 +17,7 @@
     <div class="width-100">
         <h2>รายละเอียดงาน:</h2>
         <div *ngFor="let work of works">
-            <p>{{ work.work_num }} {{ work.work_detail }}</p>
+            <p>{{ work.work_num }}. {{ work.work_detail }}</p>
         </div>
     </div>
     <br>
@@ -33,6 +33,11 @@
         <div *ngFor="let mat of mats">
             <p>{{ mat.mat_name }} {{ mat.mat_num}} {{ mat.unit_name }}</p>
         </div>
+    </div>
+    <br>
+    <div class="width-100">
+        <h2>ปัญหาและอุปสรรค: </h2>
+        <p>{{ problem }}</p>
     </div>
     <br>
     <div class="width-100">

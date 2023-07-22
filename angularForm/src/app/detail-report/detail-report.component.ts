@@ -11,6 +11,7 @@ import { MaterialService } from '../services/reports/material.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
+import { ReportService } from '../services/reports/report.service';
 
 @Component({
   selector: 'app-detail-report',
@@ -18,6 +19,8 @@ import { InspecResultService } from '../services/reports/inspec-result.service';
   styleUrls: ['./detail-report.component.css']
 })
 export class DetailReportComponent implements OnInit {
+
+  problem: string = '';
 
   period_name1: string = '';
   period_name2: string = '';
@@ -53,7 +56,7 @@ export class DetailReportComponent implements OnInit {
     private matService: MaterialService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-    private resultService: InspecResultService
+    private reportService: ReportService,
   ) { 
   }
 
@@ -65,6 +68,13 @@ export class DetailReportComponent implements OnInit {
     this.mat();
     this.strike();
     this.inspec();
+    this.report();
+  }
+
+  report() {
+    this.reportService.getOneReport(this.data.dr_id).subscribe(data => {
+      this.problem = data['problem'];
+    });
   }
 
   weather() {

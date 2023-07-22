@@ -19,7 +19,7 @@ export class DailyReportComponent implements OnInit {
   displayedColumns: string[] = [
     'dr_id',
     'dr_time',
-    'problem',
+    // 'problem',
     'project_name',
     'user_detail',
     'detail',
