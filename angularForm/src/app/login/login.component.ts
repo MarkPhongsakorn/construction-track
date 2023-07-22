@@ -55,10 +55,10 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  logout() {
-    this.authService.clearStorage();
-    this.router.navigate(['/']);
-  }
+  // logout() {
+  //   this.authService.clearStorage();
+  //   this.router.navigate(['/']);
+  // }
 
   onSubmit() {
     this.login();

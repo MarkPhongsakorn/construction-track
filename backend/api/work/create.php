@@ -16,20 +16,27 @@
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['work_num']) && !empty($req['work_detail']) && !empty($req['dr_id'])) {
+    if ($req && is_array($req) && !empty($req)) {
+        $response = array();
+        foreach ($req as $item) {
+            if ($req && !empty($item['work_num']) && !empty($item['work_detail']) && !empty($item['dr_id'])) {
         
-        $labor->labor_name = $req['work_num'];
-        $labor->labor_num = $req['work_detail'];
-        $labor->dr_id = $req['dr_id'];
-
-        if ($labor->create()) {
-            $response = array("status" => "success", "message" => "User created.");
-        } else {
-            $response = array("status" => "error", "message" => "Failed to create user.");
+                $work->work_num = $item['work_num'];
+                $work->work_detail = $item['work_detail'];
+                $work->dr_id = $item['dr_id'];
+        
+                if ($work->create()) {
+                    $response = array("status" => "success", "message" => "User created.");
+                } else {
+                    $response = array("status" => "error", "message" => "Failed to create user.");
+                }
+            } else {
+                $response = array("status" => "error", "message" => "Invalid request data.");
+            }
         }
     } else {
         $response = array("status" => "error", "message" => "Invalid request data.");
     }
-
+    
     echo json_encode($response);
 ?>

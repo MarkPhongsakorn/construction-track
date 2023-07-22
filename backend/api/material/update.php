@@ -18,6 +18,7 @@
     $mat->mat_id = $data->mat_id;
     $mat->mat_name = $data->mat_name;
     $mat->mat_num = $data->mat_num;
+    $mat->unit_id = $data->unit_id;
     $mat->dr_id = $data->dr_id;
 
     if ($mat->update()) {

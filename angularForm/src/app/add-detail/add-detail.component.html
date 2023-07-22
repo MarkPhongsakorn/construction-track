@@ -1,0 +1,142 @@
+<div mat-dialog-title>
+    <h1>Detail Form</h1>
+</div>
+<div mat-dialog-content>
+    <div class="example-container">
+        <!-- <mat-form-field appearance="outline" class="width-50">
+            <mat-label>ช่วงเวลา</mat-label>
+            <mat-select matNativeControl [(ngModel)]="selectPeriod1" name="selectPeriod1" disabled>
+                <mat-option value="" selected>เลือกช่วงเวลา</mat-option>
+                <mat-option *ngFor="let periods of period" [value]="periods.period_id">
+                    {{ periods.period_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="width-50 ml-2">
+            <mat-label>สภาพอากาศ</mat-label>
+            <mat-select matNativeControl [(ngModel)]="selectStatus1" name="selectStatus1">
+                <mat-option value="" selected>เลือกสภาพอากาศ</mat-option>
+                <mat-option *ngFor="let sta of status" [value]="sta.sta_id">
+                    {{ sta.sta_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline" class="width-50">
+            <mat-label>ช่วงเวลา</mat-label>
+            <mat-select matNativeControl [(ngModel)]="selectPeriod2" name="selectPeriod2" disabled>
+                <mat-option value="" selected>เลือกช่วงเวลา</mat-option>
+                <mat-option *ngFor="let periods of period" [value]="periods.period_id">
+                    {{ periods.period_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="width-50 ml-2">
+            <mat-label>สภาพอากาศ</mat-label>
+            <mat-select matNativeControl [(ngModel)]="selectStatus2" name="selectUserId">
+                <mat-option value="" selected>เลือกสภาพอากาศ</mat-option>
+                <mat-option *ngFor="let sta of status" [value]="sta.sta_id">
+                    {{ sta.sta_name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <button mat-button (click)="addNewLabor()"><mat-icon >add_circle</mat-icon>เพิ่มแรงงาน</button>
+        <div *ngFor="let input of labor; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-70">
+                <mat-label>แรงงาน</mat-label>
+                <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน" [(ngModel)]="input.labor_name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>จำนวน</mat-label>
+                <input matInput type="number" name="num" id="num" [(ngModel)]="input.labor_num">
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeLabor(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <br>
+        <button mat-button (click)="addNewWork()"><mat-icon >add_circle</mat-icon>เพิ่มรายละเอียดงาน</button>
+        <div *ngFor="let input of work; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-20">
+                <mat-label>ลำดับ</mat-label>
+                <input matInput type="number" name="num" id="num" [(ngModel)]="input.work_num">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-70 ml-2">
+                <mat-label>รายละเอียดงาน</mat-label>
+                <input matInput type="text" name="labor" id="labor" placeholder="รายละเอียดงาน" [(ngModel)]="input.work_detail">
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeWork(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <br>
+        <button mat-button (click)="addNewTool()"><mat-icon >add_circle</mat-icon>เพิ่มเครื่องมือและเครื่องจักร</button>
+        <div *ngFor="let input of tool; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-50">
+                <mat-label>เครื่องมือและเครื่องจักร</mat-label>
+                <input matInput type="text" name="tool" id="tool" placeholder="ชื่อเครื่องมือและเครื่องจักร" [(ngModel)]="input.tool_name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>จำนวน</mat-label>
+                <input matInput type="number" name="num" id="num" [(ngModel)]="input.tool_num">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>หน่วย</mat-label>
+                <mat-select matNativeControl [(ngModel)]="input.unit_id" name="selectUnit">
+                    <mat-option value="" selected>หน่วย</mat-option>
+                    <mat-option *ngFor="let units of unit" [value]="units.unit_id">
+                        {{ units.unit_name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeTool(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <br> -->
+        <!-- <button mat-button (click)="addNewMat()"><mat-icon >add_circle</mat-icon>เพิ่มวัสดุ</button>
+        <div *ngFor="let input of mat; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-50">
+                <mat-label>วัสดุ</mat-label>
+                <input matInput type="text" name="tool" id="tool" placeholder="ชื่อวัสดุ" [(ngModel)]="input.mat_name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>จำนวน</mat-label>
+                <input matInput type="number" name="num" id="num" [(ngModel)]="input.mat_num">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>หน่วย</mat-label>
+                <mat-select matNativeControl [(ngModel)]="input.unit_id" name="selectUnit">
+                    <mat-option value="" selected>หน่วย</mat-option>
+                    <mat-option *ngFor="let units of unit" [value]="units.unit_id">
+                        {{ units.unit_name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeMat(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <br> -->
+        <mat-form-field appearance="outline" class="width-100">
+            <mat-label>การหยุดงาน</mat-label>
+            <textarea matInput type="text" name="strike_detail" id="strike_detail" placeholder="การหยุดงาน" [(ngModel)]="strike_detail"></textarea>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline" class="width-100">
+            <mat-label>สาเหตุ</mat-label>
+            <textarea matInput type="text" name="strike_cause" id="strike_cause" placeholder="สาเหตุการหยุดงาน" [(ngModel)]="strike_cause"></textarea>
+        </mat-form-field>
+        <br>
+        
+
+
+
+
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close>Close</button>
+    <button mat-raised-button color=accent (click)="addDetail()">Add Detail</button>
+</div>

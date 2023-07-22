@@ -25,6 +25,7 @@
                 'tool_id' => $row['tool_id'],
                 'tool_name' => $row['tool_name'],
                 'tool_num' => $row['tool_num'],
+                'unit_id' => $row['unit_id'],
                 'dr_id' => $row['dr_id']
             );
 

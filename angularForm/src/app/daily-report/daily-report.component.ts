@@ -5,6 +5,7 @@ import { AddReportComponent } from '../add-report/add-report.component';
 import { ReportService } from '../services/reports/report.service';
 import { EditReportComponent } from '../edit-report/edit-report.component';
 import { DeleteReportComponent } from '../delete-report/delete-report.component';
+import { AddDetailComponent } from '../add-detail/add-detail.component';
 
 @Component({
   selector: 'app-daily-report',
@@ -68,6 +69,17 @@ export class DailyReportComponent implements OnInit {
     const dialogRef = this.dialog.open(DeleteReportComponent, {
       data: {dr_id: this.dr_id}
     });
+  }
+
+  openDialog4(dr_id: string) {
+    this.dr_id = dr_id;
+    const dialogRef = this.dialog.open(AddDetailComponent, {
+      data: {dr_id: this.dr_id}
+    });
+  }
+
+  openDialog5() {
+
   }
 
 }

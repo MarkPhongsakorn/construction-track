@@ -7,6 +7,7 @@
         public $mat_id;
         public $mat_name;
         public $mat_num;
+        public $unit_id;
 
         public $dr_id;
 
@@ -39,16 +40,19 @@
             SET
                 mat_name = :mat_name,
                 mat_num = :mat_num,
+                unit_id = :unit_id,
                 dr_id = :dr_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->mat_name = htmlspecialchars(strip_tags($this->mat_name));
             $this->mat_num = htmlspecialchars(strip_tags($this->mat_num));
+            $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
             $stmt->bindParam(':mat_name', $this->mat_name);
             $stmt->bindParam(':mat_num', $this->mat_num);
+            $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
 
             if ($stmt->execute()) {
@@ -63,6 +67,7 @@
             SET
                 mat_name = :mat_name,
                 mat_num = :mat_num,
+                unit_id = :unit_id,
                 dr_id = :dr_id
             WHERE
                 mat_id = :mat_id';
@@ -71,10 +76,12 @@
 
             $this->mat_name = htmlspecialchars(strip_tags($this->mat_name));
             $this->mat_num = htmlspecialchars(strip_tags($this->mat_num));
+            $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
             $stmt->bindParam(':mat_name', $this->mat_name);
             $stmt->bindParam(':mat_num', $this->mat_num);
+            $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':mat_id', $this->mat_id);
 

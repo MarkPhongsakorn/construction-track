@@ -1,0 +1,224 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PeriodService } from '../services/reports/period.service';
+import { StaWeatherService } from '../services/reports/sta-weather.service';
+import { WeatherService } from '../services/reports/weather.service';
+import { LaborService } from '../services/reports/labor.service';
+import { WorkService } from '../services/reports/work.service';
+import { UnitService } from '../services/reports/unit.service';
+import { ToolService } from '../services/reports/tool.service';
+import { MaterialService } from '../services/reports/material.service';
+import { StrikeService } from '../services/reports/strike.service';
+
+@Component({
+  selector: 'app-add-detail',
+  templateUrl: './add-detail.component.html',
+  styleUrls: ['./add-detail.component.css']
+})
+export class AddDetailComponent implements OnInit {
+
+  period: any[] = [];
+  selectPeriod1: string = '';
+  selectPeriod2: string = '';
+
+  status: any[] = [];
+  selectStatus1: string = '';
+  selectStatus2: string = '';
+  
+  unit: any[] = [];
+  selectUnit: string = '';
+
+  morning: string = '1';
+  afternoon: string = '2';
+  period_id: string = '';
+
+  labor: any[] = [];
+
+  work: any[] = [];
+  num: number = 0;
+
+  tool: any[] = [];
+
+  mat: any[] = [];
+
+  strike_detail: string = '';
+  strike_cause: string = '';
+
+  constructor(
+    public dialogRef: MatDialogRef<AddDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private periodService: PeriodService,
+    private sta: StaWeatherService,
+    private weatherService: WeatherService,
+    private laborService: LaborService,
+    private workService: WorkService,
+    private unitService: UnitService,
+    private toolService: ToolService,
+    private matService: MaterialService,
+    private strikeService: StrikeService,
+  ) { 
+  }
+
+  
+
+  ngOnInit() {
+    this.periodService.readOne(this.morning).subscribe(data => {
+      if (this.period_id = data['period_id']) {
+        this.selectPeriod1 = this.period_id;
+      }
+    });
+    this.periodService.readOne(this.afternoon).subscribe(data => {
+      if (this.period_id = data['period_id']) {
+        this.selectPeriod2 = this.period_id;
+      }
+    });
+    this.periodService.read().subscribe(data => {
+      this.period = data;
+    });
+    this.sta.read().subscribe(data => {
+      this.status = data;
+    });
+    this.unitService.read().subscribe(data => {
+      this.unit = data;
+    });
+
+  }
+
+  addDetail() {
+    // this.mor();
+    // this.after();
+    // this.labors();
+    // this.works();
+    // this.tools();
+    // this.material();
+    this.strikes();
+  }
+
+  mor() {
+    const data = {
+      period_id: this.selectPeriod1,
+      sta_id: this.selectStatus2,
+      dr_id: this.data.dr_id
+    }
+    this.weatherService.create(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  after() {
+    const data = {
+      period_id: this.selectPeriod2,
+      sta_id: this.selectStatus2,
+      dr_id: this.data.dr_id
+    }
+    this.weatherService.create(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  // ************************************LABOR***********************************
+  addNewLabor(): void {
+    const newLabor = { labor_name: '', labor_num: null, dr_id: this.data.dr_id };
+    this.labor.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
+  }
+  removeLabor(index: number): void {
+    this.labor.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
+  }
+  labors() {
+    this.laborService.create(this.labor).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  // ************************************WORK***********************************
+  addNewWork() {
+    this.num++;
+    const newWork = { work_num: this.num, work_detail: '', dr_id: this.data.dr_id };
+    this.work.push(newWork);
+  }
+  removeWork(index: number): void {
+    this.work.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
+    this.num--;
+  }
+  works() {
+    this.workService.create(this.work).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  // *******************************************TOOL*********************************************
+  addNewTool() {
+    const newTool = { tool_name: '', tool_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id };
+    this.tool.push(newTool);
+    this.selectUnit = '';
+  }
+  removeTool(index: number): void {
+    this.tool.splice(index, 1);
+  }
+  tools() {
+    this.toolService.create(this.tool).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  // *******************************************MATERIAL*********************************************
+  addNewMat() {
+    const newMat = { mat_name: '', mat_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id };
+    this.mat.push(newMat);
+    this.selectUnit = '';
+  }
+  removeMat(index: number): void {
+    this.mat.splice(index, 1);
+  }
+  material() {
+    this.matService.create(this.mat).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+
+  strikes() {
+    const data = {
+      strike_detail: this.strike_detail,
+      strike_cause: this.strike_cause,
+      dr_id: this.data.dr_id
+    }
+    this.strikeService.create(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        window.location.reload();
+      } else {
+        console.log(res.message); // Failed to create user
+        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+      }
+    });
+  }
+}

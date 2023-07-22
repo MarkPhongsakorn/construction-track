@@ -8,6 +8,7 @@
         public $tool_name;
         public $tool_num;
 
+        public $unit_id;
         public $dr_id;
 
         public function __construct($db) {
@@ -39,16 +40,19 @@
             SET
                 tool_name = :tool_name,
                 tool_num = :tool_num,
+                unit_id = :unit_id,
                 dr_id = :dr_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->tool_name = htmlspecialchars(strip_tags($this->tool_name));
             $this->tool_num = htmlspecialchars(strip_tags($this->tool_num));
+            $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
             $stmt->bindParam(':tool_name', $this->tool_name);
             $stmt->bindParam(':tool_num', $this->tool_num);
+            $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
 
             if ($stmt->execute()) {
@@ -63,6 +67,7 @@
             SET
                 tool_name = :tool_name,
                 tool_num = :tool_num,
+                unit_id = :unit_id,
                 dr_id = :dr_id
             WHERE
                 tool_id = :tool_id';
@@ -71,10 +76,12 @@
 
             $this->tool_name = htmlspecialchars(strip_tags($this->tool_name));
             $this->tool_num = htmlspecialchars(strip_tags($this->tool_num));
+            $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
             $stmt->bindParam(':tool_name', $this->tool_name);
             $stmt->bindParam(':tool_num', $this->tool_num);
+            $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':tool_id', $this->tool_id);
 

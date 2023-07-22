@@ -5,32 +5,29 @@
     header("Content-Type: application/json;");
 
     include_once '../../config/database.php';
-    include_once '../../models/material.php';
+    include_once '../../models/inspec_result.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $mat = new Material($db);
+    $result = new Result($db);
 
-    $mat->mat_id = isset($_GET['mat_id']) ? $_GET['mat_id'] : die();
+    $result->inspec_id = isset($_GET['inspec_result_id']) ? $_GET['inspec_result_id'] : die();
 
-    $result = $mat->read_one();
+    $results = $result->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
-        $row = $result->fetch(PDO::FETCH_ASSOC);
+        $row = $results->fetch(PDO::FETCH_ASSOC);
 
-            $mat_arr = array(
-                'mat_id' => $row['mat_id'],
-                'mat_name' => $row['mat_name'],
-                'mat_num' => $row['mat_num'],
-                'unit_id' => $row['unit_id'],
-                'dr_id' => $row['dr_id']
+            $inspec_arr = array(
+                'inspec_result_id' => $row['inspec_result_id'],
+                'inspec_result' => $row['inspec_result']
             );
 
             http_response_code(200);
-            echo json_encode($mat_arr);
+            echo json_encode($inspec_arr);
     } else {
         http_response_code(404);
         echo json_encode(array('message' => 'Not found.'));

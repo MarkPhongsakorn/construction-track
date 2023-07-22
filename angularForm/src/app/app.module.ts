@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,6 +20,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 
+import {CdkDrag} from '@angular/cdk/drag-drop';
+
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,6 +35,7 @@ import { DailyReportComponent } from './daily-report/daily-report.component';
 import { AddReportComponent } from './add-report/add-report.component';
 import { EditReportComponent } from './edit-report/edit-report.component';
 import { DeleteReportComponent } from './delete-report/delete-report.component';
+import { AddDetailComponent } from './add-detail/add-detail.component';
 
 
 @NgModule({
@@ -48,12 +51,14 @@ import { DeleteReportComponent } from './delete-report/delete-report.component';
     DailyReportComponent,
     AddReportComponent,
     EditReportComponent,
-    DeleteReportComponent
+    DeleteReportComponent,
+    AddDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
@@ -69,6 +74,7 @@ import { DeleteReportComponent } from './delete-report/delete-report.component';
     MatDialogModule,
     MatDatepickerModule,
     MatTableModule,
+    CdkDrag,
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]

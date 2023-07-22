@@ -5,24 +5,22 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/weather.php';
+    include_once '../../models/inspec_result.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $weather = new Weather($db);
+    $result = new Result($db);
 
 
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['period_id']) && !empty($req['sta_id']) && !empty($req['dr_id'])) {
+    if ($req && !empty($req['inspec_result'])) {
         
-        $weather->period_id = $req['period_id'];
-        $weather->sta_id = $req['sta_id'];
-        $weather->dr_id = $req['dr_id'];
+        $result->inspec_result = $req['inspec_result'];
 
-        if ($weather->create()) {
+        if ($result->create()) {
             $response = array("status" => "success", "message" => "User created.");
         } else {
             $response = array("status" => "error", "message" => "Failed to create user.");

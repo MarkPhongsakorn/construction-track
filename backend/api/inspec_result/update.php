@@ -6,22 +6,19 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/tool.php';
+    include_once '../../models/inspec_result.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $tool = new Tool($db);
+    $result = new Result($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $tool->tool_id = $data->tool_id;
-    $tool->tool_name = $data->tool_name;
-    $tool->tool_num = $data->tool_num;
-    $tool->unit_id = $data->unit_id;
-    $tool->dr_id = $data->dr_id;
+    $result->inspec_result_id = $data->inspec_result_id;
+    $result->inspec_result = $data->inspec_result;
 
-    if ($tool->update()) {
+    if ($result->update()) {
         $response = array("status" => "success", "message" => "Company updated.");
     } else {
         $response = array("status" => "error", "message" => "Failed to updated company.");

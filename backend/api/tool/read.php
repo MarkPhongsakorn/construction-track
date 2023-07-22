@@ -27,6 +27,7 @@
                 'tool_id' => $tool_id,
                 'tool_name' => $tool_name,
                 'tool_num' => $tool_num,
+                'unit_id' => $unit_id,
                 'dr_id' => $dr_id
             );
 

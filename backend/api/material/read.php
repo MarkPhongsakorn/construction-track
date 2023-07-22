@@ -27,6 +27,7 @@
                 'mat_id' => $mat_id,
                 'mat_name' => $mat_name,
                 'mat_num' => $mat_num,
+                'unit_id' => $unit_id,
                 'dr_id' => $dr_id
             );
 
