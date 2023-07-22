@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $mat->mat_id = isset($_GET['mat_id']) ? $_GET['mat_id'] : die();
+    $mat->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     if($mat->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");

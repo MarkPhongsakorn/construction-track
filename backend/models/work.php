@@ -88,12 +88,12 @@
 
         public function delete() {
 
-            $query = 'DELETE FROM ' . $this->table . ' WHERE work_id = :work_id';
+            $query = 'DELETE FROM ' . $this->table . ' WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
 
-            $this->work_id = htmlspecialchars(strip_tags($this->work_id));
+            $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
-            $stmt->bindParam(':work_id', $this->work_id);
+            $stmt->bindParam(':dr_id', $this->dr_id);
 
             if ($stmt->execute()) {
                 return true;

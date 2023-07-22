@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $weather->weather_id = isset($_GET['weather_id']) ? $_GET['weather_id'] : die();
+    $weather->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     if($weather->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");

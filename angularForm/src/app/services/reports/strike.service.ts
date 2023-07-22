@@ -15,4 +15,8 @@ export class StrikeService {
   create(data: object) {
     return this.http.post(`${this.baseUrl}/backend/api/strike/create.php`, data)
   }
+
+  delete(dr_id: string) : Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/strike/delete.php`,{ params: { dr_id: dr_id } });
+  }
 }

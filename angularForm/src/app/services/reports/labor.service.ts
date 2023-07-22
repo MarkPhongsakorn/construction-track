@@ -15,4 +15,8 @@ export class LaborService {
   create(data: object) : Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/labor/create.php`, data);
   }
+
+  delete(dr_id: string) : Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/labor/delete.php`,{ params: { dr_id: dr_id } });
+  }
 }

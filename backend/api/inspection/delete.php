@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $inspec->inspec_id = isset($_GET['inspec_id']) ? $_GET['inspec_id'] : die();
+    $inspec->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     if($inspec->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");

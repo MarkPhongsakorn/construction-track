@@ -87,12 +87,12 @@
 
         public function delete() {
 
-            $query = 'DELETE FROM ' . $this->table . ' WHERE strike_id = :strike_id';
+            $query = 'DELETE FROM ' . $this->table . ' WHERE dr_id = :dr_id';
             $stmt = $this->conn->prepare($query);
 
-            $this->strike_id = htmlspecialchars(strip_tags($this->strike_id));
+            $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
-            $stmt->bindParam(':strike_id', $this->strike_id);
+            $stmt->bindParam(':dr_id', $this->dr_id);
 
             if ($stmt->execute()) {
                 return true;

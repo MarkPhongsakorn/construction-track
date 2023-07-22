@@ -36,6 +36,7 @@ import { AddReportComponent } from './add-report/add-report.component';
 import { EditReportComponent } from './edit-report/edit-report.component';
 import { DeleteReportComponent } from './delete-report/delete-report.component';
 import { AddDetailComponent } from './add-detail/add-detail.component';
+import { DetailReportComponent } from './detail-report/detail-report.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { AddDetailComponent } from './add-detail/add-detail.component';
     AddReportComponent,
     EditReportComponent,
     DeleteReportComponent,
-    AddDetailComponent
+    AddDetailComponent,
+    DetailReportComponent
   ],
   imports: [
     BrowserModule,

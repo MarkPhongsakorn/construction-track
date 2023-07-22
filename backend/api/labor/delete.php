@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $labor->labor_id = isset($_GET['labor_id']) ? $_GET['labor_id'] : die();
+    $labor->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     if($labor->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");

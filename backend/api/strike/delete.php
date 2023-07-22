@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $strike->strike_id = isset($_GET['strike_id']) ? $_GET['strike_id'] : die();
+    $strike->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     if($strike->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");

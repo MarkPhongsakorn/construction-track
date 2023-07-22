@@ -5,7 +5,7 @@
         private $table = "tb_daily_report";
         private $table2 = "tb_user_detail";
         private $table3 = "tb_project";
-
+        
         public $dr_id;
         public $dr_time;
         public $problem;
@@ -123,7 +123,9 @@
 
         public function delete() {
 
-            $query = 'DELETE FROM ' . $this->table . ' WHERE dr_id = :dr_id';
+            $query = 'DELETE  FROM ' . $this->table . ' WHERE dr_id = :dr_id';
+            
+
             $stmt = $this->conn->prepare($query);
 
             $stmt->bindParam(':dr_id', $this->dr_id);

@@ -15,7 +15,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $tool->tool_id = isset($_GET['tool_id']) ? $_GET['tool_id'] : die();
+    $tool->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
     if($tool->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");
