@@ -25,7 +25,7 @@
 
             $inspec_item = array(
                 'inspec_id' => $inspec_id,
-                'inspec_result' => $inspec_result,
+                'inspec_result_id' => $inspec_result_id,
                 'dr_id' => $dr_id
             );
 

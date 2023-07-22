@@ -16,9 +16,9 @@
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['inspec_result']) && !empty($req['dr_id'])) {
+    if ($req && !empty($req['inspec_result_id']) && !empty($req['dr_id'])) {
         
-        $inspec->inspec_result = $req['inspec_result'];
+        $inspec->inspec_result_id = $req['inspec_result_id'];
         $inspec->dr_id = $req['dr_id'];
 
         if ($inspec->create()) {

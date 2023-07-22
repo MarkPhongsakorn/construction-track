@@ -5,7 +5,7 @@
         private $table = "tb_inspection";
 
         public $inspec_id;
-        public $inspec_result;
+        public $inspec_result_id;
         
         public $dr_id;
 
@@ -36,15 +36,15 @@
         public function create() {
             $query = 'INSERT INTO ' . $this->table . '
             SET
-                inspec_result = :inspec_result,
+                inspec_result_id = :inspec_result_id,
                 dr_id = :dr_id';
 
             $stmt = $this->conn->prepare($query);
 
-            $this->inspec_result = htmlspecialchars(strip_tags($this->inspec_result));
+            $this->inspec_result_id = htmlspecialchars(strip_tags($this->inspec_result_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
-            $stmt->bindParam(':inspec_result', $this->inspec_result);
+            $stmt->bindParam(':inspec_result_id', $this->inspec_result_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
 
             if ($stmt->execute()) {
@@ -57,17 +57,17 @@
         public function update() {
             $query = 'UPDATE ' . $this->table . '
             SET
-                inspec_result = :inspec_result, 
+                inspec_result_id = :inspec_result_id, 
                 dr_id = :dr_id
             WHERE
                 inspec_id = :inspec_id';
 
             $stmt = $this->conn->prepare($query);
 
-            $this->inspec_result = htmlspecialchars(strip_tags($this->inspec_result));
+            $this->inspec_result_id = htmlspecialchars(strip_tags($this->inspec_result_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
-            $stmt->bindParam(':inspec_result', $this->inspec_result);
+            $stmt->bindParam(':inspec_result_id', $this->inspec_result_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':inspec_id', $this->inspec_id);
 

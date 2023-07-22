@@ -23,7 +23,7 @@
 
             $inspec_arr = array(
                 'inspec_id' => $row['inspec_id'],
-                'inspec_result' => $row['inspec_result'],
+                'inspec_result_id' => $row['inspec_result_id'],
                 'dr_id' => $row['dr_id']
             );
 

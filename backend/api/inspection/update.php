@@ -16,7 +16,7 @@
     $data = json_decode(file_get_contents("php://input"));
 
     $inspec->inspec_id = $data->inspec_id;
-    $inspec->inspec_result = $data->inspec_result;
+    $inspec->inspec_result_id = $data->inspec_result_id;
     $inspec->dr_id = $data->dr_id;
 
     if ($inspec->update()) {
