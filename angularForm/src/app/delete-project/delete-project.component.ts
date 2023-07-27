@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
 import { WeatherService } from '../services/reports/weather.service';
-import { timeInterval } from 'rxjs';
 
 @Component({
   selector: 'app-delete-project',
@@ -43,6 +42,9 @@ export class DeleteProjectComponent implements OnInit {
         alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
       }
     });
+    this.weather.delete(this.data.project_id).subscribe(res => {
+      
+    })
   }
 
 

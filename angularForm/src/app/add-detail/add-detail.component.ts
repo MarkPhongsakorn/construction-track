@@ -64,7 +64,8 @@ export class AddDetailComponent implements OnInit {
     private strikeService: StrikeService,
     private inspecService: InspectionService,
     private resultService: InspecResultService
-  ) { 
+  ) { console.log(this.data.project_id);
+  
   }
 
   
@@ -110,7 +111,8 @@ export class AddDetailComponent implements OnInit {
     const data = {
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus2,
-      dr_id: this.data.dr_id
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id,
     }
     this.weatherService.create(data).subscribe((res: any) => {
       if (res.status === "success") {
@@ -126,7 +128,8 @@ export class AddDetailComponent implements OnInit {
     const data = {
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
-      dr_id: this.data.dr_id
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id,
     }
     this.weatherService.create(data).subscribe((res: any) => {
       if (res.status === "success") {
@@ -140,7 +143,7 @@ export class AddDetailComponent implements OnInit {
 
   // ************************************LABOR***********************************
   addNewLabor(): void {
-    const newLabor = { labor_name: '', labor_num: null, dr_id: this.data.dr_id };
+    const newLabor = { labor_name: '', labor_num: null, dr_id: this.data.dr_id, project_id: this.data.project_id };
     this.labor.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
   }
   removeLabor(index: number): void {
@@ -160,7 +163,7 @@ export class AddDetailComponent implements OnInit {
   // ************************************WORK***********************************
   addNewWork() {
     this.num++;
-    const newWork = { work_num: this.num, work_detail: '', dr_id: this.data.dr_id };
+    const newWork = { work_num: this.num, work_detail: '', dr_id: this.data.dr_id, project_id: this.data.project_id };
     this.work.push(newWork);
   }
   removeWork(index: number): void {
@@ -180,7 +183,7 @@ export class AddDetailComponent implements OnInit {
 
   // *******************************************TOOL*********************************************
   addNewTool() {
-    const newTool = { tool_name: '', tool_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id };
+    const newTool = { tool_name: '', tool_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
     this.tool.push(newTool);
     this.selectUnit = '';
   }
@@ -200,7 +203,7 @@ export class AddDetailComponent implements OnInit {
 
   // *******************************************MATERIAL*********************************************
   addNewMat() {
-    const newMat = { mat_name: '', mat_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id };
+    const newMat = { mat_name: '', mat_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
     this.mat.push(newMat);
     this.selectUnit = '';
   }
@@ -222,7 +225,8 @@ export class AddDetailComponent implements OnInit {
     const data = {
       strike_detail: this.strike_detail,
       strike_cause: this.strike_cause,
-      dr_id: this.data.dr_id
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
     }
     this.strikeService.create(data).subscribe((res: any) => {
       if (res.status === "success") {
@@ -237,7 +241,8 @@ export class AddDetailComponent implements OnInit {
   inspec() {
     const data = {
       inspec_result_id: this.selectResult,
-      dr_id: this.data.dr_id
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
     }
     this.inspecService.create(data).subscribe((res: any) => {
       if (res.status === "success") {

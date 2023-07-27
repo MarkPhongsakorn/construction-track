@@ -75,7 +75,7 @@ export class DailyReportComponent implements OnInit {
   openDialog4(dr_id: string) {
     this.dr_id = dr_id;
     const dialogRef = this.dialog.open(AddDetailComponent, {
-      data: {dr_id: this.dr_id}
+      data: {dr_id: this.dr_id, project_id: this.project}
     });
   }
 
