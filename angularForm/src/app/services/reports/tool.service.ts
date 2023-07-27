@@ -25,4 +25,8 @@ export class ToolService {
   readOne(dr_id: string): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/backend/api/tool/read_one.php`,{ params: { dr_id: dr_id } });
   }
+
+  deleteProject(project_id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/tool/deleteByProject.php`,{ params: { project_id: project_id } })
+  }
 }

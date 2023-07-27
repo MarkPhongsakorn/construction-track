@@ -23,4 +23,8 @@ export class InspectionService {
   readOne(dr_id: string): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/backend/api/inspection/read_one.php`,{ params: { dr_id: dr_id } });
   }
+
+  deleteProject(project_id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/inspection/deleteByProject.php`,{ params: { project_id: project_id } })
+  }
 }

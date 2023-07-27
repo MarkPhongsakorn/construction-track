@@ -64,9 +64,7 @@ export class AddDetailComponent implements OnInit {
     private strikeService: StrikeService,
     private inspecService: InspectionService,
     private resultService: InspecResultService
-  ) { console.log(this.data.project_id);
-  
-  }
+  ) {}
 
   
 

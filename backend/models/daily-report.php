@@ -137,6 +137,22 @@
             return false;
         }
 
+        public function deleteByProject() {
+
+            $query = 'DELETE  FROM ' . $this->table . ' WHERE project_id = :project_id';
+            
+
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(':project_id', $this->project_id);
+
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 
 ?>
