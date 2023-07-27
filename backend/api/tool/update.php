@@ -20,6 +20,7 @@
     $tool->tool_num = $data->tool_num;
     $tool->unit_id = $data->unit_id;
     $tool->dr_id = $data->dr_id;
+    $tool->project_id = $data->project_id;
 
     if ($tool->update()) {
         $response = array("status" => "success", "message" => "Company updated.");

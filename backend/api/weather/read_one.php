@@ -28,7 +28,8 @@
                 'period_name' => $row['period_name'],
                 'sta_id' => $row['sta_id'],
                 'sta_name' => $row['sta_name'],
-                'dr_id' => $row['dr_id']
+                'dr_id' => $row['dr_id'],
+                'project_id' => $row['project_id']
             );
 
             http_response_code(200);

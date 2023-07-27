@@ -19,6 +19,7 @@
     $work->work_num = $data->work_num;
     $work->work_detail = $data->work_detail;
     $work->dr_id = $data->dr_id;
+    $work->project_id = $data->project_id;
 
     if ($work->update()) {
         $response = array("status" => "success", "message" => "Company updated.");

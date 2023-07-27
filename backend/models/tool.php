@@ -11,6 +11,7 @@
 
         public $unit_id;
         public $dr_id;
+        public $project_id;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -44,7 +45,8 @@
                 tool_name = :tool_name,
                 tool_num = :tool_num,
                 unit_id = :unit_id,
-                dr_id = :dr_id';
+                dr_id = :dr_id,
+                project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
@@ -52,11 +54,13 @@
             $this->tool_num = htmlspecialchars(strip_tags($this->tool_num));
             $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':tool_name', $this->tool_name);
             $stmt->bindParam(':tool_num', $this->tool_num);
             $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -72,6 +76,7 @@
                 tool_num = :tool_num,
                 unit_id = :unit_id,
                 dr_id = :dr_id
+                project_id = :project_id
             WHERE
                 tool_id = :tool_id';
 
@@ -81,11 +86,13 @@
             $this->tool_num = htmlspecialchars(strip_tags($this->tool_num));
             $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':tool_name', $this->tool_name);
             $stmt->bindParam(':tool_num', $this->tool_num);
             $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':tool_id', $this->tool_id);
 
             if ($stmt->execute()) {

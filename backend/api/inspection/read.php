@@ -26,7 +26,8 @@
             $inspec_item = array(
                 'inspec_id' => $inspec_id,
                 'inspec_result_id' => $inspec_result_id,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id
             );
 
             array_push($inspec_arr, $inspec_item);

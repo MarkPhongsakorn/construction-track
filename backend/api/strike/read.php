@@ -27,7 +27,8 @@
                 'strike_id' => $strike_id,
                 'strike_detail' => $strike_detail,
                 'strike_cause' => $strike_cause,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id,
             );
 
             array_push($strike_arr, $strike_item);

@@ -16,10 +16,11 @@
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['inspec_result_id']) && !empty($req['dr_id'])) {
+    if ($req && !empty($req['inspec_result_id']) && !empty($req['dr_id'])  && !empty($req['project_id'])) {
         
         $inspec->inspec_result_id = $req['inspec_result_id'];
         $inspec->dr_id = $req['dr_id'];
+        $inspec->dr_id = $req['project_id'];
 
         if ($inspec->create()) {
             $response = array("status" => "success", "message" => "User created.");

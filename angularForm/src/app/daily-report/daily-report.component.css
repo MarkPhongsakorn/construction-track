@@ -13,11 +13,11 @@
 
 mat-toolbar-row button {
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 200px;
 }
 
 mat-toolbar-row h1 {
-    margin-left: 20px;
+    margin-left: 200px;
     margin-bottom: 0px;
     font-size: xx-large;
     font-weight: bold;
@@ -42,4 +42,19 @@ a {
 
 p {
     font-weight: bold;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+.show {
+    width: 80%;
+    text-align: center;
+}
+
+th,td {
+    font-size: larger;
+    text-align: center;
 }

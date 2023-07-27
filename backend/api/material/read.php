@@ -28,7 +28,8 @@
                 'mat_name' => $mat_name,
                 'mat_num' => $mat_num,
                 'unit_id' => $unit_id,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id
             );
 
             array_push($mat_arr, $mat_item);

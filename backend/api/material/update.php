@@ -20,6 +20,7 @@
     $mat->mat_num = $data->mat_num;
     $mat->unit_id = $data->unit_id;
     $mat->dr_id = $data->dr_id;
+    $mat->project_id = $data->project_id;
 
     if ($mat->update()) {
         $response = array("status" => "success", "message" => "Company updated.");

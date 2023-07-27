@@ -27,7 +27,8 @@
                 'weather_id' => $weather_id,
                 'period_id' => $period_id,
                 'sta_id' => $sta_id,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id
             );
 
             array_push($weather_arr, $weather_item);

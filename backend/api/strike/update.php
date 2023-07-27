@@ -19,6 +19,7 @@
     $strike->strike_detail = $data->strike_detail;
     $strike->strike_cause = $data->strike_cause;
     $strike->dr_id = $data->dr_id;
+    $strike->project_id = $data->project_id;
 
     if ($strike->update()) {
         $response = array("status" => "success", "message" => "Company updated.");

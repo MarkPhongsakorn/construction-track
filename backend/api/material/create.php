@@ -19,12 +19,13 @@
     if ($req && is_array($req) && !empty($req)) {
         $response = array();
         foreach ($req as $item) {
-            if ($req && !empty($item['mat_name']) && !empty($item['mat_num']) && !empty($item['unit_id']) && !empty($item['dr_id'])) {
+            if ($req && !empty($item['mat_name']) && !empty($item['mat_num']) && !empty($item['unit_id']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $mat->mat_name = $item['mat_name'];
                 $mat->mat_num = $item['mat_num'];
                 $mat->unit_id = $item['unit_id'];
                 $mat->dr_id = $item['dr_id'];
+                $mat->project_id = $item['project_id'];
         
                 if ($mat->create()) {
                     $response = array("status" => "success", "message" => "Material created.");

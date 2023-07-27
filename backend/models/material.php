@@ -11,6 +11,7 @@
         public $unit_id;
 
         public $dr_id;
+        public $project_id;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -44,7 +45,8 @@
                 mat_name = :mat_name,
                 mat_num = :mat_num,
                 unit_id = :unit_id,
-                dr_id = :dr_id';
+                dr_id = :dr_id,
+                project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
@@ -52,11 +54,13 @@
             $this->mat_num = htmlspecialchars(strip_tags($this->mat_num));
             $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':mat_name', $this->mat_name);
             $stmt->bindParam(':mat_num', $this->mat_num);
             $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -72,6 +76,7 @@
                 mat_num = :mat_num,
                 unit_id = :unit_id,
                 dr_id = :dr_id
+                project_id = :project_id
             WHERE
                 mat_id = :mat_id';
 
@@ -81,11 +86,13 @@
             $this->mat_num = htmlspecialchars(strip_tags($this->mat_num));
             $this->unit_id = htmlspecialchars(strip_tags($this->unit_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':mat_name', $this->mat_name);
             $stmt->bindParam(':mat_num', $this->mat_num);
             $stmt->bindParam(':unit_id', $this->unit_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':mat_id', $this->mat_id);
 
             if ($stmt->execute()) {

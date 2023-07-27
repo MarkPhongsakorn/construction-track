@@ -9,6 +9,7 @@
         public $inspec_result_id;
         
         public $dr_id;
+        public $project_id;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -40,15 +41,18 @@
             $query = 'INSERT INTO ' . $this->table . '
             SET
                 inspec_result_id = :inspec_result_id,
-                dr_id = :dr_id';
+                dr_id = :dr_id,
+                project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->inspec_result_id = htmlspecialchars(strip_tags($this->inspec_result_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':inspec_result_id', $this->inspec_result_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -62,6 +66,7 @@
             SET
                 inspec_result_id = :inspec_result_id, 
                 dr_id = :dr_id
+                project_id = :project_id
             WHERE
                 inspec_id = :inspec_id';
 
@@ -69,9 +74,11 @@
 
             $this->inspec_result_id = htmlspecialchars(strip_tags($this->inspec_result_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':inspec_result_id', $this->inspec_result_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':inspec_id', $this->inspec_id);
 
             if ($stmt->execute()) {

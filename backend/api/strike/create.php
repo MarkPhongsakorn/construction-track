@@ -16,11 +16,12 @@
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['strike_detail']) && !empty($req['strike_cause']) && !empty($req['dr_id'])) {
+    if ($req && !empty($req['strike_detail']) && !empty($req['strike_cause']) && !empty($req['dr_id'])  && !empty($req['project_id'])) {
         
         $strike->strike_detail = $req['strike_detail'];
         $strike->strike_cause = $req['strike_cause'];
         $strike->dr_id = $req['dr_id'];
+        $strike->project_id = $req['project_id'];
 
         if ($strike->create()) {
             $response = array("status" => "success", "message" => "User created.");

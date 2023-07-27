@@ -38,17 +38,20 @@
             SET
                 strike_detail = :strike_detail,
                 strike_cause = :strike_cause,
-                dr_id = :dr_id';
+                dr_id = :dr_id,
+                project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->strike_detail = htmlspecialchars(strip_tags($this->strike_detail));
             $this->strike_cause = htmlspecialchars(strip_tags($this->strike_cause));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':strike_detail', $this->strike_detail);
             $stmt->bindParam(':strike_cause', $this->strike_cause);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -62,7 +65,8 @@
             SET
                 strike_detail = :strike_detail,
                 strike_cause = :strike_cause,
-                dr_id = :dr_id
+                dr_id = :dr_id,
+                project_id = :project_id
             WHERE
                 strike_id = :strike_id';
 
@@ -71,10 +75,12 @@
             $this->strike_detail = htmlspecialchars(strip_tags($this->strike_detail));
             $this->strike_cause = htmlspecialchars(strip_tags($this->strike_cause));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':strike_detail', $this->strike_detail);
             $stmt->bindParam(':strike_cause', $this->strike_cause);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':strike_id', $this->strike_id);
 
             if ($stmt->execute()) {

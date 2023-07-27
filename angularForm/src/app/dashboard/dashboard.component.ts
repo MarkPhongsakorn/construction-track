@@ -4,6 +4,7 @@ import { AddProjectComponent } from '../add-project/add-project.component';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { DeleteProjectComponent } from '../delete-project/delete-project.component';
 import { ProjectService } from '../services/projects/project.service';
+import { ReportService } from '../services/reports/report.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,9 +29,11 @@ export class DashboardComponent implements OnInit {
 
   project_id: string = '';
 
+
   constructor(
     public dialog: MatDialog,
-    private project: ProjectService
+    private project: ProjectService,
+    private report: ReportService
   ) {}
 
   ngOnInit() {

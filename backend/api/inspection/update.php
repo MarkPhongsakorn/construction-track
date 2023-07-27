@@ -18,6 +18,7 @@
     $inspec->inspec_id = $data->inspec_id;
     $inspec->inspec_result_id = $data->inspec_result_id;
     $inspec->dr_id = $data->dr_id;
+    $inspec->project_id = $data->project_id;
 
     if ($inspec->update()) {
         $response = array("status" => "success", "message" => "Company updated.");

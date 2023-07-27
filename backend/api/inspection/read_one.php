@@ -25,7 +25,8 @@
                 'inspec_id' => $row['inspec_id'],
                 'inspec_result_id' => $row['inspec_result_id'],
                 'inspec_result' => $row['inspec_result'],
-                'dr_id' => $row['dr_id']
+                'dr_id' => $row['dr_id'],
+                'project_id' => $row['project_id']
             );
 
             http_response_code(200);

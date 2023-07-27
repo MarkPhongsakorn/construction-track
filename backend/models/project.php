@@ -129,11 +129,6 @@
             }
 
         }
-
-        public function readReportByProjectId() {
-            
-        }
-
     }
 
 ?>

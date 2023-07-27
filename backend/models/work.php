@@ -9,6 +9,7 @@
         public $work_detail;
 
         public $dr_id;
+        public $project_id;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -39,17 +40,20 @@
             SET
                 work_num = :work_num,
                 work_detail = :work_detail,
-                dr_id = :dr_id';
+                dr_id = :dr_id,
+                project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->work_num = htmlspecialchars(strip_tags($this->work_num));
             $this->work_detail = htmlspecialchars(strip_tags($this->work_detail));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':work_num', $this->work_num);
             $stmt->bindParam(':work_detail', $this->work_detail);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -64,6 +68,7 @@
                 work_num = :work_num,
                 work_detail = :work_detail,
                 dr_id = :dr_id
+                project_id = :project_id
             WHERE
                 work_id = :work_id';
 
@@ -72,10 +77,12 @@
             $this->work_num = htmlspecialchars(strip_tags($this->work_num));
             $this->work_detail = htmlspecialchars(strip_tags($this->work_detail));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':work_num', $this->work_num);
             $stmt->bindParam(':work_detail', $this->work_detail);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':work_id', $this->work_id);
 
             if ($stmt->execute()) {

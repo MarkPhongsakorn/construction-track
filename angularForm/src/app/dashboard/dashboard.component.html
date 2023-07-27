@@ -1,58 +1,60 @@
 <mat-toolbar-row>
   <h1>โครงการ</h1>
-  <button mat-raised-button color="accent" (click)="openDialog()">ADD PROJECT</button>
+  <button mat-raised-button color="accent" (click)="openDialog()">
+    <mat-icon> add </mat-icon>เพิ่มโครงการ</button>
 </mat-toolbar-row>
 
 <div class="not" *ngIf="this.projectID">
   <h1>ไม่มีข้อมูล</h1>
 </div>
 
-<div *ngIf="!this.projectID">
+<div class="flex">
+  <div class="show mat-elevation-z8" *ngIf="!this.projectID">
   
-  <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource.length > 0">
-
-    <ng-container matColumnDef="project_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> ID </p></th>
-      <td mat-cell *matCellDef="let row"> {{row.project_id}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="project_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> ชื่อ </p></th>
-      <td mat-cell *matCellDef="let row"><a [routerLink]="['/report', row.project_id]">{{row.project_name}}</a></td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="project_start">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> วันที่เริ่ม </p></th>
-      <td mat-cell *matCellDef="let row"> {{row.project_start | date: 'dd/MM/yyyy'}} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="project_end">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> วันที่สิ้นสุด </p></th>
-      <td mat-cell *matCellDef="let row"> {{row.project_end | date: 'dd/MM/yyyy'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="user_fname user_lname">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> ชื่อผู้ควบคุม </p></th>
-      <td mat-cell *matCellDef="let row"> {{row.user_fname}} {{row.user_lname}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="comp_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> บริษัทที่ดูแล </p></th>
-      <td mat-cell *matCellDef="let row"> {{row.comp_name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><p> Action </p></th>
-      <td mat-cell *matCellDef="let row">
-          <a mat-raised-button color="primary" (click)="openDialog2(row.project_id)">Edit</a>
-          <a mat-raised-button color="warn" (click)="openDialog3(row.project_id)">Delete</a>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource.length > 0">
+  
+      <ng-container matColumnDef="project_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> ID </p></th>
+        <td mat-cell *matCellDef="let row"> {{row.project_id}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="project_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> ชื่อ </p></th>
+        <td mat-cell *matCellDef="let row"><a class="report" [routerLink]="['/report', row.project_id]">{{row.project_name}}</a></td>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="project_start">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> วันที่เริ่ม </p></th>
+        <td mat-cell *matCellDef="let row"> {{row.project_start | date: 'dd/MM/yyyy'}} </td>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="project_end">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> วันที่สิ้นสุด </p></th>
+        <td mat-cell *matCellDef="let row"> {{row.project_end | date: 'dd/MM/yyyy'}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="user_fname user_lname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> ชื่อผู้ควบคุม </p></th>
+        <td mat-cell *matCellDef="let row"> {{row.user_fname}} {{row.user_lname}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="comp_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> บริษัทที่ดูแล </p></th>
+        <td mat-cell *matCellDef="let row"> {{row.comp_name}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header><p> Action </p></th>
+        <td mat-cell *matCellDef="let row">
+            <a mat-icon-button color="primary" (click)="openDialog2(row.project_id)"><mat-icon> create </mat-icon></a>
+            <a mat-icon-button color="warn" (click)="openDialog3(row.project_id)"><mat-icon> delete </mat-icon></a>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
 </div>

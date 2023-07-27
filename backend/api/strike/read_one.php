@@ -25,7 +25,8 @@
                 'strike_id' => $row['strike_id'],
                 'strike_detail' => $row['strike_detail'],
                 'strike_cause' => $row['strike_cause'],
-                'dr_id' => $row['dr_id']
+                'dr_id' => $row['dr_id'],
+                'project_id' => $row['project_id']
             );
 
             http_response_code(200);

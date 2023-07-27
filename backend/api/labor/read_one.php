@@ -28,7 +28,8 @@
                 'labor_id' => $labor_id,
                 'labor_name' => $labor_name,
                 'labor_num' => $labor_num,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id
             );
 
             array_push($labor_arr, $labor_item);

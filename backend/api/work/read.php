@@ -27,7 +27,8 @@
                 'work_id' => $work_id,
                 'work_num' => $work_num,
                 'work_detail' => $work_detail,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id
             );
 
             array_push($work_arr, $work_item);

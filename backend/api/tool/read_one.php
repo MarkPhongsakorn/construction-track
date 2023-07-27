@@ -30,7 +30,8 @@
                 'tool_num' => $tool_num,
                 'unit_id' => $unit_id,
                 'unit_name' => $unit_name,
-                'dr_id' => $dr_id
+                'dr_id' => $dr_id,
+                'project_id' => $project_id,
             );
 
             array_push($tool_arr, $tool_item);

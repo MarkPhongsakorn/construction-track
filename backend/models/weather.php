@@ -10,6 +10,7 @@
         public $period_id;
         public $sta_id;
         public $dr_id;
+        public $project_id;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -45,17 +46,20 @@
             SET
                 period_id = :period_id,
                 sta_id = :sta_id,
-                dr_id = :dr_id';
+                dr_id = :dr_id,
+                project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->period_id = htmlspecialchars(strip_tags($this->period_id));
             $this->sta_id = htmlspecialchars(strip_tags($this->sta_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':period_id', $this->period_id);
             $stmt->bindParam(':sta_id', $this->sta_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -69,7 +73,8 @@
             SET
                 period_id = :period_id,
                 sta_id = :sta_id,
-                dr_id = :dr_id
+                dr_id = :dr_id,
+                project_id = :project_id
             WHERE
                 weather_id = :weather_id';
 
@@ -78,10 +83,12 @@
             $this->period_id = htmlspecialchars(strip_tags($this->period_id));
             $this->sta_id = htmlspecialchars(strip_tags($this->sta_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':period_id', $this->period_id);
             $stmt->bindParam(':sta_id', $this->sta_id);
             $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':weather_id', $this->weather_id);
 
             if ($stmt->execute()) {

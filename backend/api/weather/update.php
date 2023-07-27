@@ -19,6 +19,7 @@
     $weather->period_id = $data->period_id;
     $weather->sta_id = $data->sta_id;
     $weather->dr_id = $data->dr_id;
+    $weather->project_id = $data->project_id;
 
     if ($weather->update()) {
         $response = array("status" => "success", "message" => "Company updated.");
