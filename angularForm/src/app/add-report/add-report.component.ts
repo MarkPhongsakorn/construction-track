@@ -4,6 +4,7 @@ import { UserService } from '../services/users/user.service';
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
 import { format } from 'date-fns-tz';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -56,10 +57,24 @@ export class AddReportComponent implements OnInit {
     };
     this.reportService.create(data).subscribe((res: any) => {
       if (res.status === "success") {
-        window.location.reload();
+        Swal.fire({
+          title: 'สำเร็จ',
+          text: 'การสร้างรายงานสำเร็จ',
+          icon: 'success',
+          confirmButtonText: 'ตกลง'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        console.log(res.message);
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
       }
     });
   }

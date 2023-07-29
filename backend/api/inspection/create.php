@@ -20,7 +20,7 @@
         
         $inspec->inspec_result_id = $req['inspec_result_id'];
         $inspec->dr_id = $req['dr_id'];
-        $inspec->dr_id = $req['project_id'];
+        $inspec->project_id = $req['project_id'];
 
         if ($inspec->create()) {
             $response = array("status" => "success", "message" => "User created.");

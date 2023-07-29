@@ -4,6 +4,7 @@ import { UserService } from '../services/users/user.service';
 import { ProjectService } from '../services/projects/project.service';
 import { CompanyService } from '../services/companies/company.service';
 import { format } from 'date-fns-tz';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-project',
@@ -56,10 +57,24 @@ export class AddProjectComponent implements OnInit {
     };
     this.projectService.createProject(data).subscribe((res: any) => {
       if (res.status === 'success') {
-        window.location.reload();
+        Swal.fire({
+          title: 'สำเร็จ',
+          text: 'การสร้างโครงการสำเร็จ',
+          icon: 'success',
+          confirmButtonText: 'ตกลง'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       } else {
         console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'เกิดข้อผิดพลาดในการสร้างโครงการ',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
       }
     })
   }

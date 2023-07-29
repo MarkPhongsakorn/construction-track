@@ -122,6 +122,7 @@ export class DetailReportComponent implements OnInit {
   inspec() {
     this.inspecService.readOne(this.data.dr_id).subscribe(data => {
       this.inspec_result = data['inspec_result'];
+      
     });
   }
 

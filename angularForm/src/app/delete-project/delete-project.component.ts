@@ -9,6 +9,8 @@ import { ToolService } from '../services/reports/tool.service';
 import { MaterialService } from '../services/reports/material.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-delete-project',
   templateUrl: './delete-project.component.html',
@@ -17,6 +19,8 @@ import { InspectionService } from '../services/reports/inspection.service';
 export class DeleteProjectComponent implements OnInit {
 
   project_name: string = '';
+
+  status: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteProjectComponent>,
@@ -39,76 +43,86 @@ export class DeleteProjectComponent implements OnInit {
   delete() {
     this.project.delete(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.report.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.weatherSeervice.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.laborService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.workService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.toolService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.matService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.strikeService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
     this.inspecService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message);
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
+    if (this.status = true) {
+      Swal.fire({
+        title: 'สำเร็จ',
+        text: 'การลบโครงการสำเร็จ',
+        icon: 'success',
+        confirmButtonText: 'ตกลง'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'ข้อผิดพลาด',
+        text: 'เกิดข้อผิดพลาดในการลบโครงการ',
+        icon: 'error',
+        confirmButtonText: 'ตกลง'
+      });
+    }
   }
 
 

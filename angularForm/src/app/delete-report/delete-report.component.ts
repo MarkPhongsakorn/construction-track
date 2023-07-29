@@ -9,6 +9,7 @@ import { MaterialService } from '../services/reports/material.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { format } from 'date-fns-tz';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-delete-report',
@@ -18,6 +19,7 @@ import { format } from 'date-fns-tz';
 export class DeleteReportComponent implements OnInit {
 
   dr_time: string = '';
+  status: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<DeleteReportComponent>,
@@ -48,15 +50,33 @@ export class DeleteReportComponent implements OnInit {
     this.mat();
     this.strike();
     this.inspec();
+    if (this.status = true) {
+      Swal.fire({
+        title: 'สำเร็จ',
+        text: 'การลบรายงานสำเร็จ',
+        icon: 'success',
+        confirmButtonText: 'ตกลง'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'ข้อผิดพลาด',
+        text: 'เกิดข้อผิดพลาดในการลบรายงาน',
+        icon: 'error',
+        confirmButtonText: 'ตกลง'
+      });
+    }
   }
 
   reports() {
     this.report.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -64,10 +84,9 @@ export class DeleteReportComponent implements OnInit {
   weather() {
     this.weatherService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -75,10 +94,9 @@ export class DeleteReportComponent implements OnInit {
   labor() {
     this.laborService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -86,10 +104,9 @@ export class DeleteReportComponent implements OnInit {
   work() {
     this.workService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -97,10 +114,9 @@ export class DeleteReportComponent implements OnInit {
   tool() {
     this.toolService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -108,10 +124,9 @@ export class DeleteReportComponent implements OnInit {
   mat() {
     this.matService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -119,10 +134,9 @@ export class DeleteReportComponent implements OnInit {
   strike() {
     this.strikeService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }
@@ -130,10 +144,9 @@ export class DeleteReportComponent implements OnInit {
   inspec() {
     this.inspecService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
-        window.location.reload();
+        return this.status = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.status
       }
     });
   }

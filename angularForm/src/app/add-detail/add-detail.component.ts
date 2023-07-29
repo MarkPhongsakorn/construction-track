@@ -11,6 +11,8 @@ import { MaterialService } from '../services/reports/material.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -49,6 +51,8 @@ export class AddDetailComponent implements OnInit {
 
   strike_detail: string = '';
   strike_cause: string = '';
+
+  statuses: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddDetailComponent>,
@@ -103,6 +107,25 @@ export class AddDetailComponent implements OnInit {
     this.material();
     this.strikes();
     this.inspec();
+    if (this.statuses = true) {
+      Swal.fire({
+        title: 'สำเร็จ',
+        text: 'การสร้างรายงานสำเร็จ',
+        icon: 'success',
+        confirmButtonText: 'ตกลง'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
+    } else {
+      Swal.fire({
+        title: 'ข้อผิดพลาด',
+        text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+        icon: 'error',
+        confirmButtonText: 'ตกลง'
+      });
+    }
   }
 
   mor() {
@@ -113,11 +136,10 @@ export class AddDetailComponent implements OnInit {
       project_id: this.data.project_id,
     }
     this.weatherService.create(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -130,11 +152,10 @@ export class AddDetailComponent implements OnInit {
       project_id: this.data.project_id,
     }
     this.weatherService.create(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -149,11 +170,10 @@ export class AddDetailComponent implements OnInit {
   }
   labors() {
     this.laborService.create(this.labor).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -170,11 +190,10 @@ export class AddDetailComponent implements OnInit {
   }
   works() {
     this.workService.create(this.work).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -190,11 +209,10 @@ export class AddDetailComponent implements OnInit {
   }
   tools() {
     this.toolService.create(this.tool).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -210,11 +228,10 @@ export class AddDetailComponent implements OnInit {
   }
   material() {
     this.matService.create(this.mat).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -227,11 +244,10 @@ export class AddDetailComponent implements OnInit {
       project_id: this.data.project_id
     }
     this.strikeService.create(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
@@ -243,11 +259,12 @@ export class AddDetailComponent implements OnInit {
       project_id: this.data.project_id
     }
     this.inspecService.create(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        window.location.reload();
+      console.log(data);
+      
+      if (res.status === 'success') {
+        return this.statuses = true
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        return this.statuses
       }
     });
   }
