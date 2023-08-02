@@ -16,7 +16,6 @@
 
     $sta->sta_id = $data->sta_id;
     $sta->sta_name = $data->sta_name;
-    $sta->sta_time = $data->sta_time;
 
     if ($sta->update()) {
         $response = array("status" => "success", "message" => "Company updated.");

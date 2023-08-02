@@ -6,7 +6,6 @@
 
         public $sta_id;
         public $sta_name;
-        public $sta_time;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -35,16 +34,13 @@
         public function create() {
             $query = 'INSERT INTO ' . $this->table . '
             SET
-                sta_name = :sta_name,
-                sta_time = :sta_time';
+                sta_name = :sta_name';
 
             $stmt = $this->conn->prepare($query);
 
             $this->sta_name = htmlspecialchars(strip_tags($this->sta_name));
-            $this->sta_time = htmlspecialchars(strip_tags($this->sta_time));
 
             $stmt->bindParam(':sta_name', $this->sta_name);
-            $stmt->bindParam(':sta_time', $this->sta_time);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");
@@ -57,17 +53,14 @@
             $query = 'UPDATE ' . $this->table . '
             SET
                 sta_name = :sta_name,
-                sta_time = :sta_time
             WHERE
                 sta_id = :sta_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->sta_name = htmlspecialchars(strip_tags($this->sta_name));
-            $this->sta_time = htmlspecialchars(strip_tags($this->sta_time));
 
             $stmt->bindParam(':sta_name', $this->sta_name);
-            $stmt->bindParam(':sta_time', $this->sta_time);
             $stmt->bindParam(':sta_id', $this->sta_id);
 
             if ($stmt->execute()) {

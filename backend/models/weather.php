@@ -9,6 +9,7 @@
         public $weather_id;
         public $period_id;
         public $sta_id;
+        public $sta_time;
         public $dr_id;
         public $project_id;
 
@@ -46,6 +47,7 @@
             SET
                 period_id = :period_id,
                 sta_id = :sta_id,
+                sta_time = :sta_time,
                 dr_id = :dr_id,
                 project_id = :project_id';
 
@@ -53,11 +55,13 @@
 
             $this->period_id = htmlspecialchars(strip_tags($this->period_id));
             $this->sta_id = htmlspecialchars(strip_tags($this->sta_id));
+            $this->sta_time = htmlspecialchars(strip_tags($this->sta_time));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':period_id', $this->period_id);
             $stmt->bindParam(':sta_id', $this->sta_id);
+            $stmt->bindParam(':sta_time', $this->sta_time);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
 
@@ -73,6 +77,7 @@
             SET
                 period_id = :period_id,
                 sta_id = :sta_id,
+                sta_time = :sta_time,
                 dr_id = :dr_id,
                 project_id = :project_id
             WHERE
@@ -82,11 +87,13 @@
 
             $this->period_id = htmlspecialchars(strip_tags($this->period_id));
             $this->sta_id = htmlspecialchars(strip_tags($this->sta_id));
+            $this->sta_time = htmlspecialchars(strip_tags($this->sta_time));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':period_id', $this->period_id);
             $stmt->bindParam(':sta_id', $this->sta_id);
+            $stmt->bindParam(':sta_time', $this->sta_time);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':weather_id', $this->weather_id);

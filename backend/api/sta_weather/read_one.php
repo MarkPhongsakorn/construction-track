@@ -23,8 +23,7 @@
 
             $sta_arr = array(
                 'sta_id' => $row['sta_id'],
-                'sta_name' => $row['sta_name'],
-                'sta_time' => $row['sta_time']
+                'sta_name' => $row['sta_name']
             );
 
             http_response_code(200);

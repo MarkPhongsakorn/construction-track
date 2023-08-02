@@ -16,10 +16,11 @@
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['period_id']) && !empty($req['sta_id']) && !empty($req['dr_id']) && !empty($req['project_id'])) {
+    if ($req && !empty($req['period_id']) && !empty($req['sta_id'])  && !empty($req['sta_time']) && !empty($req['dr_id']) && !empty($req['project_id'])) {
         
         $weather->period_id = $req['period_id'];
         $weather->sta_id = $req['sta_id'];
+        $weather->sta_time = $req['sta_time'];
         $weather->dr_id = $req['dr_id'];
         $weather->project_id = $req['project_id'];
 

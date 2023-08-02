@@ -36,8 +36,7 @@
         }
             echo json_encode($work_arr);
     } else {
-        http_response_code(404);
-        echo json_encode(array('message' => 'Not found.'));
+        echo json_encode(array("status" => "error", "message" => "Not Found Data"));
     }
 
     

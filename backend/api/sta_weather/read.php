@@ -25,8 +25,7 @@
 
             $sta_item = array(
                 'sta_id' => $sta_id,
-                'sta_name' => $sta_name,
-                'sta_time' => $sta_time
+                'sta_name' => $sta_name
             );
 
             array_push($sta_arr, $sta_item);

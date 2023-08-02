@@ -5,6 +5,7 @@ import { UserService } from '../services/users/user.service';
 import { CompanyService } from '../services/companies/company.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { format } from 'date-fns-tz';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-project',
@@ -84,17 +85,26 @@ export class EditProjectComponent implements OnInit {
     };
     this.project.update(data).subscribe((res: any) => {
       if (res.status === 'success') {
-        window.location.reload();
+        Swal.fire({
+          title: 'สำเร็จ',
+          text: 'การสร้างโครงการสำเร็จ',
+          icon: 'success',
+          confirmButtonText: 'ตกลง'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
       } else {
         console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'เกิดข้อผิดพลาดในการสร้างโครงการ',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
       }
     })
   }
-  
-  onSubmit() {
-    
-  }
-  
 
 }

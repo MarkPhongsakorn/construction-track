@@ -16,10 +16,9 @@
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['sta_name']) && !empty($req['sta_time'])) {
+    if ($req && !empty($req['sta_name'])) {
         
         $sta->sta_name = $req['sta_name'];
-        $sta->sta_time = $req['sta_time'];
 
         if ($sta->create()) {
             $response = array("status" => "success", "message" => "User created.");
