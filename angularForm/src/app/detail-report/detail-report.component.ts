@@ -1,13 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WeatherService } from '../services/reports/weather.service';
 import { LaborService } from '../services/reports/labor.service';
 import { WorkService } from '../services/reports/work.service';
 import { ToolService } from '../services/reports/tool.service';
 import { MaterialService } from '../services/reports/material.service';
+import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
-import { ReportService } from '../services/reports/report.service';
+import { EditDetailComponent } from '../edit-detail/edit-detail.component';
 
 @Component({
   selector: 'app-detail-report',
@@ -17,11 +18,14 @@ import { ReportService } from '../services/reports/report.service';
 export class DetailReportComponent implements OnInit {
 
   problem: string = '';
+  dr_id: string = '';
 
   period_name1: string = '';
   period_name2: string = '';
   sta_name1: string = '';
   sta_name2: string = '';
+  sta_time1: string = '';
+  sta_time2: string = '';
 
   morning: string = '1';
   afternoon: string = '2';
@@ -51,14 +55,15 @@ export class DetailReportComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DetailReportComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog,
     private weatherService: WeatherService,
     private laborService: LaborService,
     private workService: WorkService,
     private toolService: ToolService,
     private matService: MaterialService,
+    private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-    private reportService: ReportService,
   ) { 
   }
 
@@ -68,26 +73,16 @@ export class DetailReportComponent implements OnInit {
     this.work();
     this.tool();
     this.mat();
+    this.prob();
     this.strike();
     this.inspec();
-    this.report();
-  }
-
-  report() {
-    this.reportService.getOneReport(this.data.dr_id).subscribe(data => {
-      this.problem = data['problem'];
-      if (data.status === "error") {
-        return this.readReport = true
-      } else {
-        return this.readReport
-      }
-    });
   }
 
   weather() {
     this.weatherService.readOne(this.data.dr_id, this.morning).subscribe(data => {
       this.period_name1 = data['period_name'];
       this.sta_name1 = data['sta_name'];
+      this.sta_time1 = data['sta_time'];
       if (data.status === "error") {
         return this.readWeather = true
       } else {
@@ -97,6 +92,7 @@ export class DetailReportComponent implements OnInit {
     this.weatherService.readOne(this.data.dr_id, this.afternoon).subscribe(data => {
       this.period_name2 = data['period_name'];
       this.sta_name2 = data['sta_name'];
+      this.sta_time2 = data['sta_time'];
       if (data.status === "error") {
         return this.readWeather = true
       } else {
@@ -149,6 +145,12 @@ export class DetailReportComponent implements OnInit {
     });
   }
 
+  prob() {
+    this.problemService.readOne(this.data.dr_id).subscribe(data => {
+      this.problem = data['problem'];
+    });
+  }
+
   strike() {
     this.strikeService.readOne(this.data.dr_id).subscribe(data => {
         this.strike_detail = data['strike_detail'];
@@ -172,6 +174,10 @@ export class DetailReportComponent implements OnInit {
     });
   }
 
-  update() {}
+  openEditDetail() {
+    const dialogRef = this.dialog.open(EditDetailComponent, {
+      data: {dr_id: this.data.dr_id, project_id: this.data.project_id}
+    });
+  }
 
 }

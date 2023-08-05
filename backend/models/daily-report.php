@@ -8,7 +8,6 @@
         
         public $dr_id;
         public $dr_time;
-        public $problem;
 
         public $project_id;
         public $user_detail_id;
@@ -65,19 +64,16 @@
             $query = 'INSERT INTO ' . $this->table . '
             SET
                 dr_time = STR_TO_DATE(:dr_time, "%m/%d/%Y"),
-                problem = :problem,
                 project_id = :project_id,
                 user_detail_id = :user_detail_id';
 
             $stmt = $this->conn->prepare($query);
 
             $this->dr_time = htmlspecialchars(strip_tags($this->dr_time));
-            $this->problem = htmlspecialchars(strip_tags($this->problem));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
             $this->user_detail_id = htmlspecialchars(strip_tags($this->user_detail_id));
 
             $stmt->bindParam(':dr_time', $dr_time);
-            $stmt->bindParam(':problem', $this->problem);
             $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':user_detail_id', $this->user_detail_id);
 
@@ -93,7 +89,6 @@
             $query = 'UPDATE ' . $this->table . '
             SET
                 dr_time = :dr_time,
-                problem = :problem,
                 project_id = :project_id,
                 user_detail_id = :user_detail_id
             WHERE
@@ -102,13 +97,11 @@
             $stmt = $this->conn->prepare($query);
 
             $this->dr_time = htmlspecialchars(strip_tags($this->dr_time));
-            $this->problem = htmlspecialchars(strip_tags($this->problem));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
             $this->user_detail_id = htmlspecialchars(strip_tags($this->user_detail_id));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
 
             $stmt->bindParam(':dr_time', $this->dr_time);
-            $stmt->bindParam(':problem', $this->problem);
             $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':user_detail_id', $this->user_detail_id);
             $stmt->bindParam(':dr_id', $this->dr_id);

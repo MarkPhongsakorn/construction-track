@@ -42,7 +42,6 @@ export class EditReportComponent implements OnInit {
   ngOnInit() {
     this.reportService.getOneReport(this.data.dr_id).subscribe(data => {
       this.dr_time = data['dr_time'];
-      this.problem = data['problem'];
       if (this.project_id = data['project_id']) {
         this.selectProjectId = this.project_id
       }
@@ -67,7 +66,6 @@ export class EditReportComponent implements OnInit {
     const data = {
       dr_id: this.data.dr_id,
       dr_time: drTimeThai,
-      problem: this.problem,
       project_id: this.selectProjectId,
       user_detail_id: this.selectUserId
     };

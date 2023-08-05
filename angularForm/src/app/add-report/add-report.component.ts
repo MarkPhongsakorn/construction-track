@@ -21,7 +21,6 @@ export class AddReportComponent implements OnInit {
   selectProjectId: string = '';
 
   dr_time: Date = new Date();
-  problem: string = '';
 
   projectID: string = '';
 
@@ -51,7 +50,6 @@ export class AddReportComponent implements OnInit {
 
     const data = {
       dr_time: drTimeThai,
-      problem: this.problem,
       project_id: this.selectProjectId,
       user_detail_id: this.selectUserId
     };

@@ -13,13 +13,7 @@
         <br>
         <br>
         <mat-form-field appearance="outline" class="width-100">
-            <mat-label>ปัญหา</mat-label>
-            <textarea matInput type="text" name="problem" id="problem" placeholder="ปัญหาที่เจอในการทำงาน" [(ngModel)]="problem"></textarea>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline" class="width-100">
             <mat-label>โครงงาน</mat-label>
-            <!-- <input matInput type="text" name="selectProjectId" [(ngModel)]="selectProjectId"> -->
             <mat-select matNativeControl [(ngModel)]="selectProjectId" name="selectProjectId">
                 <mat-option value="" selected>----เลือกผู้ควบคุมงาน----</mat-option>
                 <mat-option *ngFor="let projectID of project" [value]="projectID.project_id">

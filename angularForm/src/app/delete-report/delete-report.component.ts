@@ -6,6 +6,7 @@ import { LaborService } from '../services/reports/labor.service';
 import { WorkService } from '../services/reports/work.service';
 import { ToolService } from '../services/reports/tool.service';
 import { MaterialService } from '../services/reports/material.service';
+import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { format } from 'date-fns-tz';
@@ -30,6 +31,7 @@ export class DeleteReportComponent implements OnInit {
     private workService: WorkService,
     private toolService: ToolService,
     private matService: MaterialService,
+    private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
   ) {}
@@ -48,6 +50,7 @@ export class DeleteReportComponent implements OnInit {
     this.work();
     this.tool();
     this.mat();
+    this.prob();
     this.strike();
     this.inspec();
     if (this.status = true) {
@@ -123,6 +126,16 @@ export class DeleteReportComponent implements OnInit {
 
   mat() {
     this.matService.delete(this.data.dr_id).subscribe(res => {
+      if (res.status === 'success') {
+        return this.status = true
+      } else {
+        return this.status
+      }
+    });
+  }
+
+  prob() {
+    this.problemService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {

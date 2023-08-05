@@ -3,8 +3,8 @@
 </div>
 <div mat-dialog-content>
     <div class="width-100" *ngIf="!this.readWeather">
-        <p><span>ช่วงเวลา:</span> {{ period_name1 }} <span> สภาพอากาศ:</span> {{ sta_name1 }}</p>
-        <p><span>ช่วงเวลา:</span> {{ period_name2 }} <span> สภาพอากาศ:</span> {{ sta_name2 }}</p>
+        <p><span>ช่วงเวลา:</span> {{ period_name1 }} <span> สภาพอากาศ:</span> {{ sta_name1 }} <span> เวลาฝนตก:</span> {{ sta_time1 }}</p>
+        <p><span>ช่วงเวลา:</span> {{ period_name2 }} <span> สภาพอากาศ:</span> {{ sta_name2 }} <span> เวลาฝนตก:</span> {{ sta_time2 }}</p>
     </div>
     <div class="width-100" *ngIf="this.readWeather">
         <p><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล</p>
@@ -97,5 +97,5 @@
 </div>
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
-    <button mat-raised-button color=accent (click)="update()">Edit</button>
+    <button mat-raised-button color=accent (click)="openEditDetail()">Edit</button>
 </div>

@@ -27,4 +27,8 @@ export class LaborService {
   deleteProject(project_id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/backend/api/labor/deleteByProject.php`,{ params: { project_id: project_id } })
   }
+
+  update(data: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/backend/api/labor/update.php`, data);
+  }
 }

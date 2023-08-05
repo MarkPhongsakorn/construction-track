@@ -23,7 +23,6 @@
 
             $dr_arr = array(
                 'dr_id' => $row['dr_id'],
-                'problem' => $row['problem'],
                 'dr_time' => $row['dr_time'],
                 'project_id' => $row['project_id'],
                 'project_name' => $row['project_name'],

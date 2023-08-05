@@ -5,35 +5,30 @@
     header("Content-Type: application/json;");
 
     include_once '../../config/database.php';
-    include_once '../../models/weather.php';
+    include_once '../../models/problem.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $weather = new Weather($db);
+    $prob = new Problem($db);
 
-    $weather->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
-    $weather->period_id = isset($_GET['period_id']) ? $_GET['period_id'] : die();
+    $prob->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
 
-    $result = $weather->read_one();
+    $result = $prob->read_one();
 
     $num = $result->rowCount();
 
     if ($num > 0) {
         $row = $result->fetch(PDO::FETCH_ASSOC);
 
-            $weather_arr = array(
-                'weather_id' => $row['weather_id'],
-                'period_id' => $row['period_id'],
-                'period_name' => $row['period_name'],
-                'sta_id' => $row['sta_id'],
-                'sta_name' => $row['sta_name'],
-                'sta_time' => $row['sta_time'],
+            $prob_arr = array(
+                'prob_id' => $row['prob_id'],
+                'problem' => $row['problem'],
                 'dr_id' => $row['dr_id'],
                 'project_id' => $row['project_id']
             );
 
-            echo json_encode($weather_arr);
+            echo json_encode($prob_arr);
     } else {
         echo json_encode(array("status" => "error", "message" => "Not Found Data"));
     }

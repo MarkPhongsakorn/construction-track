@@ -19,7 +19,6 @@ export class DailyReportComponent implements OnInit {
   displayedColumns: string[] = [
     'dr_id',
     'dr_time',
-    // 'problem',
     'project_name',
     'user_detail',
     'detail',
@@ -29,6 +28,7 @@ export class DailyReportComponent implements OnInit {
   projectID: boolean = false;
   project: string = '';
   dr_id: string = '';
+  dr_id1: string = '';
   
   constructor(
     public dialog: MatDialog,
@@ -46,6 +46,7 @@ export class DailyReportComponent implements OnInit {
   loadReportData() {
     this.report.getOneByproject(this.project).subscribe(res => {
       this.dataSource = res;
+      
       if (res.status === 'error') {
         this.projectID = true;
       } else {
@@ -82,7 +83,7 @@ export class DailyReportComponent implements OnInit {
   openDialog5(dr_id: string) {
     this.dr_id = dr_id;
     const dialogRef = this.dialog.open(DetailReportComponent, {
-      data: {dr_id: this.dr_id}
+      data: {dr_id: this.dr_id, project_id: this.project}
     });
   }
 

@@ -14,14 +14,15 @@ import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
 import Swal from 'sweetalert2';
 
-
-
 @Component({
-  selector: 'app-add-detail',
-  templateUrl: './add-detail.component.html',
-  styleUrls: ['./add-detail.component.css']
+  selector: 'app-edit-detail',
+  templateUrl: './edit-detail.component.html',
+  styleUrls: ['./edit-detail.component.css']
 })
-export class AddDetailComponent implements OnInit {
+export class EditDetailComponent implements OnInit {
+
+  weather_id1: string = '';
+  weather_id2: string = '';
 
   period: any[] = [];
   selectPeriod1: string = '';
@@ -34,15 +35,18 @@ export class AddDetailComponent implements OnInit {
   unit: any[] = [];
   selectUnit: string = '';
 
+  inspec_id: string = '';
   result: any[] =[];
   selectResult: string = '';
 
   morning: string = '1';
   sta_time1: string = '00:00';
-  sta_time2: string = '00:00';
   afternoon: string = '2';
-  period_id: string = '';
+  sta_time2: string = '00:00';
 
+  labor_id: string = '';
+  labor_name: string = '';
+  labor_num: string = '';
   labor: any[] = [];
 
   work: any[] = [];
@@ -60,7 +64,7 @@ export class AddDetailComponent implements OnInit {
   statuses: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<AddDetailComponent>,
+    public dialogRef: MatDialogRef<EditDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private periodService: PeriodService,
     private sta: StaWeatherService,
@@ -74,21 +78,52 @@ export class AddDetailComponent implements OnInit {
     private strikeService: StrikeService,
     private inspecService: InspectionService,
     private resultService: InspecResultService
-  ) {}
-
+  ) {
   
+  }
 
   ngOnInit() {
     this.periodService.readOne(this.morning).subscribe(data => {
-      if (this.period_id = data['period_id']) {
-        this.selectPeriod1 = this.period_id;
-      }
+        this.selectPeriod1 = data['period_id'];
     });
     this.periodService.readOne(this.afternoon).subscribe(data => {
-      if (this.period_id = data['period_id']) {
-        this.selectPeriod2 = this.period_id;
-      }
+        this.selectPeriod2 = data['period_id'];
+
     });
+    this.weatherService.readOne(this.data.dr_id, this.morning).subscribe(data => {
+      this.weather_id1 = data['weather_id'];
+      this.selectStatus1 = data['sta_id'];
+      this.sta_time1 = data['sta_time'];
+    });
+    this.weatherService.readOne(this.data.dr_id, this.afternoon).subscribe(data => {
+      this.weather_id2 = data['weather_id'];
+      this.selectStatus2 = data['sta_id'];
+      this.sta_time2 = data['sta_time'];
+    });
+    this.laborService.readOne(this.data.dr_id).subscribe(data => {
+      this.labor_id = data['labor_id'];
+      this.labor = data;
+    });
+    this.workService.readOne(this.data.dr_id).subscribe(data => {
+      this.work = data;
+    });
+    this.toolService.readOne(this.data.dr_id).subscribe(data => {
+      this.tool = data;
+    });
+    this.matService.readOne(this.data.dr_id).subscribe(data => {
+      this.mat = data;
+    });
+    this.problemService.readOne(this.data.dr_id).subscribe(data => {
+      this.problem = data['problem'];
+    });
+    this.strikeService.readOne(this.data.dr_id).subscribe(data => {
+      this.strike_cause = data['strike_cause'];
+      this.strike_detail = data['strike_detail'];
+    });
+    this.inspecService.readOne(this.data.dr_id).subscribe(data => {
+        this.selectResult = data['inspec_result_id'];
+    });
+
     this.periodService.read().subscribe(data => {
       this.period = data;
     });
@@ -100,7 +135,7 @@ export class AddDetailComponent implements OnInit {
     });
     this.resultService.read().subscribe(data => {
       this.result = data;
-    })
+    });
 
   }
 
@@ -108,12 +143,11 @@ export class AddDetailComponent implements OnInit {
     this.mor();
     this.after();
     this.labors();
-    this.works();
-    this.tools();
-    this.material();
-    this.prob();
-    this.strikes();
-    this.inspec();
+    // this.works();
+    // this.tools();
+    // this.material();
+    // this.strikes();
+    // this.inspec();
     if (this.statuses = true) {
       Swal.fire({
         title: 'สำเร็จ',
@@ -137,13 +171,14 @@ export class AddDetailComponent implements OnInit {
 
   mor() {
     const data = {
+      weather_id: this.weather_id1,
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
       sta_time: this.sta_time1,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id,
     }
-    this.weatherService.create(data).subscribe((res: any) => {
+    this.weatherService.update(data).subscribe((res: any) => {
       if (res.status === 'success') {
         return this.statuses = true
       } else {
@@ -154,13 +189,14 @@ export class AddDetailComponent implements OnInit {
 
   after() {
     const data = {
+      weather_id: this.weather_id2,
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
       sta_time: this.sta_time2,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id,
     }
-    this.weatherService.create(data).subscribe((res: any) => {
+    this.weatherService.update(data).subscribe((res: any) => {
       if (res.status === 'success') {
         return this.statuses = true
       } else {
@@ -176,9 +212,35 @@ export class AddDetailComponent implements OnInit {
   }
   removeLabor(index: number): void {
     this.labor.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
+    this.laborService.delete(this.labor_id).subscribe(res => {
+      if (res.status === "success") {
+        console.log("ลบแรงงานไปแล้ว");
+        return true;
+      } else {
+        return false;
+      }
+        
+    });
+  }
+  laborC() {
+    this.laborService.create(this.labor).subscribe((res: any) => {
+      if (res.status === 'success') {
+        return this.statuses = true
+      } else {
+        return this.statuses
+      }
+    });
   }
   labors() {
-    this.laborService.create(this.labor).subscribe((res: any) => {
+    const data = { 
+      labor_id: this.labor_id,
+      labor_name: '',
+      labor_num: null,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.labor.push(data);
+    this.laborService.update(this.labor).subscribe((res: any) => {
       if (res.status === 'success') {
         return this.statuses = true
       } else {
@@ -292,4 +354,5 @@ export class AddDetailComponent implements OnInit {
       }
     });
   }
+
 }

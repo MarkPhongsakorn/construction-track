@@ -6,24 +6,24 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/daily-report.php';
+    include_once '../../models/problem.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $dr = new Report($db);
+    $prob = new Problem($db);
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $dr->dr_id = $data->dr_id;
-    $dr->dr_time = $data->dr_time;
-    $dr->project_id = $data->project_id;
-    $dr->user_detail_id = $data->user_detail_id;
+    $prob->prob_id = $data->prob_id;
+    $prob->problem = $data->problem;
+    $prob->dr_id = $data->dr_id;
+    $prob->project_id = $data->project_id;
 
-    if ($dr->update()) {
-        $response = array("status" => "success", "message" => "Report updated.");
+    if ($prob->update()) {
+        $response = array("status" => "success", "message" => "Company updated.");
     } else {
-        $response = array("status" => "error", "message" => "Failed to updated report.");
+        $response = array("status" => "error", "message" => "Failed to updated company.");
     }
 
     echo json_encode($response);

@@ -7,6 +7,7 @@ import { LaborService } from '../services/reports/labor.service';
 import { WorkService } from '../services/reports/work.service';
 import { ToolService } from '../services/reports/tool.service';
 import { MaterialService } from '../services/reports/material.service';
+import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import Swal from 'sweetalert2';
@@ -32,6 +33,7 @@ export class DeleteProjectComponent implements OnInit {
     private workService: WorkService,
     private toolService: ToolService,
     private matService: MaterialService,
+    private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
   ) {}
@@ -84,6 +86,13 @@ export class DeleteProjectComponent implements OnInit {
       }
     });
     this.matService.deleteProject(this.data.project_id).subscribe(res => {
+      if (res.status === 'success') {
+        return this.status = true
+      } else {
+        return this.status
+      }
+    });
+    this.problemService.delete(this.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {

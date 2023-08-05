@@ -5,29 +5,25 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/user_detail.php';
-    include_once '../../models/project.php';
-    include_once '../../models/daily-report.php';
+    include_once '../../models/problem.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $dr = new Report($db);
+    $prob = new Problem($db);
 
 
     $data = file_get_contents("php://input");
     $req = json_decode($data, true);
 
-    if ($req && !empty($req['dr_time']) && !empty($req['project_id'])
-        && !empty($req['user_detail_id'])) {
+    if ($req && !empty($req['problem']) && !empty($req['dr_id'])  && !empty($req['project_id'])) {
+        
+        $prob->problem = $req['problem'];
+        $prob->dr_id = $req['dr_id'];
+        $prob->project_id = $req['project_id'];
 
-        $dr->dr_time = $req['dr_time'];
-        $dr->project_id = $req['project_id'];
-        $dr->user_detail_id = $req['user_detail_id'];
-
-
-        if ($dr->create()) {
-            $response = array("status" => "success", "message" => "Report created.");
+        if ($prob->create()) {
+            $response = array("status" => "success", "message" => "User created.");
         } else {
             $response = array("status" => "error", "message" => "Failed to create user.");
         }
@@ -36,5 +32,4 @@
     }
 
     echo json_encode($response);
-
 ?>
