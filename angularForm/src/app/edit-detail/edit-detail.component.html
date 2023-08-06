@@ -48,7 +48,22 @@
         </mat-form-field>
         <br>
         <button mat-button (click)="addNewLabor()"><mat-icon >add_circle</mat-icon>เพิ่มแรงงาน</button>
-        <div *ngFor="let input of labor; let i = index" class="input-container">
+        <!-- **********update********** -->
+        <div *ngFor="let input of laborUp; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-70">
+                <mat-label>แรงงาน</mat-label>
+                <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน" [(ngModel)]="input.labor_name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>จำนวน</mat-label>
+                <input matInput type="number" name="labor_num" id="labor_num" [(ngModel)]="input.labor_num">
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeLaborU(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <!-- **********create********** -->
+        <div *ngFor="let input of laborCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-70">
                 <mat-label>แรงงาน</mat-label>
                 <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน" [(ngModel)]="input.labor_name">

@@ -13,18 +13,33 @@
 
     $labor = new Labor($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    $labor->labor_id = $data->labor_id;
-    $labor->labor_name = $data->labor_name;
-    $labor->labor_num = $data->labor_num;
-    $labor->dr_id = $data->dr_id;
-    $labor->project_id = $data->project_id;
+    if (!is_array($data)) {
+        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
+        exit;
+    }
 
-    if ($labor->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
-    } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+    foreach ($data as $item) {
+        $labor_id = $item['labor_id'];
+        $labor_name = $item['labor_name'];
+        $labor_num = $item['labor_num'];
+        $dr_id = $item['dr_id'];
+        $project_id = $item['project_id'];
+    
+        // ทำการอัปเดตข้อมูลสำหรับแต่ละตัวในรูปแบบของ array นี้
+        $labor->labor_id = $labor_id;
+        $labor->labor_name = $labor_name;
+        $labor->labor_num = $labor_num;
+        $labor->dr_id = $dr_id;
+        $labor->project_id = $project_id;
+
+
+        if ($labor->update()) {
+            $response = array("status" => "success", "message" => "Labor updated.");
+        } else {
+            $response = array("status" => "error", "message" => "Failed to updated labor.");
+        }
     }
 
     echo json_encode($response);

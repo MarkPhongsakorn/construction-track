@@ -44,10 +44,9 @@ export class EditDetailComponent implements OnInit {
   afternoon: string = '2';
   sta_time2: string = '00:00';
 
+  laborCr: any[] = [];
+  laborUp: any[] = [];
   labor_id: string = '';
-  labor_name: string = '';
-  labor_num: string = '';
-  labor: any[] = [];
 
   work: any[] = [];
   num: number = 0;
@@ -102,7 +101,7 @@ export class EditDetailComponent implements OnInit {
     });
     this.laborService.readOne(this.data.dr_id).subscribe(data => {
       this.labor_id = data['labor_id'];
-      this.labor = data;
+      this.laborUp = data;
     });
     this.workService.readOne(this.data.dr_id).subscribe(data => {
       this.work = data;
@@ -140,9 +139,10 @@ export class EditDetailComponent implements OnInit {
   }
 
   addDetail() {
-    this.mor();
-    this.after();
-    this.labors();
+    // this.mor();
+    // this.after();
+    this.laborC();
+    this.laborU();
     // this.works();
     // this.tools();
     // this.material();
@@ -208,22 +208,13 @@ export class EditDetailComponent implements OnInit {
   // ************************************LABOR***********************************
   addNewLabor(): void {
     const newLabor = { labor_name: '', labor_num: null, dr_id: this.data.dr_id, project_id: this.data.project_id };
-    this.labor.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
+    this.laborCr.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
   }
   removeLabor(index: number): void {
-    this.labor.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
-    this.laborService.delete(this.labor_id).subscribe(res => {
-      if (res.status === "success") {
-        console.log("ลบแรงงานไปแล้ว");
-        return true;
-      } else {
-        return false;
-      }
-        
-    });
+    this.laborCr.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
   }
   laborC() {
-    this.laborService.create(this.labor).subscribe((res: any) => {
+    this.laborService.create(this.laborCr).subscribe((res: any) => {
       if (res.status === 'success') {
         return this.statuses = true
       } else {
@@ -231,7 +222,23 @@ export class EditDetailComponent implements OnInit {
       }
     });
   }
-  labors() {
+  removeLaborU(index: number): void {
+    Swal.fire({
+      icon: 'question',
+      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
+      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Delete!', '', 'success')
+        this.laborUp.splice(index, 1);
+      }
+    })
+    
+  }
+  dataLabor() {
     const data = { 
       labor_id: this.labor_id,
       labor_name: '',
@@ -239,8 +246,10 @@ export class EditDetailComponent implements OnInit {
       dr_id: this.data.dr_id,
       project_id: this.data.project_id
     };
-    this.labor.push(data);
-    this.laborService.update(this.labor).subscribe((res: any) => {
+    this.laborUp.push(data);
+  }
+  laborU() {
+    this.laborService.update(this.laborUp).subscribe((res: any) => {
       if (res.status === 'success') {
         return this.statuses = true
       } else {

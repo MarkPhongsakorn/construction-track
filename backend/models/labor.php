@@ -67,7 +67,7 @@
             SET
                 labor_name = :labor_name,
                 labor_num = :labor_num,
-                dr_id = :dr_id
+                dr_id = :dr_id,
                 project_id = :project_id
             WHERE
                 labor_id = :labor_id';
