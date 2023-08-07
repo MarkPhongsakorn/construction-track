@@ -43,20 +43,6 @@ export class DeleteProjectComponent implements OnInit {
     });
   }
   delete() {
-    this.project.delete(this.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.report.deleteProject(this.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
     this.weatherSeervice.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
@@ -92,7 +78,7 @@ export class DeleteProjectComponent implements OnInit {
         return this.status
       }
     });
-    this.problemService.delete(this.data.dr_id).subscribe(res => {
+    this.problemService.deleteProject(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -107,6 +93,20 @@ export class DeleteProjectComponent implements OnInit {
       }
     });
     this.inspecService.deleteProject(this.data.project_id).subscribe(res => {
+      if (res.status === 'success') {
+        return this.status = true
+      } else {
+        return this.status
+      }
+    });
+    this.report.deleteProject(this.data.project_id).subscribe(res => {
+      if (res.status === 'success') {
+        return this.status = true
+      } else {
+        return this.status
+      }
+    });
+    this.project.delete(this.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
