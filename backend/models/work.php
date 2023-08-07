@@ -67,7 +67,7 @@
             SET
                 work_num = :work_num,
                 work_detail = :work_detail,
-                dr_id = :dr_id
+                dr_id = :dr_id,
                 project_id = :project_id
             WHERE
                 work_id = :work_id';

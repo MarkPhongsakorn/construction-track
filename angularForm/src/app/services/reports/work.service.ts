@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class WorkService {
+
   private baseUrl = 'http://localhost/test';
 
   constructor(
@@ -26,5 +27,9 @@ export class WorkService {
 
   deleteProject(project_id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/backend/api/work/deleteByProject.php`,{ params: { project_id: project_id } })
+  }
+
+  update(data: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/backend/api/work/update.php`, data);
   }
 }

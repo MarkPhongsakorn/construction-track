@@ -27,4 +27,8 @@ export class MaterialService {
   deleteProject(project_id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/backend/api/material/deleteByProject.php`,{ params: { project_id: project_id } })
   }
+
+  update(data: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/backend/api/material/update.php`, data);
+  }
 }

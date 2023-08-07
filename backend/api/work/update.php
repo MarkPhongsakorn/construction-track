@@ -13,18 +13,33 @@
 
     $work = new Work($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    $work->work_id = $data->work_id;
-    $work->work_num = $data->work_num;
-    $work->work_detail = $data->work_detail;
-    $work->dr_id = $data->dr_id;
-    $work->project_id = $data->project_id;
+    if (!is_array($data)) {
+        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
+        exit;
+    }
 
-    if ($work->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
-    } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+    foreach ($data as $item) {
+
+        $work_id = $item['work_id'];
+        $work_num = $item['work_num'];
+        $work_detail = $item['work_detail'];
+        $dr_id = $item['dr_id'];
+        $project_id = $item['project_id'];
+
+        $work->work_id = $work_id;
+        $work->work_num = $work_num;
+        $work->work_detail = $work_detail;
+        $work->dr_id = $dr_id;
+        $work->project_id = $project_id;
+
+        if ($work->update()) {
+            $response = array("status" => "success", "message" => "Work updated.");
+        } else {
+            $response = array("status" => "error", "message" => "Failed to updated work.");
+        }
+
     }
 
     echo json_encode($response);

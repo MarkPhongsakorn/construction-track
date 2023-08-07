@@ -75,7 +75,7 @@
                 tool_name = :tool_name,
                 tool_num = :tool_num,
                 unit_id = :unit_id,
-                dr_id = :dr_id
+                dr_id = :dr_id,
                 project_id = :project_id
             WHERE
                 tool_id = :tool_id';

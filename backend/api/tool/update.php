@@ -13,19 +13,35 @@
 
     $tool = new Tool($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    $tool->tool_id = $data->tool_id;
-    $tool->tool_name = $data->tool_name;
-    $tool->tool_num = $data->tool_num;
-    $tool->unit_id = $data->unit_id;
-    $tool->dr_id = $data->dr_id;
-    $tool->project_id = $data->project_id;
+    if (!is_array($data)) {
+        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
+        exit;
+    }
 
-    if ($tool->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
-    } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+    foreach ($data as $item) {
+
+        $tool_id = $item['tool_id'];
+        $tool_name = $item['tool_name'];
+        $tool_num = $item['tool_num'];
+        $unit_id = $item['unit_id'];
+        $dr_id = $item['dr_id'];
+        $project_id = $item['project_id'];
+
+        $tool->tool_id = $tool_id;
+        $tool->tool_name = $tool_name;
+        $tool->tool_num = $tool_num;
+        $tool->unit_id = $unit_id;
+        $tool->dr_id = $dr_id;
+        $tool->project_id = $project_id;
+
+        if ($tool->update()) {
+            $response = array("status" => "success", "message" => "Tool updated.");
+        } else {
+            $response = array("status" => "error", "message" => "Failed to updated tool.");
+        }
+
     }
 
     echo json_encode($response);

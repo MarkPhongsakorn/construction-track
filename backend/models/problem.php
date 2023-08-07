@@ -64,7 +64,7 @@
                 dr_id = :dr_id,
                 project_id = :project_id
             WHERE
-                strike_id = :strike_id';
+                prob_id = :prob_id';
 
             $stmt = $this->conn->prepare($query);
 
@@ -75,7 +75,7 @@
             $stmt->bindParam(':problem', $this->problem);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
-            $stmt->bindParam(':strike_id', $this->strike_id);
+            $stmt->bindParam(':prob_id', $this->prob_id);
 
             if ($stmt->execute()) {
                 return json_encode("Updated.");

@@ -65,7 +65,7 @@
             $query = 'UPDATE ' . $this->table . '
             SET
                 inspec_result_id = :inspec_result_id, 
-                dr_id = :dr_id
+                dr_id = :dr_id,
                 project_id = :project_id
             WHERE
                 inspec_id = :inspec_id';

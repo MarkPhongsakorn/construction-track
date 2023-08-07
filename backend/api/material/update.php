@@ -13,19 +13,35 @@
 
     $mat = new Material($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    $mat->mat_id = $data->mat_id;
-    $mat->mat_name = $data->mat_name;
-    $mat->mat_num = $data->mat_num;
-    $mat->unit_id = $data->unit_id;
-    $mat->dr_id = $data->dr_id;
-    $mat->project_id = $data->project_id;
+    if (!is_array($data)) {
+        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
+        exit;
+    }
 
-    if ($mat->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
-    } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+    foreach ($data as $item) {
+
+        $mat_id = $item['mat_id'];
+        $mat_name = $item['mat_name'];
+        $mat_num = $item['mat_num'];
+        $unit_id = $item['unit_id'];
+        $dr_id = $item['dr_id'];
+        $project_id = $item['project_id'];
+
+        $mat->mat_id = $mat_id;
+        $mat->mat_name = $mat_name;
+        $mat->mat_num = $mat_num;
+        $mat->unit_id = $unit_id;
+        $mat->dr_id = $dr_id;
+        $mat->project_id = $project_id;
+
+        if ($mat->update()) {
+            $response = array("status" => "success", "message" => "Material updated.");
+        } else {
+            $response = array("status" => "error", "message" => "Failed to updated material.");
+        }
+
     }
 
     echo json_encode($response);

@@ -48,15 +48,23 @@ export class EditDetailComponent implements OnInit {
   laborUp: any[] = [];
   labor_id: string = '';
 
-  work: any[] = [];
+  workCr: any[] = [];
+  workUp: any[] = [];
+  work_id: string = '';
   num: number = 0;
 
-  tool: any[] = [];
+  toolCr: any[] = [];
+  toolUp: any[] = [];
+  tool_id: string = '';
 
-  mat: any[] = [];
+  matCr: any[] = [];
+  matUp: any[] = [];
+  mat_id: string = '';
 
+  prob_id: string = '';
   problem: string = '';
 
+  strike_id: string = '';
   strike_detail: string = '';
   strike_cause: string = '';
 
@@ -104,23 +112,29 @@ export class EditDetailComponent implements OnInit {
       this.laborUp = data;
     });
     this.workService.readOne(this.data.dr_id).subscribe(data => {
-      this.work = data;
+      this.work_id = data['work_id'];
+      this.workUp = data;
     });
     this.toolService.readOne(this.data.dr_id).subscribe(data => {
-      this.tool = data;
+      this.tool_id = data['tool_id'];
+      this.toolUp = data;
     });
     this.matService.readOne(this.data.dr_id).subscribe(data => {
-      this.mat = data;
+      this.mat_id = data['mat_id'];
+      this.matUp = data;
     });
     this.problemService.readOne(this.data.dr_id).subscribe(data => {
+      this.prob_id = data['prob_id'];
       this.problem = data['problem'];
     });
     this.strikeService.readOne(this.data.dr_id).subscribe(data => {
+      this.strike_id = data['strike_id'];
       this.strike_cause = data['strike_cause'];
       this.strike_detail = data['strike_detail'];
     });
     this.inspecService.readOne(this.data.dr_id).subscribe(data => {
-        this.selectResult = data['inspec_result_id'];
+      this.inspec_id = data['inspec_id'];
+      this.selectResult = data['inspec_result_id'];
     });
 
     this.periodService.read().subscribe(data => {
@@ -139,15 +153,19 @@ export class EditDetailComponent implements OnInit {
   }
 
   addDetail() {
-    // this.mor();
-    // this.after();
+    this.mor();
+    this.after();
     this.laborC();
     this.laborU();
-    // this.works();
-    // this.tools();
-    // this.material();
-    // this.strikes();
-    // this.inspec();
+    this.workC();
+    this.workU();
+    this.toolC();
+    this.toolU();
+    this.matC();
+    this.matU();
+    this.prob();
+    this.strikes();
+    this.inspec();
     if (this.statuses = true) {
       Swal.fire({
         title: 'สำเร็จ',
@@ -179,7 +197,7 @@ export class EditDetailComponent implements OnInit {
       project_id: this.data.project_id,
     }
     this.weatherService.update(data).subscribe((res: any) => {
-      if (res.status === 'success') {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -197,7 +215,7 @@ export class EditDetailComponent implements OnInit {
       project_id: this.data.project_id,
     }
     this.weatherService.update(data).subscribe((res: any) => {
-      if (res.status === 'success') {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -207,7 +225,12 @@ export class EditDetailComponent implements OnInit {
 
   // ************************************LABOR***********************************
   addNewLabor(): void {
-    const newLabor = { labor_name: '', labor_num: null, dr_id: this.data.dr_id, project_id: this.data.project_id };
+    const newLabor = { 
+      labor_name: '',
+      labor_num: null,
+      dr_id: this.data.dr_id, 
+      project_id: this.data.project_id 
+    };
     this.laborCr.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
   }
   removeLabor(index: number): void {
@@ -215,7 +238,7 @@ export class EditDetailComponent implements OnInit {
   }
   laborC() {
     this.laborService.create(this.laborCr).subscribe((res: any) => {
-      if (res.status === 'success') {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -250,7 +273,7 @@ export class EditDetailComponent implements OnInit {
   }
   laborU() {
     this.laborService.update(this.laborUp).subscribe((res: any) => {
-      if (res.status === 'success') {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -260,17 +283,54 @@ export class EditDetailComponent implements OnInit {
 
   // ************************************WORK***********************************
   addNewWork() {
-    this.num++;
-    const newWork = { work_num: this.num, work_detail: '', dr_id: this.data.dr_id, project_id: this.data.project_id };
-    this.work.push(newWork);
+    const newWork = { 
+      work_num: this.num, 
+      work_detail: '', 
+      dr_id: this.data.dr_id, 
+      project_id: this.data.project_id 
+    };
+    this.workCr.push(newWork);
   }
   removeWork(index: number): void {
-    this.work.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
-    this.num--;
+    this.workCr.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
   }
-  works() {
-    this.workService.create(this.work).subscribe((res: any) => {
-      if (res.status === 'success') {
+  workC() {
+    this.workService.create(this.workCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.statuses = true
+      } else {
+        return this.statuses
+      }
+    });
+  }
+  removeWorkU(index: number): void {
+    Swal.fire({
+      icon: 'question',
+      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
+      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Delete!', '', 'success')
+        this.workUp.splice(index, 1);
+      }
+    })
+  }
+  dataWork() {
+    const data = { 
+     work_id: this.work_id,
+     work_num: this.num,
+     work_detail: '', 
+     dr_id: this.data.dr_id,
+     project_id: this.data.project_id
+    };
+    this.workUp.push(data);
+  }
+  workU() {
+    this.workService.update(this.workUp).subscribe((res: any) => {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -280,16 +340,57 @@ export class EditDetailComponent implements OnInit {
 
   // *******************************************TOOL*********************************************
   addNewTool() {
-    const newTool = { tool_name: '', tool_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
-    this.tool.push(newTool);
+    const newTool = { 
+      tool_name: '', 
+      tool_num: null, 
+      unit_id: this.selectUnit, 
+      dr_id: this.data.dr_id, 
+      project_id: this.data.project_id 
+    };
+    this.toolCr.push(newTool);
     this.selectUnit = '';
   }
   removeTool(index: number): void {
-    this.tool.splice(index, 1);
+    this.toolCr.splice(index, 1);
   }
-  tools() {
-    this.toolService.create(this.tool).subscribe((res: any) => {
-      if (res.status === 'success') {
+  toolC() {
+    this.toolService.create(this.toolCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.statuses = true
+      } else {
+        return this.statuses
+      }
+    });
+  }
+  removeToolU(index: number): void {
+    Swal.fire({
+      icon: 'question',
+      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
+      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Delete!', '', 'success')
+        this.toolUp.splice(index, 1);
+      }
+    })
+  }
+  dataTool() {
+    const data = { 
+      tool_id: this.tool_id, 
+      tool_name: '', 
+      tool_num: null, 
+      unit_id: this.selectUnit, 
+      dr_id: this.data.dr_id, 
+      project_id: this.data.project_id
+    };
+    this.toolUp.push(data);
+  }
+  toolU() {
+    this.toolService.update(this.toolUp).subscribe((res: any) => {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -299,16 +400,58 @@ export class EditDetailComponent implements OnInit {
 
   // *******************************************MATERIAL*********************************************
   addNewMat() {
-    const newMat = { mat_name: '', mat_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
-    this.mat.push(newMat);
+    const newMat = { 
+      mat_name: '', 
+      mat_num: null, 
+      unit_id: this.selectUnit, 
+      dr_id: this.data.dr_id, 
+      project_id: this.data.project_id 
+    };
+    this.matCr.push(newMat);
     this.selectUnit = '';
   }
   removeMat(index: number): void {
-    this.mat.splice(index, 1);
+    this.matCr.splice(index, 1);
   }
-  material() {
-    this.matService.create(this.mat).subscribe((res: any) => {
-      if (res.status === 'success') {
+  matC() {
+    this.matService.create(this.matCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.statuses = true
+      } else {
+        return this.statuses
+      }
+    });
+  }
+  removeMatU(index: number): void {
+    Swal.fire({
+      icon: 'question',
+      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
+      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Delete!', '', 'success')
+        this.toolUp.splice(index, 1);
+      }
+    })
+  }
+
+  dataMat() {
+    const data = { 
+      mat_id: this.mat_id,
+      mat_name: '', 
+      mat_num: null, 
+      unit_id: this.selectUnit, 
+      dr_id: this.data.dr_id, 
+      project_id: this.data.project_id
+    };
+    this.matUp.push(data);
+  }
+  matU() {
+    this.matService.update(this.matUp).subscribe((res: any) => {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -316,14 +459,16 @@ export class EditDetailComponent implements OnInit {
     });
   }
 
+
   prob() {
     const data = {
+      prob_id: this.prob_id,
       problem: this.problem,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id
     }
-    this.problemService.create(data).subscribe((res: any) => {
-      if (res.status === 'success') {
+    this.problemService.update(data).subscribe((res: any) => {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -333,13 +478,14 @@ export class EditDetailComponent implements OnInit {
 
   strikes() {
     const data = {
+      strike_id: this.strike_id,
       strike_detail: this.strike_detail,
       strike_cause: this.strike_cause,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id
     }
-    this.strikeService.create(data).subscribe((res: any) => {
-      if (res.status === 'success') {
+    this.strikeService.update(data).subscribe((res: any) => {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses
@@ -349,14 +495,13 @@ export class EditDetailComponent implements OnInit {
 
   inspec() {
     const data = {
+      inspec_id: this.inspec_id,
       inspec_result_id: this.selectResult,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id
     }
-    this.inspecService.create(data).subscribe((res: any) => {
-      console.log(data);
-      
-      if (res.status === 'success') {
+    this.inspecService.update(data).subscribe((res: any) => {
+      if (res.status === "success") {
         return this.statuses = true
       } else {
         return this.statuses

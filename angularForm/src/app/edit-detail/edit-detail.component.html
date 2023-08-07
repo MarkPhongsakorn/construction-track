@@ -78,7 +78,20 @@
         </div>
         <br>
         <button mat-button (click)="addNewWork()"><mat-icon >add_circle</mat-icon>เพิ่มรายละเอียดงาน</button>
-        <div *ngFor="let input of work; let i = index" class="input-container">
+        <div *ngFor="let input of workUp; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-20">
+                <mat-label>ลำดับ</mat-label>
+                <input matInput type="number" name="work_num" id="work_num" [(ngModel)]="input.work_num">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-70 ml-2">
+                <mat-label>รายละเอียดงาน</mat-label>
+                <input matInput type="text" name="work_detail" id="work_detail" placeholder="รายละเอียดงาน" [(ngModel)]="input.work_detail">
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeWorkU(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <div *ngFor="let input of workCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-20">
                 <mat-label>ลำดับ</mat-label>
                 <input matInput type="number" name="work_num" id="work_num" [(ngModel)]="input.work_num">
@@ -93,7 +106,29 @@
         </div>
         <br>
         <button mat-button (click)="addNewTool()"><mat-icon >add_circle</mat-icon>เพิ่มเครื่องมือและเครื่องจักร</button>
-        <div *ngFor="let input of tool; let i = index" class="input-container">
+        <div *ngFor="let input of toolUp; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-50">
+                <mat-label>เครื่องมือและเครื่องจักร</mat-label>
+                <input matInput type="text" name="tool_name" id="tool_name" placeholder="ชื่อเครื่องมือและเครื่องจักร" [(ngModel)]="input.tool_name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>จำนวน</mat-label>
+                <input matInput type="number" name="tool_num" id="tool_num" [(ngModel)]="input.tool_num">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>หน่วย</mat-label>
+                <mat-select matNativeControl [(ngModel)]="input.unit_id" name="selectUnit">
+                    <mat-option value="" selected>หน่วย</mat-option>
+                    <mat-option *ngFor="let units of unit" [value]="units.unit_id">
+                        {{ units.unit_name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeToolU(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <div *ngFor="let input of toolCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-50">
                 <mat-label>เครื่องมือและเครื่องจักร</mat-label>
                 <input matInput type="text" name="tool_name" id="tool_name" placeholder="ชื่อเครื่องมือและเครื่องจักร" [(ngModel)]="input.tool_name">
@@ -117,7 +152,29 @@
         </div>
         <br>
         <button mat-button (click)="addNewMat()"><mat-icon >add_circle</mat-icon>เพิ่มวัสดุ</button>
-        <div *ngFor="let input of mat; let i = index" class="input-container">
+        <div *ngFor="let input of matUp; let i = index" class="input-container">
+            <mat-form-field appearance="outline" class="width-50">
+                <mat-label>วัสดุ</mat-label>
+                <input matInput type="text" name="mat_name" id="mat_name" placeholder="ชื่อวัสดุ" [(ngModel)]="input.mat_name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>จำนวน</mat-label>
+                <input matInput type="number" name="mat_num" id="mat_num" [(ngModel)]="input.mat_num">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-20 ml-2">
+                <mat-label>หน่วย</mat-label>
+                <mat-select matNativeControl [(ngModel)]="input.unit_id" name="selectUnit">
+                    <mat-option value="" selected>หน่วย</mat-option>
+                    <mat-option *ngFor="let units of unit" [value]="units.unit_id">
+                        {{ units.unit_name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeMatU(i)">
+                <mat-icon>remove_circle</mat-icon>
+            </button>
+        </div>
+        <div *ngFor="let input of matCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-50">
                 <mat-label>วัสดุ</mat-label>
                 <input matInput type="text" name="mat_name" id="mat_name" placeholder="ชื่อวัสดุ" [(ngModel)]="input.mat_name">
