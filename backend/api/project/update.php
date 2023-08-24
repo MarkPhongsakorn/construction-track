@@ -13,18 +13,27 @@
 
     $project = new Project($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    $project->project_id = $data->project_id;
-    $project->project_name = $data->project_name;
-    $project->project_start = $data->project_start;
-    $project->project_end = $data->project_end;
-    $project->user_detail_id = $data->user_detail_id;
+    if ($data && !empty($data['project_name']) && !empty($data['project_start']) && !empty($data['project_end'])
+        && !empty($data['user_detail_id']) && !empty($data['comp_id']) ) {
 
-    if ($project->update()) {
-        $response = array("status" => "success", "message" => "Project updated.");
+        $project->project_id = $data['project_id'];
+        $project->project_name = $data['project_name'];
+        $project->project_start = $data['project_start'];
+        $project->project_end = $data['project_end'];
+        $project->user_detail_id = $data['user_detail_id'];
+        $project->comp_id = $data['comp_id'];
+        
+
+        if ($project->update()) {
+            $response = array("status" => "success", "message" => "Project updated.");
+        } else {
+            $response = array("status" => "error", "message" => "Failed to updated project.");
+        }
+
     } else {
-        $response = array("status" => "error", "message" => "Failed to updated project.");
+        $response = array("status" => "error", "message" => "Invalid request data.");
     }
 
     echo json_encode($response);

@@ -2,13 +2,13 @@
     <h1>Report Detail</h1>
 </div>
 <div mat-dialog-content>
-    <div class="width-100" *ngIf="!this.readWeather">
-        <p><span>ช่วงเวลา:</span> {{ period_name1 }} <span> สภาพอากาศ:</span> {{ sta_name1 }} <span> เวลาฝนตก:</span> {{ sta_time1 }}</p>
-        <p><span>ช่วงเวลา:</span> {{ period_name2 }} <span> สภาพอากาศ:</span> {{ sta_name2 }} <span> เวลาฝนตก:</span> {{ sta_time2 }}</p>
+    <div class="width-100" >
+        <p *ngIf="!this.readWeather1"><span>ช่วงเวลา:</span> {{ period_name1 }} <span> สภาพอากาศ:</span> {{ sta_name1 }} <span> เวลาฝนตก:</span> {{ sta_time1 }}</p>
+        <p *ngIf="!this.readWeather2"><span>ช่วงเวลา:</span> {{ period_name2 }} <span> สภาพอากาศ:</span> {{ sta_name2 }} <span> เวลาฝนตก:</span> {{ sta_time2 }}</p>
     </div>
-    <div class="width-100" *ngIf="this.readWeather">
-        <p><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล <span> เวลาฝนตก:</span> ไม่มีข้อมูล</p>
-        <p><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล <span> เวลาฝนตก:</span> ไม่มีข้อมูล</p>
+    <div class="width-100" >
+        <p *ngIf="this.readWeather1"><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล <span> เวลาฝนตก:</span> ไม่มีข้อมูล</p>
+        <p *ngIf="this.readWeather2"><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล <span> เวลาฝนตก:</span> ไม่มีข้อมูล</p>
     </div>
     <br>
     <div class="width-100" *ngIf="!this.readLabor">

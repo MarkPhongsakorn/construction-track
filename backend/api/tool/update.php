@@ -15,33 +15,29 @@
 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (!is_array($data)) {
-        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
-        exit;
-    }
-
-    foreach ($data as $item) {
-
-        $tool_id = $item['tool_id'];
-        $tool_name = $item['tool_name'];
-        $tool_num = $item['tool_num'];
-        $unit_id = $item['unit_id'];
-        $dr_id = $item['dr_id'];
-        $project_id = $item['project_id'];
-
-        $tool->tool_id = $tool_id;
-        $tool->tool_name = $tool_name;
-        $tool->tool_num = $tool_num;
-        $tool->unit_id = $unit_id;
-        $tool->dr_id = $dr_id;
-        $tool->project_id = $project_id;
-
-        if ($tool->update()) {
-            $response = array("status" => "success", "message" => "Tool updated.");
-        } else {
-            $response = array("status" => "error", "message" => "Failed to updated tool.");
+    if ($data && is_array($data) && !empty($data)) {
+        $response = array();
+        foreach ($data as $item) {
+            if ($data && !empty($item['tool_name']) && !empty($item['tool_num']) && !empty($item['unit_id']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+        
+                $tool->tool_id = $item['tool_id'];
+                $tool->tool_name = $item['tool_name'];
+                $tool->tool_num = $item['tool_num'];
+                $tool->unit_id = $item['unit_id'];
+                $tool->dr_id = $item['dr_id'];
+                $tool->project_id = $item['project_id'];
+        
+                if ($tool->update()) {
+                    $response = array("status" => "success", "message" => "Tool created.");
+                } else {
+                    $response = array("status" => "error", "message" => "Failed to create tool.");
+                }
+            } else {
+                $response = array("status" => "error", "message" => "Invalid request data.");
+            }
         }
-
+    } else {
+        $response = array("status" => "error", "message" => "Invalid request data.");
     }
 
     echo json_encode($response);

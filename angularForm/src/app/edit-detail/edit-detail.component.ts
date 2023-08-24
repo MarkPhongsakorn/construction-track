@@ -31,12 +31,12 @@ export class EditDetailComponent implements OnInit {
   status: any[] = [];
   selectStatus1: string = '';
   selectStatus2: string = '';
-  
+
   unit: any[] = [];
   selectUnit: string = '';
 
   inspec_id: string = '';
-  result: any[] =[];
+  result: any[] = [];
   selectResult: string = '';
 
   morning: string = '1';
@@ -47,6 +47,8 @@ export class EditDetailComponent implements OnInit {
   laborCr: any[] = [];
   laborUp: any[] = [];
   labor_id: string = '';
+  labor_name: string = '';
+  laborId: string = '';
 
   workCr: any[] = [];
   workUp: any[] = [];
@@ -68,8 +70,21 @@ export class EditDetailComponent implements OnInit {
   strike_detail: string = '';
   strike_cause: string = '';
 
-  statuses: boolean = false;
+  mornings: boolean = false;
+  afternoons: boolean = false;
+  labors: boolean = false;
+  laborsC: boolean = false;
+  works: boolean = false;
+  worksC: boolean = false;
+  tools: boolean = false;
+  toolsC: boolean = false;
+  materials: boolean = false;
+  materialsC: boolean = false;
+  problems: boolean = false;
+  strikes: boolean = false;
+  inspection: boolean = false;
 
+  
   constructor(
     public dialogRef: MatDialogRef<EditDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -86,15 +101,15 @@ export class EditDetailComponent implements OnInit {
     private inspecService: InspectionService,
     private resultService: InspecResultService
   ) {
-  
+
   }
 
   ngOnInit() {
     this.periodService.readOne(this.morning).subscribe(data => {
-        this.selectPeriod1 = data['period_id'];
+      this.selectPeriod1 = data['period_id'];
     });
     this.periodService.readOne(this.afternoon).subscribe(data => {
-        this.selectPeriod2 = data['period_id'];
+      this.selectPeriod2 = data['period_id'];
 
     });
     this.weatherService.readOne(this.data.dr_id, this.morning).subscribe(data => {
@@ -109,19 +124,35 @@ export class EditDetailComponent implements OnInit {
     });
     this.laborService.readOne(this.data.dr_id).subscribe(data => {
       this.labor_id = data['labor_id'];
-      this.laborUp = data;
+      if (data.status === 'error') {
+        this.laborUp = [];
+      } else {
+        this.laborUp = data;
+      }
     });
     this.workService.readOne(this.data.dr_id).subscribe(data => {
       this.work_id = data['work_id'];
-      this.workUp = data;
+      if (data.status === 'error') {
+        this.workUp = [];
+      } else {
+        this.workUp = data;
+      }
     });
     this.toolService.readOne(this.data.dr_id).subscribe(data => {
       this.tool_id = data['tool_id'];
-      this.toolUp = data;
+      if (data.status === 'error') {
+        this.toolUp = [];
+      } else {
+        this.toolUp = data;
+      }
     });
     this.matService.readOne(this.data.dr_id).subscribe(data => {
       this.mat_id = data['mat_id'];
-      this.matUp = data;
+      if (data.status === 'error') {
+        this.matUp = [];
+      } else {
+        this.matUp = data;
+      }
     });
     this.problemService.readOne(this.data.dr_id).subscribe(data => {
       this.prob_id = data['prob_id'];
@@ -136,6 +167,7 @@ export class EditDetailComponent implements OnInit {
       this.inspec_id = data['inspec_id'];
       this.selectResult = data['inspec_result_id'];
     });
+
 
     this.periodService.read().subscribe(data => {
       this.period = data;
@@ -152,7 +184,7 @@ export class EditDetailComponent implements OnInit {
 
   }
 
-  addDetail() {
+  UpdateDetail() {
     this.mor();
     this.after();
     this.laborC();
@@ -164,9 +196,278 @@ export class EditDetailComponent implements OnInit {
     this.matC();
     this.matU();
     this.prob();
-    this.strikes();
+    this.strike();
     this.inspec();
-    if (this.statuses = true) {
+    setTimeout(() => {
+      this.statuses();
+    }, 500);
+  }
+
+
+  mor() {
+    const data1 = {
+      weather_id: this.weather_id1,
+      period_id: this.selectPeriod1,
+      sta_id: this.selectStatus1,
+      sta_time: this.sta_time1,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id,
+    }
+    this.weatherService.update(data1).subscribe((res: any) => {
+      if (res.status === 'success') {
+        return this.mornings = true
+      } else {
+        return this.mornings = false
+      }
+    });
+  }
+
+  after() {
+    
+    const data2 = {
+      weather_id: this.weather_id2,
+      period_id: this.selectPeriod2,
+      sta_id: this.selectStatus2,
+      sta_time: this.sta_time2,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id,
+    }
+    this.weatherService.update(data2).subscribe((res: any) => {
+      if (res.status === 'success') {
+        return this.afternoons = true
+      } else {
+        return this.afternoons = false
+      }
+    });
+  }
+
+  // ************************************LABOR***********************************
+  addNewLabor(): void {
+    const newLabor = {
+      labor_name: '',
+      labor_num: 0,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.laborCr.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
+  }
+  removeLabor(index: number): void {
+    this.laborCr.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
+  }
+  laborC() {
+    this.laborService.create(this.laborCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.laborsC = true
+      } else {
+        return this.laborsC = false
+      }
+    });
+  }
+  dataLabor() {
+    const data = {
+      labor_id: this.labor_id,
+      labor_name: '',
+      labor_num: null,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.laborUp.push(data);
+  }
+  laborU() {
+    this.laborService.update(this.laborUp).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.labors = true
+      } else {
+        return this.labors = false
+      }
+    });
+  }
+
+  // ************************************WORK***********************************
+  addNewWork() {
+    const newWork = {
+      work_num: this.num,
+      work_detail: '',
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.workCr.push(newWork);
+  }
+  removeWork(index: number): void {
+    this.workCr.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
+  }
+  workC() {
+    this.workService.create(this.workCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.worksC = true
+      } else {
+        return this.worksC = false
+      }
+    });
+  }
+  dataWork() {
+    const data = {
+      work_id: this.work_id,
+      work_num: this.num,
+      work_detail: '',
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.workUp.push(data);
+  }
+  workU() {
+    this.workService.update(this.workUp).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.works = true
+      } else {
+        return this.works = false
+      }
+    });
+  }
+
+  // *******************************************TOOL*********************************************
+  addNewTool() {
+    const newTool = {
+      tool_name: '',
+      tool_num: null,
+      unit_id: this.selectUnit,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.toolCr.push(newTool);
+    this.selectUnit = '';
+  }
+  removeTool(index: number): void {
+    this.toolCr.splice(index, 1);
+  }
+  toolC() {
+    this.toolService.create(this.toolCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.toolsC = true
+      } else {
+        return this.toolsC = false
+      }
+    });
+  }
+  dataTool() {
+    const data = {
+      tool_id: this.tool_id,
+      tool_name: '',
+      tool_num: null,
+      unit_id: this.selectUnit,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.toolUp.push(data);
+  }
+  toolU() {
+    this.toolService.update(this.toolUp).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.tools = true
+      } else {
+        return this.tools = false
+      }
+    });
+  }
+
+  // *******************************************MATERIAL*********************************************
+  addNewMat() {
+    const newMat = {
+      mat_name: '',
+      mat_num: null,
+      unit_id: this.selectUnit,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.matCr.push(newMat);
+    this.selectUnit = '';
+  }
+  removeMat(index: number): void {
+    this.matCr.splice(index, 1);
+  }
+  matC() {
+    this.matService.create(this.matCr).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.materialsC = true
+      } else {
+        return this.materialsC = false
+      }
+    });
+  }
+  dataMat() {
+    const data = {
+      mat_id: this.mat_id,
+      mat_name: '',
+      mat_num: null,
+      unit_id: this.selectUnit,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    };
+    this.matUp.push(data);
+  }
+  matU() {
+    this.matService.update(this.matUp).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.materials = true
+      } else {
+        return this.materials = false
+      }
+    });
+  }
+
+
+  prob() {
+    const data = {
+      prob_id: this.prob_id,
+      problem: this.problem,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    }
+    this.problemService.update(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.problems = true
+      } else {
+        return this.problems = false
+      }
+    });
+  }
+
+  strike() {
+    const data = {
+      strike_id: this.strike_id,
+      strike_detail: this.strike_detail,
+      strike_cause: this.strike_cause,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    }
+    this.strikeService.update(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.strikes = true
+      } else {
+        return this.strikes = false
+      }
+    });
+  }
+
+  inspec() {
+    const data = {
+      inspec_id: this.inspec_id,
+      inspec_result_id: this.selectResult,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    }
+    this.inspecService.update(data).subscribe((res: any) => {
+      if (res.status === "success") {
+        return this.inspection = true
+      } else {
+        return this.inspection = false
+      }
+    });
+  }
+
+  statuses() {
+    if (this.mornings && this.afternoons && this.labors && this.works && this.tools
+      && this.materials && this.problems && this.strikes && this.inspection) {
       Swal.fire({
         title: 'สำเร็จ',
         text: 'การสร้างรายงานสำเร็จ',
@@ -187,326 +488,5 @@ export class EditDetailComponent implements OnInit {
     }
   }
 
-  mor() {
-    const data = {
-      weather_id: this.weather_id1,
-      period_id: this.selectPeriod1,
-      sta_id: this.selectStatus1,
-      sta_time: this.sta_time1,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id,
-    }
-    this.weatherService.update(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  after() {
-    const data = {
-      weather_id: this.weather_id2,
-      period_id: this.selectPeriod2,
-      sta_id: this.selectStatus2,
-      sta_time: this.sta_time2,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id,
-    }
-    this.weatherService.update(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  // ************************************LABOR***********************************
-  addNewLabor(): void {
-    const newLabor = { 
-      labor_name: '',
-      labor_num: null,
-      dr_id: this.data.dr_id, 
-      project_id: this.data.project_id 
-    };
-    this.laborCr.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
-  }
-  removeLabor(index: number): void {
-    this.laborCr.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
-  }
-  laborC() {
-    this.laborService.create(this.laborCr).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-  removeLaborU(index: number): void {
-    Swal.fire({
-      icon: 'question',
-      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
-      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Delete!', '', 'success')
-        this.laborUp.splice(index, 1);
-      }
-    })
-    
-  }
-  dataLabor() {
-    const data = { 
-      labor_id: this.labor_id,
-      labor_name: '',
-      labor_num: null,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    };
-    this.laborUp.push(data);
-  }
-  laborU() {
-    this.laborService.update(this.laborUp).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  // ************************************WORK***********************************
-  addNewWork() {
-    const newWork = { 
-      work_num: this.num, 
-      work_detail: '', 
-      dr_id: this.data.dr_id, 
-      project_id: this.data.project_id 
-    };
-    this.workCr.push(newWork);
-  }
-  removeWork(index: number): void {
-    this.workCr.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
-  }
-  workC() {
-    this.workService.create(this.workCr).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-  removeWorkU(index: number): void {
-    Swal.fire({
-      icon: 'question',
-      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
-      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Delete!', '', 'success')
-        this.workUp.splice(index, 1);
-      }
-    })
-  }
-  dataWork() {
-    const data = { 
-     work_id: this.work_id,
-     work_num: this.num,
-     work_detail: '', 
-     dr_id: this.data.dr_id,
-     project_id: this.data.project_id
-    };
-    this.workUp.push(data);
-  }
-  workU() {
-    this.workService.update(this.workUp).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  // *******************************************TOOL*********************************************
-  addNewTool() {
-    const newTool = { 
-      tool_name: '', 
-      tool_num: null, 
-      unit_id: this.selectUnit, 
-      dr_id: this.data.dr_id, 
-      project_id: this.data.project_id 
-    };
-    this.toolCr.push(newTool);
-    this.selectUnit = '';
-  }
-  removeTool(index: number): void {
-    this.toolCr.splice(index, 1);
-  }
-  toolC() {
-    this.toolService.create(this.toolCr).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-  removeToolU(index: number): void {
-    Swal.fire({
-      icon: 'question',
-      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
-      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Delete!', '', 'success')
-        this.toolUp.splice(index, 1);
-      }
-    })
-  }
-  dataTool() {
-    const data = { 
-      tool_id: this.tool_id, 
-      tool_name: '', 
-      tool_num: null, 
-      unit_id: this.selectUnit, 
-      dr_id: this.data.dr_id, 
-      project_id: this.data.project_id
-    };
-    this.toolUp.push(data);
-  }
-  toolU() {
-    this.toolService.update(this.toolUp).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  // *******************************************MATERIAL*********************************************
-  addNewMat() {
-    const newMat = { 
-      mat_name: '', 
-      mat_num: null, 
-      unit_id: this.selectUnit, 
-      dr_id: this.data.dr_id, 
-      project_id: this.data.project_id 
-    };
-    this.matCr.push(newMat);
-    this.selectUnit = '';
-  }
-  removeMat(index: number): void {
-    this.matCr.splice(index, 1);
-  }
-  matC() {
-    this.matService.create(this.matCr).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-  removeMatU(index: number): void {
-    Swal.fire({
-      icon: 'question',
-      title: 'คุณแน่ใจใช้มั้ยที่จะลบข้อมูลนี้?',
-      text: 'การลบนี้จะไม่สามารถแก้ไขข้อมูลได้อีก',
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire('Delete!', '', 'success')
-        this.toolUp.splice(index, 1);
-      }
-    })
-  }
-
-  dataMat() {
-    const data = { 
-      mat_id: this.mat_id,
-      mat_name: '', 
-      mat_num: null, 
-      unit_id: this.selectUnit, 
-      dr_id: this.data.dr_id, 
-      project_id: this.data.project_id
-    };
-    this.matUp.push(data);
-  }
-  matU() {
-    this.matService.update(this.matUp).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-
-  prob() {
-    const data = {
-      prob_id: this.prob_id,
-      problem: this.problem,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    }
-    this.problemService.update(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  strikes() {
-    const data = {
-      strike_id: this.strike_id,
-      strike_detail: this.strike_detail,
-      strike_cause: this.strike_cause,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    }
-    this.strikeService.update(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  inspec() {
-    const data = {
-      inspec_id: this.inspec_id,
-      inspec_result_id: this.selectResult,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    }
-    this.inspecService.update(data).subscribe((res: any) => {
-      if (res.status === "success") {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
 
 }

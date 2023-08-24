@@ -47,26 +47,25 @@
             <input matInput type="time" name="sta_time" id="sta_time" [(ngModel)]="sta_time2">
         </mat-form-field>
         <br>
-        <button mat-button (click)="addNewLabor()"><mat-icon >add_circle</mat-icon>เพิ่มแรงงาน</button>
-        <!-- **********update********** -->
+        <button mat-button (click)="addNewLabor()"><mat-icon>add_circle</mat-icon>เพิ่มแรงงาน</button>
+
         <div *ngFor="let input of laborUp; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-70">
                 <mat-label>แรงงาน</mat-label>
-                <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน" [(ngModel)]="input.labor_name">
+                <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน"
+                    [(ngModel)]="input.labor_name">
             </mat-form-field>
             <mat-form-field appearance="outline" class="width-20 ml-2">
                 <mat-label>จำนวน</mat-label>
                 <input matInput type="number" name="labor_num" id="labor_num" [(ngModel)]="input.labor_num">
             </mat-form-field>
-            <button mat-icon-button color="warn" (click)="removeLaborU(i)">
-                <mat-icon>remove_circle</mat-icon>
-            </button>
         </div>
-        <!-- **********create********** -->
+
         <div *ngFor="let input of laborCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-70">
                 <mat-label>แรงงาน</mat-label>
-                <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน" [(ngModel)]="input.labor_name">
+                <input matInput type="text" name="labor" id="labor" placeholder="แรงงาน"
+                    [(ngModel)]="input.labor_name">
             </mat-form-field>
             <mat-form-field appearance="outline" class="width-20 ml-2">
                 <mat-label>จำนวน</mat-label>
@@ -87,9 +86,6 @@
                 <mat-label>รายละเอียดงาน</mat-label>
                 <input matInput type="text" name="work_detail" id="work_detail" placeholder="รายละเอียดงาน" [(ngModel)]="input.work_detail">
             </mat-form-field>
-            <button mat-icon-button color="warn" (click)="removeWorkU(i)">
-                <mat-icon>remove_circle</mat-icon>
-            </button>
         </div>
         <div *ngFor="let input of workCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-20">
@@ -124,9 +120,6 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button mat-icon-button color="warn" (click)="removeToolU(i)">
-                <mat-icon>remove_circle</mat-icon>
-            </button>
         </div>
         <div *ngFor="let input of toolCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-50">
@@ -170,9 +163,6 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button mat-icon-button color="warn" (click)="removeMatU(i)">
-                <mat-icon>remove_circle</mat-icon>
-            </button>
         </div>
         <div *ngFor="let input of matCr; let i = index" class="input-container">
             <mat-form-field appearance="outline" class="width-50">
@@ -199,17 +189,20 @@
         <br>
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>ปัญหา</mat-label>
-            <textarea matInput type="text" name="problem" id="problem" placeholder="ปัญหา" [(ngModel)]="problem"></textarea>
+            <textarea matInput type="text" name="problem" id="problem" placeholder="ปัญหา"
+                [(ngModel)]="problem"></textarea>
         </mat-form-field>
         <br>
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>การหยุดงาน</mat-label>
-            <textarea matInput type="text" name="strike_detail" id="strike_detail" placeholder="การหยุดงาน" [(ngModel)]="strike_detail"></textarea>
+            <textarea matInput type="text" name="strike_detail" id="strike_detail" placeholder="การหยุดงาน"
+                [(ngModel)]="strike_detail"></textarea>
         </mat-form-field>
         <br>
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>สาเหตุ</mat-label>
-            <textarea matInput type="text" name="strike_cause" id="strike_cause" placeholder="สาเหตุการหยุดงาน" [(ngModel)]="strike_cause"></textarea>
+            <textarea matInput type="text" name="strike_cause" id="strike_cause" placeholder="สาเหตุการหยุดงาน"
+                [(ngModel)]="strike_cause"></textarea>
         </mat-form-field>
         <br>
         <mat-form-field appearance="outline" class="width-100">
@@ -225,5 +218,5 @@
 </div>
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
-    <button mat-raised-button color=accent (click)="addDetail()">Update Detail</button>
+    <button mat-raised-button color=accent (click)="UpdateDetail()">Update Detail</button>
 </div>

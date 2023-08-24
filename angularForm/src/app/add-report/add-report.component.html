@@ -5,9 +5,9 @@
     <div class="example-container">
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>วันที่</mat-label>
-            <input matInput [matDatepicker]="picker">
+            <input matInput [matDatepicker]="picker" name="dr_time" id="dr_time" [(ngModel)]="dr_time">
             <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker" name="dr_time" id="dr_time" placeholder="วันที่เขียนรายงาน"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <br>

@@ -21,9 +21,9 @@
     $inspec->project_id = $data->project_id;
 
     if ($inspec->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
+        $response = array("status" => "success", "message" => "Inspection updated.");
     } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+        $response = array("status" => "error", "message" => "Failed to updated inspection.");
     }
 
     echo json_encode($response);

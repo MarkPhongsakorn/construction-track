@@ -114,7 +114,7 @@
             <mat-form-field appearance="outline" class="width-20 ml-2">
                 <mat-label>หน่วย</mat-label>
                 <mat-select matNativeControl [(ngModel)]="input.unit_id" name="selectUnit">
-                    <mat-option value="" selected>หน่วย</mat-option>
+                    <mat-option value="0" selected>หน่วย</mat-option>
                     <mat-option *ngFor="let units of unit" [value]="units.unit_id">
                         {{ units.unit_name }}
                     </mat-option>

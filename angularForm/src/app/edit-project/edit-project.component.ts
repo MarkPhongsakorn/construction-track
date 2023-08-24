@@ -81,7 +81,8 @@ export class EditProjectComponent implements OnInit {
       project_name: this.project_name,
       project_start: projectStartThailand,
       project_end: projectEndThailand,
-      user_detail_id: this.selectUserId
+      user_detail_id: this.selectUserId,
+      comp_id: this.comp_id
     };
     this.project.update(data).subscribe((res: any) => {
       if (res.status === 'success') {

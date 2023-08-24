@@ -31,4 +31,5 @@ export class LaborService {
   update(data: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/labor/update.php`, data);
   }
+
 }

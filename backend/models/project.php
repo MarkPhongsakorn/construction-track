@@ -15,6 +15,8 @@
 
         public $user_detail_id;
 
+        public $comp_id;
+
         public function __construct($db) {
             $this->conn = $db;
         }
@@ -22,9 +24,9 @@
         public function read() {
 
             $query = 'SELECT * FROM ' . $this->table . 
-            ' LEFT JOIN ' . $this->table2 . ' ON ' 
+            ' INNER JOIN ' . $this->table2 . ' ON ' 
             . $this->table . '.user_detail_id = '  . $this->table2 . '.user_detail_id
-            LEFT JOIN ' .$this->table3 . ' ON ' . $this->table . '.comp_id = ' . $this->table3 . '.comp_id';
+            INNER JOIN ' .$this->table3 . ' ON ' . $this->table . '.comp_id = ' . $this->table3 . '.comp_id';
 
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
@@ -35,9 +37,9 @@
         public function read_one() {
 
             $query = 'SELECT * FROM ' . $this->table . ' 
-                        LEFT JOIN ' . $this->table2 . ' 
+                        INNER JOIN ' . $this->table2 . ' 
                         ON ' . $this->table . '.user_detail_id = ' . $this->table2 . '.user_detail_id 
-                        LEFT JOIN ' .$this->table3 . '
+                        INNER JOIN ' .$this->table3 . '
                         ON ' . $this->table . '.comp_id = ' . $this->table3 . '.comp_id
                         WHERE ' . $this->table . '.project_id = :project_id';
                         
@@ -89,7 +91,8 @@
                 project_name = :project_name,
                 project_start = :project_start,
                 project_end = :project_end,
-                user_detail_id = :user_detail_id
+                user_detail_id = :user_detail_id,
+                comp_id = :comp_id
             WHERE
                 project_id = :project_id';
 
@@ -99,11 +102,13 @@
             $this->project_start = htmlspecialchars(strip_tags($this->project_start));
             $this->project_end = htmlspecialchars(strip_tags($this->project_end));
             $this->user_detail_id = htmlspecialchars(strip_tags($this->user_detail_id));
+            $this->comp_id = htmlspecialchars(strip_tags($this->comp_id));
 
             $stmt->bindParam(':project_name', $this->project_name);
             $stmt->bindParam(':project_start', $this->project_start);
             $stmt->bindParam(':project_end', $this->project_end);
             $stmt->bindParam(':user_detail_id', $this->user_detail_id);
+            $stmt->bindParam(':comp_id', $this->comp_id);
             $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {

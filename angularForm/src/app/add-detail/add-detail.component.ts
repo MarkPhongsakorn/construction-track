@@ -13,6 +13,8 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
 import Swal from 'sweetalert2';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 
@@ -105,68 +107,163 @@ export class AddDetailComponent implements OnInit {
   }
 
   addDetail() {
-    this.mor();
-    this.after();
-    this.labors();
-    this.works();
-    this.tools();
-    this.material();
-    this.prob();
-    this.strikes();
-    this.inspec();
-    if (this.statuses = true) {
-      Swal.fire({
-        title: 'สำเร็จ',
-        text: 'การสร้างรายงานสำเร็จ',
-        icon: 'success',
-        confirmButtonText: 'ตกลง'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        }
-      });
-    } else {
-      Swal.fire({
-        title: 'ข้อผิดพลาด',
-        text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-        icon: 'error',
-        confirmButtonText: 'ตกลง'
-      });
-    }
-  }
-
-  mor() {
-    const data = {
+    const morning = {
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
       sta_time: this.sta_time1,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id,
     }
-    this.weatherService.create(data).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  after() {
-    const data = {
+    const afternoon = {
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
       sta_time: this.sta_time2,
       dr_id: this.data.dr_id,
       project_id: this.data.project_id,
     }
-    this.weatherService.create(data).subscribe((res: any) => {
+    const problem = {
+      problem: this.problem,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    }
+    const strike = {
+      strike_detail: this.strike_detail,
+      strike_cause: this.strike_cause,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    }
+    const inspection = {
+      inspec_result_id: this.selectResult,
+      dr_id: this.data.dr_id,
+      project_id: this.data.project_id
+    }
+    this.weatherService.create(morning).subscribe((res: any) => {
       if (res.status === 'success') {
-        return this.statuses = true
+        this.weatherService.create(afternoon).subscribe((data: any) => {
+          if (data.status === 'success') {
+            this.laborService.create(this.labor).subscribe((res: any) => {
+              if (res.status === 'success') {
+                this.workService.create(this.work).subscribe((res: any) => {
+                  if (res.status === 'success') {
+                    this.toolService.create(this.tool).subscribe((res: any) => {
+                      if (res.status === 'success') {
+                        this.matService.create(this.mat).subscribe((res: any) => {
+                          if (res.status === 'success') {
+                            this.problemService.create(problem).subscribe((res: any) => {
+                              if (res.status === 'success') {
+                                this.strikeService.create(strike).subscribe((res: any) => {
+                                  if (res.status === 'success') {
+                                    this.inspecService.create(inspection).subscribe((res: any) => {
+                                      if (res.status === 'success') {
+                                        Swal.fire({
+                                              title: 'สำเร็จ',
+                                              text: 'การสร้างรายงานสำเร็จ',
+                                              icon: 'success',
+                                              confirmButtonText: 'ตกลง'
+                                            }).then((result) => {
+                                              if (result.isConfirmed) {
+                                                window.location.reload();
+                                              }
+                                            });
+                                        return true
+                                      } else {
+                                        Swal.fire({
+                                          title: 'ข้อผิดพลาด',
+                                          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                                          icon: 'error',
+                                          confirmButtonText: 'ตกลง'
+                                        });
+                                        return false
+                                      }
+                                    });
+                                    return true
+                                  } else {
+                                    Swal.fire({
+                                      title: 'ข้อผิดพลาด',
+                                      text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                                      icon: 'error',
+                                      confirmButtonText: 'ตกลง'
+                                    });
+                                    return false
+                                  }
+                                })
+                                return true
+                              } else {
+                                Swal.fire({
+                                  title: 'ข้อผิดพลาด',
+                                  text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                                  icon: 'error',
+                                  confirmButtonText: 'ตกลง'
+                                });
+                                return false
+                              }
+                            })
+                            return true
+                          } else {
+                            Swal.fire({
+                              title: 'ข้อผิดพลาด',
+                              text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                              icon: 'error',
+                              confirmButtonText: 'ตกลง'
+                            });
+                            return false
+                          }
+                        });
+                        return true
+                      } else {
+                        Swal.fire({
+                          title: 'ข้อผิดพลาด',
+                          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                          icon: 'error',
+                          confirmButtonText: 'ตกลง'
+                        });
+                        return false
+                      }
+                    })
+                    return true
+                  } else {
+                    Swal.fire({
+                      title: 'ข้อผิดพลาด',
+                      text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                      icon: 'error',
+                      confirmButtonText: 'ตกลง'
+                    });
+                    return false
+                  }
+                })
+                return true
+              } else {
+                Swal.fire({
+                  title: 'ข้อผิดพลาด',
+                  text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+                  icon: 'error',
+                  confirmButtonText: 'ตกลง'
+                });
+                return false
+              }
+            })
+            return true
+          } else {
+            Swal.fire({
+              title: 'ข้อผิดพลาด',
+              text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+              icon: 'error',
+              confirmButtonText: 'ตกลง'
+            });
+            return false
+          }
+        })
+        return true
       } else {
-        return this.statuses
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
+        return false
       }
-    });
+    })
   }
 
   // ************************************LABOR***********************************
@@ -176,15 +273,6 @@ export class AddDetailComponent implements OnInit {
   }
   removeLabor(index: number): void {
     this.labor.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
-  }
-  labors() {
-    this.laborService.create(this.labor).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
   }
 
   // ************************************WORK***********************************
@@ -197,15 +285,6 @@ export class AddDetailComponent implements OnInit {
     this.work.splice(index, 1); // ลบ object ที่ index ที่กำหนดออกจากตัวแปร labor
     this.num--;
   }
-  works() {
-    this.workService.create(this.work).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
 
   // *******************************************TOOL*********************************************
   addNewTool() {
@@ -216,16 +295,7 @@ export class AddDetailComponent implements OnInit {
   removeTool(index: number): void {
     this.tool.splice(index, 1);
   }
-  tools() {
-    this.toolService.create(this.tool).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
+  
   // *******************************************MATERIAL*********************************************
   addNewMat() {
     const newMat = { mat_name: '', mat_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
@@ -235,61 +305,5 @@ export class AddDetailComponent implements OnInit {
   removeMat(index: number): void {
     this.mat.splice(index, 1);
   }
-  material() {
-    this.matService.create(this.mat).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  prob() {
-    const data = {
-      problem: this.problem,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    }
-    this.problemService.create(data).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  strikes() {
-    const data = {
-      strike_detail: this.strike_detail,
-      strike_cause: this.strike_cause,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    }
-    this.strikeService.create(data).subscribe((res: any) => {
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
-
-  inspec() {
-    const data = {
-      inspec_result_id: this.selectResult,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
-    }
-    this.inspecService.create(data).subscribe((res: any) => {
-      console.log(data);
-      
-      if (res.status === 'success') {
-        return this.statuses = true
-      } else {
-        return this.statuses
-      }
-    });
-  }
+  
 }

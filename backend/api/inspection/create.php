@@ -23,9 +23,9 @@
         $inspec->project_id = $req['project_id'];
 
         if ($inspec->create()) {
-            $response = array("status" => "success", "message" => "User created.");
+            $response = array("status" => "success", "message" => "Inspection created.");
         } else {
-            $response = array("status" => "error", "message" => "Failed to create user.");
+            $response = array("status" => "error", "message" => "Failed to create inspection.");
         }
     } else {
         $response = array("status" => "error", "message" => "Invalid request data.");

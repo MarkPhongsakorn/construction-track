@@ -23,9 +23,9 @@
     $weather->project_id = $data->project_id;
 
     if ($weather->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
+        $response = array("status" => "success", "message" => "Weather updated.");
     } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+        $response = array("status" => "error", "message" => "Failed to updated weather.");
     }
 
     echo json_encode($response);

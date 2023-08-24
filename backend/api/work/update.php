@@ -15,31 +15,27 @@
 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (!is_array($data)) {
-        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
-        exit;
-    }
-
-    foreach ($data as $item) {
-
-        $work_id = $item['work_id'];
-        $work_num = $item['work_num'];
-        $work_detail = $item['work_detail'];
-        $dr_id = $item['dr_id'];
-        $project_id = $item['project_id'];
-
-        $work->work_id = $work_id;
-        $work->work_num = $work_num;
-        $work->work_detail = $work_detail;
-        $work->dr_id = $dr_id;
-        $work->project_id = $project_id;
-
-        if ($work->update()) {
-            $response = array("status" => "success", "message" => "Work updated.");
-        } else {
-            $response = array("status" => "error", "message" => "Failed to updated work.");
+    if ($data && is_array($data) && !empty($data)) {
+        foreach ($data as $item) {
+            if ($data && !empty($item['work_num']) && !empty($item['work_detail']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+        
+                $work->work_id = $item['work_id'];
+                $work->work_num = $item['work_num'];
+                $work->work_detail = $item['work_detail'];
+                $work->dr_id = $item['dr_id'];
+                $work->project_id = $item['project_id'];
+        
+                if ($work->update()) {
+                    $response = array("status" => "success", "message" => "Work created.");
+                } else {
+                    $response = array("status" => "error", "message" => "Failed to create work.");
+                }
+            } else {
+                $response = array("status" => "error", "message" => "Invalid request data.");
+            }
         }
-
+    } else {
+        $response = array("status" => "error", "message" => "Invalid request data.");
     }
 
     echo json_encode($response);

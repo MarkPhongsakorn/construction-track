@@ -30,6 +30,7 @@ export class DetailReportComponent implements OnInit {
   morning: string = '1';
   afternoon: string = '2';
 
+  laborID: string = '';
   labors: any[] = []; 
 
   works: any[] = [];
@@ -43,7 +44,8 @@ export class DetailReportComponent implements OnInit {
 
   inspec_result: string = '';
   
-  readWeather: boolean = false;
+  readWeather1: boolean = false;
+  readWeather2: boolean = false;
   readLabor: boolean = false;
   readWork: boolean = false;
   readTool: boolean = false;
@@ -84,9 +86,9 @@ export class DetailReportComponent implements OnInit {
       this.sta_name1 = data['sta_name'];
       this.sta_time1 = data['sta_time'];
       if (data.status === "error") {
-        return this.readWeather = true
+        return this.readWeather1 = true
       } else {
-        return this.readWeather
+        return this.readWeather1
       }
     });
     this.weatherService.readOne(this.data.dr_id, this.afternoon).subscribe(data => {
@@ -94,15 +96,16 @@ export class DetailReportComponent implements OnInit {
       this.sta_name2 = data['sta_name'];
       this.sta_time2 = data['sta_time'];
       if (data.status === "error") {
-        return this.readWeather = true
+        return this.readWeather2 = true
       } else {
-        return this.readWeather
+        return this.readWeather2
       }
     });
   }
 
   labor() {
     this.laborService.readOne(this.data.dr_id).subscribe(data => {
+      this.laborID = data['labor_id']
       this.labors = data;
       if (data.status === "error") {
         return this.readLabor = true
@@ -176,7 +179,7 @@ export class DetailReportComponent implements OnInit {
 
   openEditDetail() {
     const dialogRef = this.dialog.open(EditDetailComponent, {
-      data: {dr_id: this.data.dr_id, project_id: this.data.project_id}
+      data: {dr_id: this.data.dr_id, project_id: this.data.project_id, labor_id: this.laborID}
     });
   }
 

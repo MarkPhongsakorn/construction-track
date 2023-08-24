@@ -13,17 +13,22 @@
 
     $prob = new Problem($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+    $data = json_decode(file_get_contents("php://input"), true);
 
-    $prob->prob_id = $data->prob_id;
-    $prob->problem = $data->problem;
-    $prob->dr_id = $data->dr_id;
-    $prob->project_id = $data->project_id;
+    if ($data && !empty($data['problem']) && !empty($data['dr_id'])  && !empty($data['project_id'])) {
 
-    if ($prob->update()) {
-        $response = array("status" => "success", "message" => "Company updated.");
+        $prob->prob_id = $data['prob_id'];
+        $prob->problem = $data['problem'];
+        $prob->dr_id = $data['dr_id'];
+        $prob->project_id = $data['project_id'];
+
+        if ($prob->update()) {
+            $response = array("status" => "success", "message" => "Problem updated.");
+        } else {
+            $response = array("status" => "error", "message" => "Failed to updated problem.");
+        }
     } else {
-        $response = array("status" => "error", "message" => "Failed to updated company.");
+        $response = array("status" => "error", "message" => "Invalid request data.");
     }
 
     echo json_encode($response);

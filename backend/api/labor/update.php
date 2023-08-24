@@ -15,32 +15,29 @@
 
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (!is_array($data)) {
-        echo json_encode(array("status" => "error", "message" => "Invalid data format."));
-        exit;
-    }
-
-    foreach ($data as $item) {
-        $labor_id = $item['labor_id'];
-        $labor_name = $item['labor_name'];
-        $labor_num = $item['labor_num'];
-        $dr_id = $item['dr_id'];
-        $project_id = $item['project_id'];
+    if ($data && is_array($data) && !empty($data)) {
+        foreach ($data as $item) {
+            if (!empty($item['labor_name']) && !empty($item['labor_num']) && !empty($item['dr_id'])  && !empty($item['project_id'])) {
+            
+                $labor->labor_id = $item['labor_id'];
+                $labor->labor_name = $item['labor_name'];
+                $labor->labor_num = $item['labor_num'];
+                $labor->dr_id = $item['dr_id'];
+                $labor->project_id = $item['project_id'];
     
-        // ทำการอัปเดตข้อมูลสำหรับแต่ละตัวในรูปแบบของ array นี้
-        $labor->labor_id = $labor_id;
-        $labor->labor_name = $labor_name;
-        $labor->labor_num = $labor_num;
-        $labor->dr_id = $dr_id;
-        $labor->project_id = $project_id;
-
-
-        if ($labor->update()) {
-            $response = array("status" => "success", "message" => "Labor updated.");
-        } else {
-            $response = array("status" => "error", "message" => "Failed to updated labor.");
+                if ($labor->update()) {
+                    $response = array("status" => "success", "message" => "Labor updated.");
+                } else {
+                    $response = array("status" => "error", "message" => "Failed to updated labor.");
+                }
+            } else {
+                $response = array("status" => "error", "message" => "Invalid request data.");
+            }
         }
+    } else {
+        $response = array("status" => "error", "message" => "Invalid request data.");
     }
 
+    
     echo json_encode($response);
 ?>
