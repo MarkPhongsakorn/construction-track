@@ -1,0 +1,26 @@
+<!-- <form (ngSubmit)="onSubmit()">
+    <input type="file" (change)="onFileSelected($event)" />
+    <button type="submit">อัปโหลด</button>
+  </form> -->
+<div mat-dialog-title>
+    <h1>Request Form</h1>
+</div>
+<div mat-dialog-content>
+    <div class="example-container">
+        <mat-label>ปัญหา</mat-label>
+        <input type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .pdf" />
+        <br>
+        <mat-label>ใบอนุญาตรายวัน</mat-label>
+        <input class="form-control" type="file">
+        <br>
+        <mat-label>ใบอนุญาตก่อสร้าง</mat-label>
+        <input class="form-control" type="file">
+        <br>
+        <mat-label>ใบรับรองการก่อสร้าง</mat-label>
+        <input class="form-control" type="file">
+    </div>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close>Close</button>
+    <button mat-raised-button color=accent (click)="onUpload()">Add Project</button>
+</div>

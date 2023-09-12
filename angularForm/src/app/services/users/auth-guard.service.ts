@@ -25,7 +25,7 @@ export class AuthGuardService implements CanActivate {
         return false;
       }
 
-      if (route.routeConfig.path === "company" && currentUserPosition !== "1") {
+      if (route.routeConfig.path === "request-user" && currentUserPosition !== "1") {
         this.router.navigate(['/login']);
         return false;
       }

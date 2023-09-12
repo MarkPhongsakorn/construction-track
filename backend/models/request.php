@@ -10,7 +10,8 @@
         public $req_license;
         public $req_certificate;
 
-        public $user_detail_id;
+        public $project_id;
+        public $comp_id;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -28,9 +29,10 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE req_id = :req_id';
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE project_id = :project_id AND comp_id = :comp_id';
             $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':req_id', $this->req_id);
+            $stmt->bindParam(':project_id', $this->project_id);
+            $stmt->bindParam(':comp_id', $this->comp_id);
             $stmt->execute();
 
             return $stmt;
@@ -43,7 +45,8 @@
                 req_daily = :req_daily,
                 req_license = :req_license,
                 req_certificate = :req_certificate,
-                user_detail_id = :user_detail_id';
+                project_id = :project_id,
+                comp_id = :comp_id';
 
             $stmt = $this->conn->prepare($query);
 
@@ -51,13 +54,15 @@
             $this->req_daily = htmlspecialchars(strip_tags($this->req_daily));
             $this->req_license = htmlspecialchars(strip_tags($this->req_license));
             $this->req_certificate = htmlspecialchars(strip_tags($this->req_certificate));
-            $this->user_detail_id = htmlspecialchars(strip_tags($this->user_detail_id));
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
+            $this->comp_id = htmlspecialchars(strip_tags($this->comp_id));
 
             $stmt->bindParam(':req_problem', $this->req_problem);
             $stmt->bindParam(':req_daily', $this->req_daily);
             $stmt->bindParam(':req_license', $this->req_license);
             $stmt->bindParam(':req_certificate', $this->req_certificate);
-            $stmt->bindParam(':user_detail_id', $this->user_detail_id);
+            $stmt->bindParam(':project_id', $this->project_id);
+            $stmt->bindParam(':comp_id', $this->comp_id);
 
             if ($stmt->execute()) {
                 return json_encode("Created.");

@@ -38,11 +38,11 @@ h2 {
     font-weight: bold;
 }
 
-.btn {
+.btns {
     display: flex;
 }
 
-.btn button {
+.btns button {
     margin: auto;
 }
 

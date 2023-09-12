@@ -19,6 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import {CdkDrag} from '@angular/cdk/drag-drop';
 
@@ -27,7 +28,6 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuardService } from './services/users/auth-guard.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CompanyComponent } from './company/company.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { DeleteProjectComponent } from './delete-project/delete-project.component';
@@ -38,6 +38,9 @@ import { DeleteReportComponent } from './delete-report/delete-report.component';
 import { AddDetailComponent } from './add-detail/add-detail.component';
 import { DetailReportComponent } from './detail-report/detail-report.component';
 import { EditDetailComponent } from './edit-detail/edit-detail.component';
+import { RequestAdminComponent } from './request-admin/request-admin.component';
+import { RequestUserComponent } from './request-user/request-user.component';
+import { AddRequestUserComponent } from './add-request-user/add-request-user.component';
 
 
 @NgModule({
@@ -46,7 +49,6 @@ import { EditDetailComponent } from './edit-detail/edit-detail.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    CompanyComponent,
     AddProjectComponent,
     EditProjectComponent,
     DeleteProjectComponent,
@@ -56,7 +58,10 @@ import { EditDetailComponent } from './edit-detail/edit-detail.component';
     DeleteReportComponent,
     AddDetailComponent,
     DetailReportComponent,
-    EditDetailComponent
+    EditDetailComponent,
+    RequestAdminComponent,
+    RequestUserComponent,
+    AddRequestUserComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +83,7 @@ import { EditDetailComponent } from './edit-detail/edit-detail.component';
     MatDialogModule,
     MatDatepickerModule,
     MatTableModule,
+    MatAutocompleteModule,
     CdkDrag,
   ],
   providers: [AuthGuardService],

@@ -12,7 +12,8 @@
 
     $req = new Request($db);
 
-    $req->req_id = isset($_GET['req_id']) ? $_GET['req_id'] : die();
+    $req->project_id = isset($_GET['project_id']) ? $_GET['project_id'] : die();
+    $req->comp_id = isset($_GET['comp_id']) ? $_GET['comp_id'] : die();
 
     $result = $req->read_one();
 
@@ -27,14 +28,12 @@
                 'req_daily' => $row['req_daily'],
                 'req_license' => $row['req_license'],
                 'req_certificate' => $row['req_certificate'],
-                'user_detail_id' => $row['user_detail_id']
+                'project_id' => $row['project_id'],
+                'comp_id' => $row['comp_id']
             );
-
-            http_response_code(200);
             echo json_encode($req_arr);
     } else {
-        http_response_code(404);
-        echo json_encode(array('message' => 'Not found.'));
+        echo json_encode(array("status" => "error", "message" => "Not Found Request"));
     }
 
     

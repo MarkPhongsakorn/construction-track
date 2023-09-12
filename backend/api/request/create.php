@@ -16,22 +16,37 @@
     $data = file_get_contents("php://input");
     $requ = json_decode($data, true);
 
-    if ($req && !empty($requ['req_problem']) && !empty($requ['req_daily']) && !empty($requ['req_license'])
-        && !empty($requ['req_certificate']) && !empty($requ['user_detail_id']) ) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $req->req_problem = $requ['req_problem'];
-        $req->req_daily = $requ['req_daily'];
-        $req->req_license = $requ['req_license'];
-        $req->req_certificate = $requ['req_certificate'];
-        $req->user_detail_id = $requ['user_detail_id'];
+        if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+            // $req->req_problem = $_POST['req_problem'];
+            // $req->req_daily = $_POST['req_daily'];
+            // $req->req_license = $_POST['req_license'];
+            // $req->req_certificate = $_POST['req_certificate'];
+            // $req->user_detail_id = $_POST['user_detail_id'];
 
-        if ($req->create()) {
-            $response = array("status" => "success", "message" => "User created.");
+            // แยกไฟล์ที่อัปโหลดเพื่อจัดการ
+            $file = $_FILES['file'];
+            $uploadDir = '../../upload'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
+            $uploadPath = $uploadDir . '/' . $file['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
+
+            if (move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                // สามารถย้ายไฟล์ได้
+                $req->req_problem = $file['name']; // เพิ่มข้อมูล path ของไฟล์ในตัวแปรของคุณ
+
+                if ($req->create()) {
+                    $response = array("status" => "success", "message" => "Request created.");
+                } else {
+                    $response = array("status" => "error", "message" => "Failed to create request.");
+                }
+            } else {
+                $response = array("status" => "error", "message" => "Error moving file.");
+            }
         } else {
-            $response = array("status" => "error", "message" => "Failed to create user.");
+            $response = array("status" => "error", "message" => "Invalid file or request data.");
         }
     } else {
-        $response = array("status" => "error", "message" => "Invalid request data.");
+        $response = array("status" => "error", "message" => "Invalid request method.");
     }
 
     echo json_encode($response);

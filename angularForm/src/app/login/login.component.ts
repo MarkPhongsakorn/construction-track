@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/users/user.service';
 import { AuthService } from '../services/users/auth.service';
+import Swal from 'sweetalert2';
 
 import { Router } from '@angular/router';
 
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   username: string = '';
   password: string = '';
 
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
   login(): void {
@@ -39,18 +40,41 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('pos_id', position);
 
         if (position === 1) {
-          this.router.navigate(['/company']).then(() => {
-            window.location.reload();
+          Swal.fire({
+            title: 'สำเร็จ',
+            text: 'เข้าสู่ระบบวิศวกรควบคุมของบริษัทสำเร็จ',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/request-user']).then(() => {
+                window.location.reload();
+              });
+            }
           });
         } else {
-          this.router.navigate(['/dashboard']).then(() => {
-            window.location.reload();
+          Swal.fire({
+            title: 'สำเร็จ',
+            text: 'เข้าสู่ระบบวิศวกรควบคุมของมหาลัยสำเร็จ',
+            icon: 'success',
+            confirmButtonText: 'ตกลง'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['/dashboard']).then(() => {
+                window.location.reload();
+              });
+            }
           });
         }
 
       } else {
         console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'เกิดข้อผิดพลาดในการเข้าสู่ระบบ',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
       }
     })
   }
