@@ -23,8 +23,8 @@
 
     <button class="w-20 ml-2" mat-raised-button color="primary" (click)="search()">ค้นหา</button>
 </div>
-<div class="upload">
-    <button mat-raised-button color="accent" (click)="openDialog()"><mat-icon> add </mat-icon>อัปโหลด</button>
+<div class="upload" *ngIf="this.addReq">
+    <button mat-raised-button color="accent" (click)="openDialog()" ><mat-icon> add </mat-icon>อัปโหลด</button>
 </div>
 <div class="not" *ngIf="this.projectID">
     <h1>ไม่มีข้อมูล</h1>

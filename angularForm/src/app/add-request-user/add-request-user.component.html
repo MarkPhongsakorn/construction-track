@@ -7,17 +7,29 @@
 </div>
 <div mat-dialog-content>
     <div class="example-container">
+        <!-- <mat-form-field appearance="outline" class="width-100">
+            <mat-label>วันที่</mat-label>
+            <input matInput [matDatepicker]="picker" name="dr_time" id="dr_time" [(ngModel)]="req_date">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> 
+        <br>-->
         <mat-label>ปัญหา</mat-label>
-        <input type="file" (change)="onFileSelected($event)" accept=".jpg, .png, .pdf" />
+        <br>
+        <input type="file" (change)="selectedProblem($event)" accept=".jpg, .png, .pdf" />
         <br>
         <mat-label>ใบอนุญาตรายวัน</mat-label>
-        <input class="form-control" type="file">
+        <br>
+        <input type="file" (change)="selectedDaily($event)" accept=".jpg, .png, .pdf">
         <br>
         <mat-label>ใบอนุญาตก่อสร้าง</mat-label>
-        <input class="form-control" type="file">
+        <br>
+        <input type="file" (change)="selectedLicense($event)" accept=".jpg, .png, .pdf">
         <br>
         <mat-label>ใบรับรองการก่อสร้าง</mat-label>
-        <input class="form-control" type="file">
+        <br>
+        <input type="file" (change)="selectedCertificate($event)" accept=".jpg, .png, .pdf">
     </div>
 </div>
 <div mat-dialog-actions align="end">

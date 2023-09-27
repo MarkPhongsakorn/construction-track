@@ -5,6 +5,7 @@
         private $table = "tb_request";
 
         public $req_id;
+        public $req_date;
         public $req_problem;
         public $req_daily;
         public $req_license;
@@ -41,6 +42,7 @@
         public function create() {
             $query = 'INSERT INTO ' . $this->table . '
             SET
+                req_date = :req_date,
                 req_problem = :req_problem,
                 req_daily = :req_daily,
                 req_license = :req_license,
@@ -50,6 +52,7 @@
 
             $stmt = $this->conn->prepare($query);
 
+            $this->req_date = htmlspecialchars(strip_tags($this->req_date));
             $this->req_problem = htmlspecialchars(strip_tags($this->req_problem));
             $this->req_daily = htmlspecialchars(strip_tags($this->req_daily));
             $this->req_license = htmlspecialchars(strip_tags($this->req_license));
@@ -57,6 +60,7 @@
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
             $this->comp_id = htmlspecialchars(strip_tags($this->comp_id));
 
+            $stmt->bindParam(':req_date', $this->req_date);
             $stmt->bindParam(':req_problem', $this->req_problem);
             $stmt->bindParam(':req_daily', $this->req_daily);
             $stmt->bindParam(':req_license', $this->req_license);
@@ -74,6 +78,7 @@
         public function update() {
             $query = 'UPDATE ' . $this->table . '
             SET
+                req_date = :req_date,
                 req_problem = :req_problem,
                 req_daily = :req_daily,
                 req_license = :req_license,
@@ -84,12 +89,14 @@
 
             $stmt = $this->conn->prepare($query);
 
+            $this->req_date = htmlspecialchars(strip_tags($this->req_date));
             $this->req_problem = htmlspecialchars(strip_tags($this->req_problem));
             $this->req_daily = htmlspecialchars(strip_tags($this->req_daily));
             $this->req_license = htmlspecialchars(strip_tags($this->req_license));
             $this->req_certificate = htmlspecialchars(strip_tags($this->req_certificate));
             $this->user_detail_id = htmlspecialchars(strip_tags($this->user_detail_id));
 
+            $stmt->bindParam(':req_date', $this->req_date);
             $stmt->bindParam(':req_problem', $this->req_problem);
             $stmt->bindParam(':req_daily', $this->req_daily);
             $stmt->bindParam(':req_license', $this->req_license);

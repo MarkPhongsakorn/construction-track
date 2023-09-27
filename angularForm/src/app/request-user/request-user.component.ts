@@ -16,6 +16,7 @@ export class RequestUserComponent implements OnInit {
   selectProjectId: string = '';
 
   projectID: boolean = false;
+  addReq: boolean = false;
 
   comp: any[] = [];
   selectCompId: string = '';
@@ -49,18 +50,27 @@ export class RequestUserComponent implements OnInit {
 
   search() {
     this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
-      this.dataSource = res;
-
       if (res.status === 'error') {
         this.projectID = true;
       } else {
+        this.dataSource = res;
         this.projectID = false;
       }
     });
+    if (this.selectProjectId == '' && this.selectCompId == '') {
+      this.addReq = false;
+    } else {
+      this.addReq = true;
+    }
   }
 
   openDialog() {
-    this.dialog.open(AddRequestUserComponent);
+    const dialogRef = this.dialog.open(AddRequestUserComponent, {
+      data: {
+        project_id: this.selectProjectId,
+        comp_id: this.selectCompId
+      }
+    });
   }
 
 }

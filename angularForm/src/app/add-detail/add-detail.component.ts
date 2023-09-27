@@ -13,9 +13,6 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
 import Swal from 'sweetalert2';
-import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
-
 
 
 @Component({
