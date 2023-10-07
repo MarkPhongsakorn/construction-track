@@ -1,16 +1,16 @@
-<mat-grid-list cols="1" rowHeight="550px">
+<!-- <mat-grid-list cols="1" rowHeight="550px">
     <mat-grid-tile>
         <form (ngSubmit)="onSubmit()">
             <div class="example-container">
                 <h1>Login</h1>
-                <!-- username -->
+
                 <mat-form-field appearance="outline" class="width-100">
                     <mat-label>Username</mat-label>
                     <input matInput type="text" name="username" id="username" placeholder="Username"
                         [(ngModel)]="username">
                 </mat-form-field>
                 <br>
-                <!-- pasword -->
+
                 <mat-form-field appearance="outline" class="width-100">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" name="password" id="password" placeholder="Password"
@@ -26,8 +26,21 @@
             </div>
         </form>
     </mat-grid-tile>
-    <!-- <div class="logout" *ngIf='this.isLogin'>
-        <h2>You are logged in</h2>
-        <button mat-raised-button color="accent" (click)='logout()'>Logout</button>
-    </div> -->
-</mat-grid-list>
+</mat-grid-list> -->
+
+<div class="card">
+    <form (ngSubmit)="onSubmit()">
+    <h1>เข้าสู่ระบบ</h1>
+    <span class="p-float-label width-100">
+        <input class="p-inputtext-lg" type="text" pInputText name="username" id="username" [(ngModel)]="username" />
+        <label htmlFor="username">ชื่อผู้ใช้</label>
+    </span>
+    <br>
+    <span class="p-float-label width-100">
+        <input class="p-inputtext-lg" type="password" pInputText name="password" id="password" [(ngModel)]="password" />
+        <label htmlFor="password">รหัสผ่าน</label>
+    </span>
+    <br>
+    <p-button class="login" label="เข้าสู่ระบบ" type="submit"></p-button>
+    </form>
+</div>

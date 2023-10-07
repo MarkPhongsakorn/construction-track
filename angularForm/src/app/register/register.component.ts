@@ -3,6 +3,7 @@ import { UserService } from '../services/users/user.service';
 import { PrefixService } from '../services/users/prefix.service';
 import { PositionService } from '../services/users/position.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -68,10 +69,25 @@ export class RegisterComponent implements OnInit {
         sessionStorage.setItem('user_tel', this.user_tel);
         sessionStorage.setItem('pos_id', this.selectedPosition);
         sessionStorage.setItem('prefix_id', this.selectedPrefix);
-        this.router.navigate(['/login']);
+        Swal.fire({
+          title: 'สำเร็จ',
+          text: 'สมัครสมาชิกสำเร็จ',
+          icon: 'success',
+          confirmButtonText: 'ตกลง'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/login']).then(() => {
+              window.location.reload();
+            });
+          }
+        });
       } else {
-        console.log(res.message); // Failed to create user
-        alert('เกิดข้อผิดพลาดโปรดตรวจสอบอีกครั้ง');
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'เกิดข้อผิดพลาดในการในการสมัครสมาชิก',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
       }
     });
   }

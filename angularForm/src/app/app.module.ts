@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import {CdkDrag} from '@angular/cdk/drag-drop';
 
@@ -41,6 +42,16 @@ import { EditDetailComponent } from './edit-detail/edit-detail.component';
 import { RequestAdminComponent } from './request-admin/request-admin.component';
 import { RequestUserComponent } from './request-user/request-user.component';
 import { AddRequestUserComponent } from './add-request-user/add-request-user.component';
+import { PdfService } from './services/reports/pdf.service';
+
+import { MenubarModule } from 'primeng/menubar';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TableModule } from 'primeng/table';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -84,9 +95,18 @@ import { AddRequestUserComponent } from './add-request-user/add-request-user.com
     MatDatepickerModule,
     MatTableModule,
     MatAutocompleteModule,
+    MatSidenavModule,
     CdkDrag,
+    MenubarModule,
+    InputTextModule,
+    ButtonModule,
+    DropdownModule,
+    InputTextareaModule,
+    TableModule,
+    DynamicDialogModule,
+    CalendarModule,
   ],
-  providers: [AuthGuardService],
+  providers: [AuthGuardService, PdfService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

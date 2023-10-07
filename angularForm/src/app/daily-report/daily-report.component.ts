@@ -7,6 +7,7 @@ import { EditReportComponent } from '../edit-report/edit-report.component';
 import { DeleteReportComponent } from '../delete-report/delete-report.component';
 import { AddDetailComponent } from '../add-detail/add-detail.component';
 import { DetailReportComponent } from '../detail-report/detail-report.component';
+import { PdfService } from '../services/reports/pdf.service';
 
 @Component({
   selector: 'app-daily-report',
@@ -25,6 +26,8 @@ export class DailyReportComponent implements OnInit {
     'action'
   ];
 
+  date: string = '';
+
   projectID: boolean = false;
   project: string = '';
   dr_id: string = '';
@@ -34,6 +37,7 @@ export class DailyReportComponent implements OnInit {
     public dialog: MatDialog,
     private report: ReportService,
     private route: ActivatedRoute,
+    private pdfService: PdfService
   ) {}
   
   ngOnInit() {
@@ -46,7 +50,7 @@ export class DailyReportComponent implements OnInit {
   loadReportData() {
     this.report.getOneByproject(this.project).subscribe(res => {
       this.dataSource = res;
-      
+      this.date = res['project_name'];
       if (res.status === 'error') {
         this.projectID = true;
       } else {
@@ -54,6 +58,12 @@ export class DailyReportComponent implements OnInit {
       }
     });
   }
+
+  generatePDF() {
+    const content = this.dataSource;
+    this.pdfService.generatePDF(JSON.stringify(content));  // Pass content as a JSON string
+  }
+  
   
   openDialog() {
     this.dialog.open(AddReportComponent);

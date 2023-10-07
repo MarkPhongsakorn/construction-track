@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddProjectComponent } from '../add-project/add-project.component';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { DeleteProjectComponent } from '../delete-project/delete-project.component';
@@ -9,36 +10,40 @@ import { ReportService } from '../services/reports/report.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [DialogService]
 })
 export class DashboardComponent implements OnInit {
 
-  dataSource: any[] = [];
-  errorMessage: string = '';
-  displayedColumns: string[] = [
-    'project_id',
-    'project_name',
-    'project_start',
-    'project_end',
-    'user_fname user_lname',
-    'comp_name',
-    'action'
-  ];
+  projects: any[] = [];
+  // errorMessage: string = '';
+  // displayedColumns: string[] = [
+  //   'project_id',
+  //   'project_name',
+  //   'project_start',
+  //   'project_end',
+  //   'user_fname user_lname',
+  //   'comp_name',
+  //   'action'
+  // ];
 
   projectID: boolean = false;
 
   project_id: string = '';
 
+  ref: DynamicDialogRef | undefined;
+
 
   constructor(
     public dialog: MatDialog,
     private project: ProjectService,
-    private report: ReportService
+    private report: ReportService,
+    public dialogService: DialogService
   ) {}
 
   ngOnInit() {
     this.project.readProject().subscribe(res => {
-      this.dataSource = res;
+      this.projects = res;
       if (res.status === 'error') {
         return this.projectID = true;
       } else {
@@ -49,7 +54,7 @@ export class DashboardComponent implements OnInit {
 
 
   openDialog() {
-    this.dialog.open(AddProjectComponent);
+    this.ref = this.dialogService.open(AddProjectComponent, { header: ''});
   }
 
   openDialog2(project_id: string) {

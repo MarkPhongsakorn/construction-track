@@ -1,13 +1,69 @@
 
-
-.menu-spacer {
-    flex: 1 1 auto;
+::ng-deep p-menubarsub {
+  margin-left: 730px;
 }
 
-.title {
-    font-size: x-large;
+::ng-deep .p-menubar {
+  background: rgb(1,116,195);
+  border: none;
+  border-radius: 0;
 }
 
-.menu a {
-    margin-left: 20px;
+::ng-deep .p-menubar-button {
+  position: absolute;
+  right: 40px;
+}
+
+::ng-deep .title {
+  color: white;
+  background: rgb(1,116,195);
+  padding: 5px;
+  font-size: 25px;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+::ng-deep .title:hover {
+  background: rgb(0,104,175);
+  border-radius: 6px;
+}
+
+::ng-deep .p-menuitem-text {
+  color: white;
+}
+
+::ng-deep .p-menuitem-icon {
+  color: white;
+}
+
+::ng-deep .p-menuitem-content {
+  transition: none;
+}
+
+::ng-deep .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+  background: none;
+}
+
+::ng-deep .p-menuitem-content:hover {
+  background: rgb(0,104,175);
+  outline: none;
+  box-shadow: none;
+}
+
+@media screen and (max-width: 960px) {
+  ::ng-deep p-menubarsub {
+    margin-left: 0;
+  }
+
+  ::ng-deep .p-menuitem-text {
+    color: black;
+  }
+
+  ::ng-deep .p-menuitem-icon {
+    color: black;
+  }
+
+  ::ng-deep .p-menubar-button {
+    color: white;
+  }
 }

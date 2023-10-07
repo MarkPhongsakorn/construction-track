@@ -17,27 +17,23 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if (isset($_FILES['req_problem']) && $_FILES['req_problem']['error'] === UPLOAD_ERR_OK && 
-            isset($_FILES['req_daily']) && $_FILES['req_daily']['error'] === UPLOAD_ERR_OK && 
-            isset($_FILES['req_license']) && $_FILES['req_license']['error'] === UPLOAD_ERR_OK && 
-            isset($_FILES['req_certificate']) && $_FILES['req_certificate']['error'] === UPLOAD_ERR_OK
-            ) {
+        
             // แยกไฟล์ที่อัปโหลดเพื่อจัดการ
             $file1 = $_FILES['req_problem'];
-            $uploadDir1 = '../../upload/problem'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
-            $uploadPath1 = $uploadDir1 . '/' . $file1['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
+            $uploadDir1 = '../../upload/problem/'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
+            $uploadPath1 = $uploadDir1 . $file1['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
 
             $file2 = $_FILES['req_daily'];
-            $uploadDir2 = '../../upload/daily'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
-            $uploadPath2 = $uploadDir2 . '/' . $file2['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
+            $uploadDir2 = '../../upload/daily/'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
+            $uploadPath2 = $uploadDir2 . $file2['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
 
             $file3 = $_FILES['req_license'];
-            $uploadDir3 = '../../upload/license'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
-            $uploadPath3 = $uploadDir3 . '/' . $file3['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
+            $uploadDir3 = '../../upload/license/'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
+            $uploadPath3 = $uploadDir3 . $file3['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
 
             $file4 = $_FILES['req_certificate'];
-            $uploadDir4 = '../../upload/certificate'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
-            $uploadPath4 = $uploadDir4 . '/' . $file4['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
+            $uploadDir4 = '../../upload/certificate/'; // กำหนดโฟลเดอร์ที่ไฟล์จะถูกบันทึก
+            $uploadPath4 = $uploadDir4 . $file4['name']; // กำหนด path ที่ไฟล์จะถูกบันทึก
 
             if (move_uploaded_file($file1['tmp_name'], $uploadPath1)) {
                 if (move_uploaded_file($file2['tmp_name'], $uploadPath2)) {
@@ -68,9 +64,9 @@
             } else {
                 $response = array("status" => "error", "message" => "Error moving file.");
             }
-        } else {
-            $response = array("status" => "error", "message" => "Invalid file or request data.");
-        }
+        // } else {
+        //     $response = array("status" => "error", "message" => "Invalid file or request data.");
+        // }
     } else {
         $response = array("status" => "error", "message" => "Invalid request method.");
     }

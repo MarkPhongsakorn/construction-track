@@ -1,23 +1,23 @@
-<mat-grid-list cols="1" rowHeight="550px">
+<!-- <mat-grid-list cols="1" rowHeight="550px">
     <mat-grid-tile>
         <form (ngSubmit)="onSubmit()">
             <div class="example-container">
                 <h1>Register</h1>
-                <!-- username -->
+
                 <mat-form-field appearance="outline" class="width-50">
                     <mat-label>Username</mat-label>
                     <input matInput type="text" name="username" id="username" placeholder="Username"
-                        [(ngModel)]="username">
+                        [(ngModel)]="username" />
                 </mat-form-field>
-                <!-- pasword -->
+
                 <mat-form-field appearance="outline" class="width-50 ml-2">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" name="password" id="password" placeholder="Password"
-                        [(ngModel)]="password">
+                        [(ngModel)]="password" />
                 </mat-form-field>
 
-                <br>
-                <!-- คำนำหน้า -->
+                <br />
+
                 <mat-form-field appearance="outline" class="width-20">
                     <mat-label>คำนำหน้า</mat-label>
                     <mat-select matNativeControl [(ngModel)]="selectedPrefix" name="selectedPrefix">
@@ -26,21 +26,21 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <!-- ชื่อหน้า -->
+
                 <mat-form-field appearance="outline" class="width-40 ml-2">
                     <mat-label>First Name</mat-label>
                     <input matInput type="text" name="user_fname" id="user_fname" placeholder="Ex. พงศกร"
-                    [(ngModel)]="user_fname">
+                        [(ngModel)]="user_fname" />
                 </mat-form-field>
-                <!-- นามสกุล -->
+
                 <mat-form-field appearance="outline" class="width-40 ml-2">
                     <mat-label>Last Name</mat-label>
                     <input matInput type="text" name="user_lname" id="user_lname" placeholder="Ex. บุปผา"
-                    [(ngModel)]="user_lname">
+                        [(ngModel)]="user_lname" />
                 </mat-form-field>
 
-                <br>
-                <!-- ตำแหน่ง -->
+                <br />
+
                 <mat-form-field appearance="outline" class="width-100">
                     <mat-label>ตำแหน่ง</mat-label>
                     <mat-select matNativeControl [(ngModel)]="selectedPosition" name="selectedPosition">
@@ -50,29 +50,99 @@
                     </mat-select>
                 </mat-form-field>
 
-                <br>
-                <!-- อีเมล -->
+                <br />
+
                 <mat-form-field appearance="outline" class="width-50">
                     <mat-label>Email address</mat-label>
                     <input matInput type="email" name="user_email" id="user_email" placeholder="Ex. test@gmail.com"
-                        [(ngModel)]="user_email">
+                        [(ngModel)]="user_email" />
                 </mat-form-field>
-                <!-- เบอร์โทร -->
                 <mat-form-field appearance="outline" class="width-50 ml-2">
                     <mat-label>Tel.</mat-label>
-                    <input type="tel" matInput name="user_tel" id="user_tel" placeholder="xxx-xxx-xxxx" [(ngModel)]="user_tel">
+                    <input type="tel" matInput name="user_tel" id="user_tel" placeholder="xxx-xxx-xxxx"
+                        [(ngModel)]="user_tel" />
                 </mat-form-field>
 
-                <br>
+                <br />
 
                 <div class="btn">
-                    <button mat-raised-button color="primary" type="submit">Register</button>
+                    <button mat-raised-button color="primary" type="submit">
+                        Register
+                    </button>
                 </div>
-
             </div>
         </form>
     </mat-grid-tile>
-    <!-- <div class="login" *ngIf='this.isLogin'>
-        <h2>You are logged in</h2>
-    </div> -->
-</mat-grid-list>
+</mat-grid-list> -->
+
+<div class="card">
+    <form (ngSubmit)="onSubmit()">
+        <h1>สมัครสมาชิก</h1>
+        <div class="p-fluid formgrid grid">
+            <div class="field col-6">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="username" id="username" [(ngModel)]="username" />
+                    <label htmlFor="username">ชื่อผู้ใช้</label>
+                </span>
+            </div>
+            <div class="field col-6">
+                <span class="p-float-label">
+                    <input type="password" pInputText name="password" id="password" [(ngModel)]="password" />
+                    <label htmlFor="password">รหัสผ่าน</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="p-fluid formgrid grid">
+            <div class="field col">
+                <span class="p-float-label">
+                    <p-dropdown [options]="prefixes" [(ngModel)]="selectedPrefix" name="selectedPrefix"
+                        placeholder="คำนำหน้า" optionLabel="prefix_tname" optionValue="prefix_id"></p-dropdown>
+                    <label for="float-label">คำนำหน้า</label>
+                </span>
+            </div>
+            <div class="field col">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="user_fname" id="user_fname" [(ngModel)]="user_fname" />
+                    <label htmlFor="user_fname">ชื่อ</label>
+                </span>
+            </div>
+            <div class="field col">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="user_lname" id="user_lname" [(ngModel)]="user_lname" />
+                    <label htmlFor="user_lname">นามสกุล</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="p-fluid formgrid grid">
+            <div class="field col">
+                <span class="p-float-label">
+                    <p-dropdown [options]="positions" [(ngModel)]="selectedPosition" name="selectedPosition"
+                        placeholder="ตำแหน่ง" optionLabel="pos_name" optionValue="pos_id"></p-dropdown>
+                    <label for="float-label">ตำแหน่ง</label>
+                </span>
+            </div>
+        </div>
+
+        <div class="p-fluid formgrid grid">
+            <div class="field col">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="user_email" id="user_email" [(ngModel)]="user_email" />
+                    <label htmlFor="user_email">E-mail</label>
+                </span>
+            </div>
+
+            <div class="field col">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="user_tel" id="user_tel" [(ngModel)]="user_tel" />
+                    <label htmlFor="user_tel">เบอร์โทร</label>
+                </span>
+            </div>
+        </div>
+
+
+        <br>
+        <p-button class="login" label="สมัครสมาชิก" type="submit"></p-button>
+    </form>
+</div>

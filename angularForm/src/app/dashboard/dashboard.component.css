@@ -63,7 +63,41 @@ p {
     color: blue;
 }
 
+th {
+    font-weight: bold;
+}
+
 th,td {
-    font-size: larger;
+    /* font-size: larger; */
     text-align: center;
+}
+th {
+    background: #333;
+    color: white;
+}
+.card {
+    margin: 5% 10% 0% 10%;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+::ng-deep .field {
+    margin-bottom: 0;
+}
+
+::ng-deep .formgrid {
+    display: flex;
+    align-items: center;
+}
+
+/* ::ng-deep p-button {
+
+} */
+
+@media screen and (max-width: 1280px) {
+    table {
+        width: 50%;
+    }
 }
