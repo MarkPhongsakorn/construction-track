@@ -1,31 +1,33 @@
-<div mat-dialog-title>
+<!-- <div mat-dialog-title>
     <h1>Update Project</h1>
 </div>
 <div mat-dialog-content>
     <div class="example-container">
-        <!-- project_name -->
+
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>Project Name</mat-label>
-            <input matInput type="text" name="project_name" id="project_name" placeholder="Project Name" [(ngModel)]="project_name">
+            <input matInput type="text" name="project_name" id="project_name" placeholder="Project Name"
+                [(ngModel)]="project_name">
         </mat-form-field>
         <br>
-        <!-- project_start & project_end-->
+
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>Project Start and End</mat-label>
             <mat-date-range-input [rangePicker]="picker">
-              <input matStartDate name="project_start" id="project_start" placeholder="Start date" [(ngModel)]="project_start">
-              <input matEndDate name="project_end" id="project_end" placeholder="End date" [(ngModel)]="project_end">
+                <input matStartDate name="project_start" id="project_start" placeholder="Start date"
+                    [(ngModel)]="project_start">
+                <input matEndDate name="project_end" id="project_end" placeholder="End date" [(ngModel)]="project_end">
             </mat-date-range-input>
             <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
+        </mat-form-field>
         <br>
         <br>
-        <!-- ผู้ควบคุมงาน -->
+
         <mat-form-field appearance="outline" class="width-100">
             <mat-label>ผู้ควบคุมงาน</mat-label>
-            <mat-select matNativeControl  [(ngModel)]="selectUserId" name="selectUserId" >
+            <mat-select matNativeControl [(ngModel)]="selectUserId" name="selectUserId">
                 <mat-option *ngFor="let userId of user" [value]="userId.user_detail_id">
                     {{ userId.user_fname }} {{ userId.user_lname }}
                 </mat-option>
@@ -45,4 +47,63 @@
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
     <button mat-raised-button color=accent (click)="update()">Update</button>
+</div> -->
+
+<div class="p-dialog-title">
+    <h1>เพิ่มโครงการ</h1>
+</div>
+<div class="p-dialog-content">
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-12">
+            <span class="p-float-label">
+                <input type="text" pInputText name="project_name" id="project_name" [(ngModel)]="project_name" />
+                <label htmlFor="project_name">ชื่อโครงการ</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgird grid">
+        <div class="feild col-6">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="project_start" inputId="project_start" [showIcon]="true" dateFormat="dd/mm/yy"
+                    appendTo="body"></p-calendar>
+                <label for="project_start">วันที่เริ่มต้น</label>
+            </span>
+        </div>
+        <div class="feild col-6">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="project_end" inputId="project_end" [showIcon]="true" dateFormat="dd/mm/yy"
+                    appendTo="body"></p-calendar>
+                <label for="project_end">วันที่สิ้นสุด</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="user" [(ngModel)]="selectUserId" name="selectUserId"
+                    placeholder="----เลือกผู้ควบคุมงาน----" optionLabel="displayLabel" optionValue="user_detail_id"
+                    appendTo="body">
+                </p-dropdown>
+                <label for="float-label">ผู้ควบคุมงาน</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="comp" [(ngModel)]="selectCompId" name="selectCompId"
+                    placeholder="----เลือกบริษัทที่ดูแล----" optionLabel="comp_name" optionValue="comp_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">บริษัทที่ดูแล</label>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="update()" label="แก้ไขโครงการ"></p-button>
 </div>

@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   project_id: string = '';
 
   ref: DynamicDialogRef | undefined;
+  ref2: DynamicDialogRef | undefined;
 
 
   constructor(
@@ -59,8 +60,8 @@ export class DashboardComponent implements OnInit {
 
   openDialog2(project_id: string) {
      this.project_id = project_id;
-    const dialogRef = this.dialog.open(EditProjectComponent, {
-      data: {project_id: this.project_id}
+     this.ref2 = this.dialogService.open(EditProjectComponent, {
+      data: { project_id: this.project_id }, header: ''
     });
   }
 

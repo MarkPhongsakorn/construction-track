@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { ProjectService } from '../services/projects/project.service';
 import { UserService } from '../services/users/user.service';
 import { CompanyService } from '../services/companies/company.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { format } from 'date-fns-tz';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,20 +33,20 @@ export class EditProjectComponent implements OnInit {
   
 
   constructor(
-    public dialogRef: MatDialogRef<EditProjectComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
     private project: ProjectService,
     private router: Router,
     private userService: UserService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    public dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig
   ) {}
 
   ngOnInit() {
 
-    this.project.readOne(this.data.project_id).subscribe(data => {
+    this.project.readOne(this.config.data.project_id).subscribe(data => {
       this.project_name = data['project_name'];
-      this.project_start = data['project_start'];
-      this.project_end = data['project_end'];
+      this.project_start = new Date(data['project_start']);
+      this.project_end = new Date(data['project_end']);
       if (this.user_detail_id = data['user_detail_id']) {
         this.selectUserId = this.user_detail_id
       }
@@ -57,7 +57,13 @@ export class EditProjectComponent implements OnInit {
     });
     
     this.userService.getUserList().subscribe(data => {
-      return this.user = data;
+      this.user = data;
+      this.user = this.user.map((user_detail_id: any) => {
+        return {
+          ...user_detail_id,
+          displayLabel: user_detail_id.user_fname + ' ' + user_detail_id.user_lname
+        };
+      });
     });
 
     this.companyService.getComp().subscribe(data => {
@@ -77,7 +83,7 @@ export class EditProjectComponent implements OnInit {
     const projectEndThailand = format(projectEnd, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
 
     const data = {
-      project_id: this.data.project_id,
+      project_id: this.config.data.project_id,
       project_name: this.project_name,
       project_start: projectStartThailand,
       project_end: projectEndThailand,
@@ -106,6 +112,10 @@ export class EditProjectComponent implements OnInit {
         });
       }
     })
+  }
+
+  closeDialog() {
+    this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
   }
 
 }
