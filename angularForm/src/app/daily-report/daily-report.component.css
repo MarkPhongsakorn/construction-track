@@ -63,6 +63,33 @@ th,td {
     color: rgb(250, 5, 62);
 } */
 
+th {
+    font-weight: bold;
+}
+
+th,td {
+    /* font-size: larger; */
+    text-align: center;
+}
+th {
+    background: #333;
+    color: white;
+}
+.card {
+    margin: 5% 10% 0% 10%;
+}
+
+h1 {
+    margin-bottom: 0;
+}
 
 
+::ng-deep .field {
+    margin-bottom: 0;
+}
+
+::ng-deep .formgrid {
+    display: flex;
+    align-items: center;
+}
   

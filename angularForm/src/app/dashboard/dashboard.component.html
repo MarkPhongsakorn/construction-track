@@ -113,11 +113,10 @@
         </td>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" *ngIf="this.projectID">
-      <div class="not">
+    <ng-template pTemplate="summary">
+      <div class=" not" *ngIf="this.projectID">
         <h1>ไม่มีข้อมูล</h1>
       </div>
     </ng-template>
-    <!-- <ng-template pTemplate="summary"> Footer </ng-template> -->
   </p-table>
 </div>

@@ -4,6 +4,7 @@ import { UserService } from '../services/users/user.service';
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
 import { format } from 'date-fns-tz';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 
 
@@ -31,12 +32,19 @@ export class AddReportComponent implements OnInit {
     private userService: UserService,
     private projectService: ProjectService,
     private reportService: ReportService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public dialogRef: DynamicDialogRef
   ) {}
 
   ngOnInit(){
     this.userService.getUserList().subscribe(data => {
       this.user = data;
+      this.user = this.user.map((user_detail_id: any) => {
+        return {
+          ...user_detail_id,
+          displayLabel: user_detail_id.user_fname + ' ' + user_detail_id.user_lname
+        };
+      });
     });
     this.projectService.readProject().subscribe(data => {
       this.project = data;
@@ -75,5 +83,9 @@ export class AddReportComponent implements OnInit {
         });
       }
     });
+  }
+
+  closeDialog() {
+    this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
   }
 }

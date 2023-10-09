@@ -31,3 +31,7 @@ h1 {
     font-weight: bold;
     margin-top: 16px;
 }
+
+::ng-deep .swal2-container {
+    z-index: 1103;
+}

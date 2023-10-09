@@ -1,4 +1,4 @@
-<div mat-dialog-title>
+<!-- <div mat-dialog-title>
     <h1>Report Form</h1>
 </div>
 <div mat-dialog-content>
@@ -36,5 +36,48 @@
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
     <button mat-raised-button color=accent (click)="update()">Update Report</button>
-</div>
+</div> -->
 
+<div class="p-dialog-title">
+    <h1>เพิ่มรายงานประจำวัน</h1>
+</div>
+<div class="p-dialog-content">
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-12">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="dr_time" inputId="project_start" [showIcon]="true" dateFormat="dd/mm/yy"
+                    placeholder="วันที่" appendTo="body"></p-calendar>
+                <label for="project_start">วันที่</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgird grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="project" [(ngModel)]="selectProjectId" name="selectProjectId"
+                    placeholder="----เลือกโครงการ----" optionLabel="project_name" optionValue="project_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">โครงการ</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="user" [(ngModel)]="selectUserId" name="selectUserId"
+                    placeholder="----เลือกผู้ควบคุมงาน----" optionLabel="displayLabel" optionValue="user_detail_id"
+                    appendTo="body">
+                </p-dropdown>
+                <label for="float-label">ผู้ควบคุมงาน</label>
+            </span>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="update()" label="เพิ่มโครงการ"></p-button>
+</div>

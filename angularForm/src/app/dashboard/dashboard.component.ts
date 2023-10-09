@@ -16,23 +16,12 @@ import { ReportService } from '../services/reports/report.service';
 export class DashboardComponent implements OnInit {
 
   projects: any[] = [];
-  // errorMessage: string = '';
-  // displayedColumns: string[] = [
-  //   'project_id',
-  //   'project_name',
-  //   'project_start',
-  //   'project_end',
-  //   'user_fname user_lname',
-  //   'comp_name',
-  //   'action'
-  // ];
 
   projectID: boolean = false;
 
   project_id: string = '';
 
   ref: DynamicDialogRef | undefined;
-  ref2: DynamicDialogRef | undefined;
 
 
   constructor(
@@ -43,12 +32,13 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.project.readProject().subscribe(res => {
-      this.projects = res;
+    this.project.readProject().subscribe((res: any) => {
+      // this.projects = res;
       if (res.status === 'error') {
         return this.projectID = true;
       } else {
-        return this.projectID;
+        this.projects = res;
+        return this.projectID = false;
       }
     });
   }
@@ -60,15 +50,15 @@ export class DashboardComponent implements OnInit {
 
   openDialog2(project_id: string) {
      this.project_id = project_id;
-     this.ref2 = this.dialogService.open(EditProjectComponent, {
+     this.ref = this.dialogService.open(EditProjectComponent, {
       data: { project_id: this.project_id }, header: ''
     });
   }
 
   openDialog3(project_id: string) {
     this.project_id = project_id;
-    const dialogRef = this.dialog.open(DeleteProjectComponent, {
-      data: {project_id: this.project_id}
+    this.ref = this.dialogService.open(DeleteProjectComponent, {
+      data: { project_id: this.project_id }, header: ''
     });
   }
 

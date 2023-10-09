@@ -10,6 +10,7 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { format } from 'date-fns-tz';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -23,8 +24,8 @@ export class DeleteReportComponent implements OnInit {
   status: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteReportComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig,
     private report: ReportService,
     private weatherService: WeatherService,
     private laborService: LaborService,
@@ -37,7 +38,7 @@ export class DeleteReportComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.report.getOneReport(this.data.dr_id).subscribe(data => {
+    this.report.getOneReport(this.config.data.dr_id).subscribe(data => {
       const drTime = new Date(data['dr_time']);
       this.dr_time = format(drTime, 'dd/MM/yyyy'); 
     });
@@ -75,7 +76,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   reports() {
-    this.report.delete(this.data.dr_id).subscribe(res => {
+    this.report.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -85,7 +86,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   weather() {
-    this.weatherService.delete(this.data.dr_id).subscribe(res => {
+    this.weatherService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -95,7 +96,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   labor() {
-    this.laborService.delete(this.data.dr_id).subscribe(res => {
+    this.laborService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -105,7 +106,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   work() {
-    this.workService.delete(this.data.dr_id).subscribe(res => {
+    this.workService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -115,7 +116,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   tool() {
-    this.toolService.delete(this.data.dr_id).subscribe(res => {
+    this.toolService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -125,7 +126,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   mat() {
-    this.matService.delete(this.data.dr_id).subscribe(res => {
+    this.matService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -135,7 +136,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   prob() {
-    this.problemService.delete(this.data.dr_id).subscribe(res => {
+    this.problemService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -145,7 +146,7 @@ export class DeleteReportComponent implements OnInit {
   }
 
   strike() {
-    this.strikeService.delete(this.data.dr_id).subscribe(res => {
+    this.strikeService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -155,12 +156,16 @@ export class DeleteReportComponent implements OnInit {
   }
 
   inspec() {
-    this.inspecService.delete(this.data.dr_id).subscribe(res => {
+    this.inspecService.delete(this.config.data.dr_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
+  }
+
+  closeDialog() {
+    this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
   }
 }

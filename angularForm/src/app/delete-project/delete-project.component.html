@@ -1,4 +1,4 @@
-<div mat-dialog-title>
+<!-- <div mat-dialog-title>
     <h1>Delete Project</h1>
 </div>
 <div mat-dialog-content>
@@ -7,4 +7,15 @@
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
     <button mat-raised-button color=accent (click)="delete()">Delete</button>
+</div> -->
+
+<div class="p-dialog-title">
+    <h1>ลบโครงการ</h1>
+</div>
+<div class="p-dialog-content">
+    <h2>คุณต้องการลบโครงการ <span>"{{ project_name }}"</span> ใช่หรือไม่</h2>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="delete()" label="ลบโครงการ"></p-button>
 </div>

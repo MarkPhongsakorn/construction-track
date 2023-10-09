@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
 import { WeatherService } from '../services/reports/weather.service';
@@ -10,6 +9,7 @@ import { MaterialService } from '../services/reports/material.service';
 import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,8 +24,8 @@ export class DeleteProjectComponent implements OnInit {
   status: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteProjectComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig,
     private project: ProjectService,
     private report: ReportService,
     private weatherSeervice: WeatherService,
@@ -38,75 +38,76 @@ export class DeleteProjectComponent implements OnInit {
     private inspecService: InspectionService,
   ) {}
   ngOnInit() {
-    this.project.readOne(this.data.project_id).subscribe(data => {
+    this.project.readOne(this.config.data.project_id).subscribe(data => {
       this.project_name = data['project_name'];
     });
   }
+  
   delete() {
-    this.weatherSeervice.deleteProject(this.data.project_id).subscribe(res => {
+    this.weatherSeervice.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.laborService.deleteProject(this.data.project_id).subscribe(res => {
+    this.laborService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.workService.deleteProject(this.data.project_id).subscribe(res => {
+    this.workService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.toolService.deleteProject(this.data.project_id).subscribe(res => {
+    this.toolService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.matService.deleteProject(this.data.project_id).subscribe(res => {
+    this.matService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.problemService.deleteProject(this.data.project_id).subscribe(res => {
+    this.problemService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.strikeService.deleteProject(this.data.project_id).subscribe(res => {
+    this.strikeService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.inspecService.deleteProject(this.data.project_id).subscribe(res => {
+    this.inspecService.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.report.deleteProject(this.data.project_id).subscribe(res => {
+    this.report.deleteProject(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
         return this.status
       }
     });
-    this.project.delete(this.data.project_id).subscribe(res => {
+    this.project.delete(this.config.data.project_id).subscribe(res => {
       if (res.status === 'success') {
         return this.status = true
       } else {
@@ -134,5 +135,8 @@ export class DeleteProjectComponent implements OnInit {
     }
   }
 
+  closeDialog() {
+    this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
+  }
 
 }
