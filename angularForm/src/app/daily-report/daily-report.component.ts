@@ -36,29 +36,14 @@ export class DailyReportComponent implements OnInit {
 
   ref: DynamicDialogRef | undefined;
 
-  reportData: boolean = false;
-
   projectID: boolean = false;
   project: string = '';
   dr_id: string = '';
-  dr_id1: string = '';
   
   constructor(
     public dialogService: DialogService,
     private report: ReportService,
     private route: ActivatedRoute,
-    private periodService: PeriodService,
-    private sta: StaWeatherService,
-    private weatherService: WeatherService,
-    private laborService: LaborService,
-    private workService: WorkService,
-    private unitService: UnitService,
-    private toolService: ToolService,
-    private matService: MaterialService,
-    private problemService: ProblemService,
-    private strikeService: StrikeService,
-    private inspecService: InspectionService,
-    private resultService: InspecResultService,
     private pdfService: PdfService
   ) {}
   
@@ -77,11 +62,7 @@ export class DailyReportComponent implements OnInit {
         this.projectID = true;
       } else {
         this.reports = res;
-        this.dr_id = res['dr_id'];
         this.projectID = false;
-        console.log('dr_id:',this.dr_id);
-
-        this.checkData(this.dr_id);
       }
     });
   }
@@ -123,103 +104,6 @@ export class DailyReportComponent implements OnInit {
     this.ref = this.dialogService.open(DetailReportComponent, {
       data: { dr_id: this.dr_id, project_id: this.project }, header: ''
     });
-  }
-
-  checkData(dr_id: string) {
-    // this.dr_id  = dr_id;
-    // this.weatherService.readOne(this.dr_id, this.morning).subscribe((res: any) => {
-    //   if (res.status === 'success') {
-        
-    //     this.weatherService.readOne(this.dr_id, this.afternoon).subscribe((data: any) => {
-    //       if (data.status === 'success') {
-
-    //         this.laborService.readOne(this.dr_id).subscribe((res: any) => {
-    //           if (res.status === 'success') {
-
-    //             this.workService.readOne(this.dr_id).subscribe((res: any) => {
-    //               if (res.status === 'success') {
-
-    //                 this.toolService.readOne(this.dr_id).subscribe((res: any) => {
-    //                   if (res.status === 'success') {
-
-    //                     this.matService.readOne(this.dr_id).subscribe((res: any) => {
-    //                       if (res.status === 'success') {
-
-    //                         this.problemService.readOne(this.dr_id).subscribe((res: any) => {
-    //                           if (res.status === 'success') {
-
-    //                             this.strikeService.readOne(this.dr_id).subscribe((res: any) => {
-    //                               if (res.status === 'success') {
-
-                                    this.inspecService.readOne(dr_id).subscribe((res: any) => {
-                                      if (res.status === 'success') {
-                                        console.log("จริง");
-                                        console.log(dr_id);
-                                        return this.reportData = true;
-                                        
-                                      } else {
-                                        console.log("ไม่จริง");
-                                        console.log(dr_id);
-                                        return this.reportData = false;
-                                      }
-                                    });
-
-    //                                 return true
-
-    //                               } else {
-    //                                 return this.reportData = false;
-    //                               }
-    //                             });
-
-    //                             return true
-
-    //                           } else {
-    //                             return this.reportData = false;
-    //                           }
-    //                         });
-
-    //                         return true
-
-    //                       } else {
-    //                         return this.reportData = false;
-    //                       }
-    //                     });
-
-    //                     return true
-
-    //                   } else {
-    //                     return this.reportData = false;
-    //                   }
-    //                 });
-
-    //                 return true
-
-    //               } else {
-    //                 return this.reportData = false;
-    //               }
-    //             });
-
-    //             return true
-
-    //           } else {
-    //             return this.reportData = false;
-    //           }
-    //         });
-
-    //         return true
-
-    //       } else {
-    //         return this.reportData = false;
-    //       }
-    //     });
-
-    //     return true
-
-    //   } else {
-    //     return this.reportData = false;
-    //   }
-    // });
-
   }
 
 }

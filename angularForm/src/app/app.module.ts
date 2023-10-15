@@ -52,6 +52,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -105,6 +106,7 @@ import { CalendarModule } from 'primeng/calendar';
     TableModule,
     DynamicDialogModule,
     CalendarModule,
+    TooltipModule,
   ],
   providers: [AuthGuardService, PdfService],
   bootstrap: [AppComponent]

@@ -83,7 +83,7 @@
           <h1>โครงการ</h1>
         </div>
         <div class="feild col" align="end">
-          <p-button styleClass="p-button-warning" (click)="openDialog()" icon="pi pi-plus"
+          <p-button styleClass="p-button-warning" pTooltip="เพิ่มโครงการ" (click)="openDialog()" icon="pi pi-plus"
             label="เพิ่มโครงการ"></p-button>
         </div>
       </div>
@@ -108,8 +108,10 @@
         <td>{{ projects.user_fname }} {{ projects.user_lname }}</td>
         <td>{{ projects.comp_name }}</td>
         <td>
-          <a pButton icon="pi pi-file-edit" class="p-button-help" (click)="openDialog2(projects.project_id)"></a>
-          <a pButton icon="pi pi-trash" class="p-button-danger" (click)="openDialog3(projects.project_id)"></a>
+          <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขโครงการ" class="p-button-help"
+            (click)="openDialog2(projects.project_id)"></a>
+          <a pButton icon="pi pi-trash" pTooltip="ลบโครงการ" class="p-button-danger"
+            (click)="openDialog3(projects.project_id)"></a>
         </td>
       </tr>
     </ng-template>

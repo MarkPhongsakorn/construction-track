@@ -53,3 +53,6 @@ h2, span {
     font-weight: bold;
 }
 
+::ng-deep .swal2-container {
+    z-index: 2206;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/reports/weather.service';
 import { LaborService } from '../services/reports/labor.service';
 import { WorkService } from '../services/reports/work.service';
@@ -31,7 +31,6 @@ export class DetailReportComponent implements OnInit {
   morning: string = '1';
   afternoon: string = '2';
 
-  laborID: string = '';
   labors: any[] = []; 
 
   works: any[] = [];
@@ -114,8 +113,7 @@ export class DetailReportComponent implements OnInit {
       if (data.status === "error") {
         return this.readLabor = true
       } else {
-        this.laborID = data['labor_id']
-      this.labors = data;
+        this.labors = data;
         return this.readLabor
       }
     });
@@ -196,7 +194,7 @@ export class DetailReportComponent implements OnInit {
 
   openEditDetail() {
     this.ref = this.dialogService.open(EditDetailComponent, {
-      data: { dr_id: this.config.data.dr_id, project_id: this.config.data.project_id, labor_id: this.laborID }, header: ''
+      data: { dr_id: this.config.data.dr_id, project_id: this.config.data.project_id }, header: ''
     });
   }
 

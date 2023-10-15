@@ -79,8 +79,8 @@
                     <h1>รายงานประจำวัน</h1>
                 </div>
                 <div class="feild col" align="end">
-                    <p-button styleClass="p-button-warning" (click)="openDialog()" icon="pi pi-plus"
-                        label="เพิ่มรายงานประจำวัน"></p-button>
+                    <p-button styleClass="p-button-warning" pTooltip="เพิ่มรายงานประจำวัน" (click)="openDialog()"
+                        icon="pi pi-plus" label="เพิ่มรายงานประจำวัน"></p-button>
                 </div>
             </div>
         </ng-template>
@@ -101,15 +101,18 @@
                 <td>{{ reports.project_name }}</td>
                 <td>{{ reports.user_fname }} {{ reports.user_lname }}</td>
                 <td>
-                    <a pButton icon=" pi pi-file" class="p-button-info" (click)="openDialog5(reports.dr_id)"></a>
+                    <a pButton icon=" pi pi-file" pTooltip="รายละเอียดรายงานประจำวัน" class="p-button-info"
+                        (click)="openDialog5(reports.dr_id)"></a>
                 </td>
                 <td>
-                    <a pButton icon="pi pi-pencil" class="p-button-warning" (click)="openDialog4(reports.dr_id)"
-                        *ngIf="!reportData"></a>
-                    <a pButton icon="pi pi-file-export" class="p-button-secondary" (click)="openDialog3(reports.dr_id)"
-                        *ngIf="reportData"></a>
-                    <a pButton icon="pi pi-file-edit" class="p-button-help" (click)="openDialog2(reports.dr_id)"></a>
-                    <a pButton icon="pi pi-trash" class="p-button-danger" (click)="openDialog3(reports.dr_id)"></a>
+                    <a pButton icon="pi pi-pencil" pTooltip="เพิ่มรายละเอียดรายงานประจำวัน" class="p-button-warning"
+                        (click)="openDialog4(reports.dr_id)"></a>
+                    <a pButton icon="pi pi-download" pTooltip="ดาวน์โหลดรายงานประจำวัน" class="p-button-secondary"
+                        (click)="openDialog3(reports.dr_id)"></a>
+                    <a pButton icon="pi pi-file-edit" pTooltip="แก้ไชรายงานประจำวัน" class="p-button-help"
+                        (click)="openDialog2(reports.dr_id)"></a>
+                    <a pButton icon="pi pi-trash" pTooltip="ลบรายงานประจำวัน" class="p-button-danger"
+                        (click)="openDialog3(reports.dr_id)"></a>
                 </td>
             </tr>
         </ng-template>

@@ -1,4 +1,4 @@
-<div mat-dialog-title>
+<!-- <div mat-dialog-title>
     <h1>Edit Detail</h1>
 </div>
 <div mat-dialog-content>
@@ -219,4 +219,344 @@
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
     <button mat-raised-button color=accent (click)="UpdateDetail()">Update Detail</button>
+</div> -->
+
+<div class="p-dialog-title">
+    <h1>แก้ไขรายละเอียดรายงานประจำวัน</h1>
+</div>
+<div class="p-dialog-content">
+    <br>
+    <div class="p-fluid formgird grid">
+        <div class="field col">
+            <h2>สภาพอากาศ</h2>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="period" [(ngModel)]="selectPeriod1" name="selectPeriod1"
+                    placeholder="----เลือกช่วงเวลา----" optionLabel="period_name" optionValue="period_id"
+                    appendTo="body" [disabled]="true"></p-dropdown>
+                <label for="float-label">ช่วงเวลา</label>
+            </span>
+        </div>
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="status" [(ngModel)]="selectStatus1" name="selectStatus1"
+                    placeholder="----เลือกสถานะ----" optionLabel="sta_name" optionValue="sta_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">สถานะ</label>
+            </span>
+        </div>
+        <div class="feild col">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="sta_time1" [timeOnly]="true" dateFormat="hh:mm tt"
+                    appendTo="body"></p-calendar>
+                <label htmlFor="project_name">เวลาที่ฝนตก</label>
+            </span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="period" [(ngModel)]="selectPeriod2" name="selectPeriod2"
+                    placeholder="----เลือกช่วงเวลา----" optionLabel="period_name" optionValue="period_id"
+                    appendTo="body" [disabled]="true"></p-dropdown>
+                <label for="float-label">ช่วงเวลา</label>
+            </span>
+        </div>
+        <div class="field col">
+            <span class="p-float-label">
+                <p-dropdown [options]="status" [(ngModel)]="selectStatus2" name="selectStatus2"
+                    placeholder="----เลือกสถานะ----" optionLabel="sta_name" optionValue="sta_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">สถานะ</label>
+            </span>
+        </div>
+        <div class="feild col">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="sta_time2" [timeOnly]="true" dateFormat="hh:mm tt"
+                    appendTo="body"></p-calendar>
+                <label htmlFor="project_name">เวลาที่ฝนตก</label>
+            </span>
+        </div>
+    </div>
+
+    <br>
+
+    <p-button styleClass="p-button-secondary" (click)="addNewLabor()" icon="pi pi-plus-circle"
+        label="เพิ่มแรงงาน"></p-button>
+
+    <br>
+
+    <div *ngFor="let input of laborUp; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-10">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="labor_name" id="labor_name" [(ngModel)]="input.labor_name" />
+                    <label htmlFor="labor_name">แรงงาน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="labor_num" id="labor_num" [(ngModel)]="input.labor_num" />
+                    <label htmlFor="labor_num">จำนวน</label>
+                </span>
+            </div>
+            <!-- <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeLabor(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div> -->
+        </div>
+    </div>
+    <div *ngFor="let input of laborCr; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-8">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="labor_name" id="labor_name" [(ngModel)]="input.labor_name" />
+                    <label htmlFor="labor_name">แรงงาน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="labor_num" id="labor_num" [(ngModel)]="input.labor_num" />
+                    <label htmlFor="labor_num">จำนวน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeLabor(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <p-button styleClass="p-button-secondary" (click)="addNewWork()" icon="pi pi-plus-circle"
+        label="เพิ่มรายละเอียดงาน"></p-button>
+
+    <br>
+
+    <div *ngFor="let input of workUp; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="work_num" id="work_num" [(ngModel)]="input.work_num" />
+                    <label htmlFor="work_num">ลำดับ</label>
+                </span>
+            </div>
+            <div class="field col-8">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="work_detail" id="work_detail" [(ngModel)]="input.work_detail" />
+                    <label htmlFor="work_detail">รายละเอียดงาน</label>
+                </span>
+            </div>
+            <!-- <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeWork(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div> -->
+        </div>
+    </div>
+    <div *ngFor="let input of workCr; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="work_num" id="work_num" [(ngModel)]="input.work_num" />
+                    <label htmlFor="work_num">ลำดับ</label>
+                </span>
+            </div>
+            <div class="field col-8">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="work_detail" id="work_detail" [(ngModel)]="input.work_detail" />
+                    <label htmlFor="work_detail">รายละเอียดงาน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeWork(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <p-button styleClass="p-button-secondary" (click)="addNewTool()" icon="pi pi-plus-circle"
+        label="เพิ่มเครื่องมือและเครื่องจักร"></p-button>
+
+    <br>
+
+    <div *ngFor="let input of toolUp; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-6">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="tool_name" id="tool_name" [(ngModel)]="input.tool_name" />
+                    <label htmlFor="tool_name">เครื่องมือและเครื่องจักร</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="tool_num" id="tool_num" [(ngModel)]="input.tool_num" />
+                    <label htmlFor="tool_num">จำนวน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <p-dropdown [options]="unit" [(ngModel)]="input.unit_id" name="selectUnit" optionLabel="unit_name"
+                        optionValue="unit_id" appendTo="body"></p-dropdown>
+                    <label for="float-label">หน่วย</label>
+                </span>
+            </div>
+            <!-- <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeTool(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div> -->
+        </div>
+    </div>
+    <div *ngFor="let input of toolCr; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-6">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="tool_name" id="tool_name" [(ngModel)]="input.tool_name" />
+                    <label htmlFor="tool_name">เครื่องมือและเครื่องจักร</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="tool_num" id="tool_num" [(ngModel)]="input.tool_num" />
+                    <label htmlFor="tool_num">จำนวน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <p-dropdown [options]="unit" [(ngModel)]="input.unit_id" name="selectUnit" optionLabel="unit_name"
+                        optionValue="unit_id" appendTo="body"></p-dropdown>
+                    <label for="float-label">หน่วย</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeTool(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <p-button styleClass="p-button-secondary" (click)="addNewMat()" icon="pi pi-plus-circle"
+        label="เพิ่มวัสดุ"></p-button>
+
+    <br>
+
+    <div *ngFor="let input of matUp; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-6">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="mat_name" id="mat_name" [(ngModel)]="input.mat_name" />
+                    <label htmlFor="mat_name">เครื่องมือและเครื่องจักร</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="mat_num" id="mat_num" [(ngModel)]="input.mat_num" />
+                    <label htmlFor="mat_num">จำนวน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <p-dropdown [options]="unit" [(ngModel)]="input.unit_id" name="selectUnit" optionLabel="unit_name"
+                        optionValue="unit_id" appendTo="body"></p-dropdown>
+                    <label for="float-label">หน่วย</label>
+                </span>
+            </div>
+            <!-- <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeMat(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div> -->
+        </div>
+    </div>
+    <div *ngFor="let input of matCr; let i = index" class="input-container">
+        <br>
+        <div class="p-fluid formgird grid">
+            <div class="field col-6">
+                <span class="p-float-label">
+                    <input type="text" pInputText name="mat_name" id="mat_name" [(ngModel)]="input.mat_name" />
+                    <label htmlFor="mat_name">เครื่องมือและเครื่องจักร</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <input type="number" pInputText name="mat_num" id="mat_num" [(ngModel)]="input.mat_num" />
+                    <label htmlFor="mat_num">จำนวน</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <span class="p-float-label">
+                    <p-dropdown [options]="unit" [(ngModel)]="input.unit_id" name="selectUnit" optionLabel="unit_name"
+                        optionValue="unit_id" appendTo="body"></p-dropdown>
+                    <label for="float-label">หน่วย</label>
+                </span>
+            </div>
+            <div class="field col-2">
+                <p-button styleClass="p-button-rounded p-button-danger" (click)=" removeMat(i)"
+                    icon="pi pi-minus-circle"></p-button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <textarea type="text" name="problem" id="problem" [(ngModel)]="problem" pInputTextarea></textarea>
+                <label htmlFor="problem">ปัญหา</label>
+            </span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <span class="p-float-label">
+                <textarea type="text" name="strike_detail" id="strike_detail" [(ngModel)]="strike_detail"
+                    pInputTextarea></textarea>
+                <label htmlFor="strike_detail">การหยุดงาน</label>
+            </span>
+        </div>
+        <div class="field col">
+            <span class="p-float-label">
+                <textarea type="text" name="strike_cause" id="strike_cause" [(ngModel)]="strike_cause"
+                    pInputTextarea></textarea>
+                <label htmlFor="strike_cause">สาเหตุการหยุดงาน</label>
+            </span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="fleid col-12">
+            <span class="p-float-label">
+                <p-dropdown [options]="result" [(ngModel)]="selectResult" name="selectResult"
+                    placeholder="----เลือกผลการตรวจงาน----" optionLabel="inspec_result" optionValue="inspec_result_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">ผลการตรวจงาน</label>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="UpdateDetail()" label="เพิ่มโครงการ"></p-button>
 </div>
