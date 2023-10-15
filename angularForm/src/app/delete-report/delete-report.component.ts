@@ -1,5 +1,4 @@
-import { Component, OnInit, Inject} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../services/reports/report.service';
 import { WeatherService } from '../services/reports/weather.service';
 import { LaborService } from '../services/reports/labor.service';
@@ -11,6 +10,7 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { format } from 'date-fns-tz';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -44,125 +44,45 @@ export class DeleteReportComponent implements OnInit {
     });
   }
 
-  delete() {
-    this.reports();
-    this.weather();
-    this.labor();
-    this.work();
-    this.tool();
-    this.mat();
-    this.prob();
-    this.strike();
-    this.inspec();
-    if (this.status = true) {
-      Swal.fire({
-        title: 'สำเร็จ',
-        text: 'การลบรายงานสำเร็จ',
-        icon: 'success',
-        confirmButtonText: 'ตกลง'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
+  deleteAll() {
+    const deleteRequests: Observable<any>[] = [
+      this.report.delete(this.config.data.dr_id),
+      this.weatherService.delete(this.config.data.dr_id),
+      this.laborService.delete(this.config.data.dr_id),
+      this.workService.delete(this.config.data.dr_id),
+      this.toolService.delete(this.config.data.dr_id),
+      this.matService.delete(this.config.data.dr_id),
+      this.problemService.delete(this.config.data.dr_id),
+      this.strikeService.delete(this.config.data.dr_id),
+      this.inspecService.delete(this.config.data.dr_id)
+    ];
+
+    forkJoin(deleteRequests).subscribe(
+      (responses: any[]) => {
+        // Handle responses
+        for (const res of responses) {
+          if (res.status === 'success') {
+            Swal.fire({
+              title: 'สำเร็จ',
+              text: 'การลบรายงานสำเร็จ',
+              icon: 'success',
+              confirmButtonText: 'ตกลง'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'ข้อผิดพลาด',
+              text: 'เกิดข้อผิดพลาดในการลบรายงาน',
+              icon: 'error',
+              confirmButtonText: 'ตกลง'
+            });
+            break;  // Stop checking if any of the requests failed
+          }
         }
       });
-    } else {
-      Swal.fire({
-        title: 'ข้อผิดพลาด',
-        text: 'เกิดข้อผิดพลาดในการลบรายงาน',
-        icon: 'error',
-        confirmButtonText: 'ตกลง'
-      });
-    }
-  }
-
-  reports() {
-    this.report.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  weather() {
-    this.weatherService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  labor() {
-    this.laborService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  work() {
-    this.workService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  tool() {
-    this.toolService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  mat() {
-    this.matService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  prob() {
-    this.problemService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  strike() {
-    this.strikeService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-  }
-
-  inspec() {
-    this.inspecService.delete(this.config.data.dr_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
   }
 
   closeDialog() {

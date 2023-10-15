@@ -4,7 +4,7 @@ import { UserService } from '../services/users/user.service';
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
 import { format } from 'date-fns-tz';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 
 
@@ -16,9 +16,11 @@ import Swal from 'sweetalert2';
 export class AddReportComponent implements OnInit {
 
   user: any[] = [];
+  userId: string = '';
   selectUserId: string = '';
 
   project: any[] = [];
+  projectId: string = '';
   selectProjectId: string = '';
 
   dr_time: Date = new Date();
@@ -29,14 +31,25 @@ export class AddReportComponent implements OnInit {
   user_detail_id: string = '';
 
   constructor(
+    public dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig,
     private userService: UserService,
     private projectService: ProjectService,
     private reportService: ReportService,
     public route: ActivatedRoute,
-    public dialogRef: DynamicDialogRef
   ) {}
 
   ngOnInit(){
+    const user_id = sessionStorage.getItem('user_detail_id');
+    if (user_id !== null) {
+      this.userService.getUser(user_id).subscribe(data => {
+        if (this.userId = data['user_detail_id']) {
+          this.selectUserId = this.userId;
+        }
+      });
+    } else {
+      console.log('user_id เป็น null');
+    }
     this.userService.getUserList().subscribe(data => {
       this.user = data;
       this.user = this.user.map((user_detail_id: any) => {
@@ -46,9 +59,15 @@ export class AddReportComponent implements OnInit {
         };
       });
     });
+
+    this.projectService.readOne(this.config.data.project_id).subscribe(data => {
+      if (this.projectId = data['project_id']) {
+        this.selectProjectId = this.projectId;
+      }
+    });
     this.projectService.readProject().subscribe(data => {
       this.project = data;
-    })
+    });
   }
 
   report() {

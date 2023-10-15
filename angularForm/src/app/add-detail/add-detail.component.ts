@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PeriodService } from '../services/reports/period.service';
 import { StaWeatherService } from '../services/reports/sta-weather.service';
 import { WeatherService } from '../services/reports/weather.service';
@@ -12,6 +11,8 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
 
@@ -43,13 +44,16 @@ export class AddDetailComponent implements OnInit {
   period_id: string = '';
 
   labor: any[] = [];
+  labor_num: number = 0;
 
   work: any[] = [];
   num: number = 0;
 
   tool: any[] = [];
+  tool_num: number = 0;
 
   mat: any[] = [];
+  mat_num: number = 0;
 
   problem: string = '';
 
@@ -59,8 +63,8 @@ export class AddDetailComponent implements OnInit {
   statuses: boolean = false;
 
   constructor(
-    public dialogRef: MatDialogRef<AddDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig,
     private periodService: PeriodService,
     private sta: StaWeatherService,
     private weatherService: WeatherService,
@@ -103,169 +107,80 @@ export class AddDetailComponent implements OnInit {
 
   }
 
-  addDetail() {
+  createDetail() {
     const morning = {
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
       sta_time: this.sta_time1,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id,
     }
     const afternoon = {
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
       sta_time: this.sta_time2,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id,
     }
     const problem = {
       problem: this.problem,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id
     }
     const strike = {
       strike_detail: this.strike_detail,
       strike_cause: this.strike_cause,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id
     }
     const inspection = {
       inspec_result_id: this.selectResult,
-      dr_id: this.data.dr_id,
-      project_id: this.data.project_id
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id
     }
-    this.weatherService.create(morning).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.weatherService.create(afternoon).subscribe((data: any) => {
-          if (data.status === 'success') {
-            this.laborService.create(this.labor).subscribe((res: any) => {
-              if (res.status === 'success') {
-                this.workService.create(this.work).subscribe((res: any) => {
-                  if (res.status === 'success') {
-                    this.toolService.create(this.tool).subscribe((res: any) => {
-                      if (res.status === 'success') {
-                        this.matService.create(this.mat).subscribe((res: any) => {
-                          if (res.status === 'success') {
-                            this.problemService.create(problem).subscribe((res: any) => {
-                              if (res.status === 'success') {
-                                this.strikeService.create(strike).subscribe((res: any) => {
-                                  if (res.status === 'success') {
-                                    this.inspecService.create(inspection).subscribe((res: any) => {
-                                      if (res.status === 'success') {
-                                        Swal.fire({
-                                              title: 'สำเร็จ',
-                                              text: 'การสร้างรายงานสำเร็จ',
-                                              icon: 'success',
-                                              confirmButtonText: 'ตกลง'
-                                            }).then((result) => {
-                                              if (result.isConfirmed) {
-                                                window.location.reload();
-                                              }
-                                            });
-                                        return true
-                                      } else {
-                                        Swal.fire({
-                                          title: 'ข้อผิดพลาด',
-                                          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                                          icon: 'error',
-                                          confirmButtonText: 'ตกลง'
-                                        });
-                                        return false
-                                      }
-                                    });
-                                    return true
-                                  } else {
-                                    Swal.fire({
-                                      title: 'ข้อผิดพลาด',
-                                      text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                                      icon: 'error',
-                                      confirmButtonText: 'ตกลง'
-                                    });
-                                    return false
-                                  }
-                                })
-                                return true
-                              } else {
-                                Swal.fire({
-                                  title: 'ข้อผิดพลาด',
-                                  text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                                  icon: 'error',
-                                  confirmButtonText: 'ตกลง'
-                                });
-                                return false
-                              }
-                            })
-                            return true
-                          } else {
-                            Swal.fire({
-                              title: 'ข้อผิดพลาด',
-                              text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                              icon: 'error',
-                              confirmButtonText: 'ตกลง'
-                            });
-                            return false
-                          }
-                        });
-                        return true
-                      } else {
-                        Swal.fire({
-                          title: 'ข้อผิดพลาด',
-                          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                          icon: 'error',
-                          confirmButtonText: 'ตกลง'
-                        });
-                        return false
-                      }
-                    })
-                    return true
-                  } else {
-                    Swal.fire({
-                      title: 'ข้อผิดพลาด',
-                      text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                      icon: 'error',
-                      confirmButtonText: 'ตกลง'
-                    });
-                    return false
-                  }
-                })
-                return true
-              } else {
-                Swal.fire({
-                  title: 'ข้อผิดพลาด',
-                  text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-                  icon: 'error',
-                  confirmButtonText: 'ตกลง'
-                });
-                return false
+    const creatRequests: Observable<any>[] = [
+      this.weatherService.create(morning),
+      this.weatherService.create(afternoon),
+      this.laborService.create(this.labor),
+      this.workService.create(this.work),
+      this.toolService.create(this.tool),
+      this.matService.create(this.mat),
+      this.problemService.create(problem),
+      this.strikeService.create(strike),
+      this.inspecService.create(inspection)
+    ]
+
+    forkJoin(creatRequests).subscribe(
+      (responses: any[]) => {
+        // Handle responses
+        for (const res of responses) {
+          if (res.status === 'success') {
+            Swal.fire({
+              title: 'สำเร็จ',
+              text: 'การลบรายงานสำเร็จ',
+              icon: 'success',
+              confirmButtonText: 'ตกลง'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
               }
-            })
-            return true
+            });
           } else {
             Swal.fire({
               title: 'ข้อผิดพลาด',
-              text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+              text: 'เกิดข้อผิดพลาดในการลบรายงาน',
               icon: 'error',
               confirmButtonText: 'ตกลง'
             });
-            return false
+            break;  // Stop checking if any of the requests failed
           }
-        })
-        return true
-      } else {
-        Swal.fire({
-          title: 'ข้อผิดพลาด',
-          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
-          icon: 'error',
-          confirmButtonText: 'ตกลง'
-        });
-        return false
-      }
-    })
+        }
+      });
   }
 
   // ************************************LABOR***********************************
   addNewLabor(): void {
-    const newLabor = { labor_name: '', labor_num: null, dr_id: this.data.dr_id, project_id: this.data.project_id };
+    const newLabor = { labor_name: '', labor_num: this.labor_num, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.labor.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
   }
   removeLabor(index: number): void {
@@ -275,7 +190,7 @@ export class AddDetailComponent implements OnInit {
   // ************************************WORK***********************************
   addNewWork() {
     this.num++;
-    const newWork = { work_num: this.num, work_detail: '', dr_id: this.data.dr_id, project_id: this.data.project_id };
+    const newWork = { work_num: this.num, work_detail: '', dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.work.push(newWork);
   }
   removeWork(index: number): void {
@@ -285,7 +200,7 @@ export class AddDetailComponent implements OnInit {
 
   // *******************************************TOOL*********************************************
   addNewTool() {
-    const newTool = { tool_name: '', tool_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
+    const newTool = { tool_name: '', tool_num: this.tool_num, unit_id: this.selectUnit, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.tool.push(newTool);
     this.selectUnit = '';
   }
@@ -295,7 +210,7 @@ export class AddDetailComponent implements OnInit {
   
   // *******************************************MATERIAL*********************************************
   addNewMat() {
-    const newMat = { mat_name: '', mat_num: null, unit_id: this.selectUnit, dr_id: this.data.dr_id, project_id: this.data.project_id };
+    const newMat = { mat_name: '', mat_num: this.mat_num , unit_id: this.selectUnit, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.mat.push(newMat);
     this.selectUnit = '';
   }
@@ -303,4 +218,7 @@ export class AddDetailComponent implements OnInit {
     this.mat.splice(index, 1);
   }
   
+  closeDialog() {
+    this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
+  }
 }

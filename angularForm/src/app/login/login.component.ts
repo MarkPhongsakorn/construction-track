@@ -34,9 +34,11 @@ export class LoginComponent implements OnInit {
         console.log(res)
 
         const position = res.pos_id;
+        const user_id = res.user_detail_id;
 
         sessionStorage.setItem('username', this.username);
         sessionStorage.setItem('password', this.password);
+        sessionStorage.setItem('user_detail_id', user_id);
         sessionStorage.setItem('pos_id', position);
 
         if (position === 1) {
@@ -78,6 +80,7 @@ export class LoginComponent implements OnInit {
       }
     })
   }
+ 
 
   // logout() {
   //   this.authService.clearStorage();

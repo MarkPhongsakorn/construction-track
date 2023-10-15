@@ -11,8 +11,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUser(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/backend/api/user_detail/read_one.php`,{ params: { id: id } });
+  getUser(user_detail_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/user_detail/read_one.php`,{ params: { user_detail_id: user_detail_id } });
   }
 
   createUser(user: Object): Observable<any> {

@@ -179,6 +179,7 @@
                 if (password_verify($this->password, $hashedPassword)) {
 
                     $this->position = $this->userById($this->username);
+                    $this->user_id = $this->usersById($this->username);
 
                     return true;
                 }
@@ -189,6 +190,7 @@
 
         public function getPos() {
             return $this->position;
+
         }
 
         public function userById($username) {
@@ -202,6 +204,26 @@
             $position = $row['pos_id'];
 
             return $position;
+
+
+        }
+
+        public function getUserId() {
+
+            return $this->user_id;
+        }
+
+        public function usersById($username) {
+
+            $query = 'SELECT user_detail_id FROM ' . $this->table . ' WHERE username = :username';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $user_id = $row['user_detail_id'];
+
+            return $user_id;
 
         }
 

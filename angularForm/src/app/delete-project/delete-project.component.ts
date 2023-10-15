@@ -10,6 +10,7 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,7 +29,7 @@ export class DeleteProjectComponent implements OnInit {
     public config: DynamicDialogConfig,
     private project: ProjectService,
     private report: ReportService,
-    private weatherSeervice: WeatherService,
+    private weatherService: WeatherService,
     private laborService: LaborService,
     private workService: WorkService,
     private toolService: ToolService,
@@ -43,96 +44,48 @@ export class DeleteProjectComponent implements OnInit {
     });
   }
   
-  delete() {
-    this.weatherSeervice.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.laborService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.workService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.toolService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.matService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.problemService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.strikeService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.inspecService.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.report.deleteProject(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    this.project.delete(this.config.data.project_id).subscribe(res => {
-      if (res.status === 'success') {
-        return this.status = true
-      } else {
-        return this.status
-      }
-    });
-    if (this.status = true) {
-      Swal.fire({
-        title: 'สำเร็จ',
-        text: 'การลบโครงการสำเร็จ',
-        icon: 'success',
-        confirmButtonText: 'ตกลง'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
+  
+
+  deleteAll() {
+    const deleteRequests: Observable<any>[] = [
+      this.weatherService.deleteProject(this.config.data.project_id),
+      this.laborService.deleteProject(this.config.data.project_id),
+      this.workService.deleteProject(this.config.data.project_id),
+      this.toolService.deleteProject(this.config.data.project_id),
+      this.matService.deleteProject(this.config.data.project_id),
+      this.problemService.deleteProject(this.config.data.project_id),
+      this.strikeService.deleteProject(this.config.data.project_id),
+      this.inspecService.deleteProject(this.config.data.project_id),
+      this.report.deleteProject(this.config.data.project_id),
+      this.project.delete(this.config.data.project_id),
+    ];
+
+    forkJoin(deleteRequests).subscribe(
+      (responses: any[]) => {
+        // Handle responses
+        for (const res of responses) {
+          if (res.status === 'success') {
+            Swal.fire({
+              title: 'สำเร็จ',
+              text: 'การลบโครงการสำเร็จ',
+              icon: 'success',
+              confirmButtonText: 'ตกลง'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'ข้อผิดพลาด',
+              text: 'เกิดข้อผิดพลาดในการลบโครงการ',
+              icon: 'error',
+              confirmButtonText: 'ตกลง'
+            });
+            break;  // Stop checking if any of the requests failed
+          }
         }
       });
-    } else {
-      Swal.fire({
-        title: 'ข้อผิดพลาด',
-        text: 'เกิดข้อผิดพลาดในการลบโครงการ',
-        icon: 'error',
-        confirmButtonText: 'ตกลง'
-      });
-    }
   }
 
   closeDialog() {

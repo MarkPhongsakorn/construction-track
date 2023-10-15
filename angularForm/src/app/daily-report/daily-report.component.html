@@ -105,9 +105,9 @@
                 </td>
                 <td>
                     <a pButton icon="pi pi-pencil" class="p-button-warning" (click)="openDialog4(reports.dr_id)"
-                        *ngIf="!this.projectID"></a>
+                        *ngIf="!reportData"></a>
                     <a pButton icon="pi pi-file-export" class="p-button-secondary" (click)="openDialog3(reports.dr_id)"
-                        *ngIf="this.projectID"></a>
+                        *ngIf="reportData"></a>
                     <a pButton icon="pi pi-file-edit" class="p-button-help" (click)="openDialog2(reports.dr_id)"></a>
                     <a pButton icon="pi pi-trash" class="p-button-danger" (click)="openDialog3(reports.dr_id)"></a>
                 </td>

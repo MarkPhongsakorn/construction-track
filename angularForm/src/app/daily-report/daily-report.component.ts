@@ -66,7 +66,6 @@ export class DailyReportComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.project = (+params['project_id']).toString(); 
       this.loadReportData();
-      this.checkData();
     });
     
   }
@@ -80,6 +79,9 @@ export class DailyReportComponent implements OnInit {
         this.reports = res;
         this.dr_id = res['dr_id'];
         this.projectID = false;
+        console.log('dr_id:',this.dr_id);
+
+        this.checkData(this.dr_id);
       }
     });
   }
@@ -91,7 +93,8 @@ export class DailyReportComponent implements OnInit {
   
   
   openDialog() {
-    this.ref = this.dialogService.open(AddReportComponent, { header: ''});
+    this.ref = this.dialogService.open(AddReportComponent, {
+      data: { project_id: this.project }, header: ''});
   }
 
   openDialog2(dr_id: string) {
@@ -122,70 +125,101 @@ export class DailyReportComponent implements OnInit {
     });
   }
 
-  checkData() {
-    this.weatherService.readOne(this.dr_id, this.morning).subscribe((res: any) => {
-      if (res.status === 'success') {
-        this.weatherService.readOne(this.dr_id, this.afternoon).subscribe((data: any) => {
-          if (data.status === 'success') {
-            this.laborService.readOne(this.dr_id).subscribe((res: any) => {
-              if (res.status === 'success') {
-                this.workService.readOne(this.dr_id).subscribe((res: any) => {
-                  if (res.status === 'success') {
-                    this.toolService.readOne(this.dr_id).subscribe((res: any) => {
-                      if (res.status === 'success') {
-                        this.matService.readOne(this.dr_id).subscribe((res: any) => {
-                          if (res.status === 'success') {
-                            this.problemService.readOne(this.dr_id).subscribe((res: any) => {
-                              if (res.status === 'success') {
-                                this.strikeService.readOne(this.dr_id).subscribe((res: any) => {
-                                  if (res.status === 'success') {
-                                    this.inspecService.readOne(this.dr_id).subscribe((res: any) => {
+  checkData(dr_id: string) {
+    // this.dr_id  = dr_id;
+    // this.weatherService.readOne(this.dr_id, this.morning).subscribe((res: any) => {
+    //   if (res.status === 'success') {
+        
+    //     this.weatherService.readOne(this.dr_id, this.afternoon).subscribe((data: any) => {
+    //       if (data.status === 'success') {
+
+    //         this.laborService.readOne(this.dr_id).subscribe((res: any) => {
+    //           if (res.status === 'success') {
+
+    //             this.workService.readOne(this.dr_id).subscribe((res: any) => {
+    //               if (res.status === 'success') {
+
+    //                 this.toolService.readOne(this.dr_id).subscribe((res: any) => {
+    //                   if (res.status === 'success') {
+
+    //                     this.matService.readOne(this.dr_id).subscribe((res: any) => {
+    //                       if (res.status === 'success') {
+
+    //                         this.problemService.readOne(this.dr_id).subscribe((res: any) => {
+    //                           if (res.status === 'success') {
+
+    //                             this.strikeService.readOne(this.dr_id).subscribe((res: any) => {
+    //                               if (res.status === 'success') {
+
+                                    this.inspecService.readOne(dr_id).subscribe((res: any) => {
                                       if (res.status === 'success') {
+                                        console.log("จริง");
+                                        console.log(dr_id);
                                         return this.reportData = true;
+                                        
                                       } else {
+                                        console.log("ไม่จริง");
+                                        console.log(dr_id);
                                         return this.reportData = false;
                                       }
                                     });
-                                    return true
-                                  } else {
-                                    return false
-                                  }
-                                })
-                                return true
-                              } else {
-                                return false
-                              }
-                            })
-                            return true
-                          } else {
-                            return false
-                          }
-                        });
-                        return true
-                      } else {
-                        return false
-                      }
-                    })
-                    return true
-                  } else {
-                    return false
-                  }
-                })
-                return true
-              } else {
-                return false
-              }
-            })
-            return true
-          } else {
-            return false
-          }
-        })
-        return true
-      } else {
-        return false
-      }
-    })
+
+    //                                 return true
+
+    //                               } else {
+    //                                 return this.reportData = false;
+    //                               }
+    //                             });
+
+    //                             return true
+
+    //                           } else {
+    //                             return this.reportData = false;
+    //                           }
+    //                         });
+
+    //                         return true
+
+    //                       } else {
+    //                         return this.reportData = false;
+    //                       }
+    //                     });
+
+    //                     return true
+
+    //                   } else {
+    //                     return this.reportData = false;
+    //                   }
+    //                 });
+
+    //                 return true
+
+    //               } else {
+    //                 return this.reportData = false;
+    //               }
+    //             });
+
+    //             return true
+
+    //           } else {
+    //             return this.reportData = false;
+    //           }
+    //         });
+
+    //         return true
+
+    //       } else {
+    //         return this.reportData = false;
+    //       }
+    //     });
+
+    //     return true
+
+    //   } else {
+    //     return this.reportData = false;
+    //   }
+    // });
+
   }
 
 }

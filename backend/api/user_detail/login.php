@@ -29,6 +29,7 @@
             $response = array("status" => "success", "message" => "Login Success.");
 
             $response['pos_id'] = $detail->getPos();
+            $response['user_detail_id'] = $detail->getUserId();
             
         } else {
             $response = array("status" => "error", "message" => "Failed to login user.");

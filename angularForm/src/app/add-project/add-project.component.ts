@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class AddProjectComponent implements OnInit {
 
   user: any[] = [];
+  userId: string = '';
   selectUserId: string = '';
 
   comp: any[] = [];
@@ -33,19 +34,32 @@ export class AddProjectComponent implements OnInit {
   ) {}
   
   ngOnInit() {
+    const user_id = sessionStorage.getItem('user_detail_id');
+    if (user_id !== null) {
+      this.userService.getUser(user_id).subscribe(data => {
+        if (this.userId = data['user_detail_id']) {
+          this.selectUserId = this.userId;
+        }
+      });
+    } else {
+      console.log('user_id เป็น null');
+    }
+
     this.userService.getUserList().subscribe(data => {
-      this.user = data;
-      this.user = this.user.map((user_detail_id: any) => {
+      this.user = data.map((user_detail_id: any) => {
         return {
           ...user_detail_id,
           displayLabel: user_detail_id.user_fname + ' ' + user_detail_id.user_lname
         };
       });
     });
+    
     this.companyService.getComp().subscribe(data => {
       this.comp = data;
     })
+    
   }
+
 
   project() {
     const projectStart = new Date(this.project_start);
