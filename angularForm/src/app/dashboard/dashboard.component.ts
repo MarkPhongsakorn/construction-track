@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddProjectComponent } from '../add-project/add-project.component';
 import { EditProjectComponent } from '../edit-project/edit-project.component';
@@ -25,7 +24,6 @@ export class DashboardComponent implements OnInit {
 
 
   constructor(
-    public dialog: MatDialog,
     private project: ProjectService,
     private report: ReportService,
     public dialogService: DialogService

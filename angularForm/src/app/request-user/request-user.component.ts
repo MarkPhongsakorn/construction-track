@@ -21,16 +21,8 @@ export class RequestUserComponent implements OnInit {
   comp: any[] = [];
   selectCompId: string = '';
 
-  dataSource: any[] = [];
-  displayedColumns: string[] = [
-    'req_id',
-    'req_problem',
-    'req_daily',
-    'req_license',
-    'req_certificate',
-    // 'project_id',
-    // 'comp_id',
-  ];
+  request: any[] = [];
+  isSearchPerformed: boolean = false;
 
   constructor(
     private projectService: ProjectService,
@@ -53,7 +45,7 @@ export class RequestUserComponent implements OnInit {
       if (res.status === 'error') {
         this.projectID = true;
       } else {
-        this.dataSource = res;
+        this.request = res;
         this.projectID = false;
       }
     });

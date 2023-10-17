@@ -45,13 +45,13 @@
 h1 {
     text-align: center;
     font-weight: bold;
-    margin-top: 16px;
+    /* margin-top: 16px; */
 }
 
 .center {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    /* display: flex;
+    justify-content: center; */
+    margin: 20px 10px 20px 10px;
 }
 
 .center button {
@@ -70,4 +70,33 @@ h1 {
 .upload button {
     margin-left: auto;
     margin-right: 200px;
+}
+
+th {
+    font-weight: bold;
+}
+
+th,td {
+    /* font-size: larger; */
+    text-align: center;
+}
+th {
+    background: #333;
+    color: white;
+}
+.card {
+    margin: 5% 10% 0% 10%;
+}
+
+h1 {
+    margin-bottom: 0;
+}
+
+::ng-deep .field {
+    margin-bottom: 0;
+}
+
+::ng-deep .formgrid {
+    display: flex;
+    align-items: center;
 }

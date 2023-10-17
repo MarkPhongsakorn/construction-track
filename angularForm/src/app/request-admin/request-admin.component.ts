@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ProjectService } from '../services/projects/project.service';
 import { CompanyService } from '../services/companies/company.service';
 import { RequestService } from '../services/companies/request.service';
@@ -6,7 +7,8 @@ import { RequestService } from '../services/companies/request.service';
 @Component({
   selector: 'app-request-admin',
   templateUrl: './request-admin.component.html',
-  styleUrls: ['./request-admin.component.css']
+  styleUrls: ['./request-admin.component.css'],
+  providers: [DialogService]
 })
 export class RequestAdminComponent implements OnInit {
   project: any[] = [];
@@ -17,21 +19,15 @@ export class RequestAdminComponent implements OnInit {
   comp: any[] = [];
   selectCompId: string = '';
 
-  dataSource: any[] = [];
-  displayedColumns: string[] = [
-    'req_id',
-    'req_problem',
-    'req_daily',
-    'req_license',
-    'req_certificate',
-    // 'project_id',
-    // 'comp_id',
-  ];
+  request: any[] = [];
+  isSearchPerformed: boolean = false;
+
 
   constructor(
     private projectService: ProjectService,
     private compService: CompanyService,
     private req: RequestService,
+    public dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -45,13 +41,14 @@ export class RequestAdminComponent implements OnInit {
 
   search() {
     this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
-      this.dataSource = res;
-
       if (res.status === 'error') {
         this.projectID = true;
       } else {
+        this.request = res;
         this.projectID = false;
       }
+      this.isSearchPerformed = true;
     });
+    
   }
 }
