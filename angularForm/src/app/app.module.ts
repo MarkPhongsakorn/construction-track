@@ -53,6 +53,7 @@ import { TableModule } from 'primeng/table';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { TooltipModule } from 'primeng/tooltip';
     DynamicDialogModule,
     CalendarModule,
     TooltipModule,
+    FileUploadModule,
   ],
   providers: [AuthGuardService, PdfService],
   bootstrap: [AppComponent]

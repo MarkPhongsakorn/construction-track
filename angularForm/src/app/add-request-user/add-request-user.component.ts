@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { RequestService } from '../services/companies/request.service';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { format } from 'date-fns-tz';
 
 @Component({
   selector: 'app-add-request-user',
@@ -11,59 +12,57 @@ import Swal from 'sweetalert2';
 })
 export class AddRequestUserComponent implements OnInit {
   
-  reqProblem: File | null = null;
-  reqDaily: File | null = null;
-  reqLicense: File | null = null;
-  reqCertificate: File | null = null;
+  req_problem: File | undefined;
+  req_daily: File | undefined;
+  req_license: File | undefined;
+  req_certificate: File | undefined;
 
   req_date: Date = new Date();
 
   constructor(
-    public dialogRef: MatDialogRef<AddRequestUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: DynamicDialogRef,
+    public config: DynamicDialogConfig,
     private request: RequestService
   ){}
 
   ngOnInit(): void {
     
   }
-
   selectedProblem(event: any) {
-    this.reqProblem = event.target.files[0] as File;
+    this.req_problem = event.files[0];
   }
   selectedDaily(event: any) {
-    this.reqDaily = event.target.files[0] as File;
+    this.req_daily = event.files[0];
   }
   selectedLicense(event: any) {
-    this.reqLicense = event.target.files[0] as File;
+    this.req_license = event.files[0];
   }
   selectedCertificate(event: any) {
-    this.reqCertificate = event.target.files[0] as File;
+    this.req_certificate = event.files[0];
   }
   
   onUpload() {
+    const date = new Date(this.req_date);
+    date.setHours(0, 0, 0, 0);
+    const dateThai = format(date, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
     const formData = new FormData();
 
-    if (this.reqProblem) {
-      formData.append('req_problem', this.reqProblem);
+    if (this.req_problem) {
+      formData.append('req_problem', this.req_problem);
     }
-    if (this.reqDaily) {
-      formData.append('req_daily', this.reqDaily);
+    if (this.req_daily) {
+      formData.append('req_daily', this.req_daily);
     }
-    if (this.reqLicense) {
-      formData.append('req_license', this.reqLicense);
+    if (this.req_license) {
+      formData.append('req_license', this.req_license);
     }
-    if (this.reqCertificate) {
-      formData.append('req_certificate', this.reqCertificate);
+    if (this.req_certificate) {
+      formData.append('req_certificate', this.req_certificate);
     }
-    // formData.append('req_date', this.req_date);
-    formData.append('project_id', this.data.project_id);
-    formData.append('comp_id', this.data.comp_id);
-    // const data = {
-    //   // req_date: this.req_date,
-    //   project_id: this.data.project_id,
-    //   comp_id: this.data.comp_id
-    // }
+    formData.append('req_date', dateThai);
+    formData.append('project_id', this.config.data.project_id);
+    formData.append('comp_id', this.config.data.comp_id);
+
     this.request.uploadFile(formData).subscribe((event: any) => {
       if (event.status === "success") {
         Swal.fire({
@@ -86,5 +85,9 @@ export class AddRequestUserComponent implements OnInit {
       }
     });
     
+  }
+
+  closeDialog() {
+    this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
   }
 }

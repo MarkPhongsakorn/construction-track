@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProjectService } from '../services/projects/project.service';
 import { CompanyService } from '../services/companies/company.service';
 import { RequestService } from '../services/companies/request.service';
@@ -8,7 +8,8 @@ import { AddRequestUserComponent } from '../add-request-user/add-request-user.co
 @Component({
   selector: 'app-request-user',
   templateUrl: './request-user.component.html',
-  styleUrls: ['./request-user.component.css']
+  styleUrls: ['./request-user.component.css'],
+  providers: [DialogService]
 })
 export class RequestUserComponent implements OnInit {
 
@@ -21,14 +22,25 @@ export class RequestUserComponent implements OnInit {
   comp: any[] = [];
   selectCompId: string = '';
 
-  request: any[] = [];
+  request: {
+    [key: string]: {
+      req_id: number;
+      req_date: Date;
+      req_problem: string;
+      req_daily: string;
+      req_license: string;
+      req_certificate: string;
+    };
+  } = {};
   isSearchPerformed: boolean = false;
+
+  ref: DynamicDialogRef | undefined;
 
   constructor(
     private projectService: ProjectService,
     private compService: CompanyService,
     private req: RequestService,
-    public dialog: MatDialog,
+    public dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -40,6 +52,13 @@ export class RequestUserComponent implements OnInit {
     });
   }
 
+  getRequestArray() {
+    return Object.keys(this.request).map(key => ({
+      key: key,
+      value: this.request[key]
+    }));
+  }
+
   search() {
     this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
       if (res.status === 'error') {
@@ -48,6 +67,7 @@ export class RequestUserComponent implements OnInit {
         this.request = res;
         this.projectID = false;
       }
+      this.isSearchPerformed = true;
     });
     if (this.selectProjectId == '' && this.selectCompId == '') {
       this.addReq = false;
@@ -57,11 +77,8 @@ export class RequestUserComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(AddRequestUserComponent, {
-      data: {
-        project_id: this.selectProjectId,
-        comp_id: this.selectCompId
-      }
+    this.ref = this.dialogService.open(AddRequestUserComponent, {
+      data: { project_id: this.selectProjectId, comp_id: this.selectCompId }, header: ''
     });
   }
 

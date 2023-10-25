@@ -50,4 +50,8 @@ h1 {
   button[type="submit"]:hover {
     background-color: #0056b3;
   }
+
+  ::ng-deep .swal2-container {
+    z-index: 1103;
+}
   

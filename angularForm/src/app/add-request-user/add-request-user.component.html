@@ -2,19 +2,19 @@
     <input type="file" (change)="onFileSelected($event)" />
     <button type="submit">อัปโหลด</button>
   </form> -->
-<div mat-dialog-title>
+<!-- <div mat-dialog-title>
     <h1>Request Form</h1>
 </div>
 <div mat-dialog-content>
     <div class="example-container">
-        <!-- <mat-form-field appearance="outline" class="width-100">
+        <mat-form-field appearance="outline" class="width-100">
             <mat-label>วันที่</mat-label>
             <input matInput [matDatepicker]="picker" name="dr_time" id="dr_time" [(ngModel)]="req_date">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field> 
-        <br>-->
+        <br>
         <mat-label>ปัญหา</mat-label>
         <br>
         <input type="file" (change)="selectedProblem($event)" accept=".jpg, .png, .pdf" />
@@ -35,4 +35,51 @@
 <div mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close>Close</button>
     <button mat-raised-button color=accent (click)="onUpload()">Add Project</button>
+</div> -->
+
+<div class="p-dialog-title">
+    <h1>การร้องขอ</h1>
+</div>
+<div class="p-dialog-content">
+    <div class="p-fluid formgrid gird">
+        <div class="feild col">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="req_date" inputId="req_date" [showIcon]="true" dateFormat="dd/mm/yy"
+                    placeholder="วันที่" appendTo="body"></p-calendar>
+                <label for="req_date">วันที่ร้องขอ</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p-fileUpload name="req_problem" chooseLabel="เลือกปัญหา" (onSelect)="selectedProblem($event)" [auto]="true"
+                [maxFileSize]="1000000"></p-fileUpload>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p-fileUpload name="req_daily" chooseLabel="เลือกไฟล์ใบอนุญาตประจำวัน" (onSelect)="selectedDaily($event)"
+                [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p-fileUpload name="req_license" chooseLabel="เลือกไฟล์ใบอนุญาตการก่อสร้าง"
+                (onSelect)="selectedLicense($event)" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p-fileUpload name="req_certificate" chooseLabel="เลือกไฟล์ใบรับรอง"
+                (onSelect)="selectedCertificate($event)" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
+        </div>
+    </div>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="onUpload()" label="เพิ่มโครงการ"></p-button>
 </div>

@@ -40,9 +40,12 @@
         }
 
         public function create() {
+
+            $req_date = date('m/d/Y', strtotime($this->req_date));
+
             $query = 'INSERT INTO ' . $this->table . '
             SET
-                req_date = :req_date,
+                req_date = STR_TO_DATE(:req_date, "%m/%d/%Y"),
                 req_problem = :req_problem,
                 req_daily = :req_daily,
                 req_license = :req_license,
@@ -60,7 +63,7 @@
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
             $this->comp_id = htmlspecialchars(strip_tags($this->comp_id));
 
-            $stmt->bindParam(':req_date', $this->req_date);
+            $stmt->bindParam(':req_date', $req_date);
             $stmt->bindParam(':req_problem', $this->req_problem);
             $stmt->bindParam(':req_daily', $this->req_daily);
             $stmt->bindParam(':req_license', $this->req_license);
