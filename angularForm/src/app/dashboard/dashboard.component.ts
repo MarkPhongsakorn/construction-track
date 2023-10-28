@@ -36,6 +36,8 @@ export class DashboardComponent implements OnInit {
         return this.projectID = true;
       } else {
         this.projects = res;
+        console.log(this.projects);
+        
         return this.projectID = false;
       }
     });

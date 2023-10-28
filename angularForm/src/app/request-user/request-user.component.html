@@ -113,7 +113,7 @@
     <h1>ไม่มีข้อมูล</h1>
 </div> -->
 <div class="card" *ngIf="isSearchPerformed">
-    <p-table [value]="request | keyvalue" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="request" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col">
@@ -129,17 +129,17 @@
                 <th>ใบอนุญาตรายวัน</th>
                 <th>ใบอนุญาต</th>
                 <th>ใบรับรอง</th>
-                <!-- <th>Action</th> -->
+                <th>Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-requests>
-            <tr *ngFor="let request of requests">
-                <td>{{ request.key.req_id }}</td>
-                <td>{{ request.value.req_date | date: 'dd/MM/yyyy' }}</td>
-                <td>{{ request.value.req_problem}}</td>
-                <td>{{ request.value.req_daily }}</td>
-                <td>{{ request.value.req_license }}</td>
-                <td>{{ request.value.req_certificate }}</td>
+        <ng-template pTemplate="body" let-request>
+            <tr>
+                <td>{{ request.req_id }}</td>
+                <td>{{ request.req_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ request.req_problem}}</td>
+                <td>{{ request.req_daily }}</td>
+                <td>{{ request.req_license }}</td>
+                <td>{{ request.req_certificate }}</td>
                 <td></td>
             </tr>
         </ng-template>

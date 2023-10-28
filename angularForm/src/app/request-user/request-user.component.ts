@@ -22,16 +22,7 @@ export class RequestUserComponent implements OnInit {
   comp: any[] = [];
   selectCompId: string = '';
 
-  request: {
-    [key: string]: {
-      req_id: number;
-      req_date: Date;
-      req_problem: string;
-      req_daily: string;
-      req_license: string;
-      req_certificate: string;
-    };
-  } = {};
+  request: any[] = [];
   isSearchPerformed: boolean = false;
 
   ref: DynamicDialogRef | undefined;
@@ -52,19 +43,14 @@ export class RequestUserComponent implements OnInit {
     });
   }
 
-  getRequestArray() {
-    return Object.keys(this.request).map(key => ({
-      key: key,
-      value: this.request[key]
-    }));
-  }
-
   search() {
-    this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
+    this.req.getReq(this.selectProjectId,this.selectCompId).subscribe(res => {
       if (res.status === 'error') {
         this.projectID = true;
       } else {
         this.request = res;
+        console.log(this.request);
+        
         this.projectID = false;
       }
       this.isSearchPerformed = true;
