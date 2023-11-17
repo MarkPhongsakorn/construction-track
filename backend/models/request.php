@@ -30,6 +30,16 @@
 
         public function read_one() {
 
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE req_id = :req_id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':req_id', $this->req_id);
+            $stmt->execute();
+
+            return $stmt;
+        }
+
+        public function readByID() {
+
             $query = 'SELECT * FROM ' . $this->table . ' WHERE project_id = :project_id AND comp_id = :comp_id';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':project_id', $this->project_id);

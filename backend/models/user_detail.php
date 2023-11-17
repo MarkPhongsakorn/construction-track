@@ -4,6 +4,8 @@
 
         private $conn;
         private $table = "tb_user_detail";
+        private $table2 = "tb_prefix";
+        private $table3 = "tb_position";
 
         public $user_detail_id;
         public $username;
@@ -26,7 +28,11 @@
         // GET Data User ทุกตัว
         public function read() {
 
-            $query = 'SELECT * FROM ' . $this->table . '';
+            $query = 'SELECT * FROM ' . $this->table . '
+            INNER JOIN ' . $this->table2 . ' ON '
+            . $this->table . '.prefix_id = ' . $this->table2 . '.prefix_id
+            INNER JOIN ' . $this->table3 . ' ON '
+            . $this->table . '.pos_id = ' . $this->table3 . '.pos_id';
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             
@@ -36,7 +42,13 @@
         // GET Data User เพียง 1 ตัว
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE user_detail_id = :user_detail_id';
+            $query = 'SELECT * FROM ' . $this->table . '
+            INNER JOIN ' . $this->table2 . ' ON '
+            . $this->table . '.prefix_id = ' . $this->table2 . '.prefix_id
+            INNER JOIN ' . $this->table3 . ' ON '
+            . $this->table . '.pos_id = ' . $this->table3 . '.pos_id
+            WHERE ' . $this->table . '.user_detail_id = :user_detail_id';
+
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_detail_id',$this->user_detail_id);
             $stmt->execute();

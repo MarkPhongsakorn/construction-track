@@ -1,75 +1,20 @@
-.example-container {
-    padding: 10px;
-}
 
-.width-50 {
-    width: 49%;
-}
-
-.ml-1 {
-    margin-left: 1%;
-}
-
-.ml-2 {
-    margin-left: 2%;
-}
-
-.width-100 {
-    width: 100%;
-}
-
-.width-20 {
-    width: 18%;
-}
-
-.width-30 {
-    width: 28%;
-}
-
-.width-40 {
-    width: 38%;
-}
-
-.width-50 {
-    width: 48%;
-}
-
-.width-70 {
-    width: 68%;
-}
-
-.width-80 {
-    width: 80%;
-}
 
 h1 {
+    font-weight: bold;
+}
+
+.tt h1 {
     text-align: center;
     font-weight: bold;
-    /* margin-top: 16px; */
 }
 
 .center {
-    /* display: flex;
-    justify-content: center; */
-    margin: 20px 10px 20px 10px;
+    margin: 20px 10% 20px 10%;
 }
 
 .center button {
     margin-top: 10px;
-}
-
-.upload {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.upload p-button {
-    margin-left: auto;
-    margin-right: 200px;
 }
 
 th {
@@ -85,7 +30,7 @@ th {
     color: white;
 }
 .card {
-    margin: 5% 10% 0% 10%;
+    margin: 1% 10% 0% 10%;
 }
 
 h1 {

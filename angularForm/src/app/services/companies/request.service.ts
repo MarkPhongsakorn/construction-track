@@ -16,9 +16,16 @@ export class RequestService {
     return this.http.post(`${this.baseUrl}/backend/api/request/create.php`, formData);
   }
 
+  getAll(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/backend/api/request/read.php`);
+  }
+
+  getOne(req_id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/backend/api/request/read_one.php`, { params: { req_id: req_id } });
+  }
 
   getReq(project_id: string, comp_id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/backend/api/request/read_one.php`,{ params: { project_id: project_id, comp_id: comp_id } });
+    return this.http.get(`${this.baseUrl}/backend/api/request/readByID.php`,{ params: { project_id: project_id, comp_id: comp_id } });
   }
 
 }

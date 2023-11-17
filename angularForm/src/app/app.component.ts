@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/users/auth.service';
 import { Router } from '@angular/router';
-import { PositionService } from './services/users/position.service';
 import { UserService } from './services/users/user.service';
 import { MenuItem } from 'primeng/api';
 
@@ -19,19 +18,26 @@ export class AppComponent implements OnInit {
 
   post: string = '';
 
-  items1: MenuItem[] | undefined;
-  items2: MenuItem[] | undefined;
-  items3: MenuItem[] | undefined;
+  fname: string = '';
+  prefix: string = '';
+
+  items1: MenuItem[] = [];
+  items2: MenuItem[] = [];
+  items3: MenuItem[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private posService: PositionService,
     private userService: UserService,
   ) {}
 
   ngOnInit(){
     this.isUserLogin();
+    this.item();
+  }
+
+  item() {
+
     this.items1 = [
       {
         label: 'โครงการ',
@@ -40,6 +46,11 @@ export class AppComponent implements OnInit {
       {
         label: 'การร้องขอ',
         routerLink: '/request-admin'
+      },
+      {
+        label: 'โปรไฟล์',
+        routerLink: '/profile',
+        icon: 'pi pi-users'
       },
       {
         label: 'ออกจากระบบ',
@@ -65,11 +76,17 @@ export class AppComponent implements OnInit {
         routerLink: '/request-user'
       },
       {
+        label: 'โปรไฟล์',
+        routerLink: '/profile',
+        icon: 'pi pi-users'
+      },
+      {
         label: 'ออกจากระบบ',
         icon: 'pi pi-sign-out',
         command: () => this.logout()
       }
     ]
+    
   }
 
   isUserLogin() {

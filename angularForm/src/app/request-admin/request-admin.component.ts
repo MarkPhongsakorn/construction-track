@@ -20,6 +20,7 @@ export class RequestAdminComponent implements OnInit {
   selectCompId: string = '';
 
   request: any[] = [];
+  reqAll: any[] = [];
   isSearchPerformed: boolean = false;
 
 
@@ -36,6 +37,9 @@ export class RequestAdminComponent implements OnInit {
     });
     this.compService.getComp().subscribe(data => {
       this.comp = data;
+    });
+    this.req.getAll().subscribe(data => {
+      this.reqAll = data;
     });
   }
 

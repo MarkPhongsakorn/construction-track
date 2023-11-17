@@ -5,12 +5,14 @@ import Swal from 'sweetalert2';
 import { format } from 'date-fns-tz';
 
 @Component({
-  selector: 'app-add-request-user',
-  templateUrl: './add-request-user.component.html',
-  styleUrls: ['./add-request-user.component.css']
+  selector: 'app-edit-request-user',
+  templateUrl: './edit-request-user.component.html',
+  styleUrls: ['./edit-request-user.component.css']
 })
-export class AddRequestUserComponent implements OnInit {
-  
+export class EditRequestUserComponent implements OnInit {
+
+  req_problemUrl: string = '';
+
   req_problem: File | undefined;
   req_daily: File | undefined;
   req_license: File | undefined;
@@ -21,12 +23,16 @@ export class AddRequestUserComponent implements OnInit {
   constructor(
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private request: RequestService
-  ){}
+    private request: RequestService,
+) {}
 
   ngOnInit(): void {
+    this.request.getOne(this.config.data.req_id).subscribe(data => {
+      this.req_date = new Date (data['req_date'])
+    })
     
   }
+
   selectedProblem(event: any) {
     this.req_problem = event.files[0];
   }
@@ -39,7 +45,7 @@ export class AddRequestUserComponent implements OnInit {
   selectedCertificate(event: any) {
     this.req_certificate = event.files[0];
   }
-  
+
   onUpload() {
     const date = new Date(this.req_date);
     date.setHours(0, 0, 0, 0);
@@ -89,4 +95,5 @@ export class AddRequestUserComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
   }
+
 }

@@ -26,9 +26,11 @@
                 'username' => $row['username'],
                 'password' => $row['password'],
                 'prefix_id' => $row['prefix_id'],
+                'prefix_tname' => $row['prefix_tname'],
                 'user_fname' => $row['user_fname'],
                 'user_lname' => $row['user_lname'],          
                 'pos_id' => $row['pos_id'],
+                'pos_name' => $row['pos_name'],
                 'user_email' => $row['user_email'],
                 'user_tel' => $row['user_tel'],
             );

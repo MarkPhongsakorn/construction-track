@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="p-header">
+        <h1>ข้อมูลผู้ใช้</h1>
+    </div>
+    <div class="p-content">
+        <div class="p-fluid form-grid grid">
+            <div class="field col-6" [align]="'end'">
+                <h2>{{ prefix }}{{ fname }} {{ lname }}</h2>
+            </div>
+            <div class="field col-6" [align]="'start'">
+                <h2>ตำแหน่ง: {{ position }}</h2>
+            </div>
+        </div>
+        <div class="p-fluid form-grid grid">
+            <div class="field col-6">
+                <h2>E-mail: {{ email }}</h2>
+            </div>
+            <div class="field col-6">
+                <h2>โทร.: {{ tel }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="p-footer">
+        <p-button styleClass="p-button-warning" (click)="profile()" label="แก้ไขข้อมูล"></p-button>
+    </div>
+</div>

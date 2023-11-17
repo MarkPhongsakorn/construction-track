@@ -21,15 +21,16 @@
       <a class="title" pButton [routerLink]="['']" routerLinkActive="active">ระบบติดตามและตรวจงานสิ่งก่อสร้าง</a>
     </ng-template>
   </p-menubar>
-  <p-menubar class="menu1" [model]="items2" *ngIf='!this.isLogin'>
+  <p-menubar class="menu2" [model]="items2" *ngIf='!this.isLogin'>
     <ng-template pTemplate="start">
       <a class="title" pButton [routerLink]="['']" routerLinkActive="active">ระบบติดตามและตรวจงานสิ่งก่อสร้าง</a>
     </ng-template>
   </p-menubar>
-  <p-menubar class="menu1" [model]="items3" *ngIf='this.isPos1'>
+  <p-menubar class="menu3" [model]="items3" *ngIf='this.isPos1'>
     <ng-template pTemplate="start">
       <a class="title" pButton [routerLink]="['']" routerLinkActive="active">ระบบติดตามและตรวจงานสิ่งก่อสร้าง</a>
     </ng-template>
+
   </p-menubar>
 </div>
 

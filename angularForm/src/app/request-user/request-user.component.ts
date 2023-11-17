@@ -4,6 +4,8 @@ import { ProjectService } from '../services/projects/project.service';
 import { CompanyService } from '../services/companies/company.service';
 import { RequestService } from '../services/companies/request.service';
 import { AddRequestUserComponent } from '../add-request-user/add-request-user.component';
+import { EditRequestUserComponent } from '../edit-request-user/edit-request-user.component';
+import { DeleteRequestUserComponent } from '../delete-request-user/delete-request-user.component';
 
 @Component({
   selector: 'app-request-user',
@@ -17,13 +19,15 @@ export class RequestUserComponent implements OnInit {
   selectProjectId: string = '';
 
   projectID: boolean = false;
-  addReq: boolean = false;
 
   comp: any[] = [];
   selectCompId: string = '';
 
   request: any[] = [];
+  reqAll: any[] = [];
   isSearchPerformed: boolean = false;
+
+  req_id: string = '';
 
   ref: DynamicDialogRef | undefined;
 
@@ -41,31 +45,43 @@ export class RequestUserComponent implements OnInit {
     this.compService.getComp().subscribe(data => {
       this.comp = data;
     });
+    this.req.getAll().subscribe(data => {
+      this.reqAll = data;
+    });
   }
 
   search() {
-    this.req.getReq(this.selectProjectId,this.selectCompId).subscribe(res => {
+    this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
       if (res.status === 'error') {
         this.projectID = true;
       } else {
         this.request = res;
-        console.log(this.request);
-        
         this.projectID = false;
       }
       this.isSearchPerformed = true;
     });
-    if (this.selectProjectId == '' && this.selectCompId == '') {
-      this.addReq = false;
-    } else {
-      this.addReq = true;
-    }
   }
+
+  
 
   openDialog() {
     this.ref = this.dialogService.open(AddRequestUserComponent, {
       data: { project_id: this.selectProjectId, comp_id: this.selectCompId }, header: ''
     });
+  }
+
+  openDialog2(req_id: string) {
+    this.req_id = req_id;
+    this.ref = this.dialogService.open(EditRequestUserComponent, {
+     data: { req_id: this.req_id }, header: ''
+   });
+  }
+
+  openDialog3(req_id: string) {
+   this.req_id = req_id;
+   this.ref = this.dialogService.open(DeleteRequestUserComponent, {
+     data: { req_id: this.req_id }, header: ''
+   });
   }
 
 }

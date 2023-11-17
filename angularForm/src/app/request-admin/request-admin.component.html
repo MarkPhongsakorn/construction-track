@@ -1,6 +1,6 @@
 <div class="center">
     <div class="p-fluid formgrid grid">
-        <div class="feild col-4">
+        <div class="feild col-5">
             <h1>การร้องขอของวิศวกรควบคุมภายนอก</h1>
         </div>
         <div class="feild col-3">
@@ -19,12 +19,51 @@
                 <label for="float-label">บริษัทที่ดูแล</label>
             </span>
         </div>
-        <div class="feild col-2">
+        <div class="feild col-1">
             <span class="p-float-label">
                 <p-button styleClass="p-button-warning" (click)="search()" label="ค้นหา"></p-button>
             </span>
         </div>
     </div>
+</div>
+
+<div class="card" *ngIf="!isSearchPerformed">
+    <p-table [value]="reqAll" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="formgrid grid">
+                <div class="field col tt">
+                    <h1>การร้องขอทั้งหมด</h1>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>วันที่</th>
+                <th>ปัญหา</th>
+                <th>ใบอนุญาตรายวัน</th>
+                <th>ใบอนุญาต</th>
+                <th>ใบรับรอง</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-request>
+            <tr>
+                <td>{{ request.req_id }}</td>
+                <td>{{ request.req_date | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ request.req_problem}}</td>
+                <td>{{ request.req_daily }}</td>
+                <td>{{ request.req_license }}</td>
+                <td>{{ request.req_certificate }}</td>
+                <td>
+                    <!-- <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขการร้องขอ" class="p-button-help"
+                        (click)="openDialog2(request.req_id)"></a>
+                    <a pButton icon="pi pi-trash" pTooltip="ลบการร้องขอ" class="p-button-danger"
+                        (click)="openDialog3(request.req_id)"></a> -->
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
 
 <div class="not" *ngIf="this.projectID">
@@ -35,7 +74,7 @@
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col">
-                    <h1>การร้องขอ</h1>
+                    <h1>การร้องขอที่ค้นหา</h1>
                 </div>
             </div>
         </ng-template>

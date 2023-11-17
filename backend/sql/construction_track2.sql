@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2023 at 04:59 PM
+-- Generation Time: Nov 17, 2023 at 04:11 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -50,7 +50,6 @@ INSERT INTO `tb_company` (`comp_id`, `comp_name`, `comp_email`, `comp_address`) 
 CREATE TABLE `tb_daily_report` (
   `dr_id` int(11) NOT NULL,
   `dr_time` date NOT NULL,
-  `problem` varchar(255) NOT NULL,
   `project_id` int(5) NOT NULL,
   `user_detail_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -59,16 +58,9 @@ CREATE TABLE `tb_daily_report` (
 -- Dumping data for table `tb_daily_report`
 --
 
-INSERT INTO `tb_daily_report` (`dr_id`, `dr_time`, `problem`, `project_id`, `user_detail_id`) VALUES
-(1, '2023-07-20', 'ปัญหาเยอะมาก', 1, 2),
-(2, '2023-07-14', 'ปัญหาเยอะมาก เมื่อไรปัญหาจะหมดไปสักที', 2, 3),
-(4, '2023-07-19', 'dddd', 1, 2),
-(5, '2023-07-14', 'ปัญหาเยอะมาก เมื่อไรปัญหาจะหมดไปสัก', 1, 2),
-(6, '2023-07-14', 'ปัญหาเยอะมาก', 1, 2),
-(7, '2023-07-14', 'ปัญหาเยอะมาก เมื่อไรปัญหาจะหมดไป', 1, 2),
-(11, '2023-07-20', '1. มีปัญหามากๆเลย\n2. มีปัญหาฉิบหาย\n3. มีปัญหาอะไรเยอะแยะ', 1, 2),
-(12, '2023-07-20', '12345', 2, 3),
-(13, '2023-07-22', '123456789', 1, 2);
+INSERT INTO `tb_daily_report` (`dr_id`, `dr_time`, `project_id`, `user_detail_id`) VALUES
+(13, '2023-10-11', 1, 5),
+(15, '2023-10-12', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -79,16 +71,16 @@ INSERT INTO `tb_daily_report` (`dr_id`, `dr_time`, `problem`, `project_id`, `use
 CREATE TABLE `tb_inspection` (
   `inspec_id` int(11) NOT NULL,
   `inspec_result_id` int(1) NOT NULL,
-  `dr_id` int(11) NOT NULL
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_inspection`
 --
 
-INSERT INTO `tb_inspection` (`inspec_id`, `inspec_result_id`, `dr_id`) VALUES
-(2, 2, 1),
-(3, 2, 1);
+INSERT INTO `tb_inspection` (`inspec_id`, `inspec_result_id`, `dr_id`, `project_id`) VALUES
+(6, 2, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -120,16 +112,19 @@ CREATE TABLE `tb_labor` (
   `labor_id` int(11) NOT NULL,
   `labor_name` varchar(50) NOT NULL,
   `labor_num` varchar(10) NOT NULL,
-  `dr_id` int(11) NOT NULL
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_labor`
 --
 
-INSERT INTO `tb_labor` (`labor_id`, `labor_name`, `labor_num`, `dr_id`) VALUES
-(6, 'วิศวกรควบคุม', '1', 1),
-(7, 'ช่างก่อสร้าง', '10', 1);
+INSERT INTO `tb_labor` (`labor_id`, `labor_name`, `labor_num`, `dr_id`, `project_id`) VALUES
+(25, 'dasdasa', '1', 13, 1),
+(26, 'asdsda', '1', 13, 1),
+(27, 'asdasd', '1', 13, 1),
+(28, 'asdasdasd', '1', 13, 1);
 
 -- --------------------------------------------------------
 
@@ -142,16 +137,16 @@ CREATE TABLE `tb_material` (
   `mat_name` varchar(50) NOT NULL,
   `mat_num` varchar(10) NOT NULL,
   `unit_id` int(11) NOT NULL,
-  `dr_id` int(11) NOT NULL
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_material`
 --
 
-INSERT INTO `tb_material` (`mat_id`, `mat_name`, `mat_num`, `unit_id`, `dr_id`) VALUES
-(3, 'เหล็ก', '1', 3, 1),
-(4, 'ผ้า', '1', 3, 1);
+INSERT INTO `tb_material` (`mat_id`, `mat_name`, `mat_num`, `unit_id`, `dr_id`, `project_id`) VALUES
+(79, 'dasdasas', '1', 2, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -213,6 +208,26 @@ INSERT INTO `tb_prefix` (`prefix_id`, `prefix_tname`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_problem`
+--
+
+CREATE TABLE `tb_problem` (
+  `prob_id` int(5) NOT NULL,
+  `problem` varchar(100) NOT NULL,
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tb_problem`
+--
+
+INSERT INTO `tb_problem` (`prob_id`, `problem`, `dr_id`, `project_id`) VALUES
+(6, 'dasdasdasdas', 13, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_project`
 --
 
@@ -230,8 +245,8 @@ CREATE TABLE `tb_project` (
 --
 
 INSERT INTO `tb_project` (`project_id`, `project_name`, `project_start`, `project_end`, `user_detail_id`, `comp_id`) VALUES
-(1, 'test01', '2023-07-23', '2023-07-29', 5, 1),
-(2, 'test02', '2023-07-01', '2023-07-31', 2, 1);
+(1, 'test01', '2023-10-10', '2023-10-21', 5, 1),
+(2, 'test02', '2023-10-10', '2023-10-28', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -241,12 +256,22 @@ INSERT INTO `tb_project` (`project_id`, `project_name`, `project_start`, `projec
 
 CREATE TABLE `tb_request` (
   `req_id` int(11) NOT NULL,
+  `req_date` date NOT NULL,
   `req_problem` varchar(255) DEFAULT NULL,
   `req_daily` varchar(255) DEFAULT NULL,
   `req_license` varchar(255) DEFAULT NULL,
   `req_certificate` varchar(255) DEFAULT NULL,
-  `user_detail_id` int(5) NOT NULL
+  `project_id` int(5) NOT NULL,
+  `comp_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tb_request`
+--
+
+INSERT INTO `tb_request` (`req_id`, `req_date`, `req_problem`, `req_daily`, `req_license`, `req_certificate`, `project_id`, `comp_id`) VALUES
+(7, '2023-10-26', 'generated (11).pdf', 'generated (10).pdf', 'generated (9).pdf', 'generated (8).pdf', 1, 1),
+(8, '2023-10-29', 'generated (1).pdf', 'generated (2).pdf', 'generated (3).pdf', 'generated (4).pdf', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -256,18 +281,17 @@ CREATE TABLE `tb_request` (
 
 CREATE TABLE `tb_sta_weather` (
   `sta_id` int(1) NOT NULL,
-  `sta_name` varchar(20) NOT NULL,
-  `sta_time` time DEFAULT NULL
+  `sta_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_sta_weather`
 --
 
-INSERT INTO `tb_sta_weather` (`sta_id`, `sta_name`, `sta_time`) VALUES
-(1, 'ปลอดโปร่ง', '00:00:00'),
-(2, 'มืดครึ้ม', '00:00:00'),
-(3, 'ฝนตก', '00:00:00');
+INSERT INTO `tb_sta_weather` (`sta_id`, `sta_name`) VALUES
+(1, 'ปลอดโปร่ง'),
+(2, 'มืดครึ้ม'),
+(3, 'ฝนตก');
 
 -- --------------------------------------------------------
 
@@ -279,16 +303,16 @@ CREATE TABLE `tb_strike` (
   `strike_id` int(11) NOT NULL,
   `strike_detail` varchar(100) DEFAULT NULL,
   `strike_cause` varchar(100) DEFAULT NULL,
-  `dr_id` int(11) NOT NULL
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_strike`
 --
 
-INSERT INTO `tb_strike` (`strike_id`, `strike_detail`, `strike_cause`, `dr_id`) VALUES
-(2, '-', '-', 1),
-(3, '-', '-', 1);
+INSERT INTO `tb_strike` (`strike_id`, `strike_detail`, `strike_cause`, `dr_id`, `project_id`) VALUES
+(6, 'dasdas', 'asdasdadas', 13, 1);
 
 -- --------------------------------------------------------
 
@@ -301,15 +325,16 @@ CREATE TABLE `tb_tool` (
   `tool_name` varchar(20) NOT NULL,
   `tool_num` varchar(10) NOT NULL,
   `unit_id` int(11) NOT NULL,
-  `dr_id` int(11) NOT NULL
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_tool`
 --
 
-INSERT INTO `tb_tool` (`tool_id`, `tool_name`, `tool_num`, `unit_id`, `dr_id`) VALUES
-(1, 'รถปูน', '1', 1, 1);
+INSERT INTO `tb_tool` (`tool_id`, `tool_name`, `tool_num`, `unit_id`, `dr_id`, `project_id`) VALUES
+(12, 'dasdaads', '1', 1, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -358,7 +383,8 @@ INSERT INTO `tb_user_detail` (`user_detail_id`, `username`, `password`, `prefix_
 (3, 'markzxc', '$2y$10$sp7iOHH5gDqVFXHoe3fSvOLcSpxYEmjGyWfTumwRDz0dyRkWmW.O.', 2, 'Mason', 'Mount', 2, 'phongsakorn801@rmutsvmail.com', '0985548326'),
 (5, 'markz', '$2y$10$J1JF0c6Oe3ufSdVwKRwB9OOipStmDFaXAbOGf4bOwS2v7XvlEGBzG', 2, 'พงศกร', 'บุปผา', 2, 'phongsakorn801@rmutsvmail.com', '0985548326'),
 (6, 'karm', '$2y$10$NW7YOns5HKHc5t2SFhmyIOWv7gB2.MFnkET/XLmndsolPFwNsdrbC', 2, 'john', 'doe', 1, 'test@gmail.com', '000000000'),
-(7, 'test01', '$2y$10$L2Rch7OmFqdqBzz7Zfila.PPTtg/4NudsUXq8hWerPiCgVd82XhIi', 2, 'Hola', 'Amigo', 1, 'test01@gmail.com', '0123456789');
+(7, 'test01', '$2y$10$L2Rch7OmFqdqBzz7Zfila.PPTtg/4NudsUXq8hWerPiCgVd82XhIi', 2, 'Hola', 'Amigo', 1, 'test01@gmail.com', '0123456789'),
+(8, 'dimitri', '$2y$10$/85PP89C1NA0nZWN9/xE9O8w/fE1xJdkhTob.Y/8/ih0M2gMMPdEi', 2, 'ธีระ', 'โคตรหล่อโครตเท่โครตอันตราย', 1, 'test@gmail.com', '000000000');
 
 -- --------------------------------------------------------
 
@@ -370,16 +396,20 @@ CREATE TABLE `tb_weather` (
   `weather_id` int(11) NOT NULL,
   `period_id` int(1) NOT NULL,
   `sta_id` int(1) NOT NULL,
-  `dr_id` int(11) NOT NULL
+  `sta_time` time DEFAULT NULL,
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_weather`
 --
 
-INSERT INTO `tb_weather` (`weather_id`, `period_id`, `sta_id`, `dr_id`) VALUES
-(12, 1, 1, 1),
-(13, 2, 1, 1);
+INSERT INTO `tb_weather` (`weather_id`, `period_id`, `sta_id`, `sta_time`, `dr_id`, `project_id`) VALUES
+(38, 1, 1, '00:00:00', 13, 1),
+(39, 2, 1, '00:00:00', 13, 1),
+(40, 1, 1, '00:00:00', 13, 1),
+(41, 2, 1, '00:00:00', 13, 1);
 
 -- --------------------------------------------------------
 
@@ -391,15 +421,20 @@ CREATE TABLE `tb_work` (
   `work_id` int(11) NOT NULL,
   `work_num` int(2) NOT NULL,
   `work_detail` varchar(100) NOT NULL,
-  `dr_id` int(11) NOT NULL
+  `dr_id` int(11) NOT NULL,
+  `project_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tb_work`
 --
 
-INSERT INTO `tb_work` (`work_id`, `work_num`, `work_detail`, `dr_id`) VALUES
-(8, 1, 'ก่อสร้างตึก', 1);
+INSERT INTO `tb_work` (`work_id`, `work_num`, `work_detail`, `dr_id`, `project_id`) VALUES
+(27, 1, 'dasdasasd', 13, 1),
+(28, 2, 'dasdadas', 13, 1),
+(29, 3, 'dasda', 13, 1),
+(30, 4, 'asdasdas', 13, 1),
+(39, 5, 'ssssss', 13, 1);
 
 --
 -- Indexes for dumped tables
@@ -425,7 +460,8 @@ ALTER TABLE `tb_daily_report`
 ALTER TABLE `tb_inspection`
   ADD PRIMARY KEY (`inspec_id`),
   ADD KEY `dr_id` (`dr_id`),
-  ADD KEY `inspec_result_id` (`inspec_result_id`);
+  ADD KEY `inspec_result_id` (`inspec_result_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `tb_inspec_result`
@@ -438,7 +474,8 @@ ALTER TABLE `tb_inspec_result`
 --
 ALTER TABLE `tb_labor`
   ADD PRIMARY KEY (`labor_id`),
-  ADD KEY `dr_id` (`dr_id`);
+  ADD KEY `dr_id` (`dr_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `tb_material`
@@ -446,7 +483,8 @@ ALTER TABLE `tb_labor`
 ALTER TABLE `tb_material`
   ADD PRIMARY KEY (`mat_id`),
   ADD KEY `dr_id` (`dr_id`),
-  ADD KEY `unit_id` (`unit_id`);
+  ADD KEY `unit_id` (`unit_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `tb_period`
@@ -467,6 +505,14 @@ ALTER TABLE `tb_prefix`
   ADD PRIMARY KEY (`prefix_id`);
 
 --
+-- Indexes for table `tb_problem`
+--
+ALTER TABLE `tb_problem`
+  ADD PRIMARY KEY (`prob_id`),
+  ADD KEY `dr_id` (`dr_id`),
+  ADD KEY `project_id` (`project_id`);
+
+--
 -- Indexes for table `tb_project`
 --
 ALTER TABLE `tb_project`
@@ -479,7 +525,8 @@ ALTER TABLE `tb_project`
 --
 ALTER TABLE `tb_request`
   ADD PRIMARY KEY (`req_id`),
-  ADD KEY `user_detail_id` (`user_detail_id`);
+  ADD KEY `project_id` (`project_id`),
+  ADD KEY `comp_id` (`comp_id`);
 
 --
 -- Indexes for table `tb_sta_weather`
@@ -492,7 +539,8 @@ ALTER TABLE `tb_sta_weather`
 --
 ALTER TABLE `tb_strike`
   ADD PRIMARY KEY (`strike_id`),
-  ADD KEY `dr_id` (`dr_id`);
+  ADD KEY `dr_id` (`dr_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `tb_tool`
@@ -500,7 +548,8 @@ ALTER TABLE `tb_strike`
 ALTER TABLE `tb_tool`
   ADD PRIMARY KEY (`tool_id`),
   ADD KEY `unit_id` (`unit_id`),
-  ADD KEY `dr_id` (`dr_id`);
+  ADD KEY `dr_id` (`dr_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `tb_unit`
@@ -523,14 +572,16 @@ ALTER TABLE `tb_weather`
   ADD PRIMARY KEY (`weather_id`),
   ADD KEY `period_id` (`period_id`),
   ADD KEY `sta_id` (`sta_id`),
-  ADD KEY `dr_id` (`dr_id`);
+  ADD KEY `dr_id` (`dr_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `tb_work`
 --
 ALTER TABLE `tb_work`
   ADD PRIMARY KEY (`work_id`),
-  ADD KEY `dr_id` (`dr_id`);
+  ADD KEY `dr_id` (`dr_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -546,13 +597,13 @@ ALTER TABLE `tb_company`
 -- AUTO_INCREMENT for table `tb_daily_report`
 --
 ALTER TABLE `tb_daily_report`
-  MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tb_inspection`
 --
 ALTER TABLE `tb_inspection`
-  MODIFY `inspec_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `inspec_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_inspec_result`
@@ -564,13 +615,13 @@ ALTER TABLE `tb_inspec_result`
 -- AUTO_INCREMENT for table `tb_labor`
 --
 ALTER TABLE `tb_labor`
-  MODIFY `labor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `labor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tb_material`
 --
 ALTER TABLE `tb_material`
-  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `tb_period`
@@ -591,16 +642,22 @@ ALTER TABLE `tb_prefix`
   MODIFY `prefix_id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tb_problem`
+--
+ALTER TABLE `tb_problem`
+  MODIFY `prob_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `tb_project`
 --
 ALTER TABLE `tb_project`
-  MODIFY `project_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `project_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tb_request`
 --
 ALTER TABLE `tb_request`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_sta_weather`
@@ -612,13 +669,13 @@ ALTER TABLE `tb_sta_weather`
 -- AUTO_INCREMENT for table `tb_strike`
 --
 ALTER TABLE `tb_strike`
-  MODIFY `strike_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `strike_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tb_tool`
 --
 ALTER TABLE `tb_tool`
-  MODIFY `tool_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tool_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tb_unit`
@@ -630,19 +687,19 @@ ALTER TABLE `tb_unit`
 -- AUTO_INCREMENT for table `tb_user_detail`
 --
 ALTER TABLE `tb_user_detail`
-  MODIFY `user_detail_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_detail_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tb_weather`
 --
 ALTER TABLE `tb_weather`
-  MODIFY `weather_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `weather_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `tb_work`
 --
 ALTER TABLE `tb_work`
-  MODIFY `work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
@@ -660,13 +717,15 @@ ALTER TABLE `tb_daily_report`
 --
 ALTER TABLE `tb_inspection`
   ADD CONSTRAINT `tb_inspection_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
-  ADD CONSTRAINT `tb_inspection_ibfk_2` FOREIGN KEY (`inspec_result_id`) REFERENCES `tb_inspec_result` (`inspec_result_id`);
+  ADD CONSTRAINT `tb_inspection_ibfk_2` FOREIGN KEY (`inspec_result_id`) REFERENCES `tb_inspec_result` (`inspec_result_id`),
+  ADD CONSTRAINT `tb_inspection_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 
 --
 -- Constraints for table `tb_labor`
 --
 ALTER TABLE `tb_labor`
-  ADD CONSTRAINT `tb_labor_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`);
+  ADD CONSTRAINT `tb_labor_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
+  ADD CONSTRAINT `tb_labor_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 
 --
 -- Constraints for table `tb_material`
@@ -674,7 +733,15 @@ ALTER TABLE `tb_labor`
 ALTER TABLE `tb_material`
   ADD CONSTRAINT `tb_material_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
   ADD CONSTRAINT `tb_material_ibfk_2` FOREIGN KEY (`unit_id`) REFERENCES `tb_unit` (`unit_id`),
-  ADD CONSTRAINT `tb_material_ibfk_3` FOREIGN KEY (`unit_id`) REFERENCES `tb_unit` (`unit_id`);
+  ADD CONSTRAINT `tb_material_ibfk_3` FOREIGN KEY (`unit_id`) REFERENCES `tb_unit` (`unit_id`),
+  ADD CONSTRAINT `tb_material_ibfk_4` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
+
+--
+-- Constraints for table `tb_problem`
+--
+ALTER TABLE `tb_problem`
+  ADD CONSTRAINT `tb_problem_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
+  ADD CONSTRAINT `tb_problem_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 
 --
 -- Constraints for table `tb_project`
@@ -687,20 +754,23 @@ ALTER TABLE `tb_project`
 -- Constraints for table `tb_request`
 --
 ALTER TABLE `tb_request`
-  ADD CONSTRAINT `tb_request_ibfk_1` FOREIGN KEY (`user_detail_id`) REFERENCES `tb_user_detail` (`user_detail_id`);
+  ADD CONSTRAINT `tb_request_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`),
+  ADD CONSTRAINT `tb_request_ibfk_3` FOREIGN KEY (`comp_id`) REFERENCES `tb_company` (`comp_id`);
 
 --
 -- Constraints for table `tb_strike`
 --
 ALTER TABLE `tb_strike`
-  ADD CONSTRAINT `tb_strike_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`);
+  ADD CONSTRAINT `tb_strike_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
+  ADD CONSTRAINT `tb_strike_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 
 --
 -- Constraints for table `tb_tool`
 --
 ALTER TABLE `tb_tool`
   ADD CONSTRAINT `tb_tool_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `tb_unit` (`unit_id`),
-  ADD CONSTRAINT `tb_tool_ibfk_2` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`);
+  ADD CONSTRAINT `tb_tool_ibfk_2` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
+  ADD CONSTRAINT `tb_tool_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 
 --
 -- Constraints for table `tb_user_detail`
@@ -715,13 +785,15 @@ ALTER TABLE `tb_user_detail`
 ALTER TABLE `tb_weather`
   ADD CONSTRAINT `tb_weather_ibfk_1` FOREIGN KEY (`period_id`) REFERENCES `tb_period` (`period_id`),
   ADD CONSTRAINT `tb_weather_ibfk_2` FOREIGN KEY (`sta_id`) REFERENCES `tb_sta_weather` (`sta_id`),
-  ADD CONSTRAINT `tb_weather_ibfk_3` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`);
+  ADD CONSTRAINT `tb_weather_ibfk_3` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
+  ADD CONSTRAINT `tb_weather_ibfk_4` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 
 --
 -- Constraints for table `tb_work`
 --
 ALTER TABLE `tb_work`
-  ADD CONSTRAINT `tb_work_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`);
+  ADD CONSTRAINT `tb_work_ibfk_1` FOREIGN KEY (`dr_id`) REFERENCES `tb_daily_report` (`dr_id`),
+  ADD CONSTRAINT `tb_work_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `tb_project` (`project_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,5 +1,13 @@
 
-::ng-deep p-menubarsub {
+::ng-deep .menu1 p-menubarsub {
+  margin-left: 650px;
+}
+
+::ng-deep .menu2 p-menubarsub {
+  margin-left: 800px;
+}
+
+::ng-deep .menu3 p-menubarsub {
   margin-left: 730px;
 }
 

@@ -1,5 +1,5 @@
 <div class="p-dialog-title">
-    <h1>การร้องขอ</h1>
+    <h1>แก้ไขการร้องขอ</h1>
 </div>
 <div class="p-dialog-content">
     <div class="p-fluid formgrid gird">
@@ -15,30 +15,30 @@
     <div class="p-fluid formgrid grid">
         <div class="field col">
             <p-fileUpload name="req_problem" chooseLabel="เลือกไฟล์ปัญหา" (onSelect)="selectedProblem($event)"
-                [auto]="true" [maxFileSize]="10000000"></p-fileUpload>
+                [(ngModel)]="req_problem" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
         </div>
     </div>
     <br>
-    <div class="p-fluid formgrid grid">
+    <!-- <div class="p-fluid formgrid grid">
         <div class="field col">
             <p-fileUpload name="req_daily" chooseLabel="เลือกไฟล์ใบอนุญาตประจำวัน" (onSelect)="selectedDaily($event)"
-                [auto]="true" [maxFileSize]="10000000"></p-fileUpload>
+                [(ngModel)]="req_daily" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
         </div>
     </div>
     <br>
     <div class="p-fluid formgrid grid">
         <div class="field col">
-            <p-fileUpload name="req_license" chooseLabel="เลือกไฟล์ใบอนุญาตการก่อสร้าง"
-                (onSelect)="selectedLicense($event)" [auto]="true" [maxFileSize]="10000000"></p-fileUpload>
+            <p-fileUpload name="req_license" chooseLabel="เลือกไฟล์ใบอนุญาตการก่อสร้าง" [(ngModel)]="req_license"
+                (onSelect)="selectedLicense($event)" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
         </div>
     </div>
     <br>
     <div class="p-fluid formgrid grid">
         <div class="field col">
-            <p-fileUpload name="req_certificate" chooseLabel="เลือกไฟล์ใบรับรอง"
-                (onSelect)="selectedCertificate($event)" [auto]="true" [maxFileSize]="10000000"></p-fileUpload>
+            <p-fileUpload name="req_certificate" chooseLabel="เลือกไฟล์ใบรับรอง" [(ngModel)]="req_certificate"
+                (onSelect)="selectedCertificate($event)" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
         </div>
-    </div>
+    </div> -->
 </div>
 <div class="p-dialog-footer">
     <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>

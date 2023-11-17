@@ -25,11 +25,13 @@
 
             $req_item = array(
                 'req_id' => $req_id,
+                'req_date' => $req_date,
                 'req_problem' => $req_problem,
                 'req_daily' => $req_daily,
                 'req_license' => $req_license,
                 'req_certificate' => $req_certificate,
-                'user_detail_id' => $user_detail_id
+                'project_id' => $project_id,
+                'comp_id' => $comp_id,
             );
 
             array_push($req_arr, $req_item);

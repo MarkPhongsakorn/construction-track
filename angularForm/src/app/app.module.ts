@@ -42,6 +42,9 @@ import { EditDetailComponent } from './edit-detail/edit-detail.component';
 import { RequestAdminComponent } from './request-admin/request-admin.component';
 import { RequestUserComponent } from './request-user/request-user.component';
 import { AddRequestUserComponent } from './add-request-user/add-request-user.component';
+import { EditRequestUserComponent } from './edit-request-user/edit-request-user.component';
+import { DeleteRequestUserComponent } from './delete-request-user/delete-request-user.component';
+import { ProfileComponent } from './profile/profile.component';
 import { PdfService } from './services/reports/pdf.service';
 
 import { MenubarModule } from 'primeng/menubar';
@@ -54,6 +57,9 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
 import { FileUploadModule } from 'primeng/fileupload';
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -74,7 +80,11 @@ import { FileUploadModule } from 'primeng/fileupload';
     EditDetailComponent,
     RequestAdminComponent,
     RequestUserComponent,
-    AddRequestUserComponent
+    AddRequestUserComponent,
+    EditRequestUserComponent,
+    DeleteRequestUserComponent,
+    ProfileComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,6 +119,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     CalendarModule,
     TooltipModule,
     FileUploadModule,
+    CardModule,
+    DividerModule
   ],
   providers: [AuthGuardService, PdfService],
   bootstrap: [AppComponent]
