@@ -74,6 +74,13 @@ export class AddRequestUserComponent implements OnInit {
             window.location.reload();
           }
         });
+      } else if (event.status === "error1") {
+        Swal.fire({
+          title: 'ข้อผิดพลาด',
+          text: 'ไม่สามารถอัพโหลดไฟล์ได้เนื่องจากมีไฟล์ชื่อนี้อยู่แล้ว',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
       } else {
         Swal.fire({
           title: 'ข้อผิดพลาด',

@@ -94,7 +94,7 @@
                 <th>Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-reports *ngIf="!this.projectID">
+        <ng-template pTemplate="body" let-reports *ngIf="!projectID">
             <tr>
                 <td>{{ reports.dr_id }}</td>
                 <td>{{ reports.dr_time | date: 'dd/MM/yyyy' }}</td>
@@ -107,8 +107,6 @@
                 <td>
                     <a pButton icon="pi pi-pencil" pTooltip="เพิ่มรายละเอียดรายงานประจำวัน" class="p-button-warning"
                         (click)="openDialog4(reports.dr_id)"></a>
-                    <a pButton icon="pi pi-download" pTooltip="ดาวน์โหลดรายงานประจำวัน" class="p-button-secondary"
-                        (click)="openDialog3(reports.dr_id)"></a>
                     <a pButton icon="pi pi-file-edit" pTooltip="แก้ไชรายงานประจำวัน" class="p-button-help"
                         (click)="openDialog2(reports.dr_id)"></a>
                     <a pButton icon="pi pi-trash" pTooltip="ลบรายงานประจำวัน" class="p-button-danger"
@@ -117,7 +115,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="not" *ngIf="this.projectID">
+            <div class="not" *ngIf="projectID">
                 <h1>ไม่มีข้อมูล</h1>
             </div>
         </ng-template>

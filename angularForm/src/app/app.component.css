@@ -1,4 +1,3 @@
-
 ::ng-deep .menu1 p-menubarsub {
   margin-left: 650px;
 }
@@ -12,9 +11,15 @@
 }
 
 ::ng-deep .p-menubar {
-  background: rgb(1,116,195);
+  background: #11998e;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #38ef7d, #11998e);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   border: none;
   border-radius: 0;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 ::ng-deep .p-menubar-button {
@@ -23,16 +28,16 @@
 }
 
 ::ng-deep .title {
-  color: white;
-  background: rgb(1,116,195);
-  padding: 5px;
+  background: none;
+  padding: 10px;
   font-size: 25px;
   text-decoration: none;
   margin-left: 20px;
 }
 
 ::ng-deep .title:hover {
-  background: rgb(0,104,175);
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   border-radius: 6px;
 }
 
@@ -48,12 +53,13 @@
   transition: none;
 }
 
-::ng-deep .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus > .p-menuitem-content {
+::ng-deep .p-menubar .p-menuitem:not(.p-highlight):not(.p-disabled).p-focus>.p-menuitem-content {
   background: none;
 }
 
 ::ng-deep .p-menuitem-content:hover {
-  background: rgb(0,104,175);
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   outline: none;
   box-shadow: none;
 }
@@ -64,14 +70,38 @@
   }
 
   ::ng-deep .p-menuitem-text {
-    color: black;
+    color: white;
   }
 
   ::ng-deep .p-menuitem-icon {
-    color: black;
+    color: white;
   }
 
   ::ng-deep .p-menubar-button {
     color: white;
+  }
+
+  ::ng-deep .p-menubar-button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+
+  ::ng-deep .p-menubar-root-list {
+    background: #11998e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #38ef7d, #11998e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    padding: 0;
+  }
+
+  ::ng-deep .p-menuitem-content {
+    border-radius: 0;
+  }
+
+  ::ng-deep .p-menuitem-content:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   }
 }

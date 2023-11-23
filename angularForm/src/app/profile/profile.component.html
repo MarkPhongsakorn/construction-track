@@ -1,26 +1,42 @@
 <div class="card">
-    <div class="p-header">
-        <h1>ข้อมูลผู้ใช้</h1>
-    </div>
-    <div class="p-content">
-        <div class="p-fluid form-grid grid">
-            <div class="field col-6" [align]="'end'">
-                <h2>{{ prefix }}{{ fname }} {{ lname }}</h2>
-            </div>
-            <div class="field col-6" [align]="'start'">
-                <h2>ตำแหน่ง: {{ position }}</h2>
-            </div>
+    <h1>ข้อมูลผู้ใช้</h1>
+    <div class="p-fluid formgrid grid">
+        <div class="field col-4">
+            <label for="float-label">คำนำหน้า:</label>
+            <p-dropdown [options]="prefixes" [disabled]="true" [(ngModel)]="selectedPrefix" name="selectedPrefix"
+                placeholder="คำนำหน้า" optionLabel="prefix_tname" optionValue="prefix_id"></p-dropdown>
         </div>
-        <div class="p-fluid form-grid grid">
-            <div class="field col-6">
-                <h2>E-mail: {{ email }}</h2>
-            </div>
-            <div class="field col-6">
-                <h2>โทร.: {{ tel }}</h2>
-            </div>
+        <div class="field col-4">
+            <label htmlFor="user_fname">ชื่อ:</label>
+            <input type="text" pInputText name="user_fname" id="user_fname" [disabled]="true" [(ngModel)]="fname" />
+        </div>
+        <div class="field col-4">
+            <label htmlFor="user_lname">นามสกุล:</label>
+            <input type="text" pInputText name="user_lname" id="user_lname" [disabled]="true" [(ngModel)]="lname" />
         </div>
     </div>
-    <div class="p-footer">
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <label for="float-label">ตำแหน่ง:</label>
+            <p-dropdown [options]="positions" [disabled]="true" [(ngModel)]="selectedPosition" name="selectedPosition"
+                placeholder="ตำแหน่ง" optionLabel="pos_name" optionValue="pos_id"></p-dropdown>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <label htmlFor="user_email">E-mail:</label>
+            <input type="text" pInputText name="user_email" id="user_email" [disabled]="true" [(ngModel)]="email" />
+        </div>
+
+        <div class="field col">
+            <label htmlFor="user_tel">เบอร์โทร:</label>
+            <input type="text" pInputText name="user_tel" id="user_tel" [disabled]="true" [(ngModel)]="tel" />
+        </div>
+    </div>
+    <br>
+    <div class="btnEdit">
         <p-button styleClass="p-button-warning" (click)="profile()" label="แก้ไขข้อมูล"></p-button>
     </div>
 </div>

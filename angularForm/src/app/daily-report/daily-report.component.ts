@@ -7,19 +7,7 @@ import { EditReportComponent } from '../edit-report/edit-report.component';
 import { DeleteReportComponent } from '../delete-report/delete-report.component';
 import { AddDetailComponent } from '../add-detail/add-detail.component';
 import { DetailReportComponent } from '../detail-report/detail-report.component';
-import { PeriodService } from '../services/reports/period.service';
-import { StaWeatherService } from '../services/reports/sta-weather.service';
-import { WeatherService } from '../services/reports/weather.service';
-import { LaborService } from '../services/reports/labor.service';
-import { WorkService } from '../services/reports/work.service';
-import { UnitService } from '../services/reports/unit.service';
-import { ToolService } from '../services/reports/tool.service';
-import { MaterialService } from '../services/reports/material.service';
-import { ProblemService } from '../services/reports/problem.service';
-import { StrikeService } from '../services/reports/strike.service';
-import { InspectionService } from '../services/reports/inspection.service';
-import { InspecResultService } from '../services/reports/inspec-result.service';
-import { PdfService } from '../services/reports/pdf.service';
+
 
 @Component({
   selector: 'app-daily-report',
@@ -44,7 +32,6 @@ export class DailyReportComponent implements OnInit {
     public dialogService: DialogService,
     private report: ReportService,
     private route: ActivatedRoute,
-    private pdfService: PdfService
   ) {}
   
   ngOnInit() {
@@ -64,12 +51,8 @@ export class DailyReportComponent implements OnInit {
         this.reports = res;
         this.projectID = false;
       }
+      
     });
-  }
-
-  generatePDF() {
-    const content = this.reports;
-    this.pdfService.generatePDF(JSON.stringify(content));  // Pass content as a JSON string
   }
   
   

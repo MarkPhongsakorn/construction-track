@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/users/user.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { PrefixService } from '../services/users/prefix.service';
+import { PositionService } from '../services/users/position.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,22 +20,38 @@ export class ProfileComponent implements OnInit {
   email: string = '';
   tel: string = '';
 
+  prefixes: any[] = [];
+  selectedPrefix: string = '';
+
+  positions: any[] = [];
+  selectedPosition: string = '';
+
   ref: DynamicDialogRef | undefined;
 
   constructor(
     private userService: UserService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private prefixService: PrefixService,
+    private positionService: PositionService,
 
   ) {}
 
   ngOnInit(): void {
+    this.prefixService.getPrefix().subscribe(data => {
+      this.prefixes = data;
+    });
+
+    this.positionService.getPos().subscribe(data => {
+      this.positions = data;
+    })
+
     const user_id = sessionStorage.getItem('user_detail_id');
     if (user_id != null) {
       this.userService.getUser(user_id).subscribe(data => {
-        this.prefix = data['prefix_tname']
+        this.selectedPrefix = data['prefix_id']
         this.fname = data['user_fname']
         this.lname = data['user_lname']
-        this.position = data['pos_name']
+        this.selectedPosition = data['pos_id']
         this.email = data['user_email']
         this.tel = data['user_tel']
       });

@@ -63,13 +63,18 @@
                 </td>
             </tr>
         </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="not" *ngIf="projectID">
+                <h1>ไม่มีข้อมูล</h1>
+            </div>
+        </ng-template>
     </p-table>
 </div>
 
-<div class="not" *ngIf="this.projectID">
+<!-- <div class="not" *ngIf="this.projectID">
     <h1>ไม่มีข้อมูล</h1>
-</div>
-<div class="card" *ngIf="isSearchPerformed && !projectID">
+</div> -->
+<div class="card" *ngIf="isSearchPerformed">
     <p-table [value]="request" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
@@ -89,7 +94,7 @@
                 <th>Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-requests *ngIf="!this.projectID">
+        <ng-template pTemplate="body" let-requests *ngIf="!projectID">
             <tr>
                 <td>{{ requests.req_id }}</td>
                 <td>{{ requests.req_date | date: 'dd/MM/yyyy' }}</td>
@@ -100,10 +105,10 @@
                 <td></td>
             </tr>
         </ng-template>
-        <!-- <ng-template pTemplate="summary">
-            <div class=" not" *ngIf="!this.projectID">
+        <ng-template pTemplate="summary">
+            <div class="not" *ngIf="projectID">
                 <h1>ไม่มีข้อมูล</h1>
             </div>
-        </ng-template> -->
+        </ng-template>
     </p-table>
 </div>

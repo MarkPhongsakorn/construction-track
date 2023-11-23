@@ -22,7 +22,7 @@ export class RequestAdminComponent implements OnInit {
   request: any[] = [];
   reqAll: any[] = [];
   isSearchPerformed: boolean = false;
-
+  isSearching: boolean = false;
 
   constructor(
     private projectService: ProjectService,
@@ -44,15 +44,25 @@ export class RequestAdminComponent implements OnInit {
   }
 
   search() {
-    this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
-      if (res.status === 'error') {
-        this.projectID = true;
-      } else {
-        this.request = res;
-        this.projectID = false;
-      }
-      this.isSearchPerformed = true;
+    // ถ้ากำลังทำการค้นหาอยู่แล้ว ไม่ต้องทำอะไรเพิ่ม
+    if (this.isSearching) {
+        return;
+    }
+
+    // ตั้งค่าให้ isSearching เป็น true เพื่อบอกว่ากำลังทำการค้นหา
+    this.isSearching = true;
+
+    this.req.getReq(this.selectProjectId, this.selectCompId).subscribe((res: any) => {
+        if (res.status === 'error') {
+            this.projectID = true;
+        } else {
+            this.request = res;
+            this.projectID = false;
+        }
+        this.isSearchPerformed = true;
+
+        // เมื่อทำงานเสร็จสิ้น ตั้งค่า isSearching เป็น false
+        this.isSearching = false;
     });
-    
-  }
+}
 }

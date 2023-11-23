@@ -9,6 +9,10 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { EditDetailComponent } from '../edit-detail/edit-detail.component';
 import { DynamicDialogRef, DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ExcelExportService } from '../services/reports/excel-export.service';
+import { ReportService } from '../services/reports/report.service';
+import { ProjectService } from '../services/projects/project.service';
+import { format } from 'date-fns-tz';
 
 @Component({
   selector: 'app-detail-report',
@@ -19,7 +23,6 @@ import { DynamicDialogRef, DialogService, DynamicDialogConfig } from 'primeng/dy
 export class DetailReportComponent implements OnInit {
 
   problem: string = '';
-  dr_id: string = '';
 
   period_name1: string = '';
   period_name2: string = '';
@@ -31,7 +34,7 @@ export class DetailReportComponent implements OnInit {
   morning: string = '1';
   afternoon: string = '2';
 
-  labors: any[] = []; 
+  labors: any[] = [];
 
   works: any[] = [];
 
@@ -39,11 +42,11 @@ export class DetailReportComponent implements OnInit {
 
   mats: any[] = [];
 
-  strike_detail: string = ''; 
-  strike_cause: string = ''; 
+  strike_detail: string = '';
+  strike_cause: string = '';
 
   inspec_result: string = '';
-  
+
   readWeather1: boolean = false;
   readWeather2: boolean = false;
   readLabor: boolean = false;
@@ -55,6 +58,11 @@ export class DetailReportComponent implements OnInit {
   readReport: boolean = false;
 
   ref: DynamicDialogRef | undefined;
+
+  dr_id: string = '';
+  dr_time: Date = new Date;
+  project_name: string = '';
+  comp_name: string = '';
 
   constructor(
     public dialogRef: DynamicDialogRef,
@@ -68,7 +76,10 @@ export class DetailReportComponent implements OnInit {
     private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-  ) { 
+    private excelExportService: ExcelExportService,
+    private reportService: ReportService,
+    private projectService: ProjectService,
+  ) {
   }
 
   ngOnInit() {
@@ -80,28 +91,30 @@ export class DetailReportComponent implements OnInit {
     this.prob();
     this.strike();
     this.inspec();
+    this.report();
+    this.project();
   }
 
   weather() {
     this.weatherService.readOne(this.config.data.dr_id, this.morning).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readWeather1 = true
       } else {
         this.period_name1 = data['period_name'];
-      this.sta_name1 = data['sta_name'];
-      this.sta_time1 = data['sta_time'];
+        this.sta_name1 = data['sta_name'];
+        this.sta_time1 = data['sta_time'];
         return this.readWeather1
       }
     });
     this.weatherService.readOne(this.config.data.dr_id, this.afternoon).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readWeather2 = true
       } else {
         this.period_name2 = data['period_name'];
-      this.sta_name2 = data['sta_name'];
-      this.sta_time2 = data['sta_time'];
+        this.sta_name2 = data['sta_name'];
+        this.sta_time2 = data['sta_time'];
         return this.readWeather2
       }
     });
@@ -109,7 +122,7 @@ export class DetailReportComponent implements OnInit {
 
   labor() {
     this.laborService.readOne(this.config.data.dr_id).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readLabor = true
       } else {
@@ -121,7 +134,7 @@ export class DetailReportComponent implements OnInit {
 
   work() {
     this.workService.readOne(this.config.data.dr_id).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readWork = true
       } else {
@@ -133,7 +146,7 @@ export class DetailReportComponent implements OnInit {
 
   tool() {
     this.toolService.readOne(this.config.data.dr_id).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readTool = true
       } else {
@@ -145,7 +158,7 @@ export class DetailReportComponent implements OnInit {
 
   mat() {
     this.matService.readOne(this.config.data.dr_id).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readMaterial = true
       } else {
@@ -157,7 +170,7 @@ export class DetailReportComponent implements OnInit {
 
   prob() {
     this.problemService.readOne(this.config.data.dr_id).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readReport = true
       } else {
@@ -169,20 +182,20 @@ export class DetailReportComponent implements OnInit {
 
   strike() {
     this.strikeService.readOne(this.config.data.dr_id).subscribe(data => {
-        
-        if (data.status === "error") {
-          return this.readStrike = true
-        } else {
-          this.strike_detail = data['strike_detail'];
+
+      if (data.status === "error") {
+        return this.readStrike = true
+      } else {
+        this.strike_detail = data['strike_detail'];
         this.strike_cause = data['strike_cause'];
-          return this.readStrike
-        }
+        return this.readStrike
+      }
     });
   }
 
   inspec() {
     this.inspecService.readOne(this.config.data.dr_id).subscribe(data => {
-      
+
       if (data.status === "error") {
         return this.readInspec = true
       } else {
@@ -200,6 +213,46 @@ export class DetailReportComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
+  }
+
+  report() {
+    this.reportService.getOneReport(this.config.data.dr_id).subscribe(data => {
+      this.project_name = data['project_name'];
+      this.dr_time = data['dr_time']
+    })
+  }
+
+  project() {
+    this.projectService.readOne(this.config.data.project_id).subscribe(data => {
+      this.comp_name = data['comp_name'];
+    });
+  }
+
+  exportToExcel(): void {
+    const data = [
+      ['ปัญหาและอุปสรรค', 'การหยุดงาน', 'สาเหตุการหยุดงาน'],
+      [this.problem, this.strike_detail, this.strike_cause],
+    ];
+
+    const drTime = new Date(this.dr_time)
+    const formattedDate = format(drTime, 'dd/MM/yyyy');
+
+    // console.log(this.comp_name);
+
+    const fileName = 'test';
+    const sheetName = 'Sheet1';
+
+    this.excelExportService.exportToExcel(
+      data, this.labors,
+      this.project_name,
+      formattedDate,
+      this.comp_name,
+      this.period_name1,
+      this.sta_name1,
+      this.sta_time1,
+      fileName,
+      sheetName
+    );
   }
 
 }
