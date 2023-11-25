@@ -64,6 +64,12 @@ export class DetailReportComponent implements OnInit {
   project_name: string = '';
   comp_name: string = '';
 
+  labor_name: string[] = [];
+  labor_num: number[] = [];
+
+  work_num: number[] = [];
+  work_detail: string[] = [];
+
   constructor(
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -127,6 +133,11 @@ export class DetailReportComponent implements OnInit {
         return this.readLabor = true
       } else {
         this.labors = data;
+        this.labors.forEach(labor => {
+          this.labor_name.push(labor.labor_name);
+          this.labor_num.push(labor.labor_num);
+          // ทำสิ่งที่คุณต้องการกับ laborName และ laborNum ที่ได้
+        });
         return this.readLabor
       }
     });
@@ -139,6 +150,10 @@ export class DetailReportComponent implements OnInit {
         return this.readWork = true
       } else {
         this.works = data;
+        this.works.forEach(work => {
+          this.work_num.push(work.work_num);
+          this.work_detail.push(work.work_detail);
+        })
         return this.readWork
       }
     });
@@ -229,27 +244,30 @@ export class DetailReportComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    const data = [
-      ['ปัญหาและอุปสรรค', 'การหยุดงาน', 'สาเหตุการหยุดงาน'],
-      [this.problem, this.strike_detail, this.strike_cause],
-    ];
-
     const drTime = new Date(this.dr_time)
     const formattedDate = format(drTime, 'dd/MM/yyyy');
 
-    // console.log(this.comp_name);
+    // console.log(this.labor_name);
+    // console.log(this.labor_num);
+
 
     const fileName = 'test';
     const sheetName = 'Sheet1';
 
     this.excelExportService.exportToExcel(
-      data, this.labors,
       this.project_name,
       formattedDate,
       this.comp_name,
       this.period_name1,
       this.sta_name1,
       this.sta_time1,
+      this.period_name2,
+      this.sta_name2,
+      this.sta_time2,
+      this.labor_name,
+      this.labor_num,
+      this.work_num,
+      this.work_detail,
       fileName,
       sheetName
     );
