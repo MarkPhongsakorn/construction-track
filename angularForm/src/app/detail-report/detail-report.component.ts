@@ -70,6 +70,15 @@ export class DetailReportComponent implements OnInit {
   work_num: number[] = [];
   work_detail: string[] = [];
 
+  tool_name: string[] = [];
+  tool_num: number[] = [];
+  unit_tool: string[] = [];
+
+  mat_name: string[] = [];
+  mat_num: number[] = [];
+  unit_mat: string[] = [];
+
+
   constructor(
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -166,6 +175,11 @@ export class DetailReportComponent implements OnInit {
         return this.readTool = true
       } else {
         this.tools = data;
+        this.tools.forEach(tool => {
+          this.tool_name.push(tool.tool_name);
+          this.tool_num.push(tool.tool_num);
+          this.unit_tool.push(tool.unit_name);
+        })
         return this.readTool
       }
     });
@@ -178,6 +192,11 @@ export class DetailReportComponent implements OnInit {
         return this.readMaterial = true
       } else {
         this.mats = data;
+        this.mats.forEach(mat => {
+          this.mat_name.push(mat.mat_name);
+          this.mat_num.push(mat.mat_num);
+          this.unit_mat.push(mat.unit_name);
+        })
         return this.readMaterial
       }
     });
@@ -268,6 +287,12 @@ export class DetailReportComponent implements OnInit {
       this.labor_num,
       this.work_num,
       this.work_detail,
+      this.tool_name,
+      this.tool_num,
+      this.unit_tool,
+      this.mat_name,
+      this.mat_num,
+      this.unit_mat,
       fileName,
       sheetName
     );
