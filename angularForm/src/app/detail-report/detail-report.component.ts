@@ -293,6 +293,10 @@ export class DetailReportComponent implements OnInit {
       this.mat_name,
       this.mat_num,
       this.unit_mat,
+      this.problem,
+      this.strike_detail,
+      this.strike_cause,
+      this.inspec_result,
       fileName,
       sheetName
     );
