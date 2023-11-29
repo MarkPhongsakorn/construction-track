@@ -34,3 +34,7 @@ h1 {
 ::ng-deep .swal2-container {
     z-index: 2204;
 }
+
+/* ::ng-deep .p-dialog {
+    box-shadow: none;
+} */

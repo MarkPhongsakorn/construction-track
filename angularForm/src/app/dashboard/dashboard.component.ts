@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     private project: ProjectService,
     private report: ReportService,
     public dialogService: DialogService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.project.readProject().subscribe((res: any) => {
@@ -36,8 +36,7 @@ export class DashboardComponent implements OnInit {
         return this.projectID = true;
       } else {
         this.projects = res;
-        console.log(this.projects);
-        
+
         return this.projectID = false;
       }
     });
@@ -45,12 +44,12 @@ export class DashboardComponent implements OnInit {
 
 
   openDialog() {
-    this.ref = this.dialogService.open(AddProjectComponent, { header: ''});
+    this.ref = this.dialogService.open(AddProjectComponent, { header: '' });
   }
 
   openDialog2(project_id: string) {
-     this.project_id = project_id;
-     this.ref = this.dialogService.open(EditProjectComponent, {
+    this.project_id = project_id;
+    this.ref = this.dialogService.open(EditProjectComponent, {
       data: { project_id: this.project_id }, header: ''
     });
   }

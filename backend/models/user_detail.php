@@ -107,10 +107,10 @@
         public function update() {
             $query = 'UPDATE ' . $this->table . '
             SET
-                username = :username,
-                password = :password,
+                prefix_id = :prefix_id,
                 user_fname = :user_fname,
                 user_lname = :user_lname,
+                pos_id = :pos_id,
                 user_email = :user_email,
                 user_tel = :user_tel
             WHERE
@@ -119,21 +119,21 @@
             $stmt = $this->conn->prepare($query);
 
             
-
-            $this->username = htmlspecialchars(strip_tags($this->username));
-            $this->password = htmlspecialchars(strip_tags($this->password));
             $this->user_fname = htmlspecialchars(strip_tags($this->user_fname));
             $this->user_lname = htmlspecialchars(strip_tags($this->user_lname));
             $this->user_email = htmlspecialchars(strip_tags($this->user_email));
             $this->user_tel = htmlspecialchars(strip_tags($this->user_tel));
+            $this->pos_id = htmlspecialchars(strip_tags($this->pos_id));
+            $this->prefix_id = htmlspecialchars(strip_tags($this->prefix_id));
 
-            $stmt->bindParam(':username', $this->username);
-            $stmt->bindParam(':password', $this->password);
             $stmt->bindParam(':user_fname', $this->user_fname);
             $stmt->bindParam(':user_lname', $this->user_lname);
             $stmt->bindParam(':user_email', $this->user_email);
             $stmt->bindParam(':user_tel', $this->user_tel);
             $stmt->bindParam(':user_detail_id', $this->user_detail_id);
+
+            $stmt->bindParam(':prefix_id', $this->prefix_id);
+            $stmt->bindParam(':pos_id', $this->pos_id);
 
             if($stmt->execute()) {
                 return true;

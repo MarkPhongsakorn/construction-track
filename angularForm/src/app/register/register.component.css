@@ -24,9 +24,10 @@ h2 {
 }
 
 .card {
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     margin-top: 150px;
+    margin-bottom: 150px;
     margin-left: 30%;
     margin-right: 30%;
     padding: 10px;
@@ -48,3 +49,21 @@ h2 {
 ::ng-deep .p-dropdown {
     width: 100%;
 } */
+
+@media screen and (max-width: 540px) {
+    .card {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+@media screen and (max-width: 431px) {
+    .card {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}

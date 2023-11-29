@@ -39,12 +39,6 @@ export class ExcelExportService {
     sheetName: string
   ): void {
 
-
-    console.log(labor_name);
-    console.log(labor_num);
-    console.log(work_detail);
-
-
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet(sheetName);
     const borderThin: Partial<ExcelJS.Borders> = {
@@ -786,7 +780,7 @@ export class ExcelExportService {
 
     workbook.xlsx.writeBuffer().then((buffer: ArrayBuffer) => {
       const blob = new Blob([buffer], { type: EXCEL_TYPE });
-      saveAs(blob, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+      saveAs(blob, fileName + EXCEL_EXTENSION);
     });
   }
 }

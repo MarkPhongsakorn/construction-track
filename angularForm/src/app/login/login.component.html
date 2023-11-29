@@ -30,17 +30,25 @@
 
 <div class="card">
     <form (ngSubmit)="onSubmit()">
-    <h1>เข้าสู่ระบบ</h1>
-    <span class="p-float-label width-100">
-        <input class="p-inputtext-lg" type="text" pInputText name="username" id="username" [(ngModel)]="username" />
-        <label htmlFor="username">ชื่อผู้ใช้</label>
-    </span>
-    <br>
-    <span class="p-float-label width-100">
-        <input class="p-inputtext-lg" type="password" pInputText name="password" id="password" [(ngModel)]="password" />
-        <label htmlFor="password">รหัสผ่าน</label>
-    </span>
-    <br>
-    <p-button class="login" label="เข้าสู่ระบบ" type="submit"></p-button>
+        <h1>เข้าสู่ระบบ</h1>
+        <div class="p-fluid formgrid grid">
+            <div class="field col-12">
+                <span class="p-float-label">
+                    <input type="text" pInputText class="p-inputtext-lg" name="username" id="username"
+                        [(ngModel)]="username" />
+                    <label htmlFor="username">ชื่อผู้ใช้</label>
+                </span>
+            </div>
+        </div>
+        <div class="p-fluid formgird grid">
+            <div class="field col-12">
+                <span class="p-float-label">
+                    <input type="password" pInputText class="p-inputtext-lg" name="password" id="password"
+                        [(ngModel)]="password" />
+                    <label htmlFor="password">รหัสผ่าน</label>
+                </span>
+            </div>
+        </div>
+        <p-button class="login" label="เข้าสู่ระบบ" type="submit"></p-button>
     </form>
 </div>

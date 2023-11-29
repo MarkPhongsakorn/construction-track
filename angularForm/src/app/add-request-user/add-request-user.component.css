@@ -35,23 +35,26 @@ h1 {
 /* ปรับแต่งสีพื้นหลังของ mat-form-field */
 .mat-form-field {
     background-color: #f0f0f0;
-  }
-  
-  /* ปรับแต่งสไตล์ของปุ่ม "Upload" */
-  button[type="submit"] {
+}
+
+/* ปรับแต่งสไตล์ของปุ่ม "Upload" */
+button[type="submit"] {
     background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-  }
-  
-  /* เมื่อนำเมาส์ไปชี้ที่ปุ่ม "Upload" */
-  button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
+}
 
-  ::ng-deep .swal2-container {
+/* เมื่อนำเมาส์ไปชี้ที่ปุ่ม "Upload" */
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+::ng-deep .swal2-container {
     z-index: 2204;
 }
-  
+
+/* ::ng-deep .p-dialog {
+    box-shadow: none;
+} */

@@ -265,13 +265,10 @@ export class DetailReportComponent implements OnInit {
   exportToExcel(): void {
     const drTime = new Date(this.dr_time)
     const formattedDate = format(drTime, 'dd/MM/yyyy');
+    const nameSheet = format(drTime, 'dd-MM-yyyy');
 
-    // console.log(this.labor_name);
-    // console.log(this.labor_num);
-
-
-    const fileName = 'test';
-    const sheetName = 'Sheet1';
+    const fileName = 'รายงานประจำวันที่_' + formattedDate;
+    const sheetName = nameSheet;
 
     this.excelExportService.exportToExcel(
       this.project_name,

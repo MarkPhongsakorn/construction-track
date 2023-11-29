@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'angularForm';
+  title = 'Eden Hazard';
 
   isLogin: boolean = false;
   isPos1: boolean = false;
@@ -29,9 +29,9 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-  ) {}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.isUserLogin();
     this.item();
   }
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
         command: () => this.logout()
       }
     ]
-    
+
   }
 
   isUserLogin() {
@@ -106,5 +106,5 @@ export class AppComponent implements OnInit {
       window.location.reload();
     });
   }
-  
+
 }
