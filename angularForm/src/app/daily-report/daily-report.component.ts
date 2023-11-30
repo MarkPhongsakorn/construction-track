@@ -17,6 +17,9 @@ import { DetailReportComponent } from '../detail-report/detail-report.component'
 })
 export class DailyReportComponent implements OnInit {
 
+  row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
+  first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
+
   reports: any[] = [];
 
   morning: string = '1';
@@ -27,21 +30,21 @@ export class DailyReportComponent implements OnInit {
   projectID: boolean = false;
   project: string = '';
   dr_id: string = '';
-  
+
   constructor(
     public dialogService: DialogService,
     private report: ReportService,
     private route: ActivatedRoute,
-  ) {}
-  
+  ) { }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.project = (+params['project_id']).toString(); 
+      this.project = (+params['project_id']).toString();
       this.loadReportData();
     });
-    
+
   }
-  
+
   loadReportData() {
     this.report.getOneByproject(this.project).subscribe(res => {
       // this.date = res['project_name'];
@@ -51,14 +54,15 @@ export class DailyReportComponent implements OnInit {
         this.reports = res;
         this.projectID = false;
       }
-      
+
     });
   }
-  
-  
+
+
   openDialog() {
     this.ref = this.dialogService.open(AddReportComponent, {
-      data: { project_id: this.project }, header: ''});
+      data: { project_id: this.project }, header: ''
+    });
   }
 
   openDialog2(dr_id: string) {

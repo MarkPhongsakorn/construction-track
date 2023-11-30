@@ -7,6 +7,7 @@ import { AddRequestUserComponent } from '../add-request-user/add-request-user.co
 import { EditRequestUserComponent } from '../edit-request-user/edit-request-user.component';
 import { DeleteRequestUserComponent } from '../delete-request-user/delete-request-user.component';
 
+
 @Component({
   selector: 'app-request-user',
   templateUrl: './request-user.component.html',
@@ -14,6 +15,10 @@ import { DeleteRequestUserComponent } from '../delete-request-user/delete-reques
   providers: [DialogService]
 })
 export class RequestUserComponent implements OnInit {
+
+  row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
+  first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
+
 
   project: any[] = [];
   selectProjectId: string = '';
@@ -36,7 +41,7 @@ export class RequestUserComponent implements OnInit {
     private compService: CompanyService,
     private req: RequestService,
     public dialogService: DialogService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.projectService.readProject().subscribe(data => {
@@ -51,7 +56,7 @@ export class RequestUserComponent implements OnInit {
   }
 
   search() {
-    this.req.getReq(this.selectProjectId,this.selectCompId).subscribe((res: any) => {
+    this.req.getReq(this.selectProjectId, this.selectCompId).subscribe((res: any) => {
       if (res.status === 'error') {
         this.projectID = true;
       } else {
@@ -62,7 +67,7 @@ export class RequestUserComponent implements OnInit {
     });
   }
 
-  
+
 
   openDialog() {
     this.ref = this.dialogService.open(AddRequestUserComponent, {
@@ -73,15 +78,14 @@ export class RequestUserComponent implements OnInit {
   openDialog2(req_id: string) {
     this.req_id = req_id;
     this.ref = this.dialogService.open(EditRequestUserComponent, {
-     data: { req_id: this.req_id }, header: ''
-   });
+      data: { req_id: this.req_id }, header: ''
+    });
   }
 
   openDialog3(req_id: string) {
-   this.req_id = req_id;
-   this.ref = this.dialogService.open(DeleteRequestUserComponent, {
-     data: { req_id: this.req_id }, header: ''
-   });
+    this.req_id = req_id;
+    this.ref = this.dialogService.open(DeleteRequestUserComponent, {
+      data: { req_id: this.req_id }, header: ''
+    });
   }
-
 }

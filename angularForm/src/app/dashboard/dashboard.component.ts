@@ -14,6 +14,9 @@ import { ReportService } from '../services/reports/report.service';
 })
 export class DashboardComponent implements OnInit {
 
+  row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
+  first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
+
   projects: any[] = [];
 
   projectID: boolean = false;

@@ -28,7 +28,8 @@
 </div>
 
 <div class="card" *ngIf="!isSearchPerformed">
-    <p-table [value]="reqAll" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="reqAll" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col tt">
@@ -75,7 +76,8 @@
     <h1>ไม่มีข้อมูล</h1>
 </div> -->
 <div class="card" *ngIf="isSearchPerformed">
-    <p-table [value]="request" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="request" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col">

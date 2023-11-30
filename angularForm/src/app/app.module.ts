@@ -22,7 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
-import {CdkDrag} from '@angular/cdk/drag-drop';
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -45,6 +45,7 @@ import { AddRequestUserComponent } from './add-request-user/add-request-user.com
 import { EditRequestUserComponent } from './edit-request-user/edit-request-user.component';
 import { DeleteRequestUserComponent } from './delete-request-user/delete-request-user.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PdfService } from './services/reports/pdf.service';
 
 import { MenubarModule } from 'primeng/menubar';
@@ -59,7 +60,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { FileUploadModule } from 'primeng/fileupload';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { PaginatorModule } from 'primeng/paginator';
+
 
 
 @NgModule({
@@ -120,7 +122,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     TooltipModule,
     FileUploadModule,
     CardModule,
-    DividerModule
+    DividerModule,
+    PaginatorModule,
   ],
   providers: [AuthGuardService, PdfService],
   bootstrap: [AppComponent]

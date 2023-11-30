@@ -76,7 +76,8 @@
 
 
 <div class="card">
-  <p-table [value]="projects" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table [value]="projects" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+    [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption">
       <div class="formgrid grid">
         <div class="field col">

@@ -11,6 +11,10 @@ import { RequestService } from '../services/companies/request.service';
   providers: [DialogService]
 })
 export class RequestAdminComponent implements OnInit {
+
+  row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
+  first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
+
   project: any[] = [];
   selectProjectId: string = '';
 
@@ -29,7 +33,7 @@ export class RequestAdminComponent implements OnInit {
     private compService: CompanyService,
     private req: RequestService,
     public dialogService: DialogService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.projectService.readProject().subscribe(data => {
@@ -46,23 +50,23 @@ export class RequestAdminComponent implements OnInit {
   search() {
     // ถ้ากำลังทำการค้นหาอยู่แล้ว ไม่ต้องทำอะไรเพิ่ม
     if (this.isSearching) {
-        return;
+      return;
     }
 
     // ตั้งค่าให้ isSearching เป็น true เพื่อบอกว่ากำลังทำการค้นหา
     this.isSearching = true;
 
     this.req.getReq(this.selectProjectId, this.selectCompId).subscribe((res: any) => {
-        if (res.status === 'error') {
-            this.projectID = true;
-        } else {
-            this.request = res;
-            this.projectID = false;
-        }
-        this.isSearchPerformed = true;
+      if (res.status === 'error') {
+        this.projectID = true;
+      } else {
+        this.request = res;
+        this.projectID = false;
+      }
+      this.isSearchPerformed = true;
 
-        // เมื่อทำงานเสร็จสิ้น ตั้งค่า isSearching เป็น false
-        this.isSearching = false;
+      // เมื่อทำงานเสร็จสิ้น ตั้งค่า isSearching เป็น false
+      this.isSearching = false;
     });
-}
+  }
 }

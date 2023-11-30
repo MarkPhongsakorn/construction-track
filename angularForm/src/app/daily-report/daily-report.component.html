@@ -72,7 +72,8 @@
 </div> -->
 
 <div class="card">
-    <p-table [value]="reports" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="reports" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col">
