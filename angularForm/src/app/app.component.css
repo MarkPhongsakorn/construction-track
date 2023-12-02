@@ -1,5 +1,5 @@
 ::ng-deep .menu1 p-menubarsub {
-  margin-left: 650px;
+  margin-left: 525px;
 }
 
 ::ng-deep .menu2 p-menubarsub {
@@ -7,7 +7,7 @@
 }
 
 ::ng-deep .menu3 p-menubarsub {
-  margin-left: 730px;
+  margin-left: 600px;
 }
 
 ::ng-deep .p-menubar {
@@ -61,7 +61,7 @@
 
 @media screen and (max-width: 1368px) {
   ::ng-deep .menu1 p-menubarsub {
-    margin-left: 500px;
+    margin-left: 375px;
   }
 
   ::ng-deep .menu2 p-menubarsub {
@@ -69,13 +69,13 @@
   }
 
   ::ng-deep .menu3 p-menubarsub {
-    margin-left: 550px;
+    margin-left: 425px;
   }
 }
 
 @media screen and (max-width: 1280px) {
   ::ng-deep .menu1 p-menubarsub {
-    margin-left: 400px;
+    margin-left: 275px;
   }
 
   ::ng-deep .menu2 p-menubarsub {
@@ -83,13 +83,13 @@
   }
 
   ::ng-deep .menu3 p-menubarsub {
-    margin-left: 450px;
+    margin-left: 325px;
   }
 }
 
 @media screen and (max-width: 1180px) {
   ::ng-deep .menu1 p-menubarsub {
-    margin-left: 300px;
+    margin-left: 175px;
   }
 
   ::ng-deep .menu2 p-menubarsub {
@@ -97,13 +97,13 @@
   }
 
   ::ng-deep .menu3 p-menubarsub {
-    margin-left: 350px;
+    margin-left: 225px;
   }
 }
 
 @media screen and (max-width: 1115px) {
   ::ng-deep .menu1 p-menubarsub {
-    margin-left: 250px;
+    margin-left: 125px;
   }
 
   ::ng-deep .menu2 p-menubarsub {
@@ -111,13 +111,13 @@
   }
 
   ::ng-deep .menu3 p-menubarsub {
-    margin-left: 300px;
+    margin-left: 175px;
   }
 }
 
 @media screen and (max-width: 1024px) {
   ::ng-deep .menu1 p-menubarsub {
-    margin-left: 150px;
+    margin-left: 25px;
   }
 
   ::ng-deep .menu2 p-menubarsub {
@@ -125,7 +125,7 @@
   }
 
   ::ng-deep .menu3 p-menubarsub {
-    margin-left: 200px;
+    margin-left: 75px;
   }
 }
 

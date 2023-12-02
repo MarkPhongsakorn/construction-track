@@ -48,6 +48,11 @@ export class AppComponent implements OnInit {
         routerLink: '/request-admin'
       },
       {
+        label: 'ข้อมูลบริษัท',
+        routerLink: '/company',
+        icon: 'pi pi-building'
+      },
+      {
         label: 'โปรไฟล์',
         routerLink: '/profile',
         icon: 'pi pi-users'
@@ -74,6 +79,11 @@ export class AppComponent implements OnInit {
       {
         label: 'การร้องขอ',
         routerLink: '/request-user'
+      },
+      {
+        label: 'ข้อมูลบริษัท',
+        routerLink: '/company',
+        icon: 'pi pi-building'
       },
       {
         label: 'โปรไฟล์',

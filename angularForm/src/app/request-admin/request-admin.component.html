@@ -96,8 +96,8 @@
                 <th>Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-requests *ngIf="!projectID">
-            <tr>
+        <ng-template pTemplate="body" let-requests>
+            <tr *ngIf="!projectID">
                 <td>{{ requests.req_id }}</td>
                 <td>{{ requests.req_date | date: 'dd/MM/yyyy' }}</td>
                 <td>{{ requests.req_problem}}</td>

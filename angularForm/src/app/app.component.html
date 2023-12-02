@@ -1,20 +1,3 @@
-<!-- <mat-toolbar color="primary">
-  <mat-toolbar-row >
-    <a class="title" mat-button [routerLink]="['']" routerLinkActive="active">ระบบติดตามและตรวจงานสิ่งก่อสร้าง</a>
-    <span class="menu-spacer"></span>
-    <div class="menu">
-      <a mat-button [routerLink]="['']" routerLinkActive="active" *ngIf='this.isLogin'>Home</a>
-      <a mat-button [routerLink]="['request-user']" routerLinkActive="active" *ngIf='this.isPos1'>การร้องขอ</a>
-      <a mat-button [routerLink]="['dashboard']" routerLinkActive="active" *ngIf='this.isPos2'>โครงการ</a>
-      <a mat-button [routerLink]="['request-admin']" routerLinkActive="active" *ngIf='this.isPos2'>การร้องขอ</a>
-      <a mat-button [routerLink]="['login']" routerLinkActive="active" *ngIf='!this.isLogin'><mat-icon> login </mat-icon>เข้าสู่ระบบ</a>
-      <a mat-button [routerLink]="['register']" routerLinkActive="active" *ngIf='!this.isLogin'><mat-icon> account_box </mat-icon>สมัครสมาชิก</a>
-      <a mat-button (click)='logout()' *ngIf='this.isLogin'><mat-icon> logout </mat-icon>ออกจากระบบ</a>
-      <button type="button" mat-button (click)="drawer.toggle()">ดู</button>
-    </div>
-  </mat-toolbar-row>
-</mat-toolbar> -->
-
 <div class="card">
   <p-menubar class="menu1" [model]="items1" *ngIf='this.isPos2'>
     <ng-template pTemplate="start">

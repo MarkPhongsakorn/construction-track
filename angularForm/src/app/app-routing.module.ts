@@ -8,6 +8,7 @@ import { DailyReportComponent } from './daily-report/daily-report.component';
 import { RequestAdminComponent } from './request-admin/request-admin.component';
 import { RequestUserComponent } from './request-user/request-user.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CompanyDetailComponent } from './company-detail/company-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'report/:project_id', component: DailyReportComponent, canActivate: [AuthGuardService] },
   { path: 'request-admin', component: RequestAdminComponent, canActivate: [AuthGuardService] },
   { path: 'profile', component: ProfileComponent },
+  { path: 'company', component: CompanyDetailComponent }
 ];
 
 @NgModule({

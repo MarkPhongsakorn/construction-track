@@ -1,0 +1,37 @@
+<div class="p-dialog-title">
+    <h1>แก้ไขบริษัท</h1>
+</div>
+<div class="p-dialog-content">
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-12">
+            <span class="p-float-label">
+                <input type="text" pInputText name="project_name" id="project_name" [(ngModel)]="comp_name"
+                    placeholder="Ex.บริษัท เทส01 จำกัด" />
+                <label htmlFor="project_name">ชื่อบริษัท</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-12">
+            <span class="p-float-label">
+                <input type="text" pInputText name="project_name" id="project_name" [(ngModel)]="comp_email" />
+                <label htmlFor="project_name">E-mail บริษัท</label>
+            </span>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-12">
+            <span class="p-float-label">
+                <input type="text" pInputText name="project_name" id="project_name" [(ngModel)]="comp_address" />
+                <label htmlFor="project_name">ที่อยู่บริษัท</label>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="compEdit()" label="แก้ไขบริษัท"></p-button>
+</div>

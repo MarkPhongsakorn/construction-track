@@ -61,6 +61,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { PaginatorModule } from 'primeng/paginator';
+import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { AddCompanyComponent } from './add-company/add-company.component';
+import { EditCompanyComponent } from './edit-company/edit-company.component';
+import { DeleteCompanyComponent } from './delete-company/delete-company.component';
 
 
 
@@ -87,6 +91,10 @@ import { PaginatorModule } from 'primeng/paginator';
     DeleteRequestUserComponent,
     ProfileComponent,
     EditProfileComponent,
+    CompanyDetailComponent,
+    AddCompanyComponent,
+    EditCompanyComponent,
+    DeleteCompanyComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,44 @@
+<div class="card">
+    <p-table [value]="company" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <h1>ข้อมูลบริษัท</h1>
+                </div>
+                <div class="feild col" align="end">
+                    <p-button styleClass="p-button-warning" pTooltip="เพิ่มบริษัท" (click)="openDialog()"
+                        icon="pi pi-plus" label="เพิ่มบริษัท"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>ชื่อ</th>
+                <th>E-mail</th>
+                <th>ที่อยู่</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-company *ngIf="!this.comp">
+            <tr>
+                <td>{{ company.comp_id }}</td>
+                <td>{{ company.comp_name }}</td>
+                <td>{{ company.comp_email }}</td>
+                <td>{{ company.comp_address }}</td>
+                <td>
+                    <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขบริษัท" class="p-button-help"
+                        (click)="openDialog2(company.comp_id)"></a>
+                    <a pButton icon="pi pi-trash" pTooltip="ลบบริษัท" class="p-button-danger"
+                        (click)="openDialog3(company.comp_id)"></a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class=" not" *ngIf="this.comp">
+                <h1>ไม่มีข้อมูล</h1>
+            </div>
+        </ng-template>
+    </p-table>
+</div>
