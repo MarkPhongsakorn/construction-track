@@ -7,6 +7,7 @@ import { MaterialService } from '../services/reports/material.service';
 import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
+import { OverdueService } from '../services/reports/overdue.service';
 import { EditDetailComponent } from '../edit-detail/edit-detail.component';
 import { DynamicDialogRef, DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ExcelExportService } from '../services/reports/excel-export.service';
@@ -47,6 +48,8 @@ export class DetailReportComponent implements OnInit {
 
   inspec_result: string = '';
 
+  od_detail: string = '';
+
   readWeather1: boolean = false;
   readWeather2: boolean = false;
   readLabor: boolean = false;
@@ -56,6 +59,7 @@ export class DetailReportComponent implements OnInit {
   readStrike: boolean = false;
   readInspec: boolean = false;
   readReport: boolean = false;
+  readOd: boolean = false;
 
   ref: DynamicDialogRef | undefined;
 
@@ -91,6 +95,7 @@ export class DetailReportComponent implements OnInit {
     private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
+    private overdueService: OverdueService,
     private excelExportService: ExcelExportService,
     private reportService: ReportService,
     private projectService: ProjectService,
@@ -106,6 +111,7 @@ export class DetailReportComponent implements OnInit {
     this.prob();
     this.strike();
     this.inspec();
+    this.overdue();
     this.report();
     this.project();
   }
@@ -222,6 +228,8 @@ export class DetailReportComponent implements OnInit {
       } else {
         this.strike_detail = data['strike_detail'];
         this.strike_cause = data['strike_cause'];
+        console.log(this.strike_detail);
+
         return this.readStrike
       }
     });
@@ -235,6 +243,19 @@ export class DetailReportComponent implements OnInit {
       } else {
         this.inspec_result = data['inspec_result'];
         return this.readInspec
+      }
+    });
+  }
+
+  overdue() {
+    this.overdueService.readOne(this.config.data.dr_id).subscribe(data => {
+      if (data.status === "error") {
+        return this.readOd = true;
+      } else {
+        this.od_detail = data['od_detail'];
+        console.log(this.od_detail);
+
+        return this.readOd
       }
     });
   }
@@ -294,6 +315,7 @@ export class DetailReportComponent implements OnInit {
       this.strike_detail,
       this.strike_cause,
       this.inspec_result,
+      this.od_detail,
       fileName,
       sheetName
     );

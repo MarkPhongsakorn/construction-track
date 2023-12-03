@@ -258,6 +258,17 @@
         </div>
     </div>
 
+    <div class="p-fluid formgrid grid">
+        <div class="field col" *ngIf="!this.readOd">
+            <h2>การขยายเวลาก่อสร้างลด/งด/ค่าปรับ: </h2>
+            <p>{{ od_detail }}</p>
+        </div>
+        <div class="field col" *ngIf="this.readOd">
+            <h2>การขยายเวลาก่อสร้างลด/งด/ค่าปรับ: </h2>
+            <p>ไม่มีข้อมูล</p>
+        </div>
+    </div>
+
 </div>
 <div class="p-dialog-footer">
     <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>

@@ -12,6 +12,7 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
+import { OverdueService } from '../services/reports/overdue.service';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -71,6 +72,9 @@ export class EditDetailComponent implements OnInit {
   strike_detail: string = '';
   strike_cause: string = '';
 
+  od_id: string = '';
+  od_detail: string = '';
+
   mornings: boolean = false;
   afternoons: boolean = false;
   labors: boolean = false;
@@ -84,8 +88,9 @@ export class EditDetailComponent implements OnInit {
   problems: boolean = false;
   strikes: boolean = false;
   inspection: boolean = false;
+  overdue: boolean = false;
 
-  
+
   constructor(
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -100,7 +105,8 @@ export class EditDetailComponent implements OnInit {
     private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-    private resultService: InspecResultService
+    private resultService: InspecResultService,
+    private overdueService: OverdueService,
   ) {
 
   }
@@ -163,10 +169,17 @@ export class EditDetailComponent implements OnInit {
       this.strike_id = data['strike_id'];
       this.strike_cause = data['strike_cause'];
       this.strike_detail = data['strike_detail'];
+
     });
     this.inspecService.readOne(this.config.data.dr_id).subscribe(data => {
       this.inspec_id = data['inspec_id'];
       this.selectResult = data['inspec_result_id'];
+    });
+    this.overdueService.readOne(this.config.data.dr_id).subscribe(data => {
+      this.od_id = data['od_id'];
+      this.od_detail = data['od_detail'];
+      console.log(this.od_id);
+
     });
 
 
@@ -221,7 +234,13 @@ export class EditDetailComponent implements OnInit {
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     }
-    
+    const data6 = {
+      od_id: this.od_id,
+      od_detail: this.od_detail,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id
+    }
+
     const updateRequests: Observable<any>[] = [
       this.weatherService.update(data1),
       this.weatherService.update(data2),
@@ -235,7 +254,8 @@ export class EditDetailComponent implements OnInit {
       this.matService.update(this.matUp),
       this.problemService.update(data3),
       this.strikeService.update(data4),
-      this.inspecService.update(data5)
+      this.inspecService.update(data5),
+      this.overdueService.update(data6)
     ];
 
     forkJoin(updateRequests).subscribe(

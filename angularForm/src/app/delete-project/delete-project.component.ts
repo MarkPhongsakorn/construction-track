@@ -9,9 +9,11 @@ import { MaterialService } from '../services/reports/material.service';
 import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
+import { OverdueService } from '../services/reports/overdue.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { da } from 'date-fns/locale';
 
 @Component({
   selector: 'app-delete-project',
@@ -37,14 +39,15 @@ export class DeleteProjectComponent implements OnInit {
     private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-  ) {}
+    private overdueService: OverdueService
+  ) { }
   ngOnInit() {
     this.project.readOne(this.config.data.project_id).subscribe(data => {
       this.project_name = data['project_name'];
     });
   }
-  
-  
+
+
 
   deleteAll() {
     const deleteRequests: Observable<any>[] = [
@@ -56,6 +59,7 @@ export class DeleteProjectComponent implements OnInit {
       this.problemService.deleteProject(this.config.data.project_id),
       this.strikeService.deleteProject(this.config.data.project_id),
       this.inspecService.deleteProject(this.config.data.project_id),
+      this.overdueService.deleteProject(this.config.data.project_id),
       this.report.deleteProject(this.config.data.project_id),
       this.project.delete(this.config.data.project_id),
     ];

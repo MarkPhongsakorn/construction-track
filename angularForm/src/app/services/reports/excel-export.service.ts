@@ -35,6 +35,7 @@ export class ExcelExportService {
     strike_detail: string,
     strike_cause: string,
     inspec_result: string,
+    od_detail: string,
     fileName: string,
     sheetName: string
   ): void {
@@ -595,7 +596,7 @@ export class ExcelExportService {
 
     worksheet.mergeCells('A64:D70');
     const cellA64 = worksheet.getCell('A64');
-    cellA64.value = '';
+    cellA64.value = od_detail;
     cellA64.alignment = { horizontal: 'left', vertical: 'top' };
     cellA64.border = borderThin;
     cellA64.font = font11;

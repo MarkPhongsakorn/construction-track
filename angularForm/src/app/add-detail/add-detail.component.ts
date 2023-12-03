@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PeriodService } from '../services/reports/period.service';
 import { StaWeatherService } from '../services/reports/sta-weather.service';
 import { WeatherService } from '../services/reports/weather.service';
@@ -11,6 +11,7 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
+import { OverdueService } from '../services/reports/overdue.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -30,11 +31,11 @@ export class AddDetailComponent implements OnInit {
   status: any[] = [];
   selectStatus1: string = '';
   selectStatus2: string = '';
-  
+
   unit: any[] = [];
   selectUnit: string = '';
 
-  result: any[] =[];
+  result: any[] = [];
   selectResult: string = '';
 
   morning: string = '1';
@@ -60,6 +61,8 @@ export class AddDetailComponent implements OnInit {
   strike_detail: string = '';
   strike_cause: string = '';
 
+  od_detail: string = '';
+
   statuses: boolean = false;
 
   constructor(
@@ -76,10 +79,11 @@ export class AddDetailComponent implements OnInit {
     private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-    private resultService: InspecResultService
-  ) {}
+    private resultService: InspecResultService,
+    private overdueService: OverdueService,
+  ) { }
 
-  
+
 
   ngOnInit() {
     this.periodService.readOne(this.morning).subscribe(data => {
@@ -138,6 +142,11 @@ export class AddDetailComponent implements OnInit {
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     }
+    const overdue = {
+      od_detail: this.od_detail,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id
+    }
     const creatRequests: Observable<any>[] = [
       this.weatherService.create(morning),
       this.weatherService.create(afternoon),
@@ -147,7 +156,8 @@ export class AddDetailComponent implements OnInit {
       this.matService.create(this.mat),
       this.problemService.create(problem),
       this.strikeService.create(strike),
-      this.inspecService.create(inspection)
+      this.inspecService.create(inspection),
+      this.overdueService.create(overdue)
     ]
 
     forkJoin(creatRequests).subscribe(
@@ -207,17 +217,17 @@ export class AddDetailComponent implements OnInit {
   removeTool(index: number): void {
     this.tool.splice(index, 1);
   }
-  
+
   // *******************************************MATERIAL*********************************************
   addNewMat() {
-    const newMat = { mat_name: '', mat_num: this.mat_num , unit_id: this.selectUnit, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
+    const newMat = { mat_name: '', mat_num: this.mat_num, unit_id: this.selectUnit, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.mat.push(newMat);
     this.selectUnit = '';
   }
   removeMat(index: number): void {
     this.mat.splice(index, 1);
   }
-  
+
   closeDialog() {
     this.dialogRef.close(); // เรียกเมื่อต้องการปิด dialog
   }
