@@ -25,7 +25,11 @@ export class RequestService {
   }
 
   getReq(project_id: string, comp_id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/backend/api/request/readByID.php`,{ params: { project_id: project_id, comp_id: comp_id } });
+    return this.http.get(`${this.baseUrl}/backend/api/request/readByID.php`, { params: { project_id: project_id, comp_id: comp_id } });
+  }
+
+  delete(req_id: string, data: Object) {
+    return this.http.delete(`${this.baseUrl}/backend/api/request/delete.php`, { params: { req_id: req_id }, body: data });
   }
 
 }

@@ -30,7 +30,7 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table . ' WHERE req_id = :req_id';
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE req_id = :req_id ORDER BY req_date';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':req_id', $this->req_id);
             $stmt->execute();
