@@ -15,11 +15,15 @@
             <span class="p-float-label">
                 <p-dropdown [options]="comp" [(ngModel)]="selectCompId" name="selectCompId"
                     placeholder="----เลือกบริษัทที่ดูแล----" optionLabel="comp_name" optionValue="comp_id"
-                    appendTo="body" aria-describedby="username-help"></p-dropdown>
+                    appendTo="body" aria-describedby="username-help"
+                    pTooltip="ถ้าไม่มีชื่อบริษัทของคุณสามารถเพิ่มได้ที่หน้าข้อมูลบริษัท"></p-dropdown>
                 <label for="float-label">บริษัทที่ดูแล</label>
             </span>
             <!-- <small id="username-help">*ถ้าไม่มีชื่อบริษัทของคุณสามารถเพิ่มได้ที่หน้าบริษัท</small> -->
         </div>
+        <!-- <div class="feild col-1 icon">
+            <i class="pi pi-exclamation-circle"></i>
+        </div> -->
         <div class="feild col-1">
             <span class="p-float-label">
                 <p-button styleClass="p-button-warning" (click)="search()" label="ค้นหา"></p-button>

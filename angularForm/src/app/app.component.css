@@ -225,11 +225,11 @@
   }
 
   ::ng-deep .menu1 .p-menubar-button {
-    right: 30px;
+    right: 25px;
   }
 
-  ::ng-deep .menu2 .p-menubar-button {
-    right: 30px;
+  ::ng-deep .menu3 .p-menubar-button {
+    right: 25px;
   }
 
   ::ng-deep .title {
@@ -250,6 +250,14 @@
     height: 15px;
   }
 
+  ::ng-deep .menu2 .p-menubar-button {
+    right: 5px;
+  }
+
+  ::ng-deep .menu3 .p-menubar-button {
+    right: 5px;
+  }
+
   ::ng-deep .title:hover {
     border-radius: 4px;
   }
@@ -257,14 +265,6 @@
 
 @media screen and (max-width: 280px) {
   ::ng-deep .menu1 .p-menubar-button {
-    right: 5px;
-  }
-
-  ::ng-deep .menu2 .p-menubar-button {
-    right: 5px;
-  }
-
-  ::ng-deep .menu3 .p-menubar-button {
     right: 5px;
   }
 

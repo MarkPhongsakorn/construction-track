@@ -21,6 +21,8 @@ export class CompanyDetailComponent implements OnInit {
 
   comp: boolean = false;
 
+  addComp: boolean = false;
+
   ref: DynamicDialogRef | undefined;
 
   constructor(
@@ -37,6 +39,14 @@ export class CompanyDetailComponent implements OnInit {
         this.comp = false;
       }
     });
+
+    const posId = sessionStorage.getItem('pos_id');
+    if (posId === '1') {
+      this.addComp = true;
+    } else {
+      this.addComp = false;
+    }
+
   }
 
   openDialog() {

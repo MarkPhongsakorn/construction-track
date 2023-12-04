@@ -63,6 +63,11 @@ h1 {
     margin-bottom: 0;
 }
 
+.tt h1 {
+    margin-bottom: 0;
+    text-align: center;
+}
+
 ::ng-deep .field {
     margin-bottom: 0;
 }

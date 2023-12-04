@@ -31,6 +31,7 @@
                 'user_lname' => $row['user_lname'],          
                 'pos_id' => $row['pos_id'],
                 'pos_name' => $row['pos_name'],
+                'pos_role' => $row['pos_role'],
                 'user_email' => $row['user_email'],
                 'user_tel' => $row['user_tel'],
             );

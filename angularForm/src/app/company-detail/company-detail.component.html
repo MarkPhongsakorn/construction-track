@@ -3,10 +3,13 @@
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
-                <div class="field col">
+                <div class="field col tt" *ngIf="!addComp">
                     <h1>ข้อมูลบริษัท</h1>
                 </div>
-                <div class="feild col" align="end">
+                <div class="field col" *ngIf="addComp">
+                    <h1>ข้อมูลบริษัท</h1>
+                </div>
+                <div class="feild col" align="end" *ngIf="addComp">
                     <p-button styleClass="p-button-warning" pTooltip="เพิ่มบริษัท" (click)="openDialog()"
                         icon="pi pi-plus" label="เพิ่มบริษัท"></p-button>
                 </div>
@@ -18,7 +21,7 @@
                 <th>ชื่อ</th>
                 <th>E-mail</th>
                 <th>ที่อยู่</th>
-                <th>Action</th>
+                <th *ngIf="addComp">Action</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-company *ngIf="!this.comp">
@@ -27,7 +30,7 @@
                 <td>{{ company.comp_name }}</td>
                 <td>{{ company.comp_email }}</td>
                 <td>{{ company.comp_address }}</td>
-                <td>
+                <td *ngIf="addComp">
                     <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขบริษัท" class="p-button-help"
                         (click)="openDialog2(company.comp_id)"></a>
                     <a pButton icon="pi pi-trash" pTooltip="ลบบริษัท" class="p-button-danger"
