@@ -49,7 +49,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-request>
-            <tr>
+            <tr *ngIf="!requestAll">
                 <td>{{ request.req_id }}</td>
                 <td>{{ request.req_date | date: 'dd/MM/yyyy' }}</td>
                 <td>{{ request.req_problem}}</td>
@@ -65,7 +65,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="not" *ngIf="projectID">
+            <div class="not" *ngIf="requestAll">
                 <h1>ไม่มีข้อมูล</h1>
             </div>
         </ng-template>

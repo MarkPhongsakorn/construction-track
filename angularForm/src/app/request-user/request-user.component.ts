@@ -25,6 +25,8 @@ export class RequestUserComponent implements OnInit {
 
   projectID: boolean = false;
 
+  requestAll: boolean = false;
+
   comp: any[] = [];
   selectCompId: string = '';
 
@@ -50,8 +52,14 @@ export class RequestUserComponent implements OnInit {
     this.compService.getComp().subscribe(data => {
       this.comp = data;
     });
-    this.req.getAll().subscribe(data => {
-      this.reqAll = data;
+    this.req.getAll().subscribe((res: any) => {
+      if (res.status === 'error') {
+        this.requestAll = true;
+      } else {
+        this.reqAll = res;
+        this.requestAll = false;
+      }
+
     });
   }
 

@@ -19,11 +19,7 @@
                     pTooltip="ถ้าไม่มีชื่อบริษัทของคุณสามารถเพิ่มได้ที่หน้าข้อมูลบริษัท"></p-dropdown>
                 <label for="float-label">บริษัทที่ดูแล</label>
             </span>
-            <!-- <small id="username-help">*ถ้าไม่มีชื่อบริษัทของคุณสามารถเพิ่มได้ที่หน้าบริษัท</small> -->
         </div>
-        <!-- <div class="feild col-1 icon">
-            <i class="pi pi-exclamation-circle"></i>
-        </div> -->
         <div class="feild col-1">
             <span class="p-float-label">
                 <p-button styleClass="p-button-warning" (click)="search()" label="ค้นหา"></p-button>
@@ -54,7 +50,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-request>
-            <tr>
+            <tr *ngIf="!requestAll">
                 <td>{{ request.req_id }}</td>
                 <td>{{ request.req_date | date: 'dd/MM/yyyy' }}</td>
                 <td>{{ request.req_problem}}</td>
@@ -70,7 +66,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="not" *ngIf="projectID && isSearchPerformed">
+            <div class="not tt" *ngIf="requestAll">
                 <h1>ไม่มีข้อมูล</h1>
             </div>
         </ng-template>
