@@ -37,4 +37,12 @@ export class RequestService {
     return this.http.delete(`${this.baseUrl}/backend/api/request/delete.php`, { params: { req_id: req_id }, body: data });
   }
 
+  getReqProject(project_id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/backend/api/request/readByProject.php`, { params: { project_id: project_id } });
+  }
+
+  deleteByProject(project_id: string, data: Object) {
+    return this.http.delete(`${this.baseUrl}/backend/api/request/deleteByProject.php`, { params: { project_id: project_id }, body: data });
+  }
+
 }

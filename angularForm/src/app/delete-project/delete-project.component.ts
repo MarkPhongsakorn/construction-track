@@ -10,6 +10,7 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { OverdueService } from '../services/reports/overdue.service';
+import { RequestService } from '../services/companies/request.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -23,6 +24,11 @@ import { da } from 'date-fns/locale';
 export class DeleteProjectComponent implements OnInit {
 
   project_name: string = '';
+
+  req_problem: string = '';
+  req_daily: string = '';
+  req_license: string = '';
+  req_certificate: string = '';
 
   status: boolean = false;
 
@@ -39,17 +45,33 @@ export class DeleteProjectComponent implements OnInit {
     private problemService: ProblemService,
     private strikeService: StrikeService,
     private inspecService: InspectionService,
-    private overdueService: OverdueService
+    private overdueService: OverdueService,
+    private reqService: RequestService
   ) { }
   ngOnInit() {
     this.project.readOne(this.config.data.project_id).subscribe(data => {
       this.project_name = data['project_name'];
+    });
+
+    this.reqService.getReqProject(this.config.data.project_id).subscribe(data => {
+      this.req_problem = data['req_problem'];
+      this.req_daily = data['req_daily'];
+      this.req_license = data['req_license'];
+      this.req_certificate = data['req_certificate'];
     });
   }
 
 
 
   deleteAll() {
+    const data = {
+      req_problem: this.req_problem,
+      req_daily: this.req_daily,
+      req_license: this.req_license,
+      req_certificate: this.req_certificate
+    }
+    console.log(data);
+
     const deleteRequests: Observable<any>[] = [
       this.weatherService.deleteProject(this.config.data.project_id),
       this.laborService.deleteProject(this.config.data.project_id),
@@ -60,6 +82,7 @@ export class DeleteProjectComponent implements OnInit {
       this.strikeService.deleteProject(this.config.data.project_id),
       this.inspecService.deleteProject(this.config.data.project_id),
       this.overdueService.deleteProject(this.config.data.project_id),
+      this.reqService.deleteByProject(this.config.data.project_id, data),
       this.report.deleteProject(this.config.data.project_id),
       this.project.delete(this.config.data.project_id),
     ];

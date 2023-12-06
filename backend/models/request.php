@@ -49,6 +49,16 @@
             return $stmt;
         }
 
+        public function readByProject() {
+
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE project_id = :project_id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':project_id', $this->project_id);
+            $stmt->execute();
+
+            return $stmt;
+        }
+
         public function create() {
 
             $req_date = date('m/d/Y', strtotime($this->req_date));
@@ -133,6 +143,22 @@
             $this->req_id = htmlspecialchars(strip_tags($this->req_id));
 
             $stmt->bindParam(':req_id', $this->req_id);
+
+            if ($stmt->execute()) {
+                return true;
+            }
+
+            return false;
+        }
+
+        public function deleteByProject() {
+
+            $query = 'DELETE FROM ' . $this->table . ' WHERE project_id = :project_id';
+            $stmt = $this->conn->prepare($query);
+
+            $this->project_id = htmlspecialchars(strip_tags($this->project_id));
+
+            $stmt->bindParam(':project_id', $this->project_id);
 
             if ($stmt->execute()) {
                 return true;

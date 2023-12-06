@@ -24,14 +24,14 @@ export class ProjectService {
   update(data: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/project/update.php`, data);
   }
-  
+
 
   delete(project_id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/project/delete.php/`,{ params: { project_id: project_id } });
+    return this.http.delete(`${this.baseUrl}/backend/api/project/delete.php`, { params: { project_id: project_id } });
   }
 
   readOne(project_id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/backend/api/project/read_one.php/`,{ params: { project_id: project_id } });
+    return this.http.get(`${this.baseUrl}/backend/api/project/read_one.php`, { params: { project_id: project_id } });
   }
 
 
