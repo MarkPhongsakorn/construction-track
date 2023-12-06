@@ -104,7 +104,10 @@
                 <td>{{ requests.req_daily }}</td>
                 <td>{{ requests.req_license }}</td>
                 <td>{{ requests.req_certificate }}</td>
-                <td></td>
+                <td>
+                    <a pButton icon="pi pi-download" pTooltip="ดาวน์โหลดข้อมูล" class="p-button-help"
+                        (click)="openDialog2(requests.req_id)"></a>
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
