@@ -24,13 +24,22 @@ export class EditRequestUserComponent implements OnInit {
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private request: RequestService,
-) {}
+  ) { }
 
   ngOnInit(): void {
     this.request.getOne(this.config.data.req_id).subscribe(data => {
-      this.req_date = new Date (data['req_date'])
+      this.req_date = new Date(data['req_date'])
+      if (data && data.req_problem) {
+        this.req_problem = data.req_problem;
+      }
     })
-    
+
+  }
+
+  onFileUpload(event: any) {
+    const file = event.files[0];
+    // ทำสิ่งที่คุณต้องการกับไฟล์ที่อัพโหลด
+    console.log('Uploaded file:', file);
   }
 
   selectedProblem(event: any) {
@@ -68,7 +77,7 @@ export class EditRequestUserComponent implements OnInit {
     formData.append('project_id', this.config.data.project_id);
     formData.append('comp_id', this.config.data.comp_id);
 
-    this.request.uploadFile(formData).subscribe((event: any) => {
+    this.request.updateFile(formData).subscribe((event: any) => {
       if (event.status === "success") {
         Swal.fire({
           title: 'สำเร็จ',
@@ -89,7 +98,7 @@ export class EditRequestUserComponent implements OnInit {
         });
       }
     });
-    
+
   }
 
   closeDialog() {

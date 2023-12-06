@@ -29,8 +29,8 @@
 </div>
 
 <div class="card" *ngIf="!isSearchPerformed">
-    <p-table [value]="reqAll" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
-        [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="reqAll" [sortField]="'req_date'" [paginator]="true" [rows]="row" [(first)]="first"
+        styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col tt">
@@ -58,8 +58,8 @@
                 <td>{{ request.req_license }}</td>
                 <td>{{ request.req_certificate }}</td>
                 <td>
-                    <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขการร้องขอ" class="p-button-help"
-                        (click)="openDialog2(request.req_id)"></a>
+                    <!-- <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขการร้องขอ" class="p-button-help"
+                        (click)="openDialog2(request.req_id)"></a> -->
                     <a pButton icon="pi pi-trash" pTooltip="ลบการร้องขอ" class="p-button-danger"
                         (click)="openDialog3(request.req_id)"></a>
                 </td>
@@ -77,8 +77,8 @@
     <h1>ไม่มีข้อมูล</h1>
 </div> -->
 <div class="card" *ngIf="isSearchPerformed">
-    <p-table [value]="request" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
-        [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="request" [sortField]="'req_date'" [paginator]="true" [rows]="row" [(first)]="first"
+        styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="formgrid grid">
                 <div class="field col">
@@ -110,8 +110,8 @@
                 <td>{{ request.req_license }}</td>
                 <td>{{ request.req_certificate }}</td>
                 <td>
-                    <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขการร้องขอ" class="p-button-help"
-                        (click)="openDialog2(request.req_id)"></a>
+                    <!-- <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขการร้องขอ" class="p-button-help"
+                        (click)="openDialog2(request.req_id)"></a> -->
                     <a pButton icon="pi pi-trash" pTooltip="ลบการร้องขอ" class="p-button-danger"
                         (click)="openDialog3(request.req_id)"></a>
                 </td>

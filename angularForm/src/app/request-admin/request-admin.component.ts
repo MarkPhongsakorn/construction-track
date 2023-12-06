@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProjectService } from '../services/projects/project.service';
 import { CompanyService } from '../services/companies/company.service';
 import { RequestService } from '../services/companies/request.service';
+import { DownloadRequestComponent } from '../download-request/download-request.component';
 
 @Component({
   selector: 'app-request-admin',
@@ -14,6 +15,8 @@ export class RequestAdminComponent implements OnInit {
 
   row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
   first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
+
+  req_id: string = '';
 
   project: any[] = [];
   selectProjectId: string = '';
@@ -29,6 +32,8 @@ export class RequestAdminComponent implements OnInit {
   reqAll: any[] = [];
   isSearchPerformed: boolean = false;
   isSearching: boolean = false;
+
+  ref: DynamicDialogRef | undefined;
 
   constructor(
     private projectService: ProjectService,
@@ -75,6 +80,13 @@ export class RequestAdminComponent implements OnInit {
 
       // เมื่อทำงานเสร็จสิ้น ตั้งค่า isSearching เป็น false
       this.isSearching = false;
+    });
+  }
+
+  openDialog2(req_id: string) {
+    this.req_id = req_id;
+    this.ref = this.dialogService.open(DownloadRequestComponent, {
+      data: { req_id: this.req_id }, header: ''
     });
   }
 }

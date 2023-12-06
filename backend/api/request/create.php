@@ -32,7 +32,7 @@
                     }
                 }
             } else {
-                $req->req_problem = "-";
+                $req->req_problem = null;
                 $response = array("status" => "error", "message" => "Problem is null");
             }
 
@@ -46,7 +46,7 @@
                     $response = array("status" => "error", "message" => "Error moving file daily.");
                 }
             } else {
-                $req->req_daily = "-";
+                $req->req_daily = null;
                 $response = array("status" => "error", "message" => "Daily is null");
             }
             
@@ -60,7 +60,7 @@
                     $response = array("status" => "error", "message" => "Error moving file license.");
                 }
             } else {
-                $req->req_license = "-";
+                $req->req_license = null;
                 $response = array("status" => "error", "message" => "License is null");
             }
         
@@ -74,7 +74,7 @@
                     $response = array("status" => "error", "message" => "Error moving file certificate.");
                 }
             } else {
-                $req->req_certificate = "-";
+                $req->req_certificate = null;
                 $response = array("status" => "error", "message" => "Certificate is null");
             }
 

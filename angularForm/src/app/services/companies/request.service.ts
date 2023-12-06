@@ -16,6 +16,11 @@ export class RequestService {
     return this.http.post(`${this.baseUrl}/backend/api/request/create.php`, formData);
   }
 
+  updateFile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/backend/api/request/update.php`, formData);
+  }
+
+
   getAll(): Observable<any> {
     return this.http.get(`${this.baseUrl}/backend/api/request/read.php`);
   }

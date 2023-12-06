@@ -36,6 +36,8 @@ export class RequestUserComponent implements OnInit {
 
   req_id: string = '';
 
+  num: number = 1;
+
   ref: DynamicDialogRef | undefined;
 
   constructor(
@@ -59,9 +61,9 @@ export class RequestUserComponent implements OnInit {
         this.reqAll = res;
         this.requestAll = false;
       }
-
     });
   }
+
 
   search() {
     this.req.getReq(this.selectProjectId, this.selectCompId).subscribe((res: any) => {

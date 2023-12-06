@@ -65,6 +65,7 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
 import { AddCompanyComponent } from './add-company/add-company.component';
 import { EditCompanyComponent } from './edit-company/edit-company.component';
 import { DeleteCompanyComponent } from './delete-company/delete-company.component';
+import { DownloadRequestComponent } from './download-request/download-request.component';
 
 
 
@@ -95,6 +96,7 @@ import { DeleteCompanyComponent } from './delete-company/delete-company.componen
     AddCompanyComponent,
     EditCompanyComponent,
     DeleteCompanyComponent,
+    DownloadRequestComponent,
   ],
   imports: [
     BrowserModule,

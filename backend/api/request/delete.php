@@ -18,34 +18,38 @@
     $req->req_id = isset($_GET['req_id']) ? $_GET['req_id'] : die();
 
     if ($data) {
-        $problemFilePath = "../../upload/problem/" . $data['req_problem'];
-        $dailyFilePath = "../../upload/daily/" . $data['req_daily'];
-        $licenseFilePath = "../../upload/license/" . $data['req_license'];
-        $certificateFilePath = "../../upload/certificate/" . $data['req_certificate'];
+        // แยกที่อยู่ของโฟลเดอร์และชื่อไฟล์
     
-        // ตรวจสอบว่าไฟล์มีอยู่จริงหรือไม่
-        if (file_exists($problemFilePath)) {
-            unlink($problemFilePath);
+        // ตรวจสอบว่าเป็นไดเรกทอรีหรือไม่ และ $data ไม่ใช่ null
+        if ($data['req_problem'] != null) {
+            unlink("../../upload/problem/".$data['req_problem']);
+        } else {
+            $response = array("status" => "error", "message" => "Data not found");
         }
     
-        if (file_exists($dailyFilePath)) {
-            unlink($dailyFilePath);
+        if ($data['req_daily'] != null) {
+            unlink("../../upload/daily/".$data['req_daily']);
+        } else {
+            $response = array("status" => "error", "message" => "Data not found");
         }
     
-        if (file_exists($licenseFilePath)) {
-            unlink($licenseFilePath);
+        if ($data['req_license'] != null) {
+            unlink("../../upload/license/".$data['req_license']);
+        } else {
+            $response = array("status" => "error", "message" => "Data not found");
         }
     
-        if (file_exists($certificateFilePath)) {
-            unlink($certificateFilePath);
+        if ($data['req_certificate'] != null) {
+            unlink("../../upload/certificate/".$data['req_certificate']);
+        } else {
+            $response = array("status" => "error", "message" => "Data not found");
         }
-
+    
         if ($req->delete()) {
             $response = array("status" => "success", "message" => "User deleted.");
         } else {
             $response = array("status" => "error", "message" => "Failed to delete user.");
         }
-    
     } else {
         $response = array("status" => "error", "message" => "Data not found");
     }

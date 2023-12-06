@@ -15,7 +15,8 @@
     <div class="p-fluid formgrid grid">
         <div class="field col">
             <p-fileUpload name="req_problem" chooseLabel="เลือกไฟล์ปัญหา" (onSelect)="selectedProblem($event)"
-                [(ngModel)]="req_problem" [auto]="true" [maxFileSize]="1000000"></p-fileUpload>
+                (onUpload)="onFileUpload($event)" [(ngModel)]="req_problem" [auto]="true"
+                [maxFileSize]="1000000"></p-fileUpload>
         </div>
     </div>
     <br>
