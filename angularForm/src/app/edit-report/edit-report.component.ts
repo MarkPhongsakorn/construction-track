@@ -37,11 +37,11 @@ export class EditReportComponent implements OnInit {
     private projectService: ProjectService,
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.reportService.getOneReport(this.config.data.dr_id).subscribe(data => {
-      this.dr_time = new Date (data['dr_time']);
+      this.dr_time = new Date(data['dr_time']);
       if (this.project_id = data['project_id']) {
         this.selectProjectId = this.project_id
       }
@@ -79,7 +79,7 @@ export class EditReportComponent implements OnInit {
       if (res.status === 'success') {
         Swal.fire({
           title: 'สำเร็จ',
-          text: 'การสร้างโครงการสำเร็จ',
+          text: 'การสร้างรายงานประจำวันสำเร็จ',
           icon: 'success',
           confirmButtonText: 'ตกลง'
         }).then((result) => {
@@ -91,7 +91,7 @@ export class EditReportComponent implements OnInit {
         console.log(res.message); // Failed to create user
         Swal.fire({
           title: 'ข้อผิดพลาด',
-          text: 'เกิดข้อผิดพลาดในการสร้างโครงการ',
+          text: 'เกิดข้อผิดพลาดในการสร้างรายงานประจำวัน',
           icon: 'error',
           confirmButtonText: 'ตกลง'
         });

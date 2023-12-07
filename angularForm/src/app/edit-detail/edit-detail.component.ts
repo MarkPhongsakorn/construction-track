@@ -264,7 +264,7 @@ export class EditDetailComponent implements OnInit {
           if (res.status === 'success') {
             Swal.fire({
               title: 'สำเร็จ',
-              text: 'การสร้างรายงานสำเร็จ',
+              text: 'การแก้ไขรายงานประจำวันสำเร็จ',
               icon: 'success',
               confirmButtonText: 'ตกลง'
             }).then((result) => {
@@ -275,7 +275,7 @@ export class EditDetailComponent implements OnInit {
           } else {
             Swal.fire({
               title: 'ข้อผิดพลาด',
-              text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+              text: 'เกิดข้อผิดพลาดในการแก้ไขรายงานประจำวันสำเร็จ',
               icon: 'error',
               confirmButtonText: 'ตกลง'
             });
