@@ -17,7 +17,7 @@ import { DetailReportComponent } from '../detail-report/detail-report.component'
 })
 export class DailyReportComponent implements OnInit {
 
-  row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
+  row: number = 20; // จำนวนแถวที่แสดงต่อหน้า
   first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
 
   reports: any[] = [];

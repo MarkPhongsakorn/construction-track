@@ -13,7 +13,7 @@ import { DeleteCompanyComponent } from '../delete-company/delete-company.compone
 })
 export class CompanyDetailComponent implements OnInit {
 
-  row: number = 10; // จำนวนแถวที่แสดงต่อหน้า
+  row: number = 20; // จำนวนแถวที่แสดงต่อหน้า
   first: number = 0; // ตำแหน่งของหน้าที่กำลังแสดง
 
   company: any[] = [];
