@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2023 at 06:24 PM
+-- Generation Time: Dec 07, 2023 at 07:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -54,6 +54,13 @@ CREATE TABLE `tb_daily_report` (
   `project_id` int(5) NOT NULL,
   `user_detail_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tb_daily_report`
+--
+
+INSERT INTO `tb_daily_report` (`dr_id`, `dr_time`, `project_id`, `user_detail_id`) VALUES
+(33, '2023-12-08', 19, 5);
 
 -- --------------------------------------------------------
 
@@ -331,9 +338,28 @@ CREATE TABLE `tb_unit` (
 --
 
 INSERT INTO `tb_unit` (`unit_id`, `unit_name`) VALUES
-(1, 'คัน'),
-(2, 'เครื่อง'),
-(3, 'ห่อ');
+(1, '-'),
+(2, 'คัน'),
+(3, 'เครื่อง'),
+(4, 'ห่อ'),
+(5, 'กระสอบ'),
+(6, 'เส้น'),
+(7, 'แผ่น'),
+(8, 'อัน'),
+(9, 'ชิ้น'),
+(10, 'แท่ง'),
+(11, 'ม้วน'),
+(12, 'แผ่น'),
+(13, 'กล่อง'),
+(14, 'ถัง'),
+(15, 'แกลลอน'),
+(16, 'ตัน'),
+(17, 'ก้อน'),
+(18, 'ตัว'),
+(19, 'กิโลกรัม'),
+(20, 'เมตร'),
+(21, 'หลอด'),
+(22, 'ชุด');
 
 -- --------------------------------------------------------
 
@@ -571,7 +597,7 @@ ALTER TABLE `tb_company`
 -- AUTO_INCREMENT for table `tb_daily_report`
 --
 ALTER TABLE `tb_daily_report`
-  MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `tb_inspection`
@@ -667,7 +693,7 @@ ALTER TABLE `tb_tool`
 -- AUTO_INCREMENT for table `tb_unit`
 --
 ALTER TABLE `tb_unit`
-  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tb_user_detail`
