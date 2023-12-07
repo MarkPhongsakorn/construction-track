@@ -5,7 +5,8 @@ import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { DeleteProjectComponent } from '../delete-project/delete-project.component';
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
-
+import { isWithinInterval } from 'date-fns';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,6 +26,11 @@ export class DashboardComponent implements OnInit {
 
   ref: DynamicDialogRef | undefined;
 
+  psta_id: string[] = [];
+  projects_id: string[] = [];
+  start: string[] = [];
+  end: string[] = [];
+
 
   constructor(
     private project: ProjectService,
@@ -34,13 +40,31 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.project.readProject().subscribe((res: any) => {
-      // this.projects = res;
       if (res.status === 'error') {
-        return this.projectID = true;
+        this.projectID = true;
       } else {
         this.projects = res;
+        const currentDate = new Date();
 
-        return this.projectID = false;
+        this.projects.forEach((project: any) => {
+          const projectStart = new Date(project.project_start);
+          const projectEnd = new Date(project.project_end);
+          const overdue = isWithinInterval(currentDate, { start: projectStart, end: projectEnd });
+          const data = {
+            project_id: project.project_id,
+            psta_id: overdue ? "1" : "2"
+          }
+          if (project.psta_id != '3' && project.psta_id != '4') {
+            this.project.updatePsta(data).subscribe((res: any) => {
+              if (res.status === 'success') {
+                return true;
+              } else {
+                return false;
+              }
+            })
+          }
+        });
+        this.projectID = false;
       }
     });
   }

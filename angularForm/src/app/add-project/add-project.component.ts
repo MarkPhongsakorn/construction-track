@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../services/users/user.service';
 import { ProjectService } from '../services/projects/project.service';
 import { CompanyService } from '../services/companies/company.service';
+import { ProjectStatusService } from '../services/reports/project-status.service';
 import { format } from 'date-fns-tz';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
+import { isWithinInterval } from 'date-fns';
 
 @Component({
   selector: 'app-add-project',
@@ -25,14 +26,19 @@ export class AddProjectComponent implements OnInit {
   project_start: Date = new Date();
   project_end: Date = new Date();
 
-  constructor (
-    private router: Router,
+  psta: any[] = [];
+  psta_name: string = '';
+  selectPstaId: string = '';
+
+
+  constructor(
     private userService: UserService,
     private projectService: ProjectService,
     private companyService: CompanyService,
-    public dialogRef: DynamicDialogRef
-  ) {}
-  
+    private pstaService: ProjectStatusService,
+    public dialogRef: DynamicDialogRef,
+  ) { }
+
   ngOnInit() {
     const user_id = sessionStorage.getItem('user_detail_id');
     if (user_id !== null) {
@@ -53,11 +59,15 @@ export class AddProjectComponent implements OnInit {
         };
       });
     });
-    
+
     this.companyService.getComp().subscribe(data => {
       this.comp = data;
     })
-    
+
+    this.pstaService.read().subscribe(data => {
+      this.psta = data;
+    });
+
   }
 
 
@@ -70,12 +80,16 @@ export class AddProjectComponent implements OnInit {
     projectEnd.setHours(0, 0, 0, 0);
     const projectEndThailand = format(projectEnd, 'yyyy-MM-dd HH:mm:ss.SSS', { timeZone: 'Asia/Bangkok' });
 
+    const currentDate = new Date();
+    const isProjectInProgress = isWithinInterval(currentDate, { start: projectStart, end: projectEnd });
+
     const data = {
       project_name: this.project_name,
       project_start: projectStartThailand,
       project_end: projectEndThailand,
       user_detail_id: this.selectUserId,
-      comp_id: this.selectCompId
+      comp_id: this.selectCompId,
+      psta_id: isProjectInProgress ? "1" : "2"
     };
     this.projectService.createProject(data).subscribe((res: any) => {
       if (res.status === 'success') {

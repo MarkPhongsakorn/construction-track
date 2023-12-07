@@ -30,7 +30,9 @@
                 'user_fname' => $row['user_fname'],
                 'user_lname' => $row['user_lname'],
                 'comp_id' => $row['comp_id'],
-                'comp_name' => $row['comp_name']
+                'comp_name' => $row['comp_name'],
+                'psta_id' => $row['psta_id'],
+                'psta_name' => $row['psta_name']
             );
 
             http_response_code(200);

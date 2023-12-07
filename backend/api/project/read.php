@@ -30,7 +30,9 @@
                 'project_end' => $project_end,
                 'user_fname' => $user_fname,
                 'user_lname' => $user_lname,
-                'comp_name' => $comp_name
+                'comp_name' => $comp_name,
+                'psta_id' => $psta_id,
+                'psta_name' => $psta_name
 
             );
 

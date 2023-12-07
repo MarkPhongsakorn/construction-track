@@ -1,54 +1,3 @@
-<!-- <div mat-dialog-title>
-    <h1>Update Project</h1>
-</div>
-<div mat-dialog-content>
-    <div class="example-container">
-
-        <mat-form-field appearance="outline" class="width-100">
-            <mat-label>Project Name</mat-label>
-            <input matInput type="text" name="project_name" id="project_name" placeholder="Project Name"
-                [(ngModel)]="project_name">
-        </mat-form-field>
-        <br>
-
-        <mat-form-field appearance="outline" class="width-100">
-            <mat-label>Project Start and End</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate name="project_start" id="project_start" placeholder="Start date"
-                    [(ngModel)]="project_start">
-                <input matEndDate name="project_end" id="project_end" placeholder="End date" [(ngModel)]="project_end">
-            </mat-date-range-input>
-            <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-        <br>
-        <br>
-
-        <mat-form-field appearance="outline" class="width-100">
-            <mat-label>ผู้ควบคุมงาน</mat-label>
-            <mat-select matNativeControl [(ngModel)]="selectUserId" name="selectUserId">
-                <mat-option *ngFor="let userId of user" [value]="userId.user_detail_id">
-                    {{ userId.user_fname }} {{ userId.user_lname }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline" class="width-100">
-            <mat-label>บริษัทที่ดูแล</mat-label>
-            <mat-select [(ngModel)]="selectCompId" name="selectCompId">
-                <mat-option *ngFor="let compId of comp" [value]="compId.comp_id">
-                    {{ compId.comp_name }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-</div>
-<div mat-dialog-actions align="end">
-    <button mat-raised-button mat-dialog-close>Close</button>
-    <button mat-raised-button color=accent (click)="update()">Update</button>
-</div> -->
-
 <div class="p-dialog-title">
     <h1>เพิ่มโครงการ</h1>
 </div>
@@ -104,6 +53,8 @@
     </div>
 </div>
 <div class="p-dialog-footer">
-    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-danger" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-secondary" icon="pi pi-check" label="ยืนยันการเสร็จสิ้นโครงการ"
+        (click)="successProject()" *ngIf="psta"></p-button>
     <p-button styleClass="p-button-warning" (click)="update()" label="แก้ไขโครงการ"></p-button>
 </div>

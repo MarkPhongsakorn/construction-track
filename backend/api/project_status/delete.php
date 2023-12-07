@@ -6,18 +6,18 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/inspection.php';
+    include_once '../../models/project_status.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $inspec = new Inspection($db);
+    $psta = new Psta($db);
 
-    $data = json_decode(file_get_contents("php://input"), true);
+    $data = json_decode(file_get_contents("php://input"));
 
-    $inspec->dr_id = isset($_GET['dr_id']) ? $_GET['dr_id'] : die();
+    $psta->psta_id = isset($_GET['psta_id']) ? $_GET['psta_id'] : die();
 
-    if($inspec->delete()) {
+    if($psta->delete()) {
         $response = array("status" => "success", "message" => "User deleted.");
     } else {
         $response = array("status" => "error", "message" => "Failed to deleted user.");

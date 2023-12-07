@@ -20,6 +20,7 @@
         <th>วันที่สิ้นสุด</th>
         <th>ชื่อผู้ควบคุม</th>
         <th>บริษัทที่ดูแล</th>
+        <th>สถานะ</th>
         <th>Action</th>
       </tr>
     </ng-template>
@@ -31,10 +32,11 @@
         <td>{{ projects.project_end | date: 'dd/MM/yyyy'}}</td>
         <td>{{ projects.user_fname }} {{ projects.user_lname }}</td>
         <td>{{ projects.comp_name }}</td>
+        <td>{{ projects.psta_name }}</td>
         <td>
           <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขโครงการ" class="p-button-help"
             (click)="openDialog2(projects.project_id)"></a>
-          <a pButton icon="pi pi-trash" pTooltip="ลบโครงการ" class="p-button-danger"
+          <a pButton icon="pi pi-trash" pTooltip="ลบข้อมูลที่เกี่ยวกับโครงการทั้งหมด" class="p-button-danger"
             (click)="openDialog3(projects.project_id)"></a>
         </td>
       </tr>

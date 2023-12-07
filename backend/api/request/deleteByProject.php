@@ -45,13 +45,14 @@
             $response = array("status" => "error", "message" => "Data not found");
         }
     
-        if ($req->deleteByProject()) {
-            $response = array("status" => "success", "message" => "User deleted.");
-        } else {
-            $response = array("status" => "error", "message" => "Failed to delete user.");
-        }
     } else {
         $response = array("status" => "error", "message" => "Data not found");
+    }
+
+    if ($req->deleteByProject()) {
+        $response = array("status" => "success", "message" => "User deleted.");
+    } else {
+        $response = array("status" => "error", "message" => "Failed to delete user.");
     }
 
     echo json_encode($response);
