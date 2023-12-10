@@ -6,12 +6,10 @@ import { DeleteProjectComponent } from '../delete-project/delete-project.compone
 import { ProjectService } from '../services/projects/project.service';
 import { ReportService } from '../services/reports/report.service';
 import { isWithinInterval } from 'date-fns';
-import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [DialogService]
 })
 export class DashboardComponent implements OnInit {
 

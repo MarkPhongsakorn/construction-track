@@ -1,0 +1,18 @@
+<div class="p-dialog-title">
+    <h1>แก้ไขแรงงาน</h1>
+</div>
+<div class="p-dialog-content">
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-12">
+            <span class="p-float-label">
+                <input type="text" pInputText name="labor_name" id="labor_name" [(ngModel)]="labor_name" />
+                <label htmlFor="labor_name">ชื่อแรงงาน</label>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="update()" label="แก้ไขแรงงาน"></p-button>
+</div>

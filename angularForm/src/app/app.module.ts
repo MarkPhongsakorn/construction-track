@@ -6,23 +6,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatTableModule } from '@angular/material/table';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatSidenavModule } from '@angular/material/sidenav';
-
-import { CdkDrag } from '@angular/cdk/drag-drop';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -47,6 +30,12 @@ import { DeleteRequestUserComponent } from './delete-request-user/delete-request
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PdfService } from './services/reports/pdf.service';
+import { LaborComponent } from './labor/labor.component';
+import { ToolComponent } from './tool/tool.component';
+import { MaterialComponent } from './material/material.component';
+import { AddLaborNameComponent } from './add-labor-name/add-labor-name.component';
+import { EditLaborNameComponent } from './edit-labor-name/edit-labor-name.component';
+import { DeleteLaborNameComponent } from './delete-labor-name/delete-labor-name.component';
 
 import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
@@ -54,7 +43,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
 import { TooltipModule } from 'primeng/tooltip';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -97,6 +86,12 @@ import { DownloadRequestComponent } from './download-request/download-request.co
     EditCompanyComponent,
     DeleteCompanyComponent,
     DownloadRequestComponent,
+    LaborComponent,
+    ToolComponent,
+    MaterialComponent,
+    AddLaborNameComponent,
+    EditLaborNameComponent,
+    DeleteLaborNameComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,23 +99,6 @@ import { DownloadRequestComponent } from './download-request/download-request.co
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatGridListModule,
-    MatDividerModule,
-    FormsModule,
-    MatDialogModule,
-    MatDatepickerModule,
-    MatTableModule,
-    MatAutocompleteModule,
-    MatSidenavModule,
-    CdkDrag,
     MenubarModule,
     InputTextModule,
     ButtonModule,
@@ -135,7 +113,7 @@ import { DownloadRequestComponent } from './download-request/download-request.co
     DividerModule,
     PaginatorModule,
   ],
-  providers: [AuthGuardService, PdfService],
+  providers: [AuthGuardService, PdfService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

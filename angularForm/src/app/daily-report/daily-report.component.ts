@@ -42,7 +42,6 @@ export class DailyReportComponent implements OnInit {
       this.project = (+params['project_id']).toString();
       this.loadReportData();
     });
-
   }
 
   loadReportData() {
@@ -57,7 +56,6 @@ export class DailyReportComponent implements OnInit {
 
     });
   }
-
 
   openDialog() {
     this.ref = this.dialogService.open(AddReportComponent, {

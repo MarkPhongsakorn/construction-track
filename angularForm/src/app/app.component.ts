@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/users/auth.service';
 import { Router } from '@angular/router';
-import { UserService } from './services/users/user.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -28,7 +27,6 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private userService: UserService,
   ) { }
 
   ngOnInit() {
@@ -46,6 +44,26 @@ export class AppComponent implements OnInit {
       {
         label: 'การร้องขอ',
         routerLink: '/request-admin'
+      },
+      {
+        label: 'ข้อมูลรายงาน',
+        items: [
+          {
+            label: 'ชื่อแรงงาน',
+            routerLink: '/labor',
+            icon: 'pi pi-users'
+          },
+          {
+            label: 'เครื่องมือ',
+            routerLink: '/tool',
+            icon: 'pi pi-wrench'
+          },
+          {
+            label: 'วัสดุ',
+            routerLink: '/material',
+            icon: 'pi pi-wrench'
+          }
+        ]
       },
       {
         label: 'ข้อมูลบริษัท',

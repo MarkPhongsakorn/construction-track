@@ -1,0 +1,40 @@
+<div class="card">
+    <p-table [value]="labor_name" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <h1>แรงงานทั้งหมด</h1>
+                </div>
+                <div class="feild col" align="end">
+                    <p-button styleClass="p-button-warning" pTooltip="เพิ่มแรงงาน" (click)="openDialog()"
+                        icon="pi pi-plus" label="เพิ่มแรงงาน"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>ชื่อแรงงาน</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-laborName *ngIf="!this.checkData">
+            <tr>
+                <td>{{ laborName.labor_name_id }}</td>
+                <td>{{ laborName.labor_name }}</td>
+                <td>
+                    <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขแรงงาน" class="p-button-help"
+                        (click)="openDialog2(laborName.labor_name_id)"></a>
+                    <a pButton icon="pi pi-trash" pTooltip="ลบข้อมูลแรงงาน" class="p-button-danger"
+                        (click)="openDialog3(laborName.labor_name_id)"></a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class=" not" *ngIf="this.checkData">
+                <h1>ไม่มีข้อมูล</h1>
+            </div>
+        </ng-template>
+    </p-table>
+</div>

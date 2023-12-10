@@ -1,0 +1,10 @@
+<div class="p-dialog-title">
+    <h1>ลบแรงงาน</h1>
+</div>
+<div class="p-dialog-content">
+    <h2>คุณต้องการลบแรงงาน<span>"{{ labor_name }}"</span> ใช่หรือไม่</h2>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="delete()" label="ลบแรงงาน"></p-button>
+</div>

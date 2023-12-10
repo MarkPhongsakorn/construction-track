@@ -38,8 +38,7 @@ if ($num > 0) {
             $fileContents[] = null;
         }
     }
-    // $response = array("files" => $fileContents);
-    // echo json_encode($response);
+
     var_dump($fileContents);
 
     // ตรวจสอบว่ามีข้อมูลที่ต้องการส่งกลับหรือไม่
