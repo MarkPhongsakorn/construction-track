@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http'
 })
 export class PrefixService {
 
-  private baseUrl = 'http://localhost/test';
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(private http: HttpClient) { }
 
@@ -19,14 +19,14 @@ export class PrefixService {
   createUser(user: Object): Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/prefix/create.php`, user);
   }
-  
+
 
   updateUser(user: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/prefix/update.php`, user);
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/prefix/delete.php`,{ params: { id: id } });
+    return this.http.delete(`${this.baseUrl}/backend/api/prefix/delete.php`, { params: { id: id } });
   }
 
   getUserList(): Observable<any> {

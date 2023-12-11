@@ -7,32 +7,32 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ReportService {
 
-  private baseUrl = 'http://localhost/test';
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(
     private http: HttpClient
   ) { }
 
   getOneReport(dr_id: string): Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrl}/backend/api/daily-report/read_one.php`,{ params: { dr_id: dr_id } });
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/daily-report/read_one.php`, { params: { dr_id: dr_id } });
   }
-  getOneByproject(project_id: string) : Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrl}/backend/api/daily-report/read_oneByproject.php`,{ params: { project_id: project_id}});
+  getOneByproject(project_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/daily-report/read_oneByproject.php`, { params: { project_id: project_id } });
   }
-  getReport() : Observable<any> {
+  getReport(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/backend/api/daily-report/read.php`);
   }
-  create(user: Object) : Observable<any> {
+  create(user: Object): Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/daily-report/create.php`, user);
   }
   update(data: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/daily-report/update.php`, data);
   }
-  delete(dr_id: string) : Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/daily-report/delete.php`,{ params: { dr_id: dr_id } });
+  delete(dr_id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/daily-report/delete.php`, { params: { dr_id: dr_id } });
   }
 
-  deleteProject(project_id: string) : Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/daily-report/deleteByProject.php`,{ params: { project_id: project_id } });
+  deleteProject(project_id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/daily-report/deleteByProject.php`, { params: { project_id: project_id } });
   }
 }

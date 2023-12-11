@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StrikeService {
-  private baseUrl = 'http://localhost/test';
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(
     private http: HttpClient
@@ -16,16 +16,16 @@ export class StrikeService {
     return this.http.post(`${this.baseUrl}/backend/api/strike/create.php`, data)
   }
 
-  delete(dr_id: string) : Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/strike/delete.php`,{ params: { dr_id: dr_id } });
+  delete(dr_id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/strike/delete.php`, { params: { dr_id: dr_id } });
   }
 
   readOne(dr_id: string): Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrl}/backend/api/strike/read_one.php`,{ params: { dr_id: dr_id } });
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/strike/read_one.php`, { params: { dr_id: dr_id } });
   }
 
   deleteProject(project_id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/strike/deleteByProject.php`,{ params: { project_id: project_id } })
+    return this.http.delete(`${this.baseUrl}/backend/api/strike/deleteByProject.php`, { params: { project_id: project_id } })
   }
 
   update(data: Object): Observable<Object> {

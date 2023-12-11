@@ -38,3 +38,5 @@
         echo json_encode(array('status' => 'error', 'message' => 'No Labor Name Found'));
 
     }
+
+?>

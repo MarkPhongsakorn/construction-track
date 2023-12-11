@@ -55,6 +55,12 @@ import { AddCompanyComponent } from './add-company/add-company.component';
 import { EditCompanyComponent } from './edit-company/edit-company.component';
 import { DeleteCompanyComponent } from './delete-company/delete-company.component';
 import { DownloadRequestComponent } from './download-request/download-request.component';
+import { AddToolNameComponent } from './add-tool-name/add-tool-name.component';
+import { EditToolNameComponent } from './edit-tool-name/edit-tool-name.component';
+import { DeleteToolNameComponent } from './delete-tool-name/delete-tool-name.component';
+import { AddMatNameComponent } from './add-mat-name/add-mat-name.component';
+import { EditMatNameComponent } from './edit-mat-name/edit-mat-name.component';
+import { DeleteMatNameComponent } from './delete-mat-name/delete-mat-name.component';
 
 
 
@@ -92,6 +98,12 @@ import { DownloadRequestComponent } from './download-request/download-request.co
     AddLaborNameComponent,
     EditLaborNameComponent,
     DeleteLaborNameComponent,
+    AddToolNameComponent,
+    EditToolNameComponent,
+    DeleteToolNameComponent,
+    AddMatNameComponent,
+    EditMatNameComponent,
+    DeleteMatNameComponent,
   ],
   imports: [
     BrowserModule,

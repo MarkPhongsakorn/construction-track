@@ -1,0 +1,24 @@
+<div class="p-dialog-title">
+    <h1>แก้ไขวัสดุ</h1>
+</div>
+<div class="p-dialog-content">
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="feild col-8">
+            <span class="p-float-label">
+                <input type="text" pInputText name="mat_name" id="mat_name" [(ngModel)]="mat_name" />
+                <label htmlFor="mat_name">ชื่อวัสดุ</label>
+            </span>
+        </div>
+        <div class="feild col-4">
+            <span class="p-float-label">
+                <input type="text" pInputText name="mat_unit" id="mat_unit" [(ngModel)]="mat_unit" />
+                <label htmlFor="mat_unit">ชื่อวัสดุ</label>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="p-dialog-footer">
+    <p-button styleClass="p-button-secondary" (click)="closeDialog()" label="ปิด"></p-button>
+    <p-button styleClass="p-button-warning" (click)="update()" label="แก้ไขวัสดุ"></p-button>
+</div>

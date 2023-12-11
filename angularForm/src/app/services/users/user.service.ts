@@ -6,26 +6,26 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  
-  private baseUrl = 'http://localhost/test';
+
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(private http: HttpClient) { }
 
   getUser(user_detail_id: string): Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrl}/backend/api/user_detail/read_one.php`,{ params: { user_detail_id: user_detail_id } });
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/user_detail/read_one.php`, { params: { user_detail_id: user_detail_id } });
   }
 
   createUser(user: Object): Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/user_detail/create.php`, user);
   }
-  
+
 
   updateUser(user: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/user_detail/update.php`, user);
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/user_detail/delete.php`,{ params: { id: id } });
+    return this.http.delete(`${this.baseUrl}/backend/api/user_detail/delete.php`, { params: { id: id } });
   }
 
   getUserList(): Observable<any> {
@@ -35,5 +35,5 @@ export class UserService {
   checkuser(user: Object): Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/user_detail/login.php`, user);
   }
-  
+
 }

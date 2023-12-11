@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UnitService {
-  private baseUrl = 'http://localhost/test';
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  read() : Observable<any> {
+  read(): Observable<any> {
     return this.http.get<any[]>(`${this.baseUrl}/backend/api/unit/read.php`);
   }
 }

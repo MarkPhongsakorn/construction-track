@@ -1,1 +1,42 @@
-<p>material works!</p>
+<div class="card">
+    <p-table [value]="mat_name" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <h1>วัสดุ</h1>
+                </div>
+                <div class="feild col" align="end">
+                    <p-button styleClass="p-button-warning" pTooltip="เพิ่มวัสดุ" (click)="openDialog()"
+                        icon="pi pi-plus" label="เพิ่มวัสดุ"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>ชื่อวัสดุ</th>
+                <th>หน่วย</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-matName *ngIf="!this.checkData">
+            <tr>
+                <td>{{ matName.mat_name_id }}</td>
+                <td>{{ matName.mat_name }}</td>
+                <td>{{ matName.mat_unit }}</td>
+                <td>
+                    <a pButton icon="pi pi-file-edit" pTooltip="เพิ่มวัสดุ" class=" p-button-help"
+                        (click)="openDialog2(matName.mat_name_id)"></a>
+                    <a pButton icon="pi pi-trash" pTooltip="ลบข้อมูลวัสดุ" class="p-button-danger"
+                        (click)="openDialog3(matName.mat_name_id)"></a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class=" not" *ngIf="this.checkData">
+                <h1>ไม่มีข้อมูล</h1>
+            </div>
+        </ng-template>
+    </p-table>
+</div>

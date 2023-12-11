@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PdfService {
-  private baseUrl = 'http://localhost/test/';
+  private baseUrl = 'http://localhost/construction-track/';
 
   constructor(private http: HttpClient) { }
 

@@ -1,1 +1,40 @@
-<p>tool works!</p>
+<div class="card">
+    <p-table [value]="tool_name" [paginator]="true" [rows]="row" [(first)]="first" styleClass="p-datatable-gridlines"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="formgrid grid">
+                <div class="field col">
+                    <h1>เครื่องมือและเครื่องจักร</h1>
+                </div>
+                <div class="feild col" align="end">
+                    <p-button styleClass="p-button-warning" pTooltip="เพิ่มเครื่องมือและเครื่องจักร"
+                        (click)="openDialog()" icon="pi pi-plus" label="เพิ่มเครื่องมือและเครื่องจักร"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>ชื่อเครื่องมือและเครื่องจักร</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-toolName *ngIf="!this.checkData">
+            <tr>
+                <td>{{ toolName.tool_name_id }}</td>
+                <td>{{ toolName.tool_name }}</td>
+                <td>
+                    <a pButton icon="pi pi-file-edit" pTooltip="แก้ไขเครื่องมือและเครื่องจักร" class="p-button-help"
+                        (click)="openDialog2(toolName.tool_name_id)"></a>
+                    <a pButton icon="pi pi-trash" pTooltip="ลบข้อมูลเครื่องมือและเครื่องจักร" class="p-button-danger"
+                        (click)="openDialog3(toolName.tool_name_id)"></a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class=" not" *ngIf="this.checkData">
+                <h1>ไม่มีข้อมูล</h1>
+            </div>
+        </ng-template>
+    </p-table>
+</div>

@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProjectService {
 
-  private baseUrl = 'http://localhost/test';
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(
     private http: HttpClient

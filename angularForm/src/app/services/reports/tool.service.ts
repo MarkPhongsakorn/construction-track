@@ -7,27 +7,27 @@ import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
   providedIn: 'root'
 })
 export class ToolService {
-  
-  private baseUrl = 'http://localhost/test';
+
+  private baseUrl = 'http://localhost/construction-track';
 
   constructor(
     private http: HttpClient
   ) { }
 
-  create(data: object) : Observable<any> {
+  create(data: object): Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/tool/create.php`, data);
   }
 
-  delete(dr_id: string) : Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/tool/delete.php`,{ params: { dr_id: dr_id } });
+  delete(dr_id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/backend/api/tool/delete.php`, { params: { dr_id: dr_id } });
   }
 
   readOne(dr_id: string): Observable<any> {
-    return this.http.get<any[]>(`${this.baseUrl}/backend/api/tool/read_one.php`,{ params: { dr_id: dr_id } });
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/tool/read_one.php`, { params: { dr_id: dr_id } });
   }
 
   deleteProject(project_id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/tool/deleteByProject.php`,{ params: { project_id: project_id } })
+    return this.http.delete(`${this.baseUrl}/backend/api/tool/deleteByProject.php`, { params: { project_id: project_id } })
   }
 
   update(data: Object): Observable<Object> {

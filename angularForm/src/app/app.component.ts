@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-users'
           },
           {
-            label: 'เครื่องมือ',
+            label: 'เครื่องมือและเครื่องจักร',
             routerLink: '/tool',
             icon: 'pi pi-wrench'
           },
