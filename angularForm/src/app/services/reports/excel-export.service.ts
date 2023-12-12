@@ -74,8 +74,8 @@ export class ExcelExportService {
 
     worksheet.mergeCells('D5:I5');
     const cellD5 = worksheet.getCell('D5');
-    cellD5.value = 'วันที่ ' + dr_time;
-    cellD5.alignment = { horizontal: 'right', vertical: 'middle' };
+    cellD5.value = dr_time;
+    cellD5.alignment = { horizontal: 'center', vertical: 'middle' };
     cellD5.border = borderThin;
     cellD5.font = font12;
 

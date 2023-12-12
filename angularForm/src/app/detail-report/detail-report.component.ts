@@ -13,14 +13,14 @@ import { DynamicDialogRef, DialogService, DynamicDialogConfig } from 'primeng/dy
 import { ExcelExportService } from '../services/reports/excel-export.service';
 import { ReportService } from '../services/reports/report.service';
 import { ProjectService } from '../services/projects/project.service';
-import { format } from 'date-fns-tz';
-
+import { format } from 'date-fns';
 @Component({
   selector: 'app-detail-report',
   templateUrl: './detail-report.component.html',
   styleUrls: ['./detail-report.component.css'],
   providers: [DialogService]
 })
+
 export class DetailReportComponent implements OnInit {
 
   problem: string = '';
@@ -283,17 +283,36 @@ export class DetailReportComponent implements OnInit {
     });
   }
 
-  exportToExcel(): void {
+  getFormattedDate(date: Date): string {
+    const days = ['วันอาทิตย์', 'วันจันทร์', 'วันอังคาร', 'วันพุธ', 'วันพฤหัสบดี', 'วันศุกร์', 'วันเสาร์'];
+
     const drTime = new Date(this.dr_time)
     const formattedDate = format(drTime, 'dd/MM/yyyy');
+    const thaiDate = `${days[date.getDay()]}ที่ ${formattedDate} พ.ศ. ${date.getFullYear() + 543}`;
+
+    return thaiDate;
+  }
+
+  exportToExcel(): void {
+
+    const days = ['วันอาทิตย์', 'วันจันทร์', 'วันอังคาร', 'วันพุธ', 'วันพฤหัสบดี', 'วันศุกร์', 'วันเสาร์'];
+    const month = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+
+    const drTime = new Date(this.dr_time)
+    const formattedDate = format(drTime, 'dd');
+    const thaiDate = `${days[drTime.getDay()]}ที่ ${formattedDate} เดือน ${month[drTime.getMonth()]} พ.ศ. ${drTime.getFullYear() + 543}`;
+    console.log(thaiDate);
+
+
+
     const nameSheet = format(drTime, 'dd-MM-yyyy');
 
-    const fileName = 'รายงานประจำวันที่_' + formattedDate;
+    const fileName = 'รายงานประจำวันที่_' + nameSheet;
     const sheetName = nameSheet;
 
     this.excelExportService.exportToExcel(
       this.project_name,
-      formattedDate,
+      thaiDate,
       this.comp_name,
       this.period_name1,
       this.sta_name1,
