@@ -1,105 +1,3 @@
-<!-- <div mat-dialog-title>
-    <h1>Report Detail</h1>
-</div>
-<div mat-dialog-content>
-    <div class="width-100" >
-        <p *ngIf="!this.readWeather1"><span>ช่วงเวลา:</span> {{ period_name1 }} <span> สภาพอากาศ:</span> {{ sta_name1 }} <span> เวลาฝนตก:</span> {{ sta_time1 }}</p>
-        <p *ngIf="!this.readWeather2"><span>ช่วงเวลา:</span> {{ period_name2 }} <span> สภาพอากาศ:</span> {{ sta_name2 }} <span> เวลาฝนตก:</span> {{ sta_time2 }}</p>
-    </div>
-    <div class="width-100" >
-        <p *ngIf="this.readWeather1"><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล <span> เวลาฝนตก:</span> ไม่มีข้อมูล</p>
-        <p *ngIf="this.readWeather2"><span>ช่วงเวลา:</span> ไม่มีข้อมูล <span> สภาพอากาศ:</span> ไม่มีข้อมูล <span> เวลาฝนตก:</span> ไม่มีข้อมูล</p>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readLabor">
-        <h2>แรงงาน:</h2>
-        <div *ngFor="let labor of labors">
-            <p>{{ labor.labor_name }} จำนวน {{ labor.labor_num }} คน</p>
-        </div>
-    </div>
-    <div class="width-100" *ngIf="this.readLabor">
-        <h2>แรงงาน:</h2>
-        <div>
-            <p>ไม่มีข้อมูล</p>
-        </div>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readWork">
-        <h2>รายละเอียดงาน:</h2>
-        <div *ngFor="let work of works">
-            <p>{{ work.work_num }}. {{ work.work_detail }}</p>
-        </div>
-    </div>
-    <div class="width-100" *ngIf="this.readWork">
-        <h2>รายละเอียดงาน:</h2>
-        <div>
-            <p>ไม่มีข้อมูล</p>
-        </div>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readTool">
-        <h2>เครื่องมือและเครื่องจักร:</h2>
-        <div *ngFor="let tool of tools">
-            <p>{{ tool.tool_name }} {{ tool.tool_num}} {{ tool.unit_name }}</p>
-        </div>
-    </div>
-    <div class="width-100" *ngIf="this.readTool">
-        <h2>เครื่องมือและเครื่องจักร:</h2>
-        <div>
-            <p>ไม่มีข้อมูล</p>
-        </div>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readMaterial">
-        <h2>วัสดุ:</h2>
-        <div *ngFor="let mat of mats">
-            <p>{{ mat.mat_name }} {{ mat.mat_num}} {{ mat.unit_name }}</p>
-        </div>
-    </div>
-    <div class="width-100" *ngIf="this.readMaterial">
-        <h2>วัสดุ:</h2>
-        <div>
-            <p>ไม่มีข้อมูล</p>
-        </div>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readReport">
-        <h2>ปัญหาและอุปสรรค: </h2>
-        <p>{{ problem }}</p>
-    </div>
-    <div class="width-100" *ngIf="this.readReport">
-        <h2>ปัญหาและอุปสรรค: </h2>
-        <p>ไม่มีข้อมูล</p>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readStrike">
-        <h2>การหยุดงาน: </h2>
-        <p>{{ strike_detail }}</p>
-        <br>
-        <h2>สาเหตุ: </h2>
-        <p>{{ strike_cause }}</p>
-    </div>
-    <div class="width-100" *ngIf="this.readStrike">
-        <h2>การหยุดงาน: </h2>
-        <p>ไม่มีข้อมูล</p>
-        <br>
-        <h2>สาเหตุ: </h2>
-        <p>ไม่มีข้อมูล</p>
-    </div>
-    <br>
-    <div class="width-100" *ngIf="!this.readInspec">
-        <p><span>ผลการตรวจงาน: </span>{{ inspec_result }}</p>
-    </div>
-    <div class="width-100" *ngIf="this.readInspec">
-        <p><span>ผลการตรวจงาน: </span> ไม่มีข้อมูล</p>
-    </div>
-
-</div>
-<div mat-dialog-actions align="end">
-    <button mat-raised-button mat-dialog-close>Close</button>
-    <button mat-raised-button color=accent (click)="openEditDetail()">Edit</button>
-</div> -->
-
 <div class="p-dialog-title">
     <h1>รายละเอียดรายงานประจำวัน</h1>
 </div>
@@ -116,8 +14,13 @@
         <div class="field col">
             <p *ngIf="!this.readWeather1"><span> สถานะ:</span> {{ sta_name1 }}</p>
         </div>
+    </div>
+    <div class="p-fluid formgrid grid">
         <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ sta_time1 }}</p>
+            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ rain_start1 }}</p>
+        </div>
+        <div class="field col">
+            <p *ngIf="!this.readWeather1"><span> ถึง </span> {{ rain_end1 }}</p>
         </div>
     </div>
     <div class="p-fluid formgrid grid">
@@ -139,8 +42,13 @@
         <div class="field col">
             <p *ngIf="!this.readWeather2"><span> สถานะ:</span> {{ sta_name2 }}</p>
         </div>
+    </div>
+    <div class="p-fluid formgrid grid">
         <div class="field col">
-            <p *ngIf="!this.readWeather2"><span> เวลาฝนตก:</span> {{ sta_time2 }}</p>
+            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ rain_start2 }}</p>
+        </div>
+        <div class="field col">
+            <p *ngIf="!this.readWeather1"><span> ถึง </span> {{ rain_end2 }}</p>
         </div>
     </div>
     <div class="p-fluid formgrid grid">

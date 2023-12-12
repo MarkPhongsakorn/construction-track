@@ -27,7 +27,9 @@
                 'weather_id' => $weather_id,
                 'period_id' => $period_id,
                 'sta_id' => $sta_id,
-                'sta_time' => $sta_time,
+                'rain_id' => $rain_id,
+                'rain_start' => $rain_start,
+                'rain_end' => $rain_end,
                 'dr_id' => $dr_id,
                 'project_id' => $project_id
             );

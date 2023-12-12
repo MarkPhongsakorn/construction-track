@@ -5,11 +5,14 @@
         private $table = "tb_weather";
         private $table2 = "tb_period";
         private $table3 = "tb_sta_weather";
+        private $table4 = "tb_rain_level";
 
         public $weather_id;
         public $period_id;
         public $sta_id;
-        public $sta_time;
+        public $rain_id;
+        public $rain_start;
+        public $rain_end;
         public $dr_id;
         public $project_id;
 
@@ -32,6 +35,7 @@
             $query = 'SELECT * FROM ' . $this->table .
             ' INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.period_id = ' . $this->table2 . '.period_id' .
             ' INNER JOIN ' . $this->table3 . ' ON ' . $this->table . '.sta_id = ' . $this->table3 . '.sta_id' .
+            ' INNER JOIN ' . $this->table4 . ' ON ' . $this->table . '.rain_id = ' . $this->table4 . '.rain_id' .
             ' WHERE ' . $this->table . '.dr_id = :dr_id AND ' . $this->table . '.period_id = :period_id';
 
             $stmt = $this->conn->prepare($query);
@@ -47,7 +51,9 @@
             SET
                 period_id = :period_id,
                 sta_id = :sta_id,
-                sta_time = :sta_time,
+                rain_id = :rain_id,
+                rain_start = :rain_start,
+                rain_end = :rain_end,
                 dr_id = :dr_id,
                 project_id = :project_id';
 
@@ -55,13 +61,17 @@
 
             $this->period_id = htmlspecialchars(strip_tags($this->period_id));
             $this->sta_id = htmlspecialchars(strip_tags($this->sta_id));
-            $this->sta_time = htmlspecialchars(strip_tags($this->sta_time));
+            $this->rain_id = htmlspecialchars(strip_tags($this->rain_id));
+            $this->rain_start = htmlspecialchars(strip_tags($this->rain_start));
+            $this->rain_end = htmlspecialchars(strip_tags($this->rain_end));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':period_id', $this->period_id);
             $stmt->bindParam(':sta_id', $this->sta_id);
-            $stmt->bindParam(':sta_time', $this->sta_time);
+            $stmt->bindParam(':rain_id', $this->rain_id);
+            $stmt->bindParam(':rain_start', $this->rain_start);
+            $stmt->bindParam(':rain_end', $this->rain_end);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
 
@@ -77,7 +87,9 @@
             SET
                 period_id = :period_id,
                 sta_id = :sta_id,
-                sta_time = :sta_time,
+                rain_id = :rain_id,
+                rain_start = :rain_start,
+                rain_end = :rain_end,
                 dr_id = :dr_id,
                 project_id = :project_id
             WHERE
@@ -87,13 +99,17 @@
 
             $this->period_id = htmlspecialchars(strip_tags($this->period_id));
             $this->sta_id = htmlspecialchars(strip_tags($this->sta_id));
-            $this->sta_time = htmlspecialchars(strip_tags($this->sta_time));
+            $this->rain_id = htmlspecialchars(strip_tags($this->rain_id));
+            $this->rain_start = htmlspecialchars(strip_tags($this->rain_start));
+            $this->rain_end = htmlspecialchars(strip_tags($this->rain_end));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
             $stmt->bindParam(':period_id', $this->period_id);
             $stmt->bindParam(':sta_id', $this->sta_id);
-            $stmt->bindParam(':sta_time', $this->sta_time);
+            $stmt->bindParam(':rain_id', $this->rain_id);
+            $stmt->bindParam(':rain_start', $this->rain_start);
+            $stmt->bindParam(':rain_end', $this->rain_end);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
             $stmt->bindParam(':weather_id', $this->weather_id);

@@ -13,7 +13,8 @@ import { DynamicDialogRef, DialogService, DynamicDialogConfig } from 'primeng/dy
 import { ExcelExportService } from '../services/reports/excel-export.service';
 import { ReportService } from '../services/reports/report.service';
 import { ProjectService } from '../services/projects/project.service';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
+
 @Component({
   selector: 'app-detail-report',
   templateUrl: './detail-report.component.html',
@@ -29,8 +30,10 @@ export class DetailReportComponent implements OnInit {
   period_name2: string = '';
   sta_name1: string = '';
   sta_name2: string = '';
-  sta_time1: string = '';
-  sta_time2: string = '';
+  rain_start1: string = '00:00';
+  rain_start2: string = '00:00';
+  rain_end1: string = '00:00';
+  rain_end2: string = '00:00';
 
   morning: string = '1';
   afternoon: string = '2';
@@ -124,7 +127,8 @@ export class DetailReportComponent implements OnInit {
       } else {
         this.period_name1 = data['period_name'];
         this.sta_name1 = data['sta_name'];
-        this.sta_time1 = data['sta_time'];
+        this.rain_start1 = data['rain_start'];
+        this.rain_end1 = data['rain_end'];
         return this.readWeather1
       }
     });
@@ -135,7 +139,8 @@ export class DetailReportComponent implements OnInit {
       } else {
         this.period_name2 = data['period_name'];
         this.sta_name2 = data['sta_name'];
-        this.sta_time2 = data['sta_time'];
+        this.rain_start2 = data['rain_start'];
+        this.rain_end2 = data['rain_end'];
         return this.readWeather2
       }
     });
@@ -228,8 +233,6 @@ export class DetailReportComponent implements OnInit {
       } else {
         this.strike_detail = data['strike_detail'];
         this.strike_cause = data['strike_cause'];
-        console.log(this.strike_detail);
-
         return this.readStrike
       }
     });
@@ -253,8 +256,6 @@ export class DetailReportComponent implements OnInit {
         return this.readOd = true;
       } else {
         this.od_detail = data['od_detail'];
-        console.log(this.od_detail);
-
         return this.readOd
       }
     });
@@ -301,14 +302,40 @@ export class DetailReportComponent implements OnInit {
     const drTime = new Date(this.dr_time)
     const formattedDate = format(drTime, 'dd');
     const thaiDate = `${days[drTime.getDay()]}ที่ ${formattedDate} เดือน ${month[drTime.getMonth()]} พ.ศ. ${drTime.getFullYear() + 543}`;
-    console.log(thaiDate);
-
-
 
     const nameSheet = format(drTime, 'dd-MM-yyyy');
 
     const fileName = 'รายงานประจำวันที่_' + nameSheet;
     const sheetName = nameSheet;
+
+    let start1: Date = parse(this.rain_start1, 'HH:mm:ss', new Date(0, 0, 0));
+    let start2: Date = parse(this.rain_start2, 'HH:mm:ss', new Date(0, 0, 0));
+    let end1: Date = parse(this.rain_end1, 'HH:mm:ss', new Date(0, 0, 0));
+    let end2: Date = parse(this.rain_end2, 'HH:mm:ss', new Date(0, 0, 0));
+    let formatRainStart1 = format(start1, 'HH:mm');
+    let formatRainStart2 = format(start2, 'HH:mm');
+    let formatRainEnd1 = format(end1, 'HH:mm');
+    let formatRainEnd2 = format(end2, 'HH:mm');
+    let rainStart1 = '';
+    let rainStart2 = '';
+    let rainEnd1 = '';
+    let rainEnd2 = '';
+
+    if (this.rain_start1 == '00:00:00' && this.rain_end1 == '00:00:00') {
+      rainStart1 = '-';
+      rainEnd1 = '-';
+    } else {
+      rainStart1 = formatRainStart1;
+      rainEnd1 = formatRainEnd1;
+    }
+
+    if (this.rain_start2 == '00:00:00' && this.rain_end2 == '00:00:00') {
+      rainStart2 = '-';
+      rainEnd2 = '-';
+    } else {
+      rainStart2 = formatRainStart2;
+      rainEnd2 = formatRainEnd2;
+    }
 
     this.excelExportService.exportToExcel(
       this.project_name,
@@ -316,10 +343,12 @@ export class DetailReportComponent implements OnInit {
       this.comp_name,
       this.period_name1,
       this.sta_name1,
-      this.sta_time1,
+      rainStart1,
+      rainEnd1,
       this.period_name2,
       this.sta_name2,
-      this.sta_time2,
+      rainStart2,
+      rainEnd2,
       this.labor_name,
       this.labor_num,
       this.work_num,

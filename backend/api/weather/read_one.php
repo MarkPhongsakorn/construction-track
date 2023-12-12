@@ -28,7 +28,10 @@
                 'period_name' => $row['period_name'],
                 'sta_id' => $row['sta_id'],
                 'sta_name' => $row['sta_name'],
-                'sta_time' => $row['sta_time'],
+                'rain_id' => $row['rain_id'],
+                'rain_name' => $row['rain_name'],
+                'rain_start' => $row['rain_start'],
+                'rain_end' => $row['rain_end'],
                 'dr_id' => $row['dr_id'],
                 'project_id' => $row['project_id']
             );

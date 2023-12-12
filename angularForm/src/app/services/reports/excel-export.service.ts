@@ -17,10 +17,12 @@ export class ExcelExportService {
     comp_name: string,
     period_name1: string,
     sta_name1: string,
-    sta_time1: string,
+    rain_start1: string,
+    rain_end1: string,
     period_name2: string,
     sta_name2: string,
-    sta_time2: string,
+    rain_start2: string,
+    rain_end2: string,
     labor_name: string[],
     labor_num: number[],
     work_num: number[],
@@ -39,6 +41,10 @@ export class ExcelExportService {
     fileName: string,
     sheetName: string
   ): void {
+
+    console.log(rain_start1);
+    console.log(rain_end1);
+
 
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet(sheetName);
@@ -88,14 +94,14 @@ export class ExcelExportService {
 
     worksheet.mergeCells('A8:D9');
     const cellA8 = worksheet.getCell('A8');
-    cellA8.value = 'ช่วงเวลา: ' + period_name1 + ' สถานะ: ' + sta_name1 + ' เวลาฝนตก: ' + sta_time1;
+    cellA8.value = 'ช่วงเวลา: ' + period_name1 + ' สถานะ: ' + sta_name1 + ' เวลาฝนตก: ' + rain_start1 + ' น. ถึง ' + rain_end1 + ' น.';
     cellA8.alignment = { horizontal: 'center', vertical: 'middle' };
     cellA8.border = borderThin;
     cellA8.font = font12;
 
     worksheet.mergeCells('E8:I9');
     const cellE8 = worksheet.getCell('E8');
-    cellE8.value = 'ช่วงเวลา: ' + period_name2 + ' สถานะ: ' + sta_name2 + ' เวลาฝนตก: ' + sta_time2;
+    cellE8.value = 'ช่วงเวลา: ' + period_name2 + ' สถานะ: ' + sta_name2 + ' เวลาฝนตก: ' + rain_start2 + ' น. ถึง ' + rain_end2 + ' น.';
     cellE8.alignment = { horizontal: 'center', vertical: 'middle' };
     cellE8.border = borderThin;
     cellE8.font = font12;

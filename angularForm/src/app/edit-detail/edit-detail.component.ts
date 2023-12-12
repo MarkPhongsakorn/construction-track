@@ -15,6 +15,7 @@ import { InspecResultService } from '../services/reports/inspec-result.service';
 import { OverdueService } from '../services/reports/overdue.service';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { format, parse } from 'date-fns';
 
 @Component({
   selector: 'app-edit-detail',
@@ -42,9 +43,11 @@ export class EditDetailComponent implements OnInit {
   selectResult: string = '';
 
   morning: string = '1';
-  sta_time1: string = '00:00';
+  rain_start1: string = '00:00';
+  rain_end1: string = '00:00';
   afternoon: string = '2';
-  sta_time2: string = '00:00';
+  rain_start2: string = '00:00';
+  rain_end2: string = '00:00';
 
   laborCr: any[] = [];
   laborUp: any[] = [];
@@ -90,7 +93,6 @@ export class EditDetailComponent implements OnInit {
   inspection: boolean = false;
   overdue: boolean = false;
 
-
   constructor(
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -122,12 +124,19 @@ export class EditDetailComponent implements OnInit {
     this.weatherService.readOne(this.config.data.dr_id, this.morning).subscribe(data => {
       this.weather_id1 = data['weather_id'];
       this.selectStatus1 = data['sta_id'];
-      this.sta_time1 = data['sta_time'];
+      this.rain_start1 = data['rain_start'];
+      this.rain_end1 = data['rain_end'];
+      console.log(this.rain_start1);
+      console.log(this.rain_end1);
+
     });
     this.weatherService.readOne(this.config.data.dr_id, this.afternoon).subscribe(data => {
       this.weather_id2 = data['weather_id'];
       this.selectStatus2 = data['sta_id'];
-      this.sta_time2 = data['sta_time'];
+      this.rain_start2 = data['rain_start'];
+      this.rain_end2 = data['rain_end'];
+      console.log(this.rain_start2);
+      console.log(this.rain_end2);
     });
     this.laborService.readOne(this.config.data.dr_id).subscribe(data => {
       this.labor_id = data['labor_id'];
@@ -178,11 +187,8 @@ export class EditDetailComponent implements OnInit {
     this.overdueService.readOne(this.config.data.dr_id).subscribe(data => {
       this.od_id = data['od_id'];
       this.od_detail = data['od_detail'];
-      console.log(this.od_id);
 
     });
-
-
     this.periodService.read().subscribe(data => {
       this.period = data;
     });
@@ -203,7 +209,9 @@ export class EditDetailComponent implements OnInit {
       weather_id: this.weather_id1,
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
-      sta_time: this.sta_time1,
+      rain_id: 1,
+      rain_start: this.rain_start1,
+      rain_end: this.rain_end1,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }
@@ -211,7 +219,9 @@ export class EditDetailComponent implements OnInit {
       weather_id: this.weather_id2,
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
-      sta_time: this.sta_time2,
+      rain_id: 1,
+      rain_start: this.rain_start2,
+      rain_end: this.rain_end2,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }

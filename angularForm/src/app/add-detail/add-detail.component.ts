@@ -39,8 +39,11 @@ export class AddDetailComponent implements OnInit {
   selectResult: string = '';
 
   morning: string = '1';
-  sta_time1: string = '00:00';
-  sta_time2: string = '00:00';
+  rain_start1: string = '00:00';
+  rain_start2: string = '00:00';
+  rain_end1: string = '00:00';
+  rain_end2: string = '00:00';
+
   afternoon: string = '2';
   period_id: string = '';
 
@@ -63,7 +66,8 @@ export class AddDetailComponent implements OnInit {
 
   od_detail: string = '';
 
-  statuses: boolean = false;
+  statuses1: boolean = false;
+  statuses2: boolean = false;
 
   constructor(
     public dialogRef: DynamicDialogRef,
@@ -108,21 +112,37 @@ export class AddDetailComponent implements OnInit {
     this.resultService.read().subscribe(data => {
       this.result = data;
     })
-
   }
+
+  onDropdownChange1() {
+    // เมื่อมีการเปลี่ยนค่าใน dropdown
+    // ตรวจสอบค่าที่เลือกและตั้งค่าตัวแปร showInput ตามต้องการ
+    this.statuses1 = this.selectStatus1 == '3';
+  }
+
+  onDropdownChange2() {
+    // เมื่อมีการเปลี่ยนค่าใน dropdown
+    // ตรวจสอบค่าที่เลือกและตั้งค่าตัวแปร showInput ตามต้องการ
+    this.statuses2 = this.selectStatus2 == '3';
+  }
+
 
   createDetail() {
     const morning = {
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
-      sta_time: this.sta_time1,
+      rain_id: 1,
+      rain_start: this.rain_start1,
+      rain_end: this.rain_end1,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }
     const afternoon = {
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
-      sta_time: this.sta_time2,
+      rain_id: 1,
+      rain_start: this.rain_start2,
+      rain_end: this.rain_end2,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }

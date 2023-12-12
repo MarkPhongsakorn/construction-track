@@ -18,7 +18,9 @@
     $weather->weather_id = $data->weather_id;
     $weather->period_id = $data->period_id;
     $weather->sta_id = $data->sta_id;
-    $weather->sta_time = $data->sta_time;
+    $weather->rain_id = $data->rain_id;
+    $weather->rain_start = $data->rain_start;
+    $weather->rain_end = $data->rain_end;
     $weather->dr_id = $data->dr_id;
     $weather->project_id = $data->project_id;
 
