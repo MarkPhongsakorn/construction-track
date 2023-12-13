@@ -25,6 +25,14 @@
                 <label for="float-label">สถานะ</label>
             </span>
         </div>
+        <div class="field col" *ngIf="statuses1">
+            <span class="p-float-label">
+                <p-dropdown [options]="rain_level" [(ngModel)]="selectedRainLevel1" name="selectedRainLevel1"
+                    placeholder="----เลือกระดับฝน----" optionLabel="rain_name" optionValue="rain_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">ระดับฝน</label>
+            </span>
+        </div>
     </div>
 
     <br>
@@ -63,6 +71,14 @@
                     name="selectStatus2" placeholder="----เลือกสถานะ----" optionLabel="sta_name" optionValue="sta_id"
                     appendTo="body"></p-dropdown>
                 <label for="float-label">สถานะ</label>
+            </span>
+        </div>
+        <div class="field col" *ngIf="statuses2">
+            <span class="p-float-label">
+                <p-dropdown [options]="rain_level" [(ngModel)]="selectedRainLevel2" name="selectedRainLevel2"
+                    placeholder="----เลือกระดับฝน----" optionLabel="rain_name" optionValue="rain_id"
+                    appendTo="body"></p-dropdown>
+                <label for="float-label">ระดับฝน</label>
             </span>
         </div>
     </div>

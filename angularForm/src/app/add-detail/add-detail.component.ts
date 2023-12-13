@@ -12,9 +12,12 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
 import { OverdueService } from '../services/reports/overdue.service';
+import { RainLevelService } from '../services/reports/rain-level.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { format } from 'date-fns';
+import { th } from 'date-fns/locale';
 
 
 @Component({
@@ -37,6 +40,10 @@ export class AddDetailComponent implements OnInit {
 
   result: any[] = [];
   selectResult: string = '';
+
+  rain_level: any[] = [];
+  selectedRainLevel1: string = '';
+  selectedRainLevel2: string = '';
 
   morning: string = '1';
   rain_start1: string = '00:00';
@@ -85,6 +92,7 @@ export class AddDetailComponent implements OnInit {
     private inspecService: InspectionService,
     private resultService: InspecResultService,
     private overdueService: OverdueService,
+    private rainLevelService: RainLevelService,
   ) { }
 
 
@@ -111,6 +119,9 @@ export class AddDetailComponent implements OnInit {
     });
     this.resultService.read().subscribe(data => {
       this.result = data;
+    });
+    this.rainLevelService.read().subscribe(data => {
+      this.rain_level = data;
     })
   }
 
@@ -118,20 +129,36 @@ export class AddDetailComponent implements OnInit {
     // เมื่อมีการเปลี่ยนค่าใน dropdown
     // ตรวจสอบค่าที่เลือกและตั้งค่าตัวแปร showInput ตามต้องการ
     this.statuses1 = this.selectStatus1 == '3';
+
+    // ใช้ === ในการเปรียบเทียบค่า เนื่องจาก == อาจทำให้เกิดปัญหาเมื่อเปรียบเทียบ string และ number
+    if (this.selectStatus1 !== '3') {
+      this.selectedRainLevel1 = '1'; // ใช้ = ไม่ใช่ === เนื่องจากเป็นการกำหนดค่า
+      console.log(this.selectedRainLevel1);
+    }
   }
 
   onDropdownChange2() {
     // เมื่อมีการเปลี่ยนค่าใน dropdown
     // ตรวจสอบค่าที่เลือกและตั้งค่าตัวแปร showInput ตามต้องการ
     this.statuses2 = this.selectStatus2 == '3';
+
+    // ใช้ === ในการเปรียบเทียบค่า เนื่องจาก == อาจทำให้เกิดปัญหาเมื่อเปรียบเทียบ string และ number
+    if (this.selectStatus2 !== '3') {
+      this.selectedRainLevel2 = '1'; // ใช้ = ไม่ใช่ === เนื่องจากเป็นการกำหนดค่า
+      console.log(this.selectedRainLevel2);
+    }
   }
 
 
   createDetail() {
+    this.rain_start1 = format(new Date(this.rain_start1), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
+    this.rain_end1 = format(new Date(this.rain_end1), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
+    this.rain_start2 = format(new Date(this.rain_start2), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
+    this.rain_end2 = format(new Date(this.rain_end2), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
     const morning = {
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
-      rain_id: 1,
+      rain_id: this.selectedRainLevel1,
       rain_start: this.rain_start1,
       rain_end: this.rain_end1,
       dr_id: this.config.data.dr_id,
@@ -140,7 +167,7 @@ export class AddDetailComponent implements OnInit {
     const afternoon = {
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
-      rain_id: 1,
+      rain_id: this.selectedRainLevel2,
       rain_start: this.rain_start2,
       rain_end: this.rain_end2,
       dr_id: this.config.data.dr_id,

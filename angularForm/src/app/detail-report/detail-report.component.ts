@@ -34,6 +34,8 @@ export class DetailReportComponent implements OnInit {
   rain_start2: string = '00:00';
   rain_end1: string = '00:00';
   rain_end2: string = '00:00';
+  rain_level1: string = '';
+  rain_level2: string = '';
 
   morning: string = '1';
   afternoon: string = '2';
@@ -129,6 +131,7 @@ export class DetailReportComponent implements OnInit {
         this.sta_name1 = data['sta_name'];
         this.rain_start1 = data['rain_start'];
         this.rain_end1 = data['rain_end'];
+        this.rain_level1 = data['rain_name'];
         return this.readWeather1
       }
     });
@@ -141,6 +144,7 @@ export class DetailReportComponent implements OnInit {
         this.sta_name2 = data['sta_name'];
         this.rain_start2 = data['rain_start'];
         this.rain_end2 = data['rain_end'];
+        this.rain_level2 = data['rain_name'];
         return this.readWeather2
       }
     });

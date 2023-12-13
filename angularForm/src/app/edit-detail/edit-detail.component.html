@@ -32,15 +32,14 @@
     <div class="p-fluid formgrid grid">
         <div class="feild col">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_start1" [timeOnly]="true" dateFormat="hh:mm tt"
+                <p-calendar [(ngModel)]="rain_start1" [timeOnly]="true" [showSeconds]="false" dateFormat="hh:mm tt"
                     appendTo="body"></p-calendar>
                 <label htmlFor="rain_start1">เวลาที่ฝนเริ่มตก</label>
             </span>
         </div>
         <div class="feild col">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_end1" [timeOnly]="true" dateFormat="hh:mm tt"
-                    appendTo="body"></p-calendar>
+                <p-calendar [(ngModel)]="rain_end1" [timeOnly]="true" [showSeconds]="true" appendTo="body"></p-calendar>
                 <label htmlFor="rain_end1">เวลาที่ฝนหยุดตก</label>
             </span>
         </div>
@@ -72,15 +71,14 @@
     <div class="p-fluid formgrid grid">
         <div class="feild col">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_start2" [timeOnly]="true" dateFormat="hh:mm tt"
+                <p-calendar [(ngModel)]="rain_start2" [timeOnly]="true" [showSeconds]="true"
                     appendTo="body"></p-calendar>
                 <label htmlFor="rain_start2">เวลาที่ฝนเริ่มตก</label>
             </span>
         </div>
         <div class="feild col">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_end2" [timeOnly]="true" dateFormat="hh:mm tt"
-                    appendTo="body"></p-calendar>
+                <p-calendar [(ngModel)]="rain_end2" [timeOnly]="true" [showSeconds]="true" appendTo="body"></p-calendar>
                 <label htmlFor="rain_end2">เวลาที่ฝนหยุดตก</label>
             </span>
         </div>
