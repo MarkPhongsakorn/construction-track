@@ -9,6 +9,8 @@ import { ProblemService } from '../services/reports/problem.service';
 import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { OverdueService } from '../services/reports/overdue.service';
+import { TimeInspectService } from '../services/reports/time-inspect.service';
+import { WorkingTimeService } from '../services/reports/working-time.service';
 import { format } from 'date-fns-tz';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
@@ -37,6 +39,8 @@ export class DeleteReportComponent implements OnInit {
     private strikeService: StrikeService,
     private inspecService: InspectionService,
     private overdueService: OverdueService,
+    private timeInspectService: TimeInspectService,
+    private workingTimeService: WorkingTimeService
   ) { }
 
   ngOnInit() {
@@ -50,6 +54,8 @@ export class DeleteReportComponent implements OnInit {
     const deleteRequests: Observable<any>[] = [
       this.report.delete(this.config.data.dr_id),
       this.weatherService.delete(this.config.data.dr_id),
+      this.timeInspectService.delete(this.config.data.dr_id),
+      this.workingTimeService.delete(this.config.data.dr_id),
       this.laborService.delete(this.config.data.dr_id),
       this.workService.delete(this.config.data.dr_id),
       this.toolService.delete(this.config.data.dr_id),

@@ -5,39 +5,36 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/material.php';
+    include_once '../../models/working_time.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $mat = new Material($db);
+    $work_time = new WorkTime($db);
 
-    $result = $mat->read();
+    $result = $work_time->read();
 
     $num = $result->rowCount();
     
 
     if ($num > 0) {
-        $mat_arr = array();
+        $work_time_arr = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
 
-            $mat_item = array(
-                'mat_id' => $mat_id,
-                'mat_name_id' => $mat_name_id,
-                'mat_name' => $mat_name,
-                'mat_unit' => $mat_unit,
-                'mat_num' => $mat_num,
-                'unit_id' => $unit_id,
+            $work_time_item = array(
+                'work_time_id' => $work_time_id,
+                'work_start' => $work_start,
+                'work_end' => $work_end,
                 'dr_id' => $dr_id,
                 'project_id' => $project_id
             );
 
-            array_push($mat_arr, $mat_item);
+            array_push($work_time_arr, $work_time_item);
         }
 
-        echo json_encode($mat_arr);
+        echo json_encode($work_time_arr);
 
     } else {
 

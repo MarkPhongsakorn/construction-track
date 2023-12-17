@@ -19,11 +19,10 @@
     if ($req && is_array($req) && !empty($req)) {
         $response = array();
         foreach ($req as $item) {
-            if ($req && !empty($item['tool_name']) && !empty($item['tool_num']) && !empty($item['unit_id']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($req && !empty($item['tool_name_id']) && !empty($item['tool_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
-                $tool->tool_name = $item['tool_name'];
+                $tool->tool_name_id = $item['tool_name_id'];
                 $tool->tool_num = $item['tool_num'];
-                $tool->unit_id = $item['unit_id'];
                 $tool->dr_id = $item['dr_id'];
                 $tool->project_id = $item['project_id'];
         

@@ -1,13 +1,12 @@
 <?php
 
-    class Tool {
+    class TimeInsp {
         private $conn;
-        private $table = "tb_tool";
-        private $table2 = "tb_tool_name";
+        private $table = "tb_time_inspect";
 
-        public $tool_id;
-        public $tool_name_id;
-        public $tool_num;
+        public $time_inspect_id;
+        public $inspect_start;
+        public $inspect_end;
 
         public $dr_id;
         public $project_id;
@@ -28,9 +27,8 @@
 
         public function read_one() {
 
-            $query = 'SELECT * FROM ' . $this->table .
-            ' INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.tool_name_id = ' . $this->table2 . '.tool_name_id
-            WHERE dr_id = :dr_id';
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE dr_id = :dr_id';
+
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->execute();
@@ -41,20 +39,20 @@
         public function create() {
             $query = 'INSERT INTO ' . $this->table . '
             SET
-                tool_name_id = :tool_name_id,
-                tool_num = :tool_num,
+                inspect_start = :inspect_start,
+                inspect_end = :inspect_end,
                 dr_id = :dr_id,
                 project_id = :project_id';
 
             $stmt = $this->conn->prepare($query);
 
-            $this->tool_name_id = htmlspecialchars(strip_tags($this->tool_name_id));
-            $this->tool_num = htmlspecialchars(strip_tags($this->tool_num));
+            $this->inspect_start = htmlspecialchars(strip_tags($this->inspect_start));
+            $this->inspect_end = htmlspecialchars(strip_tags($this->inspect_end));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
-            $stmt->bindParam(':tool_name_id', $this->tool_name_id);
-            $stmt->bindParam(':tool_num', $this->tool_num);
+            $stmt->bindParam(':inspect_start', $this->inspect_start);
+            $stmt->bindParam(':inspect_end', $this->inspect_end);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
 
@@ -68,25 +66,25 @@
         public function update() {
             $query = 'UPDATE ' . $this->table . '
             SET
-                tool_name_id = :tool_name_id,
-                tool_num = :tool_num,
+                inspect_start = :inspect_start,
+                inspect_end = :inspect_end,
                 dr_id = :dr_id,
                 project_id = :project_id
             WHERE
-                tool_id = :tool_id';
+                time_inspect_id = :time_inspect_id';
 
             $stmt = $this->conn->prepare($query);
 
-            $this->tool_name_id = htmlspecialchars(strip_tags($this->tool_name_id));
-            $this->tool_num = htmlspecialchars(strip_tags($this->tool_num));
+            $this->inspect_start = htmlspecialchars(strip_tags($this->inspect_start));
+            $this->inspect_end = htmlspecialchars(strip_tags($this->inspect_end));
             $this->dr_id = htmlspecialchars(strip_tags($this->dr_id));
             $this->project_id = htmlspecialchars(strip_tags($this->project_id));
 
-            $stmt->bindParam(':tool_name_id', $this->tool_name_id);
-            $stmt->bindParam(':tool_num', $this->tool_num);
+            $stmt->bindParam(':inspect_start', $this->inspect_start);
+            $stmt->bindParam(':inspect_end', $this->inspect_end);
             $stmt->bindParam(':dr_id', $this->dr_id);
             $stmt->bindParam(':project_id', $this->project_id);
-            $stmt->bindParam(':tool_id', $this->tool_id);
+            $stmt->bindParam(':time_inspect_id', $this->time_inspect_id);
 
             if ($stmt->execute()) {
                 return json_encode("Updated.");

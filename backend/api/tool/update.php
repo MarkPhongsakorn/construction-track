@@ -18,12 +18,11 @@
     if ($data && is_array($data) && !empty($data)) {
         $response = array();
         foreach ($data as $item) {
-            if ($data && !empty($item['tool_name']) && !empty($item['tool_num']) && !empty($item['unit_id']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($data && !empty($item['tool_name_id']) && !empty($item['tool_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $tool->tool_id = $item['tool_id'];
-                $tool->tool_name = $item['tool_name'];
+                $tool->tool_name_id = $item['tool_name_id'];
                 $tool->tool_num = $item['tool_num'];
-                $tool->unit_id = $item['unit_id'];
                 $tool->dr_id = $item['dr_id'];
                 $tool->project_id = $item['project_id'];
         

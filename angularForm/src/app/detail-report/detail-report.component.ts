@@ -13,6 +13,8 @@ import { DynamicDialogRef, DialogService, DynamicDialogConfig } from 'primeng/dy
 import { ExcelExportService } from '../services/reports/excel-export.service';
 import { ReportService } from '../services/reports/report.service';
 import { ProjectService } from '../services/projects/project.service';
+import { TimeInspectService } from '../services/reports/time-inspect.service';
+import { WorkingTimeService } from '../services/reports/working-time.service';
 import { format, parse } from 'date-fns';
 
 @Component({
@@ -30,12 +32,17 @@ export class DetailReportComponent implements OnInit {
   period_name2: string = '';
   sta_name1: string = '';
   sta_name2: string = '';
-  rain_start1: string = '00:00';
-  rain_start2: string = '00:00';
-  rain_end1: string = '00:00';
-  rain_end2: string = '00:00';
+  rain_start1: string = '';
+  rain_start2: string = '';
+  rain_end1: string = '';
+  rain_end2: string = '';
   rain_level1: string = '';
   rain_level2: string = '';
+
+  inspect_start: string = '';
+  inspect_end: string = '';
+  work_start: string = '';
+  work_end: string = '';
 
   morning: string = '1';
   afternoon: string = '2';
@@ -65,6 +72,8 @@ export class DetailReportComponent implements OnInit {
   readInspec: boolean = false;
   readReport: boolean = false;
   readOd: boolean = false;
+  readInspTime: boolean = false;
+  readWorkTime: boolean = false;
 
   ref: DynamicDialogRef | undefined;
 
@@ -104,11 +113,15 @@ export class DetailReportComponent implements OnInit {
     private excelExportService: ExcelExportService,
     private reportService: ReportService,
     private projectService: ProjectService,
+    private timeInspectService: TimeInspectService,
+    private workingTimeService: WorkingTimeService
   ) {
   }
 
   ngOnInit() {
     this.weather();
+    this.timeInspec();
+    this.workTime();
     this.labor();
     this.work();
     this.tool();
@@ -148,6 +161,31 @@ export class DetailReportComponent implements OnInit {
         return this.readWeather2
       }
     });
+  }
+  timeInspec() {
+    this.timeInspectService.readOne(this.config.data.dr_id).subscribe(data => {
+      if (data.status === 'error') {
+        return this.readInspTime = true
+      } else {
+        this.inspect_start = data['inspect_start'];
+        this.inspect_end = data['inspect_end'];
+        return this.readInspTime
+      }
+
+    });
+  }
+
+  workTime() {
+    this.workingTimeService.readOne(this.config.data.dr_id).subscribe(data => {
+      if (data.status === 'error') {
+        return this.readWorkTime = true;
+      } else {
+        this.work_start = data['work_start'];
+        this.work_end = data['work_end'];
+        return this.readWorkTime
+      }
+
+    })
   }
 
   labor() {

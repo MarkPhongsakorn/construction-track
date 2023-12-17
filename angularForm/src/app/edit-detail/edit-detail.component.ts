@@ -13,9 +13,17 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
 import { OverdueService } from '../services/reports/overdue.service';
+import { RainLevelService } from '../services/reports/rain-level.service';
+import { LaborNameService } from '../services/reports/labor-name.service';
+import { ToolNameService } from '../services/reports/tool-name.service';
+import { MatNameService } from '../services/reports/mat-name.service';
+import { TimeInspectService } from '../services/reports/time-inspect.service';
+import { WorkingTimeService } from '../services/reports/working-time.service';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
+import { th } from 'date-fns/locale';
+
 
 @Component({
   selector: 'app-edit-detail',
@@ -42,6 +50,10 @@ export class EditDetailComponent implements OnInit {
   result: any[] = [];
   selectResult: string = '';
 
+  rain_level: any[] = [];
+  selectedRainLevel1: string = '';
+  selectedRainLevel2: string = '';
+
   morning: string = '1';
   rain_start1: string = '00:00';
   rain_end1: string = '00:00';
@@ -49,10 +61,26 @@ export class EditDetailComponent implements OnInit {
   rain_start2: string = '00:00';
   rain_end2: string = '00:00';
 
+  time_inspect_id: string = '';
+  inspect_start: string = '';
+  inspect_end: string = '';
+
+  work_time_id: string = '';
+  work_start: string = '';
+  work_end: string = '';
+
+  labor_name: any[] = [];
+  selectLaborName: string = '';
+
+  tool_name: any[] = [];
+  selectToolName: string = '';
+
+  mat_name: any[] = [];
+  selectMatName: string = '';
+
   laborCr: any[] = [];
   laborUp: any[] = [];
   labor_id: string = '';
-  labor_name: string = '';
   laborId: string = '';
 
   workCr: any[] = [];
@@ -93,6 +121,15 @@ export class EditDetailComponent implements OnInit {
   inspection: boolean = false;
   overdue: boolean = false;
 
+  rainStart1: string = '';
+  rainEnd1: string = '';
+  rainStart2: string = '';
+  rainEnd2: string = '';
+  inspectStart: string = '';
+  inspectEnd: string = '';
+  workStart: string = '';
+  workEnd: string = '';
+
   constructor(
     public dialogRef: DynamicDialogRef,
     public config: DynamicDialogConfig,
@@ -109,6 +146,12 @@ export class EditDetailComponent implements OnInit {
     private inspecService: InspectionService,
     private resultService: InspecResultService,
     private overdueService: OverdueService,
+    private rainLevelService: RainLevelService,
+    private laborNameService: LaborNameService,
+    private toolNameService: ToolNameService,
+    private matNameService: MatNameService,
+    private timeInspectService: TimeInspectService,
+    private workingTimeService: WorkingTimeService
   ) {
 
   }
@@ -124,20 +167,35 @@ export class EditDetailComponent implements OnInit {
     this.weatherService.readOne(this.config.data.dr_id, this.morning).subscribe(data => {
       this.weather_id1 = data['weather_id'];
       this.selectStatus1 = data['sta_id'];
+      this.selectedRainLevel1 = data['rain_id'];
       this.rain_start1 = data['rain_start'];
+      this.rainStart1 = data['rain_start'];
+      this.rainEnd1 = data['rain_end'];
       this.rain_end1 = data['rain_end'];
-      console.log(this.rain_start1);
-      console.log(this.rain_end1);
-
     });
     this.weatherService.readOne(this.config.data.dr_id, this.afternoon).subscribe(data => {
       this.weather_id2 = data['weather_id'];
       this.selectStatus2 = data['sta_id'];
+      this.selectedRainLevel2 = data['rain_id'];
       this.rain_start2 = data['rain_start'];
       this.rain_end2 = data['rain_end'];
-      console.log(this.rain_start2);
-      console.log(this.rain_end2);
+      this.rainStart2 = data['rain_start'];
+      this.rainEnd2 = data['rain_end'];
     });
+    this.timeInspectService.readOne(this.config.data.dr_id).subscribe(data => {
+      this.time_inspect_id = data['time_inspect_id'];
+      this.inspect_start = data['inspect_start'];
+      this.inspect_end = data['inspect_end'];
+      this.inspectStart = data['inspect_start'];
+      this.inspectEnd = data['inspect_end'];
+    });
+    this.workingTimeService.readOne(this.config.data.dr_id).subscribe(data => {
+      this.work_time_id = data['work_time_id'];
+      this.work_start = data['work_start'];
+      this.work_end = data['work_end'];
+      this.workStart = data['work_start'];
+      this.workEnd = data['work_end'];
+    })
     this.laborService.readOne(this.config.data.dr_id).subscribe(data => {
       this.labor_id = data['labor_id'];
       if (data.status === 'error') {
@@ -201,17 +259,100 @@ export class EditDetailComponent implements OnInit {
     this.resultService.read().subscribe(data => {
       this.result = data;
     });
+    this.laborNameService.read().subscribe(data => {
+      this.labor_name = data;
+    });
+    this.toolNameService.read().subscribe(data => {
+      this.tool_name = data;
+    });
+    this.matNameService.read().subscribe(data => {
+      this.mat_name = data;
+      this.mat_name = this.mat_name.map((mat_name_id: any) => {
+        return {
+          ...mat_name_id,
+          displayLabel: mat_name_id.mat_name + '(' + mat_name_id.mat_unit + ')'
+        };
+      });
+    });
+    this.rainLevelService.read().subscribe(data => {
+      this.rain_level = data;
+    })
 
   }
 
   UpdateDetail() {
+    let rainTimeStart1: Date;
+    if (this.rain_start1 === this.rainStart1) {
+      rainTimeStart1 = new Date(`1970-01-01T${this.rain_start1}`);
+    } else {
+      rainTimeStart1 = new Date(this.rain_start1);
+    }
+
+    let rainTimeEnd1: Date;
+    if (this.rain_end1 === this.rainEnd1) {
+      rainTimeEnd1 = new Date(`1970-01-01T${this.rain_end1}`);
+    } else {
+      rainTimeEnd1 = new Date(this.rain_end1);
+    }
+
+    let rainTimeStart2: Date;
+    if (this.rain_start2 === this.rainStart2) {
+      rainTimeStart2 = new Date(`1970-01-01T${this.rain_start2}`);
+    } else {
+      rainTimeStart2 = new Date(this.rain_start2);
+    }
+
+    let rainTimeEnd2: Date;
+    if (this.rain_end2 === this.rainEnd2) {
+      rainTimeEnd2 = new Date(`1970-01-01T${this.rain_end2}`);
+    } else {
+      rainTimeEnd2 = new Date(this.rain_end2);
+    }
+
+    let inspectTimeStart: Date;
+    if (this.inspect_start === this.inspectStart) {
+      inspectTimeStart = new Date(`1970-01-01T${this.inspect_start}`);
+    } else {
+      inspectTimeStart = new Date(this.inspect_start);
+    }
+
+    let inspectTimeEnd: Date;
+    if (this.inspect_end === this.inspectEnd) {
+      inspectTimeEnd = new Date(`1970-01-01T${this.inspect_end}`);
+    } else {
+      inspectTimeEnd = new Date(this.inspect_end);
+    }
+
+    let workTimeStart: Date;
+    if (this.work_start === this.workStart) {
+      workTimeStart = new Date(`1970-01-01T${this.work_start}`);
+    } else {
+      workTimeStart = new Date(this.work_start);
+    }
+
+    let workTimeEnd: Date;
+    if (this.work_end === this.workEnd) {
+      workTimeEnd = new Date(`1970-01-01T${this.work_end}`);
+    } else {
+      workTimeEnd = new Date(this.work_end);
+    }
+
+    const formattedrainStart1 = format(rainTimeStart1, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedrainEnd1 = format(rainTimeEnd1, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedrainStart2 = format(rainTimeStart2, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedrainEnd2 = format(rainTimeEnd2, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedInspectStart = format(inspectTimeStart, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedInspectEnd = format(inspectTimeEnd, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedworkStart = format(workTimeStart, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedworkEnd = format(workTimeEnd, "yyyy-MM-dd HH:mm:ss", { locale: th });
+
     const data1 = {
       weather_id: this.weather_id1,
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
-      rain_id: 1,
-      rain_start: this.rain_start1,
-      rain_end: this.rain_end1,
+      rain_id: this.selectedRainLevel1,
+      rain_start: formattedrainStart1,
+      rain_end: formattedrainEnd1,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }
@@ -219,9 +360,23 @@ export class EditDetailComponent implements OnInit {
       weather_id: this.weather_id2,
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
-      rain_id: 1,
-      rain_start: this.rain_start2,
-      rain_end: this.rain_end2,
+      rain_id: this.selectedRainLevel2,
+      rain_start: formattedrainStart2,
+      rain_end: formattedrainEnd2,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id,
+    }
+    const time_inspect = {
+      time_inspect_id: this.time_inspect_id,
+      inspect_start: formattedInspectStart,
+      inspect_end: formattedInspectEnd,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id,
+    }
+    const work_time = {
+      work_time_id: this.work_time_id,
+      work_start: formattedworkStart,
+      work_end: formattedworkEnd,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }
@@ -254,6 +409,8 @@ export class EditDetailComponent implements OnInit {
     const updateRequests: Observable<any>[] = [
       this.weatherService.update(data1),
       this.weatherService.update(data2),
+      this.timeInspectService.update(time_inspect),
+      this.workingTimeService.update(work_time),
       this.laborService.create(this.laborCr),
       this.laborService.update(this.laborUp),
       this.workService.create(this.workCr),
@@ -298,7 +455,7 @@ export class EditDetailComponent implements OnInit {
   // ************************************LABOR***********************************
   addNewLabor(): void {
     const newLabor = {
-      labor_name: '',
+      labor_name_id: this.selectLaborName,
       labor_num: 0,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
@@ -311,7 +468,7 @@ export class EditDetailComponent implements OnInit {
   dataLabor() {
     const data = {
       labor_id: this.labor_id,
-      labor_name: '',
+      labor_name_id: this.selectLaborName,
       labor_num: null,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
@@ -346,9 +503,8 @@ export class EditDetailComponent implements OnInit {
   // *******************************************TOOL*********************************************
   addNewTool() {
     const newTool = {
-      tool_name: '',
-      tool_num: null,
-      unit_id: this.selectUnit,
+      tool_name_id: this.selectToolName,
+      tool_num: 0,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     };
@@ -361,9 +517,8 @@ export class EditDetailComponent implements OnInit {
   dataTool() {
     const data = {
       tool_id: this.tool_id,
-      tool_name: '',
+      tool_name_id: this.selectToolName,
       tool_num: null,
-      unit_id: this.selectUnit,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     };
@@ -373,9 +528,8 @@ export class EditDetailComponent implements OnInit {
   // *******************************************MATERIAL*********************************************
   addNewMat() {
     const newMat = {
-      mat_name: '',
-      mat_num: null,
-      unit_id: this.selectUnit,
+      mat_name_id: this.selectMatName,
+      mat_num: 0,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     };
@@ -389,9 +543,8 @@ export class EditDetailComponent implements OnInit {
   dataMat() {
     const data = {
       mat_id: this.mat_id,
-      mat_name: '',
+      mat_name_id: this.selectMatName,
       mat_num: null,
-      unit_id: this.selectUnit,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     };

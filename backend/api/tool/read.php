@@ -25,9 +25,9 @@
 
             $tool_item = array(
                 'tool_id' => $tool_id,
+                'tool_name_id' => $tool_name_id,
                 'tool_name' => $tool_name,
                 'tool_num' => $tool_num,
-                'unit_id' => $unit_id,
                 'dr_id' => $dr_id,
                 'project_id' => $project_id,
             );

@@ -5,39 +5,36 @@
     header("Access-Control-Allow-Headers: Content-Type,Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
     include_once '../../config/database.php';
-    include_once '../../models/material.php';
+    include_once '../../models/time_inspect.php';
 
     $database = new Database();
     $db = $database->connect();
 
-    $mat = new Material($db);
+    $timeinsp = new TimeInsp($db);
 
-    $result = $mat->read();
+    $result = $timeinsp->read();
 
     $num = $result->rowCount();
     
 
     if ($num > 0) {
-        $mat_arr = array();
+        $timeinsp_arr = array();
 
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
 
-            $mat_item = array(
-                'mat_id' => $mat_id,
-                'mat_name_id' => $mat_name_id,
-                'mat_name' => $mat_name,
-                'mat_unit' => $mat_unit,
-                'mat_num' => $mat_num,
-                'unit_id' => $unit_id,
+            $timeinsp_item = array(
+                'time_inspect_id' => $time_inspect_id,
+                'inspect_start' => $inspect_start,
+                'inspect_end' => $inspect_end,
                 'dr_id' => $dr_id,
                 'project_id' => $project_id
             );
 
-            array_push($mat_arr, $mat_item);
+            array_push($timeinsp_arr, $timeinsp_item);
         }
 
-        echo json_encode($mat_arr);
+        echo json_encode($timeinsp_arr);
 
     } else {
 

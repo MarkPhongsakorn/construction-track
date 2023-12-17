@@ -17,10 +17,10 @@
 
     if ($data && is_array($data) && !empty($data)) {
         foreach ($data as $item) {
-            if (!empty($item['labor_name']) && !empty($item['labor_num']) && !empty($item['dr_id'])  && !empty($item['project_id'])) {
+            if (!empty($item['labor_name_id']) && !empty($item['labor_num']) && !empty($item['dr_id'])  && !empty($item['project_id'])) {
             
                 $labor->labor_id = $item['labor_id'];
-                $labor->labor_name = $item['labor_name'];
+                $labor->labor_name_id = $item['labor_name_id'];
                 $labor->labor_num = $item['labor_num'];
                 $labor->dr_id = $item['dr_id'];
                 $labor->project_id = $item['project_id'];

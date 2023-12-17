@@ -40,15 +40,13 @@
     <div class="p-fluid formgrid grid">
         <div class="feild col" *ngIf="statuses1">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_start1" [timeOnly]="true" dateFormat="hh:mm tt"
-                    appendTo="body"></p-calendar>
+                <p-calendar [(ngModel)]="rain_start1" [timeOnly]="true" appendTo="body"></p-calendar>
                 <label htmlFor="rain_start1">เวลาที่ฝนเริ่มตก</label>
             </span>
         </div>
         <div class="feild col" *ngIf="statuses1">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_end1" [timeOnly]="true" dateFormat="hh:mm tt"
-                    appendTo="body"></p-calendar>
+                <p-calendar [(ngModel)]="rain_end1" [timeOnly]="true" appendTo="body"></p-calendar>
                 <label htmlFor="rain_end1">เวลาที่ฝนหยุดตก</label>
             </span>
         </div>
@@ -88,16 +86,48 @@
     <div class="p-fluid formgrid grid">
         <div class="feild col" *ngIf="statuses2">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_start2" [timeOnly]="true" dateFormat="hh:mm tt"
-                    appendTo="body"></p-calendar>
+                <p-calendar [(ngModel)]="rain_start2" [timeOnly]="true" appendTo="body"></p-calendar>
                 <label htmlFor="rain_start2">เวลาที่ฝนเริ่มตก</label>
             </span>
         </div>
         <div class="feild col" *ngIf="statuses2">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="rain_end2" [timeOnly]="true" dateFormat="hh:mm tt"
-                    appendTo="body"></p-calendar>
+                <p-calendar [(ngModel)]="rain_end2" [timeOnly]="true" appendTo="body"></p-calendar>
                 <label htmlFor="rain_end2">เวลาที่ฝนหยุดตก</label>
+            </span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="field col-6">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="inspect_start" [timeOnly]="true" appendTo="body"></p-calendar>
+                <label htmlFor="inspect_start">เวลาเริ่มการลงตรวจ</label>
+            </span>
+        </div>
+        <div class="field col-6">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="inspect_end" [timeOnly]="true" appendTo="body"></p-calendar>
+                <label htmlFor="inspect_end">เวลาสิ้นสุดการลงตรวจ</label>
+            </span>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="field col-6">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="work_start" [timeOnly]="true" appendTo="body"></p-calendar>
+                <label htmlFor="work_start">เวลาเริ่มการทำงาน</label>
+            </span>
+        </div>
+        <div class="field col-6">
+            <span class="p-float-label">
+                <p-calendar [(ngModel)]="work_end" [timeOnly]="true" appendTo="body"></p-calendar>
+                <label htmlFor="work_end">เวลาสิ้นสุดการทำงาน</label>
             </span>
         </div>
     </div>
@@ -114,8 +144,10 @@
         <div class="p-fluid formgird grid">
             <div class="field col-8">
                 <span class="p-float-label">
-                    <input type="text" pInputText name="labor_name" id="labor_name" [(ngModel)]="input.labor_name" />
-                    <label htmlFor="labor_name">แรงงาน</label>
+                    <p-dropdown [options]="labor_name" [(ngModel)]="input.labor_name_id" name="selectLaborName"
+                        placeholder="----เลือกแรงงาน----" optionLabel="labor_name" optionValue="labor_name_id"
+                        appendTo="body"></p-dropdown>
+                    <label for="float-label">แรงงาน</label>
                 </span>
             </div>
             <div class="field col-2">
@@ -170,23 +202,18 @@
     <div *ngFor="let input of tool; let i = index" class="input-container">
         <br>
         <div class="p-fluid formgird grid">
-            <div class="field col-6">
+            <div class="field col-8">
                 <span class="p-float-label">
-                    <input type="text" pInputText name="tool_name" id="tool_name" [(ngModel)]="input.tool_name" />
-                    <label htmlFor="tool_name">เครื่องมือและเครื่องจักร</label>
+                    <p-dropdown [options]="tool_name" [(ngModel)]="input.tool_name_id" name="selectToolName"
+                        placeholder="----เลือกเครื่องมือและเครื่องจักร----" optionLabel="tool_name"
+                        optionValue="tool_name_id" appendTo="body"></p-dropdown>
+                    <label for="float-label">เครื่องมือและเครื่องจักร</label>
                 </span>
             </div>
             <div class="field col-2">
                 <span class="p-float-label">
                     <input type="number" pInputText name="tool_num" id="tool_num" [(ngModel)]="input.tool_num" />
                     <label htmlFor="tool_num">จำนวน</label>
-                </span>
-            </div>
-            <div class="field col-2">
-                <span class="p-float-label">
-                    <p-dropdown [options]="unit" [(ngModel)]="input.unit_id" name="selectUnit" optionLabel="unit_name"
-                        optionValue="unit_id" appendTo="body"></p-dropdown>
-                    <label for="float-label">หน่วย</label>
                 </span>
             </div>
             <div class="field col-2">
@@ -206,23 +233,18 @@
     <div *ngFor="let input of mat; let i = index" class="input-container">
         <br>
         <div class="p-fluid formgird grid">
-            <div class="field col-6">
+            <div class="field col-8">
                 <span class="p-float-label">
-                    <input type="text" pInputText name="mat_name" id="mat_name" [(ngModel)]="input.mat_name" />
-                    <label htmlFor="mat_name">วัสดุ</label>
+                    <p-dropdown [options]="mat_name" [(ngModel)]="input.mat_name_id" name="selectMatName"
+                        placeholder="----เลือกเครื่องมือและเครื่องจักร----" optionLabel="displayLabel"
+                        optionValue="mat_name_id" appendTo="body"></p-dropdown>
+                    <label for="float-label">วัสดุที่เข้าหน่วยงาน</label>
                 </span>
             </div>
             <div class="field col-2">
                 <span class="p-float-label">
                     <input type="number" pInputText name="mat_num" id="mat_num" [(ngModel)]="input.mat_num" />
                     <label htmlFor="mat_num">จำนวน</label>
-                </span>
-            </div>
-            <div class="field col-2">
-                <span class="p-float-label">
-                    <p-dropdown [options]="unit" [(ngModel)]="input.unit_id" name="selectUnit" optionLabel="unit_name"
-                        optionValue="unit_id" appendTo="body"></p-dropdown>
-                    <label for="float-label">หน่วย</label>
                 </span>
             </div>
             <div class="field col-2">

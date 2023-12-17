@@ -26,10 +26,10 @@
 
             $mat_item = array(
                 'mat_id' => $mat_id,
+                'mat_name_id' => $mat_name_id,
                 'mat_name' => $mat_name,
+                'mat_unit' => $mat_unit,
                 'mat_num' => $mat_num,
-                'unit_id' => $unit_id,
-                'unit_name' => $unit_name,
                 'dr_id' => $dr_id,
                 'project_id' => $project_id
             );

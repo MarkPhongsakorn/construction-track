@@ -25,6 +25,7 @@
 
             $labor_item = array(
                 'labor_id' => $labor_id,
+                'labor_name_id' => $labor_name_id,
                 'labor_name' => $labor_name,
                 'labor_num' => $labor_num,
                 'dr_id' => $dr_id,

@@ -9,81 +9,92 @@
     </div>
     <div class="p-fluid formgrid grid">
         <div class="fleid col">
-            <p *ngIf="!this.readWeather1"><span>ช่วงเวลา:</span> {{ period_name1 }} </p>
+            <label><span>ช่วงเวลา:</span></label>
+            <p *ngIf="!this.readWeather1"> {{ period_name1 }} </p>
+            <p *ngIf="this.readWeather1"> ไม่มีข้อมูล </p>
         </div>
         <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> สถานะ:</span> {{ sta_name1 }}</p>
+            <label><span> สถานะ:</span></label>
+            <p *ngIf="!this.readWeather1"> {{ sta_name1 }}</p>
+            <p *ngIf="this.readWeather1"> ไม่มีข้อมูล</p>
         </div>
         <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> ระดับฝน:</span> {{ rain_level1 }}</p>
+            <label><span> ระดับฝน:</span></label>
+            <p *ngIf="!this.readWeather1"> {{ rain_level1 }}</p>
+            <p *ngIf="this.readWeather1"> ไม่มีข้อมูล</p>
         </div>
     </div>
     <div class="p-fluid formgrid grid">
         <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ rain_start1 }}</p>
-        </div>
-        <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> ถึง </span> {{ rain_end1 }}</p>
-        </div>
-    </div>
-    <div class="p-fluid formgrid grid">
-        <div class="field col-4">
-            <p *ngIf="this.readWeather1"><span>ช่วงเวลา:</span> ไม่มีข้อมูล </p>
-        </div>
-        <div class="field col-4">
-            <p *ngIf="this.readWeather1"><span>สถานะ:</span> ไม่มีข้อมูล</p>
-        </div>
-        <div class="field col-4">
-            <p *ngIf="this.readWeather1"><span>ระดับฝน:</span> ไม่มีข้อมูล</p>
+            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ rain_start1 }} <span> ถึง </span> {{ rain_end1 }}
+            </p>
         </div>
     </div>
     <div class="p-fluid formgrid grid">
         <div class="field col">
-            <p *ngIf="this.readWeather1"><span> เวลาฝนตก:</span> - </p>
-        </div>
-        <div class="field col">
-            <p *ngIf="this.readWeather1"><span> ถึง </span> - </p>
-        </div>
-    </div>
-    <div class="p-fluid formgrid grid">
-        <div class="fleid col">
-            <p *ngIf="!this.readWeather2"><span>ช่วงเวลา:</span> {{ period_name2 }} </p>
-        </div>
-        <div class="field col">
-            <p *ngIf="!this.readWeather2"><span> สถานะ:</span> {{ sta_name2 }}</p>
-        </div>
-        <div class="field col">
-            <p *ngIf="!this.readWeather2"><span> ระดับฝน:</span> {{ rain_level2 }}</p>
-        </div>
-    </div>
-    <div class="p-fluid formgrid grid">
-        <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ rain_start2 }}</p>
-        </div>
-        <div class="field col">
-            <p *ngIf="!this.readWeather1"><span> ถึง </span> {{ rain_end2 }}</p>
-        </div>
-    </div>
-    <div class="p-fluid formgrid grid">
-        <div class="field col-4">
-            <p *ngIf="this.readWeather2"><span>ช่วงเวลา:</span> ไม่มีข้อมูล </p>
-        </div>
-        <div class="field col-4">
-            <p *ngIf="this.readWeather2"><span>สถานะ:</span> ไม่มีข้อมูล</p>
-        </div>
-        <div class="field col-4">
-            <p *ngIf="this.readWeather2"><span>ระดับฝน:</span> ไม่มีข้อมูล</p>
-        </div>
-    </div>
-    <div class="p-fluid formgrid grid">
-        <div class="field col">
-            <p *ngIf="this.readWeather2"><span> เวลาฝนตก:</span> - </p>
-        </div>
-        <div class="field col">
-            <p *ngIf="this.readWeather2"><span> ถึง </span> - </p>
+            <p *ngIf="this.readWeather1"><span> เวลาฝนตก:</span> - <span> ถึง </span> - </p>
         </div>
     </div>
 
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="fleid col">
+            <label><span>ช่วงเวลา:</span></label>
+            <p *ngIf="!this.readWeather2"> {{ period_name2 }} </p>
+            <p *ngIf="this.readWeather2"> ไม่มีข้อมูล </p>
+        </div>
+        <div class="field col">
+            <label><span> สถานะ:</span></label>
+            <p *ngIf="!this.readWeather2"> {{ sta_name2 }}</p>
+            <p *ngIf="this.readWeather2"> ไม่มีข้อมูล</p>
+        </div>
+        <div class="field col">
+            <label><span> ระดับฝน:</span></label>
+            <p *ngIf="!this.readWeather2"> {{ rain_level2 }}</p>
+            <p *ngIf="this.readWeather2"> ไม่มีข้อมูล</p>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p *ngIf="!this.readWeather1"><span> เวลาฝนตก:</span> {{ rain_start2 }} <span> ถึง </span> {{ rain_end2 }}
+            </p>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p *ngIf="this.readWeather2"><span> เวลาฝนตก:</span> - <span> ถึง </span> - </p>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p *ngIf="!this.readInspTime"><span> เวลาลงตรวจ:</span> {{ inspect_start }} <span> ถึง </span> {{
+                inspect_end }}
+            </p>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p *ngIf="this.readInspTime"><span> เวลาลงตรวจ:</span> - <span> ถึง </span> - </p>
+        </div>
+    </div>
+    <br>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p *ngIf="!this.readWorkTime"><span> เวลาทำงาน:</span> {{ work_start }} <span> ถึง </span> {{
+                work_end }}
+            </p>
+        </div>
+    </div>
+    <div class="p-fluid formgrid grid">
+        <div class="field col">
+            <p *ngIf="this.readWorkTime"><span> เวลาทำงาน:</span> - <span> ถึง </span> - </p>
+        </div>
+    </div>
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readLabor">
             <h2>แรงงาน:</h2>
@@ -98,7 +109,7 @@
             </div>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readWork">
             <h2>รายละเอียดงาน:</h2>
@@ -113,7 +124,7 @@
             </div>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readTool">
             <h2>เครื่องมือและเครื่องจักร:</h2>
@@ -128,7 +139,7 @@
             </div>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readMaterial">
             <h2>วัสดุ:</h2>
@@ -143,7 +154,7 @@
             </div>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readReport">
             <h2>ปัญหาและอุปสรรค: </h2>
@@ -154,7 +165,7 @@
             <p>ไม่มีข้อมูล</p>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readStrike">
             <h2>การหยุดงาน: </h2>
@@ -175,7 +186,7 @@
             <p>ไม่มีข้อมูล</p>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readInspec">
             <h2>ผลการตรวจงาน: </h2>
@@ -186,7 +197,7 @@
             <p>ไม่มีข้อมูล</p>
         </div>
     </div>
-
+    <br>
     <div class="p-fluid formgrid grid">
         <div class="field col" *ngIf="!this.readOd">
             <h2>การขยายเวลาก่อสร้างลด/งด/ค่าปรับ: </h2>

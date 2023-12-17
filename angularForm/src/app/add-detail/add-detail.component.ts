@@ -13,10 +13,15 @@ import { InspectionService } from '../services/reports/inspection.service';
 import { InspecResultService } from '../services/reports/inspec-result.service';
 import { OverdueService } from '../services/reports/overdue.service';
 import { RainLevelService } from '../services/reports/rain-level.service';
+import { LaborNameService } from '../services/reports/labor-name.service';
+import { ToolNameService } from '../services/reports/tool-name.service';
+import { MatNameService } from '../services/reports/mat-name.service';
+import { TimeInspectService } from '../services/reports/time-inspect.service';
+import { WorkingTimeService } from '../services/reports/working-time.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { format } from 'date-fns';
+import { format } from 'date-fns-tz';
 import { th } from 'date-fns/locale';
 
 
@@ -35,6 +40,15 @@ export class AddDetailComponent implements OnInit {
   selectStatus1: string = '';
   selectStatus2: string = '';
 
+  labor_name: any[] = [];
+  selectLaborName: string = '';
+
+  tool_name: any[] = [];
+  selectToolName: string = '';
+
+  mat_name: any[] = [];
+  selectMatName: string = '';
+
   unit: any[] = [];
   selectUnit: string = '';
 
@@ -46,13 +60,19 @@ export class AddDetailComponent implements OnInit {
   selectedRainLevel2: string = '';
 
   morning: string = '1';
+  afternoon: string = '2';
+  period_id: string = '';
   rain_start1: string = '00:00';
   rain_start2: string = '00:00';
   rain_end1: string = '00:00';
   rain_end2: string = '00:00';
 
-  afternoon: string = '2';
-  period_id: string = '';
+
+  inspect_start: string = '00:00';
+  inspect_end: string = '00:00';
+
+  work_start: string = '00:00';
+  work_end: string = '00:00';
 
   labor: any[] = [];
   labor_num: number = 0;
@@ -93,6 +113,11 @@ export class AddDetailComponent implements OnInit {
     private resultService: InspecResultService,
     private overdueService: OverdueService,
     private rainLevelService: RainLevelService,
+    private laborNameService: LaborNameService,
+    private toolNameService: ToolNameService,
+    private matNameService: MatNameService,
+    private timeInspectService: TimeInspectService,
+    private workingTimeService: WorkingTimeService
   ) { }
 
 
@@ -114,6 +139,21 @@ export class AddDetailComponent implements OnInit {
     this.sta.read().subscribe(data => {
       this.status = data;
     });
+    this.laborNameService.read().subscribe(data => {
+      this.labor_name = data;
+    });
+    this.toolNameService.read().subscribe(data => {
+      this.tool_name = data;
+    });
+    this.matNameService.read().subscribe(data => {
+      this.mat_name = data;
+      this.mat_name = this.mat_name.map((mat_name_id: any) => {
+        return {
+          ...mat_name_id,
+          displayLabel: mat_name_id.mat_name + '(' + mat_name_id.mat_unit + ')'
+        };
+      });
+    });
     this.unitService.read().subscribe(data => {
       this.unit = data;
     });
@@ -133,7 +173,7 @@ export class AddDetailComponent implements OnInit {
     // ใช้ === ในการเปรียบเทียบค่า เนื่องจาก == อาจทำให้เกิดปัญหาเมื่อเปรียบเทียบ string และ number
     if (this.selectStatus1 !== '3') {
       this.selectedRainLevel1 = '1'; // ใช้ = ไม่ใช่ === เนื่องจากเป็นการกำหนดค่า
-      console.log(this.selectedRainLevel1);
+      // console.log(this.selectedRainLevel1);
     }
   }
 
@@ -145,22 +185,83 @@ export class AddDetailComponent implements OnInit {
     // ใช้ === ในการเปรียบเทียบค่า เนื่องจาก == อาจทำให้เกิดปัญหาเมื่อเปรียบเทียบ string และ number
     if (this.selectStatus2 !== '3') {
       this.selectedRainLevel2 = '1'; // ใช้ = ไม่ใช่ === เนื่องจากเป็นการกำหนดค่า
-      console.log(this.selectedRainLevel2);
+      // console.log(this.selectedRainLevel2);
     }
   }
 
 
   createDetail() {
-    this.rain_start1 = format(new Date(this.rain_start1), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
-    this.rain_end1 = format(new Date(this.rain_end1), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
-    this.rain_start2 = format(new Date(this.rain_start2), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
-    this.rain_end2 = format(new Date(this.rain_end2), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx", { locale: th });
+    let rainStart1: Date;
+    if (this.rain_start1 === '00:00') {
+      rainStart1 = new Date(`1970-01-01T${this.rain_start1}`);
+    } else {
+      rainStart1 = new Date(this.rain_start1);
+    }
+
+    let rainEnd1: Date;
+    if (this.rain_end1 === '00:00') {
+      rainEnd1 = new Date(`1970-01-01T${this.rain_end1}`);
+    } else {
+      rainEnd1 = new Date(this.rain_end1);
+    }
+
+    let rainStart2: Date;
+    if (this.rain_start2 === '00:00') {
+      rainStart2 = new Date(`1970-01-01T${this.rain_start2}`);
+    } else {
+      rainStart2 = new Date(this.rain_start2);
+    }
+
+    let rainEnd2: Date;
+    if (this.rain_end2 === '00:00') {
+      rainEnd2 = new Date(`1970-01-01T${this.rain_end2}`);
+    } else {
+      rainEnd2 = new Date(this.rain_end2);
+    }
+
+    let inspectStart: Date;
+    if (this.inspect_start === '00:00') {
+      inspectStart = new Date(`1970-01-01T${this.inspect_start}`);
+    } else {
+      inspectStart = new Date(this.inspect_start);
+    }
+
+    let inspectEnd: Date;
+    if (this.inspect_end === '00:00') {
+      inspectEnd = new Date(`1970-01-01T${this.inspect_end}`);
+    } else {
+      inspectEnd = new Date(this.inspect_end);
+    }
+
+    let workStart: Date;
+    if (this.work_start === '00:00') {
+      workStart = new Date(`1970-01-01T${this.work_start}`);
+    } else {
+      workStart = new Date(this.work_start);
+    }
+
+    let workEnd: Date;
+    if (this.work_end === '00:00') {
+      workEnd = new Date(`1970-01-01T${this.work_end}`);
+    } else {
+      workEnd = new Date(this.work_end);
+    }
+
+    const formattedrainStart1 = format(rainStart1, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedrainEnd1 = format(rainEnd1, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedrainStart2 = format(rainStart2, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedrainEnd2 = format(rainEnd2, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedInspectStart = format(inspectStart, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedInspectEnd = format(inspectEnd, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedworkStart = format(workStart, "yyyy-MM-dd HH:mm:ss", { locale: th });
+    const formattedworkEnd = format(workEnd, "yyyy-MM-dd HH:mm:ss", { locale: th });
+
     const morning = {
       period_id: this.selectPeriod1,
       sta_id: this.selectStatus1,
       rain_id: this.selectedRainLevel1,
-      rain_start: this.rain_start1,
-      rain_end: this.rain_end1,
+      rain_start: formattedrainStart1,
+      rain_end: formattedrainEnd1,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }
@@ -168,8 +269,20 @@ export class AddDetailComponent implements OnInit {
       period_id: this.selectPeriod2,
       sta_id: this.selectStatus2,
       rain_id: this.selectedRainLevel2,
-      rain_start: this.rain_start2,
-      rain_end: this.rain_end2,
+      rain_start: formattedrainStart2,
+      rain_end: formattedrainEnd2,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id,
+    }
+    const time_inspect = {
+      inspect_start: formattedInspectStart,
+      inspect_end: formattedInspectEnd,
+      dr_id: this.config.data.dr_id,
+      project_id: this.config.data.project_id,
+    }
+    const work_time = {
+      work_start: formattedworkStart,
+      work_end: formattedworkEnd,
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id,
     }
@@ -197,6 +310,8 @@ export class AddDetailComponent implements OnInit {
     const creatRequests: Observable<any>[] = [
       this.weatherService.create(morning),
       this.weatherService.create(afternoon),
+      this.timeInspectService.create(time_inspect),
+      this.workingTimeService.create(work_time),
       this.laborService.create(this.labor),
       this.workService.create(this.work),
       this.toolService.create(this.tool),
@@ -237,7 +352,7 @@ export class AddDetailComponent implements OnInit {
 
   // ************************************LABOR***********************************
   addNewLabor(): void {
-    const newLabor = { labor_name: '', labor_num: this.labor_num, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
+    const newLabor = { labor_name_id: this.selectLaborName, labor_num: this.labor_num, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.labor.push(newLabor); // เพิ่ม object ใหม่เข้าไปในตัวแปร labor
   }
   removeLabor(index: number): void {
@@ -257,9 +372,9 @@ export class AddDetailComponent implements OnInit {
 
   // *******************************************TOOL*********************************************
   addNewTool() {
-    const newTool = { tool_name: '', tool_num: this.tool_num, unit_id: this.selectUnit, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
+    const newTool = { tool_name_id: this.selectToolName, tool_num: this.tool_num, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.tool.push(newTool);
-    this.selectUnit = '';
+    this.selectToolName = '';
   }
   removeTool(index: number): void {
     this.tool.splice(index, 1);
@@ -267,9 +382,9 @@ export class AddDetailComponent implements OnInit {
 
   // *******************************************MATERIAL*********************************************
   addNewMat() {
-    const newMat = { mat_name: '', mat_num: this.mat_num, unit_id: this.selectUnit, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
+    const newMat = { mat_name_id: this.selectMatName, mat_num: this.mat_num, dr_id: this.config.data.dr_id, project_id: this.config.data.project_id };
     this.mat.push(newMat);
-    this.selectUnit = '';
+    this.selectMatName = '';
   }
   removeMat(index: number): void {
     this.mat.splice(index, 1);

@@ -18,12 +18,11 @@
     if ($data && is_array($data) && !empty($data)) {
         $response = array();
         foreach ($data as $item) {
-            if ($data && !empty($item['mat_name']) && !empty($item['mat_num']) && !empty($item['unit_id']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($data && !empty($item['mat_name_id']) && !empty($item['mat_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
                 
                 $mat->mat_id = $item['mat_id'];
-                $mat->mat_name = $item['mat_name'];
+                $mat->mat_name_id = $item['mat_name_id'];
                 $mat->mat_num = $item['mat_num'];
-                $mat->unit_id = $item['unit_id'];
                 $mat->dr_id = $item['dr_id'];
                 $mat->project_id = $item['project_id'];
         
