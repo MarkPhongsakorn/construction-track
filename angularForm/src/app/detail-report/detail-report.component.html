@@ -129,7 +129,7 @@
         <div class="field col" *ngIf="!this.readTool">
             <h2>เครื่องมือและเครื่องจักร:</h2>
             <div *ngFor="let tool of tools">
-                <p>{{ tool.tool_name }} {{ tool.tool_num}} {{ tool.unit_name }}</p>
+                <p>{{ tool.tool_name }} {{ tool.tool_num}}</p>
             </div>
         </div>
         <div class="field col" *ngIf="this.readTool">
@@ -144,7 +144,7 @@
         <div class="field col" *ngIf="!this.readMaterial">
             <h2>วัสดุ:</h2>
             <div *ngFor="let mat of mats">
-                <p>{{ mat.mat_name }} {{ mat.mat_num}} {{ mat.unit_name }}</p>
+                <p>{{ mat.mat_name }}({{ mat.mat_unit }}) {{ mat.mat_num}} </p>
             </div>
         </div>
         <div class="field col" *ngIf="this.readMaterial">

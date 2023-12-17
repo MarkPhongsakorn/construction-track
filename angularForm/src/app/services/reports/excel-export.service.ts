@@ -29,10 +29,9 @@ export class ExcelExportService {
     work_detail: string[],
     tool_name: string[],
     tool_num: number[],
-    unit_tool: string[],
     mat_name: string[],
     mat_num: number[],
-    unit_mat: string[],
+    mat_unit: string[],
     problem: string,
     strike_detail: string,
     strike_cause: string,
@@ -405,7 +404,7 @@ export class ExcelExportService {
 
       // worksheet.mergeCells(`A${unitToolRow}:B${unitToolRow}`);
       const cellUnitTool = worksheet.getCell(`D${unitToolRow}`);
-      cellUnitTool.value = unit_tool[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+      // cellUnitTool.value = unit_tool[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
       cellUnitTool.alignment = { horizontal: 'center', vertical: 'middle' };
       cellUnitTool.border = {
         top: { style: 'thin' },
@@ -477,7 +476,7 @@ export class ExcelExportService {
 
       // worksheet.mergeCells(`A${unitMatRow}:B${unitMatRow}`);
       const cellUnitMat = worksheet.getCell(`I${unitMatRow}`);
-      cellUnitMat.value = unit_mat[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+      // cellUnitMat.value = unit_mat[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
       cellUnitMat.alignment = { horizontal: 'center', vertical: 'middle' };
       cellUnitMat.border = {
         top: { style: 'thin' },

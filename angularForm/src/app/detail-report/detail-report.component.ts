@@ -90,11 +90,10 @@ export class DetailReportComponent implements OnInit {
 
   tool_name: string[] = [];
   tool_num: number[] = [];
-  unit_tool: string[] = [];
 
   mat_name: string[] = [];
   mat_num: number[] = [];
-  unit_mat: string[] = [];
+  mat_unit: string[] = [];
 
 
   constructor(
@@ -231,7 +230,6 @@ export class DetailReportComponent implements OnInit {
         this.tools.forEach(tool => {
           this.tool_name.push(tool.tool_name);
           this.tool_num.push(tool.tool_num);
-          this.unit_tool.push(tool.unit_name);
         })
         return this.readTool
       }
@@ -248,7 +246,7 @@ export class DetailReportComponent implements OnInit {
         this.mats.forEach(mat => {
           this.mat_name.push(mat.mat_name);
           this.mat_num.push(mat.mat_num);
-          this.unit_mat.push(mat.unit_name);
+          this.mat_unit.push(mat.mat_unit);
         })
         return this.readMaterial
       }
@@ -397,10 +395,9 @@ export class DetailReportComponent implements OnInit {
       this.work_detail,
       this.tool_name,
       this.tool_num,
-      this.unit_tool,
       this.mat_name,
       this.mat_num,
-      this.unit_mat,
+      this.mat_unit,
       this.problem,
       this.strike_detail,
       this.strike_cause,
