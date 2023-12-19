@@ -17,7 +17,7 @@
 
     if ($data && is_array($data) && !empty($data)) {
         foreach ($data as $item) {
-            if ($data && !empty($item['work_num']) && !empty($item['work_detail']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($data && !empty($item['work_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $work->work_id = $item['work_id'];
                 $work->work_num = $item['work_num'];

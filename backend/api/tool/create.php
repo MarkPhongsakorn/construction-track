@@ -19,7 +19,7 @@
     if ($req && is_array($req) && !empty($req)) {
         $response = array();
         foreach ($req as $item) {
-            if ($req && !empty($item['tool_name_id']) && !empty($item['tool_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($req && !empty($item['tool_name_id']) && isset($item['tool_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $tool->tool_name_id = $item['tool_name_id'];
                 $tool->tool_num = $item['tool_num'];
@@ -36,7 +36,7 @@
             }
         }
     } else {
-        $response = array("status" => "error", "message" => "Invalid request data.");
+        $response = array("status" => "error", "message" => "Invalid request array.");
     }
     
     echo json_encode($response);

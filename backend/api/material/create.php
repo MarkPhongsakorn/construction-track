@@ -19,7 +19,7 @@
     if ($req && is_array($req) && !empty($req)) {
         $response = array();
         foreach ($req as $item) {
-            if ($req && !empty($item['mat_name_id']) && !empty($item['mat_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($req && !empty($item['mat_name_id']) && isset($item['mat_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $mat->mat_name_id = $item['mat_name_id'];
                 $mat->mat_num = $item['mat_num'];
@@ -36,7 +36,7 @@
             }
         }
     } else {
-        $response = array("status" => "error", "message" => "Invalid request data.");
+        $response = array("status" => "error", "message" => "Invalid request array.");
     }
     
     echo json_encode($response);

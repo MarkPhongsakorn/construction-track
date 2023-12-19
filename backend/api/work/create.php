@@ -19,7 +19,7 @@
     if ($req && is_array($req) && !empty($req)) {
         $response = array();
         foreach ($req as $item) {
-            if ($req && !empty($item['work_num']) && !empty($item['work_detail']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($req && !empty($item['work_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $work->work_num = $item['work_num'];
                 $work->work_detail = $item['work_detail'];

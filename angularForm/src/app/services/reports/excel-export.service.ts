@@ -17,12 +17,18 @@ export class ExcelExportService {
     comp_name: string,
     period_name1: string,
     sta_name1: string,
+    rain_level1: string,
     rain_start1: string,
     rain_end1: string,
     period_name2: string,
     sta_name2: string,
+    rain_level2: string,
     rain_start2: string,
     rain_end2: string,
+    inspect_start: string,
+    inspect_end: string,
+    work_start: string,
+    work_end: string,
     labor_name: string[],
     labor_num: number[],
     work_num: number[],
@@ -41,8 +47,7 @@ export class ExcelExportService {
     sheetName: string
   ): void {
 
-    console.log(rain_start1);
-    console.log(rain_end1);
+    console.log(tool_name);
 
 
     const workbook = new ExcelJS.Workbook();
@@ -53,111 +58,137 @@ export class ExcelExportService {
       bottom: { style: 'thin' },
       right: { style: 'thin' }
     };
-    const font18 = { name: 'TH SarabunPSK', size: 18 };
-    const font11 = { name: 'TH SarabunPSK', size: 12 };
-    const font12 = { name: 'TH SarabunPSK', size: 12 };
+    const font18 = { name: 'TH SarabunPSK', size: 18, bold: true };
+    const font11 = { name: 'TH SarabunPSK', size: 13 };
+    const font12 = { name: 'TH SarabunPSK', size: 13, bold: true };
+    const font14 = { name: 'TH SarabunPSK', size: 14 };
 
-    worksheet.mergeCells('A4:I4');
+    const cellJ1 = worksheet.getCell('J1');
+    cellJ1.value = 'หน้า(1/2)'
+    cellJ1.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellJ1.font = font11;
+
+    const cellJ42 = worksheet.getCell('J42');
+    cellJ42.value = 'หน้า(2/2)'
+    cellJ42.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellJ42.font = font11;
+
+    worksheet.mergeCells('A4:J4');
     const cellA4 = worksheet.getCell('A4');
     cellA4.value = 'บันทึกการควบคุมงานประจำวัน';
-    cellA4.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA4.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA4.font = font18;
 
     worksheet.mergeCells('A5:C7');
     const cellA5 = worksheet.getCell('A5');
     cellA5.value = 'มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย สงขลา';
-    cellA5.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA5.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA5.border = borderThin;
-    cellA5.font = font12;
+    cellA5.font = font14;
 
     worksheet.mergeCells('D6:F7');
     const cellD6 = worksheet.getCell('D6');
     cellD6.value = 'โครงการ: ' + project_name;
-    cellD6.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellD6.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellD6.border = borderThin;
-    cellD6.font = font12;
+    cellD6.font = font14;
 
-    worksheet.mergeCells('D5:I5');
+    worksheet.mergeCells('D5:J5');
     const cellD5 = worksheet.getCell('D5');
     cellD5.value = dr_time;
-    cellD5.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellD5.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellD5.border = borderThin;
-    cellD5.font = font12;
+    cellD5.font = font14;
 
-    worksheet.mergeCells('G6:I7');
+    worksheet.mergeCells('G6:J7');
     const cellG6 = worksheet.getCell('G6');
     cellG6.value = 'บริษัทรับจ้าง: ' + comp_name;
-    cellG6.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellG6.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellG6.border = borderThin;
-    cellG6.font = font12;
+    cellG6.font = font14;
 
-    worksheet.mergeCells('A8:D9');
+    worksheet.mergeCells('A8:D8');
     const cellA8 = worksheet.getCell('A8');
-    cellA8.value = 'ช่วงเวลา: ' + period_name1 + ' สถานะ: ' + sta_name1 + ' เวลาฝนตก: ' + rain_start1 + ' น. ถึง ' + rain_end1 + ' น.';
-    cellA8.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA8.value = 'ช่วงเวลา: ' + period_name1 + ' สถานะ: ' + sta_name1 + ' ระดับฝน: ' + rain_level1 + ' เวลาฝนตก: ' + rain_start1 + ' น. ถึง ' + rain_end1 + ' น.';
+    cellA8.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA8.border = borderThin;
-    cellA8.font = font12;
+    cellA8.font = font14;
 
-    worksheet.mergeCells('E8:I9');
+    worksheet.mergeCells('E8:J8');
     const cellE8 = worksheet.getCell('E8');
-    cellE8.value = 'ช่วงเวลา: ' + period_name2 + ' สถานะ: ' + sta_name2 + ' เวลาฝนตก: ' + rain_start2 + ' น. ถึง ' + rain_end2 + ' น.';
-    cellE8.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE8.value = 'ช่วงเวลา: ' + period_name2 + ' สถานะ: ' + sta_name2 + ' ระดับฝน: ' + rain_level2 + ' เวลาฝนตก: ' + rain_start2 + ' น. ถึง ' + rain_end2 + ' น.';
+    cellE8.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE8.border = borderThin;
-    cellE8.font = font12;
+    cellE8.font = font14;
 
-    worksheet.mergeCells('A10:D10');
+    worksheet.mergeCells('A9:D9');
+    const cellA9 = worksheet.getCell('A9');
+    cellA9.value = 'เวลาลงตรวจ ' + inspect_start + ' - ' + inspect_end + ' น.';
+    cellA9.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellA9.border = borderThin;
+    cellA9.font = font14;
+
+    worksheet.mergeCells('E9:J9');
+    const cellE9 = worksheet.getCell('E9');
+    cellE9.value = 'เวลาทำงาน ' + work_start + ' - ' + work_end + ' น.';
+    cellE9.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellE9.border = borderThin;
+    cellE9.font = font14;
+
+    worksheet.mergeCells('A10:C10');
     const cellA10 = worksheet.getCell('A10');
     cellA10.value = 'ปริมาณแรงงาน';
-    cellA10.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA10.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA10.border = borderThin;
-    cellA10.font = font11;
+    cellA10.font = font12;
 
-    worksheet.mergeCells('E10:I10');
+    worksheet.mergeCells('D10:J10');
     const cellE10 = worksheet.getCell('E10');
     cellE10.value = 'ปริมาณงานที่ทำประจำวัน';
-    cellE10.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE10.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE10.border = borderThin;
-    cellE10.font = font11;
+    cellE10.font = font12;
 
-    worksheet.mergeCells('A11:C11');
+    worksheet.mergeCells('A11:B11');
     const cellA11 = worksheet.getCell('A11');
     cellA11.value = 'รายละเอียด';
-    cellA11.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA11.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA11.border = borderThin;
-    cellA11.font = font11;
+    cellA11.font = font12;
 
-    const cellD11 = worksheet.getCell('D11');
+    const cellD11 = worksheet.getCell('C11');
     cellD11.value = 'จำนวน';
-    cellD11.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellD11.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellD11.border = borderThin
-    cellD11.font = font11;
+    cellD11.font = font12;
 
-    const cellE11 = worksheet.getCell('E11');
+    const cellE11 = worksheet.getCell('D11');
     cellE11.value = 'อันดับ';
-    cellE11.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE11.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE11.border = borderThin;
-    cellE11.font = font11;
+    cellE11.font = font12;
 
-    worksheet.mergeCells('F11:I11');
+    worksheet.mergeCells('E11:I11');
     const cellF11 = worksheet.getCell('F11');
     cellF11.value = 'รายละเอียด';
-    cellF11.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellF11.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellF11.border = borderThin;
-    cellF11.font = font11;
+    cellF11.font = font12;
 
-    // const cellI11 = worksheet.getCell('I11');
-    // cellI11.value = 'ปริมาณ';
-    // cellI11.alignment = { horizontal: 'center', vertical: 'middle' };
-    // cellI11.border = borderThin;
+    const cellJ11 = worksheet.getCell('J11');
+    cellJ11.value = 'ปริมาณ';
+    cellJ11.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellJ11.border = borderThin;
+    cellJ11.font = font12;
 
     let laborNameRow = 12;
     for (let i = 0; i < 19; i++) {
       const mergeToRow = Math.min(laborNameRow, 19);
       // ให้ค่าว่างในเซลล์ที่ต้องการ merge
-      worksheet.mergeCells(`A${laborNameRow}:C${laborNameRow}`);
+      worksheet.mergeCells(`A${laborNameRow}:B${laborNameRow}`);
       const cellLaborName = worksheet.getCell(`A${laborNameRow}`);
       cellLaborName.value = labor_name[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellLaborName.alignment = { horizontal: 'left', vertical: 'middle' };
+      cellLaborName.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
       cellLaborName.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -178,9 +209,9 @@ export class ExcelExportService {
     for (let i = 0; i < 19; i++) {
       const mergeToRow = Math.min(laborNumRow, 19);
       // ให้ค่าว่างในเซลล์ที่ต้องการ merge
-      const cellLaborNum = worksheet.getCell(`D${laborNumRow}`);
+      const cellLaborNum = worksheet.getCell(`C${laborNumRow}`);
       cellLaborNum.value = labor_num[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellLaborNum.alignment = { horizontal: 'center', vertical: 'middle' };
+      cellLaborNum.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
       cellLaborNum.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -197,13 +228,31 @@ export class ExcelExportService {
       }
     }
 
-    let workNumRow = 12;
-    for (let i = 0; i < 19; i++) {
-      const mergeToRow = Math.min(workNumRow, 19);
+    const cellWording1 = worksheet.getCell('D12');
+    cellWording1.value = '';
+    cellWording1.border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' },
+    };
 
-      const cellWorkNum = worksheet.getCell(`E${workNumRow}`);
+    const cellWording2 = worksheet.getCell('D13');
+    cellWording2.value = '';
+    cellWording2.border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' },
+    };
+
+    let workNumRow = 14;
+    for (let i = 0; i < 17; i++) {
+      const mergeToRow = Math.min(workNumRow, 17);
+
+      const cellWorkNum = worksheet.getCell(`D${workNumRow}`);
       cellWorkNum.value = work_num[i] || '';
-      cellWorkNum.alignment = { horizontal: 'center', vertical: 'middle' };
+      cellWorkNum.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
       cellWorkNum.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -220,14 +269,62 @@ export class ExcelExportService {
       }
     }
 
-    let workDetailRow = 12;
-    for (let i = 0; i < 19; i++) {
-      const mergeToRow = Math.min(workDetailRow, 19)
+    if (work_detail.includes("")) {
+      worksheet.mergeCells('E12:I12');
+      const cellWording1 = worksheet.getCell('E12');
+      cellWording1.value = 'ผู้ควบคุมงานเข้าพื้นที่ตรวจการทำงานของผู้รับจ้าง';
+      cellWording1.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+      cellWording1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      cellWording1.font = font11;
+      worksheet.mergeCells('E13:I13');
+      const cellWording2 = worksheet.getCell('E13');
+      cellWording2.value = 'ปรากฎว่า ผู้รับจ้างไม่เข้าพื้นที่ ไม่มีการปฏิบัติงาน';
+      cellWording2.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+      cellWording2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      cellWording2.font = font11;
+    } else {
+      worksheet.mergeCells('E12:I12');
+      const cellWording1 = worksheet.getCell('E12');
+      cellWording1.value = 'ผู้ควบคุมงานเข้าพื้นที่ตรวจการทำงานของผู้รับจ้าง';
+      cellWording1.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+      cellWording1.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      cellWording1.font = font11;
+      worksheet.mergeCells('E13:I13');
+      const cellWording2 = worksheet.getCell('E13');
+      cellWording2.value = 'ปรากฎว่า ผู้รับจ้างเข้าพื้นที่ มีการปฏิบัติงาน ดังนี้';
+      cellWording2.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+      cellWording2.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      cellWording2.font = font11;
+    }
 
-      worksheet.mergeCells(`F${workDetailRow}:I${workDetailRow}`);
+    let workDetailRow = 14;
+    for (let i = 0; i < 17; i++) {
+      const mergeToRow = Math.min(workDetailRow, 17)
+
+      worksheet.mergeCells(`E${workDetailRow}:I${workDetailRow}`);
       const cellWorkDetail = worksheet.getCell(`F${workDetailRow}`);
       cellWorkDetail.value = work_detail[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellWorkDetail.alignment = { horizontal: 'left', vertical: 'middle' };
+      cellWorkDetail.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
       cellWorkDetail.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -244,181 +341,204 @@ export class ExcelExportService {
       }
     }
 
-    // let workRow = 12;
-    // for (let i = 0; i < 19; i++) {
-    //   const mergeToRow = Math.min(workRow, 19)
+    let workRow = 12;
+    for (let i = 0; i < 19; i++) {
+      const mergeToRow = Math.min(workRow, 19)
 
-    //   // worksheet.mergeCells(`F${workRow}:H${workRow}`);
-    //   const cellWork = worksheet.getCell(`I${workRow}`);
-    //   cellWork.value = ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-    //   cellWork.border = {
-    //     top: { style: 'thin' },
-    //     left: { style: 'thin' },
-    //     bottom: { style: 'thin' },
-    //     right: { style: 'thin' },
-    //   };
-    //   cellWork.font = font11;
-    //   if (workRow < mergeToRow) {
-    //     // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
-    //     worksheet.getRow(workRow + 1).height = worksheet.getRow(workRow).height;
-    //     workRow = mergeToRow + 1;
-    //   } else {
-    //     workRow++;
-    //   }
-    // }
+      // worksheet.mergeCells(`F${workRow}:H${workRow}`);
+      const cellWork = worksheet.getCell(`J${workRow}`);
+      cellWork.value = ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+      cellWork.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+      cellWork.font = font11;
+      if (workRow < mergeToRow) {
+        // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
+        worksheet.getRow(workRow + 1).height = worksheet.getRow(workRow).height;
+        workRow = mergeToRow + 1;
+      } else {
+        workRow++;
+      }
+    }
 
-    worksheet.mergeCells('A31:C31');
+    worksheet.mergeCells('A31:B31');
     const cellA31 = worksheet.getCell('A31');
     cellA31.value = 'รวม';
-    cellA31.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA31.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA31.border = borderThin;
-    cellA31.font = font11;
+    cellA31.font = font12;
+
+    const cellC31 = worksheet.getCell('C31');
+    cellC31.value = { formula: 'SUM(C12:C30)' };
+    cellC31.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellC31.border = borderThin;
+    cellC31.font = font11;
 
     const cellD31 = worksheet.getCell('D31');
-    cellD31.value = { formula: 'SUM(D12:D30)' };
+    cellD31.value = '';
     cellD31.alignment = { horizontal: 'center', vertical: 'middle' };
     cellD31.border = borderThin;
-    cellD31.font = font11;
 
+    worksheet.mergeCells('E31:I31');
     const cellE31 = worksheet.getCell('E31');
     cellE31.value = '';
-    cellE31.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE31.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE31.border = borderThin;
     cellE31.font = font11;
 
-    worksheet.mergeCells('F31:I31');
-    const cellF31 = worksheet.getCell('F31');
-    cellF31.value = '';
-    cellF31.alignment = { horizontal: 'center', vertical: 'middle' };
-    cellF31.border = borderThin;
-    cellF31.font = font11;
+    const cellJ31 = worksheet.getCell('J31');
+    cellJ31.value = '';
+    cellJ31.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellJ31.border = borderThin;
 
-    // const cellI31 = worksheet.getCell('I31');
-    // cellI31.value = '';
-    // cellI31.alignment = { horizontal: 'center', vertical: 'middle' };
-    // cellI31.border = borderThin;
-
-    worksheet.mergeCells('A32:D32');
+    worksheet.mergeCells('A32:F32');
     const cellA32 = worksheet.getCell('A32');
     cellA32.value = 'ปริมาณเครื่องมือและเครื่องจักร';
-    cellA32.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA32.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA32.border = borderThin;
-    cellA32.font = font11;
+    cellA32.font = font12;
 
     worksheet.mergeCells('A33:B33');
-    const cellB33 = worksheet.getCell('B33');
-    cellB33.value = 'รายละเอียด';
-    cellB33.alignment = { horizontal: 'center', vertical: 'middle' };
-    cellB33.border = borderThin;
-    cellB33.font = font11;
+    const cellA33 = worksheet.getCell('A33');
+    cellA33.value = 'รายละเอียด';
+    cellA33.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellA33.border = borderThin;
+    cellA33.font = font12;
 
     const cellC33 = worksheet.getCell('C33');
     cellC33.value = 'จำนวน';
-    cellC33.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellC33.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellC33.border = borderThin;
-    cellC33.font = font11;
+    cellC33.font = font12;
 
+    worksheet.mergeCells('D33:E33');
     const cellD33 = worksheet.getCell('D33');
-    cellD33.value = 'หน่วย';
-    cellD33.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellD33.value = 'รายละเอียด';
+    cellD33.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellD33.border = borderThin;
-    cellD33.font = font11;
+    cellD33.font = font12;
 
-    worksheet.mergeCells('E32:I32');
-    const cellE32 = worksheet.getCell('E32');
-    cellE32.value = 'ปริมาณวัสดุที่เข้าหน่วยงาน';
-    cellE32.alignment = { horizontal: 'center', vertical: 'middle' };
-    cellE32.border = borderThin;
-    cellE32.font = font11;
+    const cellF33 = worksheet.getCell('F33');
+    cellF33.value = 'จำนวน';
+    cellF33.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellF33.border = borderThin;
+    cellF33.font = font12;
 
-    worksheet.mergeCells('E33:G33');
-    const cellE33 = worksheet.getCell('E33');
-    cellE33.value = 'รายละเอียด';
-    cellE33.alignment = { horizontal: 'center', vertical: 'middle' };
-    cellE33.border = borderThin;
-    cellE33.font = font11;
+    worksheet.mergeCells('G32:J32');
+    const cellG32 = worksheet.getCell('G32');
+    cellG32.value = 'ปริมาณเครื่องมือและเครื่องจักร';
+    cellG32.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellG32.border = borderThin;
+    cellG32.font = font12;
 
-    const cellH33 = worksheet.getCell('H33');
-    cellH33.value = 'ปริมาณ';
-    cellH33.alignment = { horizontal: 'center', vertical: 'middle' };
-    cellH33.border = borderThin;
-    cellH33.font = font11;
+    worksheet.mergeCells('G33:I33');
+    const cellG33 = worksheet.getCell('G33');
+    cellG33.value = 'รายละเอียด';
+    cellG33.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellG33.border = borderThin;
+    cellG33.font = font12;
 
-    const cellI33 = worksheet.getCell('I33');
-    cellI33.value = 'หน่วย';
-    cellI33.alignment = { horizontal: 'center', vertical: 'middle' };
-    cellI33.border = borderThin;
-    cellI33.font = font11;
+    const cellJ33 = worksheet.getCell('J33');
+    cellJ33.value = 'จำนวน';
+    cellJ33.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+    cellJ33.border = borderThin;
+    cellJ33.font = font12;
 
-    let toolNameRow = 34;
-    for (let i = 0; i < 8; i++) {
-      const mergeToRow = Math.min(toolNameRow, 8)
+    let toolNameRowA = 34;
+    let toolNameRowD = 34;
+    for (let i = 0; i < 16; i++) {
+      if (i < 8) {
+        const mergeToRowA = Math.min(toolNameRowA, 8);
+        // 8 ข้อมูลแรกให้แสดงที่แถว A
+        worksheet.mergeCells(`A${toolNameRowA}:B${toolNameRowA}`);
+        const cellToolName = worksheet.getCell(`A${toolNameRowA}`);
+        cellToolName.value = tool_name[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+        cellToolName.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+        cellToolName.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+        cellToolName.font = font11;
 
-      worksheet.mergeCells(`A${toolNameRow}:B${toolNameRow}`);
-      const cellToolName = worksheet.getCell(`A${toolNameRow}`);
-      cellToolName.value = tool_name[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellToolName.alignment = { horizontal: 'left', vertical: 'middle' };
-      cellToolName.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      cellToolName.font = font11;
-      if (toolNameRow < mergeToRow) {
-        // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
-        worksheet.getRow(toolNameRow + 1).height = worksheet.getRow(toolNameRow).height;
-        toolNameRow = mergeToRow + 1;
+        if (toolNameRowA < mergeToRowA) {
+          // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
+          worksheet.getRow(toolNameRowA + 1).height = worksheet.getRow(toolNameRowA).height;
+          toolNameRowA = mergeToRowA + 1;
+        } else {
+          toolNameRowA++;
+        }
       } else {
-        toolNameRow++;
+        const mergeToRowD = Math.min(toolNameRowD, 16);
+        // ข้อมูลที่เหลือให้แสดงที่แถว C
+        worksheet.mergeCells(`D${toolNameRowD}:E${toolNameRowD}`);
+        const cellToolName = worksheet.getCell(`D${toolNameRowD}`);
+        cellToolName.value = tool_name[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+        cellToolName.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+        cellToolName.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+        cellToolName.font = font11;
+
+        if (toolNameRowD < mergeToRowD) {
+          // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
+          worksheet.getRow(toolNameRowD + 1).height = worksheet.getRow(toolNameRowD).height;
+          toolNameRowD = mergeToRowD + 1;
+        } else {
+          toolNameRowD++;
+        }
       }
     }
 
-    let toolNumRow = 34;
-    for (let i = 0; i < 8; i++) {
-      const mergeToRow = Math.min(toolNumRow, 8)
+    let toolNumRowC = 34;
+    let toolNumRowF = 34;
+    for (let i = 0; i < 16; i++) {
+      const mergeToRowC = Math.min(toolNumRowC, 8)
+      const mergeToRowF = Math.min(toolNumRowF, 16)
 
-      // worksheet.mergeCells(`A${toolNumRow}:B${toolNumRow}`);
-      const cellToolNum = worksheet.getCell(`C${toolNumRow}`);
-      cellToolNum.value = tool_num[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellToolNum.alignment = { horizontal: 'center', vertical: 'middle' };
-      cellToolNum.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      cellToolNum.font = font11;
-      if (toolNumRow < mergeToRow) {
-        // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
-        worksheet.getRow(toolNumRow + 1).height = worksheet.getRow(toolNumRow).height;
-        toolNumRow = mergeToRow + 1;
+      if (i < 8) {
+        const cellToolNum = worksheet.getCell(`C${toolNumRowC}`);
+        cellToolNum.value = tool_num[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+        cellToolNum.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+        cellToolNum.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+        cellToolNum.font = font11;
+        if (toolNumRowC < mergeToRowC) {
+          // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
+          worksheet.getRow(toolNumRowC + 1).height = worksheet.getRow(toolNumRowC).height;
+          toolNumRowC = mergeToRowC + 1;
+        } else {
+          toolNumRowC++;
+        }
       } else {
-        toolNumRow++;
-      }
-    }
-
-    let unitToolRow = 34;
-    for (let i = 0; i < 8; i++) {
-      const mergeToRow = Math.min(unitToolRow, 8)
-
-      // worksheet.mergeCells(`A${unitToolRow}:B${unitToolRow}`);
-      const cellUnitTool = worksheet.getCell(`D${unitToolRow}`);
-      // cellUnitTool.value = unit_tool[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellUnitTool.alignment = { horizontal: 'center', vertical: 'middle' };
-      cellUnitTool.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      cellUnitTool.font = font11;
-      if (unitToolRow < mergeToRow) {
-        // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
-        worksheet.getRow(unitToolRow + 1).height = worksheet.getRow(unitToolRow).height;
-        unitToolRow = mergeToRow + 1;
-      } else {
-        unitToolRow++;
+        const cellToolNum = worksheet.getCell(`F${toolNumRowF}`);
+        cellToolNum.value = tool_num[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
+        cellToolNum.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+        cellToolNum.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+        cellToolNum.font = font11;
+        if (toolNumRowF < mergeToRowF) {
+          // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
+          worksheet.getRow(toolNumRowF + 1).height = worksheet.getRow(toolNumRowF).height;
+          toolNumRowF = mergeToRowF + 1;
+        } else {
+          toolNumRowF++;
+        }
       }
     }
 
@@ -426,10 +546,18 @@ export class ExcelExportService {
     for (let i = 0; i < 8; i++) {
       const mergeToRow = Math.min(matNameRow, 8)
 
-      worksheet.mergeCells(`E${matNameRow}:G${matNameRow}`);
-      const cellMatName = worksheet.getCell(`E${matNameRow}`);
-      cellMatName.value = mat_name[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellMatName.alignment = { horizontal: 'left', vertical: 'middle' };
+      worksheet.mergeCells(`G${matNameRow}:I${matNameRow}`);
+      const cellMatName = worksheet.getCell(`G${matNameRow}`);
+      const matName = mat_name[i] || '';
+      const matUnit = mat_unit[i] || '';
+      let nameAndUnit = '';
+      if (matName !== '' && matUnit !== '') {
+        nameAndUnit = matName + '(' + matUnit + ')';
+      } else {
+        nameAndUnit = matName + matUnit;
+      }
+      cellMatName.value = nameAndUnit;
+      cellMatName.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
       cellMatName.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -437,8 +565,9 @@ export class ExcelExportService {
         right: { style: 'thin' },
       };
       cellMatName.font = font11;
+
+      // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
       if (matNameRow < mergeToRow) {
-        // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
         worksheet.getRow(matNameRow + 1).height = worksheet.getRow(matNameRow).height;
         matNameRow = mergeToRow + 1;
       } else {
@@ -451,9 +580,9 @@ export class ExcelExportService {
       const mergeToRow = Math.min(matNumRow, 8)
 
       // worksheet.mergeCells(`A${matNumRow}:B${matNumRow}`);
-      const cellMatNum = worksheet.getCell(`H${matNumRow}`);
+      const cellMatNum = worksheet.getCell(`J${matNumRow}`);
       cellMatNum.value = mat_num[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellMatNum.alignment = { horizontal: 'center', vertical: 'middle' };
+      cellMatNum.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
       cellMatNum.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },
@@ -470,174 +599,150 @@ export class ExcelExportService {
       }
     }
 
-    let unitMatRow = 34;
-    for (let i = 0; i < 8; i++) {
-      const mergeToRow = Math.min(unitMatRow, 8)
-
-      // worksheet.mergeCells(`A${unitMatRow}:B${unitMatRow}`);
-      const cellUnitMat = worksheet.getCell(`I${unitMatRow}`);
-      // cellUnitMat.value = unit_mat[i] || ''; // ใช้ข้อมูลถ้ามี หรือว่างเป็นสตริงถ้าไม่มีข้อมูล
-      cellUnitMat.alignment = { horizontal: 'center', vertical: 'middle' };
-      cellUnitMat.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' },
-      };
-      cellUnitMat.font = font11;
-      if (unitMatRow < mergeToRow) {
-        // กำหนดความสูงของแถวถัดไปให้เท่ากับความสูงของแถวที่ถูก merge
-        worksheet.getRow(unitMatRow + 1).height = worksheet.getRow(unitMatRow).height;
-        unitMatRow = mergeToRow + 1;
-      } else {
-        unitMatRow++;
-      }
-    }
-
     worksheet.mergeCells('A45:D45');
     const cellA45 = worksheet.getCell('A45');
     cellA45.value = 'ปัญหาและอุปสรรคอื่น ๆ';
-    cellA45.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA45.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA45.border = borderThin;
-    cellA45.font = font11;
+    cellA45.font = font12;
 
     worksheet.mergeCells('E45:G45');
     const cellE45 = worksheet.getCell('E45');
     cellE45.value = 'การหยุดงาน';
-    cellE45.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE45.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE45.border = borderThin;
-    cellE45.font = font11;
+    cellE45.font = font12;
 
-    worksheet.mergeCells('H45:I45');
+    worksheet.mergeCells('H45:J45');
     const cellH45 = worksheet.getCell('H45');
     cellH45.value = 'สาเหตุ';
-    cellH45.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH45.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH45.border = borderThin;
-    cellH45.font = font11;
+    cellH45.font = font12;
 
     worksheet.mergeCells('A46:D59');
     const cellA46 = worksheet.getCell('A46');
     cellA46.value = problem;
-    cellA46.alignment = { horizontal: 'left', vertical: 'top' };
+    cellA46.alignment = { horizontal: 'left', vertical: 'top', wrapText: true };
     cellA46.border = borderThin;
     cellA46.font = font11;
 
     worksheet.mergeCells('E46:G59');
     const cellE46 = worksheet.getCell('E46');
     cellE46.value = strike_cause;
-    cellE46.alignment = { horizontal: 'left', vertical: 'top' };
+    cellE46.alignment = { horizontal: 'left', vertical: 'top', wrapText: true };
     cellE46.border = borderThin;
     cellE46.font = font11;
 
-    worksheet.mergeCells('H46:I59');
+    worksheet.mergeCells('H46:J59');
     const cellH46 = worksheet.getCell('H46');
     cellH46.value = strike_detail;
-    cellH46.alignment = { horizontal: 'left', vertical: 'top' };
+    cellH46.alignment = { horizontal: 'left', vertical: 'top', wrapText: true };
     cellH46.border = borderThin;
     cellH46.font = font11;
 
     worksheet.mergeCells('A60:D60');
     const cellA60 = worksheet.getCell('A60');
     cellA60.value = 'ผลการตรวจงาน';
-    cellA60.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA60.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA60.border = borderThin;
-    cellA60.font = font11;
+    cellA60.font = font12;
 
     worksheet.mergeCells('E60:G60');
     const cellE60 = worksheet.getCell('E60');
     cellE60.value = '';
-    cellE60.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE60.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE60.border = borderThin;
     cellE60.font = font11;
 
-    worksheet.mergeCells('H60:I60');
+    worksheet.mergeCells('H60:J60');
     const cellH60 = worksheet.getCell('H60');
     cellH60.value = '';
-    cellH60.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH60.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH60.border = borderThin;
     cellH60.font = font11;
 
     worksheet.mergeCells('A61:D62');
     const cellA61 = worksheet.getCell('A61');
     cellA61.value = inspec_result;
-    cellA61.alignment = { horizontal: 'left', vertical: 'middle' };
+    cellA61.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
     cellA61.border = borderThin;
     cellA61.font = font18;
 
     worksheet.mergeCells('E61:G62');
     const cellE61 = worksheet.getCell('E61');
     cellE61.value = '';
-    cellE61.alignment = { horizontal: 'left', vertical: 'middle' };
+    cellE61.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
     cellE61.border = borderThin;
     cellE61.font = font11;
 
-    worksheet.mergeCells('H61:I62');
+    worksheet.mergeCells('H61:J62');
     const cellH61 = worksheet.getCell('H61');
     cellH61.value = '';
-    cellH61.alignment = { horizontal: 'left', vertical: 'middle' };
+    cellH61.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
     cellH61.border = borderThin;
     cellH61.font = font11;
 
     worksheet.mergeCells('A63:D63');
     const cellA63 = worksheet.getCell('A63');
     cellA63.value = 'การขยายเวลาก่อสร้างลด/งด/ค่าปรับ';
-    cellA63.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA63.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA63.border = borderThin;
-    cellA63.font = font11;
+    cellA63.font = font12;
 
     worksheet.mergeCells('E63:G63');
     const cellE63 = worksheet.getCell('E63');
     cellE63.value = '';
-    cellE63.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE63.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE63.border = borderThin;
     cellE63.font = font11;
 
-    worksheet.mergeCells('H63:I63');
+    worksheet.mergeCells('H63:J63');
     const cellH63 = worksheet.getCell('H63');
     cellH63.value = '';
-    cellH63.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH63.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH63.border = borderThin;
     cellH63.font = font11;
 
     worksheet.mergeCells('A64:D70');
     const cellA64 = worksheet.getCell('A64');
     cellA64.value = od_detail;
-    cellA64.alignment = { horizontal: 'left', vertical: 'top' };
+    cellA64.alignment = { horizontal: 'left', vertical: 'top', wrapText: true };
     cellA64.border = borderThin;
     cellA64.font = font11;
 
     worksheet.mergeCells('E64:G70');
     const cellE64 = worksheet.getCell('E64');
     cellE64.value = '';
-    cellE64.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE64.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE64.border = borderThin;
     cellE64.font = font11;
 
-    worksheet.mergeCells('H64:I70');
+    worksheet.mergeCells('H64:J70');
     const cellH64 = worksheet.getCell('H64');
     cellH64.value = '';
-    cellH64.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH64.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH64.border = borderThin;
     cellH64.font = font11;
 
     worksheet.mergeCells('A71:D71');
     const cellA71 = worksheet.getCell('A71');
     cellA71.value = 'รายงานโดย';
-    cellA71.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA71.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA71.border = borderThin;
-    cellA71.font = font11;
+    cellA71.font = font12;
 
     worksheet.mergeCells('E71:G71');
     const cellE71 = worksheet.getCell('E71');
     cellE71.value = '';
-    cellE71.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE71.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE71.border = borderThin;
     cellE71.font = font11;
 
-    worksheet.mergeCells('H71:I71');
+    worksheet.mergeCells('H71:J71');
     const cellH71 = worksheet.getCell('H71');
     cellH71.value = '';
-    cellH71.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH71.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH71.border = borderThin;
     cellH71.font = font11;
 
@@ -651,105 +756,105 @@ export class ExcelExportService {
       ];
     const cellA72 = worksheet.getCell('A72');
     cellA72.value = data.join('\n');
-    cellA72.alignment = { horizontal: 'left', vertical: 'middle' };
+    cellA72.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
     cellA72.border = borderThin;
     cellA72.font = font11;
 
     worksheet.mergeCells('E72:G76');
     const cellE72 = worksheet.getCell('E72');
     cellE72.value = '';
-    cellE72.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE72.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE72.border = borderThin;
     cellE72.font = font11;
 
-    worksheet.mergeCells('H72:I76');
+    worksheet.mergeCells('H72:J76');
     const cellH72 = worksheet.getCell('H72');
     cellH72.value = '';
-    cellH72.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH72.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH72.border = borderThin;
     cellH72.font = font11;
 
     worksheet.mergeCells('A77:D77');
     const cellA77 = worksheet.getCell('A77');
     cellA77.value = 'ประธานกรรมการตรวจรับพัสดุ';
-    cellA77.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA77.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA77.border = borderThin;
-    cellA77.font = font11;
+    cellA77.font = font12;
 
     worksheet.mergeCells('E77:G77');
     const cellE77 = worksheet.getCell('E77');
     cellE77.value = '';
-    cellE77.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE77.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE77.border = borderThin;
     cellE77.font = font11;
 
-    worksheet.mergeCells('H77:I77');
+    worksheet.mergeCells('H77:J77');
     const cellH77 = worksheet.getCell('H77');
     cellH77.value = '';
-    cellH77.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH77.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH77.border = borderThin;
     cellH77.font = font11;
 
     worksheet.mergeCells('A78:D79');
     const cellA78 = worksheet.getCell('A78');
     cellA78.value = ' ลงชื่อ..............................................................................................';
-    cellA78.alignment = { horizontal: 'left', vertical: 'middle' };
+    cellA78.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
     cellA78.border = borderThin;
     cellA78.font = font11;
 
     worksheet.mergeCells('E78:G79');
     const cellE78 = worksheet.getCell('E78');
     cellE78.value = '';
-    cellE78.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE78.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE78.border = borderThin;
     cellE78.font = font11;
 
-    worksheet.mergeCells('H78:I79');
+    worksheet.mergeCells('H78:J79');
     const cellH78 = worksheet.getCell('H78');
     cellH78.value = '';
-    cellH78.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH78.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH78.border = borderThin;
     cellH78.font = font11;
 
     worksheet.mergeCells('A80:D80');
     const cellA80 = worksheet.getCell('A80');
     cellA80.value = 'ผู้อำนวยการ/คณบดี';
-    cellA80.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellA80.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellA80.border = borderThin;
-    cellA80.font = font11;
+    cellA80.font = font12;
 
     worksheet.mergeCells('E80:G80');
     const cellE80 = worksheet.getCell('E80');
     cellE80.value = '';
-    cellE80.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE80.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE80.border = borderThin;
     cellE80.font = font11;
 
-    worksheet.mergeCells('H80:I80');
+    worksheet.mergeCells('H80:J80');
     const cellH80 = worksheet.getCell('H80');
     cellH80.value = '';
-    cellH80.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH80.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH80.border = borderThin;
     cellH80.font = font11;
 
     worksheet.mergeCells('A81:D82');
     const cellA81 = worksheet.getCell('A81');
     cellA81.value = ' ลงชื่อ..............................................................................................\n(เฉพาะกรณีใช้เป็นหลักฐานประกอบการเบิกค่าตอบแทน)';
-    cellA81.alignment = { horizontal: 'left', vertical: 'middle' };
+    cellA81.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
     cellA81.border = borderThin;
     cellA81.font = font11;
 
     worksheet.mergeCells('E81:G82');
     const cellE81 = worksheet.getCell('E81');
     cellE81.value = '';
-    cellE81.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellE81.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellE81.border = borderThin;
     cellE81.font = font11;
 
-    worksheet.mergeCells('H81:I82');
+    worksheet.mergeCells('H81:J82');
     const cellH81 = worksheet.getCell('H81');
     cellH81.value = '';
-    cellH81.alignment = { horizontal: 'center', vertical: 'middle' };
+    cellH81.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
     cellH81.border = borderThin;
     cellH81.font = font11;
 
@@ -757,11 +862,12 @@ export class ExcelExportService {
     worksheet.getColumn('B').width = 15;
     worksheet.getColumn('C').width = 15;
     worksheet.getColumn('D').width = 15;
-    worksheet.getColumn('E').width = 15;
+    worksheet.getColumn('E').width = 20;
     worksheet.getColumn('F').width = 15;
     worksheet.getColumn('G').width = 15;
     worksheet.getColumn('H').width = 9;
     worksheet.getColumn('I').width = 9;
+    worksheet.getColumn('J').width = 9;
 
     worksheet.getRow(2).height = 26.5;
     worksheet.getRow(3).height = 26.5;

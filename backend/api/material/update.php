@@ -18,7 +18,7 @@
     if ($data && is_array($data) && !empty($data)) {
         $response = array();
         foreach ($data as $item) {
-            if ($data && !empty($item['mat_name_id']) && !empty($item['mat_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($data && !empty($item['mat_name_id']) && isset($item['mat_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
                 
                 $mat->mat_id = $item['mat_id'];
                 $mat->mat_name_id = $item['mat_name_id'];

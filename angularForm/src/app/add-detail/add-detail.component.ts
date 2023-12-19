@@ -307,6 +307,10 @@ export class AddDetailComponent implements OnInit {
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     }
+    console.log(this.tool_num);
+    console.log(this.mat_num);
+
+
     const creatRequests: Observable<any>[] = [
       this.weatherService.create(morning),
       this.weatherService.create(afternoon),

@@ -38,7 +38,6 @@ export class DetailReportComponent implements OnInit {
   rain_end2: string = '';
   rain_level1: string = '';
   rain_level2: string = '';
-
   inspect_start: string = '';
   inspect_end: string = '';
   work_start: string = '';
@@ -352,10 +351,18 @@ export class DetailReportComponent implements OnInit {
     let start2: Date = parse(this.rain_start2, 'HH:mm:ss', new Date(0, 0, 0));
     let end1: Date = parse(this.rain_end1, 'HH:mm:ss', new Date(0, 0, 0));
     let end2: Date = parse(this.rain_end2, 'HH:mm:ss', new Date(0, 0, 0));
+    let inspStart: Date = parse(this.inspect_start, 'HH:mm:ss', new Date(0, 0, 0));
+    let inspEnd: Date = parse(this.inspect_end, 'HH:mm:ss', new Date(0, 0, 0));
+    let workStart: Date = parse(this.work_start, 'HH:mm:ss', new Date(0, 0, 0));
+    let workEnd: Date = parse(this.work_end, 'HH:mm:ss', new Date(0, 0, 0));
     let formatRainStart1 = format(start1, 'HH:mm');
     let formatRainStart2 = format(start2, 'HH:mm');
     let formatRainEnd1 = format(end1, 'HH:mm');
     let formatRainEnd2 = format(end2, 'HH:mm');
+    let formatInspectStart = format(inspStart, 'HH:mm');
+    let formatInspectEnd = format(inspEnd, 'HH:mm');
+    let formatWorkStart = format(workStart, 'HH:mm');
+    let formatWorkEnd = format(workEnd, 'HH:mm');
     let rainStart1 = '';
     let rainStart2 = '';
     let rainEnd1 = '';
@@ -383,12 +390,18 @@ export class DetailReportComponent implements OnInit {
       this.comp_name,
       this.period_name1,
       this.sta_name1,
+      this.rain_level1,
       rainStart1,
       rainEnd1,
       this.period_name2,
       this.sta_name2,
+      this.rain_level2,
       rainStart2,
       rainEnd2,
+      formatInspectStart,
+      formatInspectEnd,
+      formatWorkStart,
+      formatWorkEnd,
       this.labor_name,
       this.labor_num,
       this.work_num,

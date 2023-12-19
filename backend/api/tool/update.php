@@ -18,7 +18,7 @@
     if ($data && is_array($data) && !empty($data)) {
         $response = array();
         foreach ($data as $item) {
-            if ($data && !empty($item['tool_name_id']) && !empty($item['tool_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
+            if ($data && !empty($item['tool_name_id']) && isset($item['tool_num']) && !empty($item['dr_id']) && !empty($item['project_id'])) {
         
                 $tool->tool_id = $item['tool_id'];
                 $tool->tool_name_id = $item['tool_name_id'];
