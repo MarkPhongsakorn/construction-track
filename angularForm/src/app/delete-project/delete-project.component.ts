@@ -77,8 +77,8 @@ export class DeleteProjectComponent implements OnInit {
 
     const deleteRequests: Observable<any>[] = [
       this.weatherService.deleteProject(this.config.data.project_id),
-      this.timeInspectService.delete(this.config.data.project_id),
-      this.workingTimeService.delete(this.config.data.project_id),
+      this.timeInspectService.deleteProject(this.config.data.project_id),
+      this.workingTimeService.deleteProject(this.config.data.project_id),
       this.laborService.deleteProject(this.config.data.project_id),
       this.workService.deleteProject(this.config.data.project_id),
       this.toolService.deleteProject(this.config.data.project_id),
