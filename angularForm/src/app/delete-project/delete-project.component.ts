@@ -11,10 +11,11 @@ import { StrikeService } from '../services/reports/strike.service';
 import { InspectionService } from '../services/reports/inspection.service';
 import { OverdueService } from '../services/reports/overdue.service';
 import { RequestService } from '../services/companies/request.service';
+import { TimeInspectService } from '../services/reports/time-inspect.service';
+import { WorkingTimeService } from '../services/reports/working-time.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { forkJoin, Observable } from 'rxjs';
 import Swal from 'sweetalert2';
-import { da } from 'date-fns/locale';
 
 @Component({
   selector: 'app-delete-project',
@@ -46,7 +47,9 @@ export class DeleteProjectComponent implements OnInit {
     private strikeService: StrikeService,
     private inspecService: InspectionService,
     private overdueService: OverdueService,
-    private reqService: RequestService
+    private reqService: RequestService,
+    private timeInspectService: TimeInspectService,
+    private workingTimeService: WorkingTimeService
   ) { }
   ngOnInit() {
     this.project.readOne(this.config.data.project_id).subscribe(data => {
@@ -74,6 +77,8 @@ export class DeleteProjectComponent implements OnInit {
 
     const deleteRequests: Observable<any>[] = [
       this.weatherService.deleteProject(this.config.data.project_id),
+      this.timeInspectService.delete(this.config.data.dr_id),
+      this.workingTimeService.delete(this.config.data.dr_id),
       this.laborService.deleteProject(this.config.data.project_id),
       this.workService.deleteProject(this.config.data.project_id),
       this.toolService.deleteProject(this.config.data.project_id),
