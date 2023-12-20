@@ -47,9 +47,6 @@ export class ExcelExportService {
     sheetName: string
   ): void {
 
-    console.log(tool_name);
-
-
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet(sheetName);
     const borderThin: Partial<ExcelJS.Borders> = {
