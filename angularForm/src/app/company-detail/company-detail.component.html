@@ -24,7 +24,7 @@
                 <th *ngIf="addComp">Action</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-company *ngIf="!this.comp">
+        <ng-template pTemplate="body" let-company *ngIf="!comp">
             <tr>
                 <td>{{ company.comp_id }}</td>
                 <td>{{ company.comp_name }}</td>
@@ -39,7 +39,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class=" not" *ngIf="this.comp">
+            <div class=" not" *ngIf="comp">
                 <h1>ไม่มีข้อมูล</h1>
             </div>
         </ng-template>

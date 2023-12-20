@@ -37,6 +37,6 @@
 
     } else {
 
-        echo json_encode(array('message' => 'No User Found'));
+        echo json_encode(array("status" => "error", 'message' => 'No User Found'));
 
     }
