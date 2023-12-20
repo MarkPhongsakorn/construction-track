@@ -38,17 +38,6 @@ export class DownloadRequestComponent implements OnInit {
     })
   }
 
-  // downloadReq() {
-  //   const fileNames = [this.req_problem, this.req_daily, this.req_license, this.req_certificate];
-  //   this.pdfSerive.downloadFileByPath(this.config.data.req_id, fileNames).subscribe(
-  //     (response: Blob) => {
-  //       this.pdfSerive.saveFile(response);
-  //     },
-  //     (error) => {
-  //       console.error('File download error:', error);
-  //     }
-  //   );
-  // }
   downloadReq() {
     // กำหนดชื่อไฟล์ที่คุณต้องการ
     const fileNames = [this.req_problem, this.req_daily, this.req_license, this.req_certificate];

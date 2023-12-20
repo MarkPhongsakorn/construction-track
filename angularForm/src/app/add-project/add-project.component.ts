@@ -95,7 +95,7 @@ export class AddProjectComponent implements OnInit {
       if (res.status === 'success') {
         Swal.fire({
           title: 'สำเร็จ',
-          text: 'การสร้างโครงการสำเร็จ',
+          text: 'การเพิ่มโครงการสำเร็จ',
           icon: 'success',
           confirmButtonText: 'ตกลง'
         }).then((result) => {
@@ -107,7 +107,7 @@ export class AddProjectComponent implements OnInit {
         console.log(res.message); // Failed to create user
         Swal.fire({
           title: 'ข้อผิดพลาด',
-          text: 'เกิดข้อผิดพลาดในการสร้างโครงการ',
+          text: 'เกิดข้อผิดพลาดในการเพิ่มโครงการ',
           icon: 'error',
           confirmButtonText: 'ตกลง'
         });

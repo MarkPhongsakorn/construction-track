@@ -79,7 +79,7 @@ export class EditReportComponent implements OnInit {
       if (res.status === 'success') {
         Swal.fire({
           title: 'สำเร็จ',
-          text: 'การสร้างรายงานประจำวันสำเร็จ',
+          text: 'การแก้ไขรายงานประจำวันสำเร็จ',
           icon: 'success',
           confirmButtonText: 'ตกลง'
         }).then((result) => {
@@ -91,7 +91,7 @@ export class EditReportComponent implements OnInit {
         console.log(res.message); // Failed to create user
         Swal.fire({
           title: 'ข้อผิดพลาด',
-          text: 'เกิดข้อผิดพลาดในการสร้างรายงานประจำวัน',
+          text: 'เกิดข้อผิดพลาดในการแก้ไขรายงานประจำวัน',
           icon: 'error',
           confirmButtonText: 'ตกลง'
         });

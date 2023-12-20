@@ -37,9 +37,9 @@ export class AddReportComponent implements OnInit {
     private projectService: ProjectService,
     private reportService: ReportService,
     public route: ActivatedRoute,
-  ) {}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     const user_id = sessionStorage.getItem('user_detail_id');
     if (user_id !== null) {
       this.userService.getUser(user_id).subscribe(data => {
@@ -84,7 +84,7 @@ export class AddReportComponent implements OnInit {
       if (res.status === "success") {
         Swal.fire({
           title: 'สำเร็จ',
-          text: 'การสร้างรายงานสำเร็จ',
+          text: 'การเพิ่มรายงานสำเร็จ',
           icon: 'success',
           confirmButtonText: 'ตกลง'
         }).then((result) => {
@@ -96,7 +96,7 @@ export class AddReportComponent implements OnInit {
         console.log(res.message);
         Swal.fire({
           title: 'ข้อผิดพลาด',
-          text: 'เกิดข้อผิดพลาดในการสร้างรายงาน',
+          text: 'เกิดข้อผิดพลาดในการเพิ่มรายงาน',
           icon: 'error',
           confirmButtonText: 'ตกลง'
         });
