@@ -16,9 +16,9 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    $weather->project_id = isset($_GET['project_id']) ? $_GET['project_id'] : die();
+    $timeinsp->project_id = isset($_GET['project_id']) ? $_GET['project_id'] : die();
 
-    if($weather->deleteByProject()) {
+    if($timeinsp->deleteByProject()) {
         $response = array("status" => "success", "message" => "Deleted.");
     } else {
         $response = array("status" => "error", "message" => "Failed to deleted");
