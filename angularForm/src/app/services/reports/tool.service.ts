@@ -33,4 +33,8 @@ export class ToolService {
   update(data: Object): Observable<Object> {
     return this.http.put(`${this.baseUrl}/backend/api/tool/update.php`, data);
   }
+
+  readByName(tool_name_id: number): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/tool/readByNameId.php`, { params: { tool_name_id: tool_name_id } });
+  }
 }

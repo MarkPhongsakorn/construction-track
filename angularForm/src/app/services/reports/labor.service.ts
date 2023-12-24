@@ -32,4 +32,12 @@ export class LaborService {
     return this.http.put(`${this.baseUrl}/backend/api/labor/update.php`, data);
   }
 
+  readNameId(dr_id: string, labor_name_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/labor/readByNameId.php`, { params: { dr_id: dr_id, labor_name_id: labor_name_id } });
+  }
+
+  readNotEngineer(dr_id: string, labor_name_id: string): Observable<any> {
+    return this.http.get<any[]>(`${this.baseUrl}/backend/api/labor/readNotEngineer.php`, { params: { dr_id: dr_id, labor_name_id: labor_name_id } });
+  }
+
 }

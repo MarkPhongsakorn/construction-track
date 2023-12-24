@@ -253,9 +253,6 @@ export class EditDetailComponent implements OnInit {
     this.sta.read().subscribe(data => {
       this.status = data;
     });
-    this.unitService.read().subscribe(data => {
-      this.unit = data;
-    });
     this.resultService.read().subscribe(data => {
       this.result = data;
     });

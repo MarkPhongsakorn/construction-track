@@ -11,6 +11,50 @@
                         icon="pi pi-plus" label="เพิ่มรายงานประจำวัน"></p-button>
                 </div>
             </div>
+            <div class="formgrid grid">
+                <p-tabView>
+                    <p-tabPanel header="ค้นหารายสัปดาห์">
+                        <br>
+                        <div class="p-fluid formgird grid">
+                            <div class="feild col-4">
+                                <span class="p-float-label">
+                                    <p-calendar [(ngModel)]="project_start" inputId="project_start" [showIcon]="true"
+                                        dateFormat="dd/mm/yy" (ngModelChange)="updateDateRange()" [minDate]="minDate"
+                                        [maxDate]="maxDate" placeholder="วันที่เริ่มต้น" appendTo="body"></p-calendar>
+                                    <label for="project_start">วันที่แรก</label>
+                                </span>
+                            </div>
+                            <div class="feild col-4">
+                                <span class="p-float-label">
+                                    <p-calendar [(ngModel)]="project_end" inputId="project_end" [showIcon]="true"
+                                        dateFormat="dd/mm/yy" [minDate]="minDateEnd" [maxDate]="maxDateEnd"
+                                        placeholder="วันที่สิ้นสุด" appendTo="body"></p-calendar>
+                                    <label for="project_end">วันที่สุดท้าย</label>
+                                </span>
+                            </div>
+                            <div class="feild col-2">
+                                <p-button styleClass="p-button-warning" (click)="searchWeekly()"
+                                    label="ค้นหา"></p-button>
+                            </div>
+                            <div class="feild col-2">
+                                <p-button icon="pi pi-download" pTooltip="ดาวน์โหลดรายงานประจำสัปดาห์"
+                                    (click)="downloadWeekly()" *ngIf="!load"></p-button>
+                            </div>
+
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="ค้นหารายเดือน">
+                        <p>
+                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                            architecto beatae vitae dicta sunt explicabo. Nemo enim
+                            ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                            magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed
+                            quia non numquam eius modi.
+                        </p>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>

@@ -38,6 +38,32 @@
             return $stmt;
         }
 
+        public function readByNameId() {
+
+            $query = 'SELECT * FROM ' . $this->table .
+            ' INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.labor_name_id = ' . $this->table2 . '.labor_name_id' .
+            ' WHERE ' . $this->table . '.dr_id = :dr_id AND ' . $this->table . '.labor_name_id = :labor_name_id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':labor_name_id', $this->labor_name_id);
+            $stmt->execute();
+
+            return $stmt;
+        }
+
+        public function readNotEngineer() {
+            $query = 'SELECT * FROM ' . $this->table .
+                ' INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.labor_name_id = ' . $this->table2 . '.labor_name_id' .
+                ' WHERE ' . $this->table . '.dr_id = :dr_id AND ' . $this->table . '.labor_name_id <> :labor_name_id';
+            
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':dr_id', $this->dr_id);
+            $stmt->bindParam(':labor_name_id', $this->labor_name_id);
+            $stmt->execute();
+        
+            return $stmt;
+        }
+
         public function create() {
             $query = 'INSERT INTO ' . $this->table . '
             SET

@@ -36,6 +36,17 @@ import { MaterialComponent } from './material/material.component';
 import { AddLaborNameComponent } from './add-labor-name/add-labor-name.component';
 import { EditLaborNameComponent } from './edit-labor-name/edit-labor-name.component';
 import { DeleteLaborNameComponent } from './delete-labor-name/delete-labor-name.component';
+import { CompanyDetailComponent } from './company-detail/company-detail.component';
+import { AddCompanyComponent } from './add-company/add-company.component';
+import { EditCompanyComponent } from './edit-company/edit-company.component';
+import { DeleteCompanyComponent } from './delete-company/delete-company.component';
+import { DownloadRequestComponent } from './download-request/download-request.component';
+import { AddToolNameComponent } from './add-tool-name/add-tool-name.component';
+import { EditToolNameComponent } from './edit-tool-name/edit-tool-name.component';
+import { DeleteToolNameComponent } from './delete-tool-name/delete-tool-name.component';
+import { AddMatNameComponent } from './add-mat-name/add-mat-name.component';
+import { EditMatNameComponent } from './edit-mat-name/edit-mat-name.component';
+import { DeleteMatNameComponent } from './delete-mat-name/delete-mat-name.component';
 
 import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
@@ -50,17 +61,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { PaginatorModule } from 'primeng/paginator';
-import { CompanyDetailComponent } from './company-detail/company-detail.component';
-import { AddCompanyComponent } from './add-company/add-company.component';
-import { EditCompanyComponent } from './edit-company/edit-company.component';
-import { DeleteCompanyComponent } from './delete-company/delete-company.component';
-import { DownloadRequestComponent } from './download-request/download-request.component';
-import { AddToolNameComponent } from './add-tool-name/add-tool-name.component';
-import { EditToolNameComponent } from './edit-tool-name/edit-tool-name.component';
-import { DeleteToolNameComponent } from './delete-tool-name/delete-tool-name.component';
-import { AddMatNameComponent } from './add-mat-name/add-mat-name.component';
-import { EditMatNameComponent } from './edit-mat-name/edit-mat-name.component';
-import { DeleteMatNameComponent } from './delete-mat-name/delete-mat-name.component';
+import { PanelModule } from 'primeng/panel';
+import { TabViewModule } from 'primeng/tabview';
+
 
 
 
@@ -124,6 +127,8 @@ import { DeleteMatNameComponent } from './delete-mat-name/delete-mat-name.compon
     CardModule,
     DividerModule,
     PaginatorModule,
+    PanelModule,
+    TabViewModule,
   ],
   providers: [AuthGuardService, PdfService, DialogService],
   bootstrap: [AppComponent]
