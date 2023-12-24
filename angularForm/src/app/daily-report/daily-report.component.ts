@@ -9,6 +9,7 @@ import { AddDetailComponent } from '../add-detail/add-detail.component';
 import { DetailReportComponent } from '../detail-report/detail-report.component';
 import { ProjectService } from '../services/projects/project.service';
 import { ExcelWeeklyService } from '../services/reports/excel-weekly.service';
+import { ExcelMonthlyService } from '../services/reports/excel-monthly.service';
 import { WeatherService } from '../services/reports/weather.service';
 import { LaborService } from '../services/reports/labor.service';
 import { WorkService } from '../services/reports/work.service';
@@ -20,10 +21,10 @@ import { InspectionService } from '../services/reports/inspection.service';
 import { OverdueService } from '../services/reports/overdue.service';
 import { TimeInspectService } from '../services/reports/time-inspect.service';
 import { WorkingTimeService } from '../services/reports/working-time.service';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import Swal from 'sweetalert2';
-import { forkJoin, Observable } from 'rxjs';
-import { map, concatMap, toArray } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -88,10 +89,47 @@ export class DailyReportComponent implements OnInit {
   user_fname: string = '';
   user_lname: string = '';
 
+  monthAndYear: boolean = true;
+  month: Date = new Date;
+  year: Date = new Date;
+
   dr_ids: string = '2';
   labor_name_id: string = '2';
   Tname: string[] = [];
   tool_name_ids: string = '2';
+
+  rep: [] = [];
+  drTime: Date[] = [];
+  ProjectName: string[] = [];
+  CompName: string = '';
+  period_name1: string[] = [];
+  period_name2: string[] = [];
+  sta_name1: string[] = [];
+  sta_name2: string[] = [];
+  rain_start1: string[] = [];
+  rain_start2: string[] = [];
+  rain_end1: string[] = [];
+  rain_end2: string[] = [];
+  rain_level1: string[] = [];
+  rain_level2: string[] = [];
+  inspect_start: string[] = [];
+  inspect_end: string[] = [];
+  work_start: string[] = [];
+  work_end: string[] = [];
+  labor_name: string[] = [];
+  labor_num: number[] = [];
+  work_num: number[] = [];
+  work_details: string[] = [];
+  tool_name: string[] = [];
+  tool_nums: number[] = [];
+  mat_name: string[] = [];
+  mat_nums: number[] = [];
+  mat_unit: string[] = [];
+  problem: string[] = [];
+  strike_detail: string[] = [];
+  strike_cause: string[] = [];
+  inspec_result: string[] = [];
+  od_detail: string[] = [];
 
   constructor(
     public dialogService: DialogService,
@@ -99,6 +137,7 @@ export class DailyReportComponent implements OnInit {
     private route: ActivatedRoute,
     private projectService: ProjectService,
     private excelWeeklyService: ExcelWeeklyService,
+    private excelMonthlyService: ExcelMonthlyService,
     private weatherService: WeatherService,
     private laborService: LaborService,
     private workService: WorkService,
@@ -121,6 +160,7 @@ export class DailyReportComponent implements OnInit {
     this.projectService.readOne(this.project).subscribe(data => {
       this.minDate = new Date(data['project_start']);
       this.maxDate = new Date(data['project_end']);
+      this.CompName = data['comp_name'];
     })
     // this.toolService.readByName(this.tool_name_ids).subscribe(data => {
     //   this.Tname = data;
@@ -522,6 +562,415 @@ export class DailyReportComponent implements OnInit {
       fileName,
       sheetName
     );
+  }
+
+  serachMonthly() {
+    const month = format(this.month, 'MM');
+    const year = format(this.year, 'yyyy');
+
+    this.reportService.getMonth(this.project, month, year).subscribe(data => {
+      if (data.status === 'error') {
+        Swal.fire({
+          title: 'ไม่มีข้อมูล',
+          text: 'ไม่มีข้อมูลในช่วงเดือนที่คุณค้นหา',
+          icon: 'error',
+          confirmButtonText: 'ตกลง'
+        });
+      } else {
+        this.reports = data;
+        this.reports.forEach((report, index) => {
+          // console.log(report);
+
+          this.drIds[index] = report.dr_id;
+
+        })
+        this.monthAndYear = false;
+      }
+      this.reportss();
+      this.weathers();
+      this.timeInspec();
+      this.workTime();
+      this.labor();
+      this.workss();
+      this.tool();
+      this.mat();
+      this.prob();
+      this.strike();
+      this.inspec();
+      this.overdue();
+    })
+
+  }
+
+  reportss() {
+    const observables = this.drIds.map(drId => this.reportService.getOneReport(drId));
+
+    forkJoin(observables).subscribe(results => {
+      // results เป็น array ของข้อมูลที่ได้จากแต่ละการเรียก service
+
+      // เราสามารถใช้ map เพื่อดึงค่า dr_time ออกมาและรวมเข้าไปใน this.drTime
+      this.drTime = results.map(data => data['dr_time']).filter(time => !!time);
+      this.ProjectName = results.map(data => data['project_name']);
+    });
+
+  }
+
+  weathers() {
+    const observables1 = this.drIds.map(dr_id => this.weatherService.readOne(dr_id, this.morning));
+    const observables2 = this.drIds.map(dr_id => this.weatherService.readOne(dr_id, this.afternoon));
+
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.period_name1 = results.map(data => data['period_name']);
+      this.sta_name1 = results.map(data => data['sta_name']);
+      this.rain_level1 = results.map(data => data['rain_name']);
+      this.rain_start1 = results.map(data => data['rain_start']);
+      this.rain_end1 = results.map(data => data['rain_end']);
+    });
+    forkJoin(observables2).subscribe(results => {
+      this.period_name2 = results.map(data => data['period_name']);
+      this.sta_name2 = results.map(data => data['sta_name']);
+      this.rain_level2 = results.map(data => data['rain_name']);
+      this.rain_start2 = results.map(data => data['rain_start']);
+      this.rain_end2 = results.map(data => data['rain_end']);
+
+      // console.log('บ่าย: ', this.status2);
+    })
+  }
+  timeInspec() {
+    const observables1 = this.drIds.map(dr_id => this.timeInspectService.readOne(dr_id));
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.inspect_start = results.map(data => data['inspect_start']);
+      this.inspect_end = results.map(data => data['inspect_end']);
+
+    });
+  }
+
+  workTime() {
+    const observables1 = this.drIds.map(dr_id => this.workingTimeService.readOne(dr_id));
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.work_start = results.map(data => data['work_start']);
+      this.work_end = results.map(data => data['work_end']);
+    });
+  }
+
+  labor() {
+    const observables1 = this.drIds.map(dr_id => this.laborService.readOne(dr_id));
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.labor_name);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(laborName => {
+      this.labor_name = laborName;
+    });
+
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.labor_num);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(laborNum => {
+      this.labor_num = laborNum;
+    });
+  }
+
+  workss() {
+    const observables1 = this.drIds.map(dr_id => this.workService.readOne(dr_id));
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.work_num);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(workNum => {
+      this.work_num = workNum;
+    });
+
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.work_detail);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(workDetail => {
+      this.work_details = workDetail;
+    });
+  }
+
+  tool() {
+    const observables1 = this.drIds.map(dr_id => this.toolService.readOne(dr_id));
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.tool_name);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(toolName => {
+      this.tool_name = toolName;
+    });
+
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.tool_num);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(toolNum => {
+      this.tool_nums = toolNum;
+    });
+  }
+
+  mat() {
+    const observables1 = this.drIds.map(dr_id => this.matService.readOne(dr_id));
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.mat_name);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(matName => {
+      this.mat_name = matName;
+    });
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.mat_unit);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(matUnit => {
+      this.mat_unit = matUnit;
+    });
+
+    forkJoin(observables1).pipe(
+      map(results => {
+        return results.map(result => {
+          if (Array.isArray(result)) {
+            // ถ้า result เป็น array
+            return result.map(innerResult => innerResult.mat_num);
+          } else {
+            // ถ้า result ไม่เป็น array
+            return result.message;
+          }
+        });
+      })
+    ).subscribe(matNum => {
+      this.mat_nums = matNum;
+    });
+
+  }
+
+  prob() {
+    const observables1 = this.drIds.map(dr_id => this.problemService.readOne(dr_id));
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.problem = results.map(data => data['problem']);
+    });
+  }
+
+  strike() {
+    const observables1 = this.drIds.map(dr_id => this.strikeService.readOne(dr_id));
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.strike_detail = results.map(data => data['strike_detail']);
+      this.strike_cause = results.map(data => data['strike_cause']);
+    });
+  }
+
+  inspec() {
+    const observables1 = this.drIds.map(dr_id => this.inspecService.readOne(dr_id));
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.inspec_result = results.map(data => data['inspec_result']);
+    });
+  }
+
+  overdue() {
+    const observables1 = this.drIds.map(dr_id => this.overdueService.readOne(dr_id));
+    forkJoin(observables1).subscribe(results => {
+      // results เป็น array ของผลลัพธ์จากทุก observables
+      this.od_detail = results.map(data => data['od_detail']);
+    });
+  }
+
+  downloadMonthly() {
+    const days = ['วันอาทิตย์', 'วันจันทร์', 'วันอังคาร', 'วันพุธ', 'วันพฤหัสบดี', 'วันศุกร์', 'วันเสาร์'];
+    const month = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+
+    let sheetNameArray: string[] = [];
+    let file = '';
+    let drTime: Date = new Date;
+    let thaiDate: string[] = [];
+    let rainStart1: string[] = [];
+    let rainStart2: string[] = [];
+    let rainEnd1: string[] = [];
+    let rainEnd2: string[] = [];
+    let InspectStart: string[] = [];
+    let InspectEnd: string[] = [];
+    let WorkStart: string[] = [];
+    let WorkEnd: string[] = [];
+    // ตรวจสอบว่ามีข้อมูลในตำแหน่ง i
+
+    for (let i = 0; i < 32; i++) {
+      if (this.drTime.length > i) {
+        drTime = new Date(this.drTime[i]);
+
+        const formattedDate = format(drTime, 'dd');
+        const date = [`${days[drTime.getDay()]}ที่ ${formattedDate} เดือน ${month[drTime.getMonth()]} พ.ศ. ${drTime.getFullYear() + 543}`];
+
+        let start1: Date = parse(this.rain_start1[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let start2: Date = parse(this.rain_start2[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let end1: Date = parse(this.rain_end1[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let end2: Date = parse(this.rain_end2[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let inspStart: Date = parse(this.inspect_start[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let inspEnd: Date = parse(this.inspect_end[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let workStart: Date = parse(this.work_start[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let workEnd: Date = parse(this.work_end[i], 'HH:mm:ss', new Date(0, 0, 0));
+        let formatRainStart1 = [format(start1, 'HH:mm')];
+        let formatRainStart2 = [format(start2, 'HH:mm')];
+        let formatRainEnd1 = [format(end1, 'HH:mm')];
+        let formatRainEnd2 = [format(end2, 'HH:mm')];
+        let formatInspectStart = [format(inspStart, 'HH:mm')];
+        let formatInspectEnd = [format(inspEnd, 'HH:mm')];
+        let formatWorkStart = [format(workStart, 'HH:mm')];
+        let formatWorkEnd = [format(workEnd, 'HH:mm')];
+
+
+        if (this.rain_start1[i] == '00:00:00' && this.rain_end1[i] == '00:00:00') {
+          rainStart1.push(...'-');
+          rainEnd1.push(...'-');
+        } else {
+          rainStart1.push(...formatRainStart1);
+          rainEnd1.push(...formatRainEnd1);
+
+        }
+
+        if (this.rain_start2[i] == '00:00:00' && this.rain_end2[i] == '00:00:00') {
+          rainStart2.push(...'-');
+          rainEnd2.push(...'-');
+        } else {
+          rainStart2.push(...formatRainStart2);
+          rainEnd2.push(...formatRainEnd2);
+        }
+
+        const MonthThai = `${month[drTime.getMonth()]}`;
+        const nameSheet = [format(drTime, 'dd-MM-yyyy')];
+
+        const fileName = 'รายงานประจำเดือน' + MonthThai;
+
+        file = fileName;
+        sheetNameArray.push(...nameSheet);
+        thaiDate.push(...date);
+        InspectStart.push(...formatInspectStart);
+        InspectEnd.push(...formatInspectEnd);
+        WorkStart.push(...formatWorkStart);
+        WorkEnd.push(...formatWorkEnd);
+
+      }
+    }
+
+
+
+
+
+
+    this.excelMonthlyService.exportToExcel(
+      this.ProjectName,
+      thaiDate,
+      this.CompName,
+      this.period_name1,
+      this.sta_name1,
+      this.rain_level1,
+      rainStart1,
+      rainEnd1,
+      this.period_name2,
+      this.sta_name2,
+      this.rain_level2,
+      rainStart2,
+      rainEnd2,
+      InspectStart,
+      InspectEnd,
+      WorkStart,
+      WorkEnd,
+      this.labor_name,
+      this.labor_num,
+      this.work_num,
+      this.work_details,
+      this.tool_name,
+      this.tool_nums,
+      this.mat_name,
+      this.mat_nums,
+      this.mat_unit,
+      this.problem,
+      this.strike_detail,
+      this.strike_cause,
+      this.inspec_result,
+      this.od_detail,
+      file,
+      sheetNameArray
+    );
+
+
+
+    // หรือถ้าคุณต้องการทำงานกับทุกวันที่
+    // const formattedDates = this.drTime.map(date => format(date, 'yyyy-MM-dd'));
+
+    // const drTime = new Date(this.dr_time)
+
+
+
   }
 
 }

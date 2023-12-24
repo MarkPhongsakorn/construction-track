@@ -25,6 +25,9 @@ export class ReportService {
   getWeek(project_id: string, startDate: string, endDate: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/backend/api/daily-report/read_week.php?project_id=${project_id}&start_date=${startDate}&end_date=${endDate}`);
   }
+  getMonth(project_id: string, month: string, year: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/backend/api/daily-report/read_month.php?project_id=${project_id}&month=${month}&year=${year}`);
+  }
   create(user: Object): Observable<any> {
     return this.http.post(`${this.baseUrl}/backend/api/daily-report/create.php`, user);
   }

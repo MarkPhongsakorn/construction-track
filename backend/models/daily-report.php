@@ -59,6 +59,25 @@
             return $stmt;
         }
 
+        public function read_month($month, $year) {
+            $start_date = date("$year-$month-01");
+            $end_date = date("$year-$month-t");
+            $query = 'SELECT *
+                      FROM ' . $this->table . '
+                      INNER JOIN ' . $this->table3 . ' ON ' . $this->table . '.project_id = ' . $this->table3 . '.project_id
+                      INNER JOIN ' . $this->table2 . ' ON ' . $this->table . '.user_detail_id = ' . $this->table2 . '.user_detail_id
+                      WHERE ' . $this->table . '.project_id = :project_id
+                        AND ' . $this->table . '.dr_time BETWEEN :start_date AND :end_date';
+        
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':project_id', $this->project_id);
+            $stmt->bindParam(':start_date', $start_date);
+            $stmt->bindParam(':end_date', $end_date);
+            $stmt->execute();
+        
+            return $stmt;
+        }
+
         public function readByProjectId() {
 
             $query = 'SELECT * FROM ' . $this->table .

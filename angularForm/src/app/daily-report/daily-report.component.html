@@ -44,14 +44,32 @@
                         </div>
                     </p-tabPanel>
                     <p-tabPanel header="ค้นหารายเดือน">
-                        <p>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                            architecto beatae vitae dicta sunt explicabo. Nemo enim
-                            ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-                            magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed
-                            quia non numquam eius modi.
-                        </p>
+                        <br>
+                        <div class="p-fluid formgird grid">
+                            <div class="feild col-4">
+                                <span class="p-float-label">
+                                    <p-calendar [(ngModel)]="month" [showIcon]="true" view="month" dateFormat="mm"
+                                        [readonlyInput]="true"></p-calendar>
+                                    <label for="project_start">เดือน</label>
+                                </span>
+                            </div>
+                            <div class="feild col-4">
+                                <span class="p-float-label">
+                                    <p-calendar [(ngModel)]="year" [showIcon]="true" view="year" dateFormat="yy"
+                                        [readonlyInput]="true"></p-calendar>
+                                    <label for="project_end">ปี</label>
+                                </span>
+                            </div>
+                            <div class="feild col-2">
+                                <p-button styleClass="p-button-warning" (click)="serachMonthly()"
+                                    label="ค้นหา"></p-button>
+                            </div>
+                            <div class="feild col-2">
+                                <p-button icon="pi pi-download" pTooltip="ดาวน์โหลดรายงานประจำเดือน"
+                                    (click)="downloadMonthly()" *ngIf="!monthAndYear"></p-button>
+                            </div>
+
+                        </div>
                     </p-tabPanel>
                 </p-tabView>
             </div>
