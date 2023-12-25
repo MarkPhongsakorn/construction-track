@@ -170,7 +170,7 @@ export class DailyReportComponent implements OnInit {
 
   updateDateRange() {
     // ตรวจสอบค่าของ project_start
-    console.log('project_start:', this.project_start);
+    // console.log('project_start:', this.project_start);
 
     // อัปเดต minDate ของวันสิ้นสุดให้เป็นวันที่ของ project_start
     this.minDateEnd = this.project_start;
@@ -181,8 +181,8 @@ export class DailyReportComponent implements OnInit {
     this.maxDateEnd = maxDate;
 
     // ตรวจสอบค่าของ minDateEnd และ maxDateEnd
-    console.log('minDateEnd:', this.minDateEnd);
-    console.log('maxDateEnd:', this.maxDateEnd);
+    // console.log('minDateEnd:', this.minDateEnd);
+    // console.log('maxDateEnd:', this.maxDateEnd);
   }
 
 
