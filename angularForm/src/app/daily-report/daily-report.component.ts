@@ -169,11 +169,22 @@ export class DailyReportComponent implements OnInit {
   }
 
   updateDateRange() {
+    // ตรวจสอบค่าของ project_start
+    console.log('project_start:', this.project_start);
+
     // อัปเดต minDate ของวันสิ้นสุดให้เป็นวันที่ของ project_start
     this.minDateEnd = this.project_start;
+
     // อัปเดต maxDate ของวันสิ้นสุดให้เป็นวันที่ของ project_start + 6 วัน
-    this.maxDateEnd.setDate(this.project_start.getDate() + 6);
+    const maxDate = new Date(this.project_start);
+    maxDate.setDate(maxDate.getDate() + 6);
+    this.maxDateEnd = maxDate;
+
+    // ตรวจสอบค่าของ minDateEnd และ maxDateEnd
+    console.log('minDateEnd:', this.minDateEnd);
+    console.log('maxDateEnd:', this.maxDateEnd);
   }
+
 
   loadReportData() {
     this.report.getOneByproject(this.project).subscribe(res => {
@@ -518,50 +529,61 @@ export class DailyReportComponent implements OnInit {
     const month = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
     const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 
-    const formattedDates = [];
-    for (const date of this.dateWeek) {
-      const drTime = new Date(date);
-      const formattedDate = format(drTime, 'dd');
-      let thaiDate = `${formattedDate} ${month[drTime.getMonth()]} ${drTime.getFullYear() + 543}`;
-      formattedDates.push(thaiDate);
+    try {
+      const formattedDates = [];
+      for (const date of this.dateWeek) {
+        const drTime = new Date(date);
+        const formattedDate = format(drTime, 'dd');
+        let thaiDate = `${formattedDate} ${month[drTime.getMonth()]} ${drTime.getFullYear() + 543}`;
+        formattedDates.push(thaiDate);
+      }
+
+      // console.log(formattedDates[0]);
+
+      const AbbreviationDates = [];
+      for (const date of this.dateWeek) {
+        const drTime = new Date(date);
+        const abbreviationDate = format(drTime, 'dd');
+        const Yearthai = (drTime.getFullYear() + 543).toString().slice(-2);
+        let thaiDate = `${abbreviationDate} ${months[drTime.getMonth()]} ${Yearthai}`;
+        AbbreviationDates.push(thaiDate);
+      }
+
+      // console.log(AbbreviationDates);
+
+      const fileName = 'รายงานประจำสัปดาห์ที่-' + this.weekNumber;
+      const sheetName = 'Week-' + this.weekNumber;
+
+      this.excelWeeklyService.exportToExcel(
+        this.weekNumber,
+        formattedDates,
+        this.work_detail,
+        AbbreviationDates,
+        this.labor_num1,
+        this.labor_num2,
+        this.status1,
+        this.status2,
+        this.rainLevel1,
+        this.rainLevel2,
+        this.rainTime1,
+        this.rainTime2,
+        this.toolAndMats,
+        this.Tname,
+        this.tool_num,
+        this.user,
+        fileName,
+        sheetName
+      );
+    } catch (error) {
+      console.error('Error:', error);
+      // แสดง Swal ที่นี่ (ตัวอย่างเบื้องต้น)
+      Swal.fire({
+        icon: 'error',
+        title: 'ไม่สามารถดาวน์โหลดรายงานได้',
+        text: 'ไม่สามารถดาวน์โหลดรายงานได้เนื่องรายงานประจำวันยังไม่ครบ 7 วัน',
+        confirmButtonText: 'ตกลง'
+      });
     }
-
-    // console.log(formattedDates[0]);
-
-    const AbbreviationDates = [];
-    for (const date of this.dateWeek) {
-      const drTime = new Date(date);
-      const abbreviationDate = format(drTime, 'dd');
-      const Yearthai = (drTime.getFullYear() + 543).toString().slice(-2);
-      let thaiDate = `${abbreviationDate} ${months[drTime.getMonth()]} ${Yearthai}`;
-      AbbreviationDates.push(thaiDate);
-    }
-
-    // console.log(AbbreviationDates);
-
-    const fileName = 'รายงานประจำสัปดาห์ที่-' + this.weekNumber;
-    const sheetName = 'Week-' + this.weekNumber;
-
-    this.excelWeeklyService.exportToExcel(
-      this.weekNumber,
-      formattedDates,
-      this.work_detail,
-      AbbreviationDates,
-      this.labor_num1,
-      this.labor_num2,
-      this.status1,
-      this.status2,
-      this.rainLevel1,
-      this.rainLevel2,
-      this.rainTime1,
-      this.rainTime2,
-      this.toolAndMats,
-      this.Tname,
-      this.tool_num,
-      this.user,
-      fileName,
-      sheetName
-    );
   }
 
   serachMonthly() {
