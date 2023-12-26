@@ -33,6 +33,6 @@ export class CompanyService {
 
 
   delete(comp_id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/backend/api/company/delete.php/`, { params: { comp_id: comp_id } });
+    return this.http.delete(`${this.baseUrl}/backend/api/company/delete.php`, { params: { comp_id: comp_id } });
   }
 }
