@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  private baseUrl = 'http://localhost/construction-track';
+  private baseUrl = environment.baseUrl;
+
 
   constructor(
     private http: HttpClient

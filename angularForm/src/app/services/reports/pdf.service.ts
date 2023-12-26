@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PdfService {
-  private baseUrl = 'http://localhost/construction-track/';
+  private baseUrl = environment.baseUrl;
+
 
   constructor(private http: HttpClient) { }
 
