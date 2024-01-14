@@ -56,10 +56,10 @@ export class RegisterComponent implements OnInit {
       user_email: this.user_email,
       user_tel: this.user_tel
     };
-  
+
     this.userService.createUser(data).subscribe((res: any) => {
       if (res.status === 'success') {
-        console.log(res);
+        // console.log(res);
         // this.successMessage = 'User created successfully.';
         sessionStorage.setItem('username', this.username);
         sessionStorage.setItem('password', this.password);
@@ -91,7 +91,7 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-  
+
 
   onSubmit() {
     this.submitted = true;

@@ -422,6 +422,21 @@ export class EditDetailComponent implements OnInit {
       this.overdueService.update(data6)
     ];
 
+    const deleteAddedData: Observable<any>[] = [
+      this.weatherService.delete(this.config.data.dr_id),
+      this.weatherService.delete(this.config.data.dr_id),
+      this.timeInspectService.delete(this.config.data.dr_id),
+      this.workingTimeService.delete(this.config.data.dr_id),
+      this.laborService.delete(this.config.data.dr_id),
+      this.workService.delete(this.config.data.dr_id),
+      this.toolService.delete(this.config.data.dr_id),
+      this.matService.delete(this.config.data.dr_id),
+      this.problemService.delete(this.config.data.dr_id),
+      this.strikeService.delete(this.config.data.dr_id),
+      this.inspecService.delete(this.config.data.dr_id),
+      this.overdueService.delete(this.config.data.dr_id)
+    ]
+
     forkJoin(updateRequests).subscribe(
       (responses: any[]) => {
         for (const res of responses) {
@@ -442,6 +457,20 @@ export class EditDetailComponent implements OnInit {
               text: 'เกิดข้อผิดพลาดในการแก้ไขรายงานประจำวันสำเร็จ',
               icon: 'error',
               confirmButtonText: 'ตกลง'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // ตรวจสอบว่า Observables ใน deleteAddedData สำเร็จหรือไม่
+                forkJoin(deleteAddedData).subscribe(
+                  () => {
+                    // หากลบข้อมูลสำเร็จ ทำตามที่คุณต้องการ
+                    console.log('Delete added data successfully');
+                  },
+                  deleteError => {
+                    // หากมีข้อผิดพลาดในการลบข้อมูล
+                    console.error('Error deleting added data:', deleteError);
+                  }
+                );
+              }
             });
           }
         }

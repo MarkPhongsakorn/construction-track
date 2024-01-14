@@ -149,20 +149,20 @@
         }
 
         public function delete() {
-
             $query = 'DELETE FROM ' . $this->table . ' WHERE project_id = :project_id';
             $stmt = $this->conn->prepare($query);
-
-            // $this->project_id = htmlspecialchars(strip_tags($this->project_id));
-
+            
             $stmt->bindParam(':project_id', $this->project_id);
-
+        
             if ($stmt->execute()) {
                 return true;
             } else {
+                // กรณีเกิดข้อผิดพลาด
+                $error = $stmt->errorInfo();
+                // แสดงข้อความข้อผิดพลาด
+                error_log("Error during delete: " . implode(' - ', $error));
                 return false;
             }
-
         }
     }
 

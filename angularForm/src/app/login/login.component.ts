@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     this.userService.checkuser(data).subscribe((res: any) => {
       if (res.status === 'success') {
-        console.log(res)
+        // console.log(res)
 
         const position = res.pos_id;
         const user_id = res.user_detail_id;
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
       }
     })
   }
- 
+
 
   // logout() {
   //   this.authService.clearStorage();

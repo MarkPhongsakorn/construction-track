@@ -4,7 +4,6 @@ import { StaWeatherService } from '../services/reports/sta-weather.service';
 import { WeatherService } from '../services/reports/weather.service';
 import { LaborService } from '../services/reports/labor.service';
 import { WorkService } from '../services/reports/work.service';
-import { UnitService } from '../services/reports/unit.service';
 import { ToolService } from '../services/reports/tool.service';
 import { MaterialService } from '../services/reports/material.service';
 import { ProblemService } from '../services/reports/problem.service';
@@ -104,7 +103,6 @@ export class AddDetailComponent implements OnInit {
     private weatherService: WeatherService,
     private laborService: LaborService,
     private workService: WorkService,
-    private unitService: UnitService,
     private toolService: ToolService,
     private matService: MaterialService,
     private problemService: ProblemService,
@@ -153,9 +151,6 @@ export class AddDetailComponent implements OnInit {
           displayLabel: mat_name_id.mat_name + '(' + mat_name_id.mat_unit + ')'
         };
       });
-    });
-    this.unitService.read().subscribe(data => {
-      this.unit = data;
     });
     this.resultService.read().subscribe(data => {
       this.result = data;
@@ -307,8 +302,6 @@ export class AddDetailComponent implements OnInit {
       dr_id: this.config.data.dr_id,
       project_id: this.config.data.project_id
     }
-    console.log(this.tool_num);
-    console.log(this.mat_num);
 
 
     const creatRequests: Observable<any>[] = [
@@ -324,6 +317,20 @@ export class AddDetailComponent implements OnInit {
       this.strikeService.create(strike),
       this.inspecService.create(inspection),
       this.overdueService.create(overdue)
+    ]
+    const deleteAddedData: Observable<any>[] = [
+      this.weatherService.delete(this.config.data.dr_id),
+      this.weatherService.delete(this.config.data.dr_id),
+      this.timeInspectService.delete(this.config.data.dr_id),
+      this.workingTimeService.delete(this.config.data.dr_id),
+      this.laborService.delete(this.config.data.dr_id),
+      this.workService.delete(this.config.data.dr_id),
+      this.toolService.delete(this.config.data.dr_id),
+      this.matService.delete(this.config.data.dr_id),
+      this.problemService.delete(this.config.data.dr_id),
+      this.strikeService.delete(this.config.data.dr_id),
+      this.inspecService.delete(this.config.data.dr_id),
+      this.overdueService.delete(this.config.data.dr_id)
     ]
 
     forkJoin(creatRequests).subscribe(
@@ -347,11 +354,31 @@ export class AddDetailComponent implements OnInit {
               text: 'เกิดข้อผิดพลาดในการเพิ่มรายงานประจำวันสำเร็จ',
               icon: 'error',
               confirmButtonText: 'ตกลง'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // ตรวจสอบว่า Observables ใน deleteAddedData สำเร็จหรือไม่
+                forkJoin(deleteAddedData).subscribe(
+                  () => {
+                    // หากลบข้อมูลสำเร็จ ทำตามที่คุณต้องการ
+                    console.log('Delete added data successfully');
+                  },
+                  deleteError => {
+                    // หากมีข้อผิดพลาดในการลบข้อมูล
+                    console.error('Error deleting added data:', deleteError);
+                  }
+                );
+              }
             });
             break;  // Stop checking if any of the requests failed
           }
         }
-      });
+      },
+      (error: any) => {
+        console.error('Error in createRequests:', error);
+      }
+    );
+
+
   }
 
   // ************************************LABOR***********************************

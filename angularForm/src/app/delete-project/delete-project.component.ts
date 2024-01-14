@@ -73,7 +73,6 @@ export class DeleteProjectComponent implements OnInit {
       req_license: this.req_license,
       req_certificate: this.req_certificate
     }
-    console.log(data);
 
     const deleteRequests: Observable<any>[] = [
       this.weatherService.deleteProject(this.config.data.project_id),
